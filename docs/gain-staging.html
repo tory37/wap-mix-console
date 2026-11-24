@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gain Staging - WAP Mix Console</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body data-page="gain-staging">
+<a class="skip-link" href="#main">Skip to content</a>
+<nav id="rail"></nav>
+<main id="main">
+<div class="content">
+
+  <header class="page-header">
+    <div class="label">Setup / 01</div>
+    <h1>Gain Staging &amp; Top-Down Calibration</h1>
+    <div class="goal">
+      <span class="gchip gchip--lg gchip--master" aria-hidden="true"></span>
+      <span class="label goal__label">Goal</span>
+      <p class="goal__text">Feed every analog-modeled plugin <code>-18 dBFS RMS</code> (<code>-12 to -10 dBFS</code> peaks). Faders stay at <code>0.00 dB</code> unity.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2 id="why">Why gain stage</h2>
+    <p>Analog-modeled plugins expect <code>-18 dBFS RMS</code>. That equals about <code>-12 to -10 dBFS</code> peaks. This applies to:</p>
+    <p><span class="chip">Slate VCC</span> <span class="chip">Coffee The Pun</span> <span class="chip">VBC FG-Grey</span> <span class="chip">JW/JST Bus Glue</span></p>
+    <div class="callout callout--danger" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Hot input</span>
+        <p>Raw tracks at <code>-1 dBFS</code> overdrive saturation too early. The mix bus compressor then slams before you start mixing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="meter-ladder">Meter ladder</h2>
+    <p>Peak targets per stage. Read them on the REAPER MCP peak readout during the loudest chorus.</p>
+
+    <div class="ladder" role="img" aria-label="dBFS peak targets: raw tracks -12 to -10, group buses -8 to -6, master sub-groups -6 to -5, print mix bus input -4 to -3, master ceiling -0.8 to -1.0. Reference line at -18 dBFS RMS.">
+      <ol class="ladder__grid" aria-hidden="true">
+        <li class="ladder__row">
+          <span class="ladder__axis-label label">Stage</span>
+          <span class="ladder__axis">
+            <span class="tick tick--m24">-24</span>
+            <span class="tick tick--m18">-18</span>
+            <span class="tick tick--m12">-12</span>
+            <span class="tick tick--m6">-6</span>
+            <span class="tick tick--m3">-3</span>
+            <span class="tick tick--0">0</span>
+          </span>
+          <span class="ladder__axis-unit label">Peak dBFS</span>
+        </li>
+        <li class="ladder__row">
+          <span class="ladder__name"><span class="ladder__stage">01</span>Raw tracks &amp; VSTi</span>
+          <span class="ladder__track"><span class="ladder__zone ladder__zone--ok zone--s1"></span></span>
+          <span class="ladder__value val-ok">-12 to -10</span>
+        </li>
+        <li class="ladder__row">
+          <span class="ladder__name"><span class="ladder__stage">02</span>Group buses</span>
+          <span class="ladder__track"><span class="ladder__zone ladder__zone--ok zone--s2"></span></span>
+          <span class="ladder__value val-ok">-8 to -6</span>
+        </li>
+        <li class="ladder__row">
+          <span class="ladder__name"><span class="ladder__stage">03</span>Master sub-groups</span>
+          <span class="ladder__track"><span class="ladder__zone ladder__zone--warn zone--s3"></span></span>
+          <span class="ladder__value val-warn">-6 to -5</span>
+        </li>
+        <li class="ladder__row">
+          <span class="ladder__name"><span class="ladder__stage">04</span>PRINT / MIX BUS in</span>
+          <span class="ladder__track"><span class="ladder__zone ladder__zone--warn zone--s4"></span></span>
+          <span class="ladder__value val-warn">-4 to -3</span>
+        </li>
+        <li class="ladder__row">
+          <span class="ladder__name"><span class="ladder__stage">05</span>MASTER ceiling</span>
+          <span class="ladder__track"><span class="ladder__zone ladder__zone--danger zone--s5"></span></span>
+          <span class="ladder__value val-danger">-0.8 to -1.0</span>
+        </li>
+      </ol>
+      <div class="ladder__legend" aria-hidden="true">
+        <span class="ladder__legend-item"><span class="ladder__swatch ladder__zone--ok"></span>Track / bus headroom</span>
+        <span class="ladder__legend-item"><span class="ladder__swatch ladder__zone--warn"></span>Summing stages</span>
+        <span class="ladder__legend-item"><span class="ladder__swatch ladder__zone--danger"></span>Limiter ceiling</span>
+        <span class="ladder__legend-item"><span class="ladder__swatch ladder__swatch--ref"></span>-18 dBFS RMS reference</span>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Stage</th><th scope="col">Point</th><th scope="col">Peak target</th><th scope="col">Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">01</td><td>Raw tracks &amp; VSTi</td><td class="mono val-ok">-12 to -10 dBFS</td><td>Faders parked at <code>0.00 dB</code></td></tr>
+          <tr><td class="mono">02</td><td>Group buses</td><td class="mono val-ok">-8 to -6 dBFS</td><td>Drums, Bass, Rhythm, Lead Vox</td></tr>
+          <tr><td class="mono">03</td><td>Master sub-groups</td><td class="mono val-warn">-6 to -5 dBFS</td><td><code>INSTRUMENT BUS</code> and <code>VOCAL MASTER</code></td></tr>
+          <tr><td class="mono">04</td><td>PRINT / MIX BUS in</td><td class="mono val-warn">-4 to -3 dBFS</td><td>Summing headroom before the limiter</td></tr>
+          <tr><td class="mono">05</td><td>MASTER ceiling</td><td class="mono val-danger">-0.8 to -1.0 dBFS</td><td>JST Maximizer #2 (Rock)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 id="stage-01">Stage 01 procedure</h3>
+    <ol class="steps">
+      <li><div><span class="steps__title">Park faders</span><p>Set all track and bus faders to <code>0.00 dB</code> unity.</p></div></li>
+      <li><div><span class="steps__title">Bypass track FX</span><p>Hear the raw source only.</p></div></li>
+      <li><div><span class="steps__title">Trim clip gain</span><p>Drag the top edge of each audio item. Or press <kbd>F2</kbd> and set Take volume.</p></div></li>
+      <li><div><span class="steps__title">Turn down VSTi outputs</span><p>Lower the master output on GGD, DjinnBass, ANA 2 and LABS.</p></div></li>
+      <li><div><span class="steps__title">Read the meter</span><p>Stop when the MCP peak readout shows <code class="val-ok">-12.0 to -10.0 dBFS</code> on the loudest chorus.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2 id="rules">Four REAPER rules</h2>
+    <ol class="steps">
+      <li><div><span class="steps__title">Park all faders at <code>0.00 dB</code> unity</span><p>Never pull a fader down to fix a hot DI, vocal or synth preset. REAPER faders have maximum resolution near <code>0.00 dB</code>.</p></div></li>
+      <li><div><span class="steps__title">Trim pre-FX with clip gain or VSTi out</span><p>Drag item top edges or use <kbd>F2</kbd> Item Properties. Adjust VSTi output knobs or Slot 1 <code>JS: Volume Adjustment</code>. Target <code class="val-ok">-12 to -10 dBFS</code> peak.</p></div></li>
+      <li><div><span class="steps__title">Watch summing headroom</span><p>Keep <code>INSTRUMENT BUS</code> and <code>VOCAL MASTER</code> at <code class="val-warn">-6 to -5 dBFS</code> each. <code>PRINT / MIX BUS</code> then receives <code class="val-warn">-4 to -3 dBFS</code> peaks.</p></div></li>
+      <li><div><span class="steps__title">Gain-match every plugin on/off</span><p>Match bypassed and active loudness on Coffee The Pun, FG-116 and JW/JST Bus Glue. Louder always sounds better. Gain-matching removes that bias.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2 id="calibration">Two-step mix bus calibration</h2>
+    <p>Calibrate the <code>PRINT / MIX BUS</code> top-down. Park the chain first. Then set compression on the first loud chorus.</p>
+
+    <h3 id="step-a">Step A: park the chain before sound plays</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Slate VCC / Coffee The Pun</h4>
+            <span class="tag">SAT</span>
+            <button type="button" class="copy-btn" data-copy="slot-1" aria-label="Copy Slot 1 settings"></button>
+          </div>
+          <dl class="kv" id="slot-1" data-copy-title="Slot 1 - VCC / Coffee">
+            <div class="kv__item"><dt>VCC</dt><dd>Brit 4k, Drive 11:30</dd></div>
+            <div class="kv__item"><dt>Coffee</dt><dd>Preamp ON, EQ 0</dd></div>
+          </dl>
+          <p class="rack__why">Use one or the other. Color only, no EQ moves at this stage.</p>
+          <div class="alts">
+            <span class="label alts__title">Options</span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VCC Brit 4k</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Coffee The Pun</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">VBC FG-Grey</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="slot-2" aria-label="Copy Slot 2 settings"></button>
+          </div>
+          <dl class="kv" id="slot-2" data-copy-title="Slot 2 - VBC FG-Grey">
+            <div class="kv__item"><dt>Ratio</dt><dd>2:1</dd></div>
+            <div class="kv__item"><dt>Attack</dt><dd>30 ms</dd></div>
+            <div class="kv__item"><dt>Release</dt><dd>Auto</dd></div>
+            <div class="kv__item"><dt>HPF</dt><dd>95 Hz</dd></div>
+            <div class="kv__item"><dt>Threshold</dt><dd>0 dB</dd></div>
+          </dl>
+          <p class="rack__why">Threshold parks at <strong>0 dB</strong>. You set it in Step B.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">3</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST Maximizer #1</h4>
+            <span class="chip">JST</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="slot-3" aria-label="Copy Slot 3 settings"></button>
+          </div>
+          <dl class="kv" id="slot-3" data-copy-title="Slot 3 - JST Maximizer #1">
+            <div class="kv__item"><dt>Mode</dt><dd>"Mix Into This EQ"</dd></div>
+            <div class="kv__item"><dt>GR</dt><dd>0.0 dB</dd></div>
+            <div class="kv__item"><dt>Tone</dt><dd>Dark</dd></div>
+          </dl>
+          <p class="rack__why">Tone shaping only. It must show <strong>0.0 dB GR</strong>.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">4</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Soothe2</h4>
+            <span class="chip">oeksound</span>
+            <span class="tag">RES</span>
+            <button type="button" class="copy-btn" data-copy="slot-4" aria-label="Copy Slot 4 settings"></button>
+          </div>
+          <dl class="kv" id="slot-4" data-copy-title="Slot 4 - Soothe2">
+            <div class="kv__item"><dt>HPF</dt><dd>250 Hz</dd></div>
+            <div class="kv__item"><dt>Depth</dt><dd>0.8&ndash;1.2</dd></div>
+            <div class="kv__item"><dt>State</dt><dd>Bypassed initially</dd></div>
+          </dl>
+          <p class="rack__why">Leave it bypassed during calibration.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">5</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">GClip</h4>
+            <span class="tag">CLIP</span>
+            <button type="button" class="copy-btn" data-copy="slot-5" aria-label="Copy Slot 5 settings"></button>
+          </div>
+          <dl class="kv" id="slot-5" data-copy-title="Slot 5 - GClip">
+            <div class="kv__item"><dt>Oversampling</dt><dd>2x</dd></div>
+            <div class="kv__item"><dt>Gain</dt><dd>0.0 dB</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>-3.0 dBFS</dd></div>
+          </dl>
+          <p class="rack__why">Clip point parks at <strong>-3.0 dBFS</strong>, the top of the mix bus input target.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">M</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST Maximizer #2 on MASTER</h4>
+            <span class="chip">JST</span>
+            <span class="tag">LIMIT</span>
+            <button type="button" class="copy-btn" data-copy="slot-m" aria-label="Copy MASTER settings"></button>
+          </div>
+          <dl class="kv" id="slot-m" data-copy-title="MASTER - JST Maximizer #2">
+            <div class="kv__item"><dt>Profile</dt><dd>Rock</dd></div>
+            <div class="kv__item"><dt>Ceiling</dt><dd>-0.8 to -1.0 dB</dd></div>
+          </dl>
+          <p class="rack__why">Sits on the MASTER track, after the print bus.</p>
+        </div>
+      </li>
+    </ol>
+
+    <h3 id="step-b">Step B: first-chorus calibration</h3>
+    <ol class="steps">
+      <li><div><span class="steps__title">Loop a loud chorus</span><p>Keep Drums, Bass and Rhythm Guitars active.</p></div></li>
+      <li><div><span class="steps__title">Pull down VBC FG-Grey Threshold</span><p>Stop when the needle hits <code class="val-warn">1.5&ndash;2.5 dB GR</code> on snare and kick hits.</p></div></li>
+      <li><div><span class="steps__title">Gain-match Makeup</span><p>Bypassed and active must sound equally loud.</p></div></li>
+      <li><div><span class="steps__title">Check JST Maximizer #1</span><p>It must still read <code class="val-ok">0.0 dB GR</code>.</p></div></li>
+    </ol>
+
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Step B targets</span>
+        <button type="button" class="copy-btn" data-copy="step-b-targets" aria-label="Copy Step B targets"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="step-b-targets" data-copy-title="Step B - first-chorus calibration">
+          <div class="kv__item"><dt>FG-Grey GR</dt><dd>1.5&ndash;2.5 dB on snare/kick</dd></div>
+          <div class="kv__item"><dt>FG-Grey Makeup</dt><dd>Gain-matched</dd></div>
+          <div class="kv__item"><dt>JST Max #1 GR</dt><dd>0.0 dB</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="callout callout--warn" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Max #1 is not a limiter here</span>
+        <p>If JST Maximizer #1 shows any gain reduction, the mix bus input runs too hot. Go back to the sub-group targets.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="problems">Problem &rarr; fix</h2>
+    <div class="table-wrap">
+      <table class="table table--pf">
+        <thead>
+          <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Hot DI, vocal or synth preset</td><td>Trim pre-FX to <code>-12 to -10 dBFS</code> peak. Leave the fader at <code>0.00 dB</code>.</td><td>Clip gain (F2) / VSTi out / JS: Volume Adjustment</td></tr>
+          <tr><td>Saturation overdrives early</td><td>Raw tracks peak at <code>-1 dBFS</code>. Bring them down to <code>-18 dBFS RMS</code>.</td><td>Clip gain / VSTi out</td></tr>
+          <tr><td>Mix bus compressor slams</td><td>Hold sub-groups at <code>-6 to -5 dBFS</code>. Print bus input lands at <code>-4 to -3 dBFS</code>.</td><td>INSTRUMENT BUS / VOCAL MASTER faders, MCP meters</td></tr>
+          <tr><td>Plugin sounds better only because it is louder</td><td>Gain-match on vs. off.</td><td>Coffee The Pun / FG-116 / JW/JST Bus Glue</td></tr>
+          <tr><td>JST Max #1 shows gain reduction</td><td>It must read <code>0.0 dB GR</code>. Recheck FG-Grey Makeup and sub-group levels.</td><td>JST Maximizer #1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="page-foot">Source: original WAP blueprint manual.</footer>
+
+</div>
+</main>
+<script src="js/search-index.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
