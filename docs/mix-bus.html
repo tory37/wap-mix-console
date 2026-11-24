@@ -18,11 +18,226 @@
     <div class="goal">
       <span class="gchip gchip--lg gchip--master" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Content lands in phase 2.</p>
+      <p class="goal__text">Glue at <code>1.5&ndash;2.5 dB GR</code>. Tone with Max #1 at <code>0.0 dB GR</code>. Print at <code>-8.5 to -7.5 LUFS</code> under a <code>-0.8 to -1.0 dB</code> ceiling.</p>
     </div>
   </header>
 
-  <div class="stub">This page is a placeholder. Use <kbd>Ctrl K</kbd> to jump to another page.</div>
+  <section class="section">
+    <h2 id="concept">Two Maximizers, one polish stage</h2>
+    <p>Two JST Maximizer instances split the work. Max #1 on <code>PRINT / MIX BUS</code> is a dark tilt EQ only. Max #2 on <code>MASTER</code> sets loudness from a Rock genre preset.</p>
+    <p>Soothe2 in Slot 4 is the only dynamic harshness stage. Do not stack TDR Nova on top of it.</p>
+    <p>Park the chain and calibrate it first. Steps live on <a href="gain-staging.html#calibration">Gain Staging</a>.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="print-chain">PRINT / MIX BUS chain</h2>
+    <p>Input target: <code class="val-warn">-4 to -3 dBFS</code> peak.</p>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">VCC MixBuss / Coffee The Pun</h4>
+            <span class="chip">Slate / Acustica</span>
+            <span class="tag">SAT</span>
+            <button type="button" class="copy-btn" data-copy="mb-1" aria-label="Copy Slot 1 settings"></button>
+          </div>
+          <dl class="kv" id="mb-1" data-copy-title="PRINT / MIX BUS Slot 1 - VCC / Coffee The Pun">
+            <div class="kv__item"><dt>VCC console</dt><dd>Brit 4k E or G</dd></div>
+            <div class="kv__item"><dt>VCC drive</dt><dd>11:00&ndash;12:00</dd></div>
+            <div class="kv__item"><dt>Coffee preamp</dt><dd>ON (germanium) <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Coffee Bass / Treble EQ</dt><dd>0 (flat)</dd></div>
+          </dl>
+          <p class="rack__why">Console harmonics across the sum before compression. Use one or the other.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VCC Brit N</span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VTM 1/2" 2-track, 30 ips, FG9 tape, Noise Reduction full left (no hiss)</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">TDR VOS SlickEQ</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">VBC FG-Grey</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="mb-2" aria-label="Copy Slot 2 settings"></button>
+          </div>
+          <dl class="kv" id="mb-2" data-copy-title="PRINT / MIX BUS Slot 2 - VBC FG-Grey">
+            <div class="kv__item"><dt>Ratio</dt><dd>2:1 <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Attack</dt><dd>30 ms <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Release</dt><dd>Auto</dd></div>
+            <div class="kv__item"><dt>HPF (detector)</dt><dd>90&ndash;100 Hz</dd></div>
+            <div class="kv__item"><dt>Target GR</dt><dd>1.5&ndash;2.5 dB on choruses</dd></div>
+          </dl>
+          <p class="rack__why">Glues drums, bass, guitars and vocals. The detector HPF lets kick sub and snare snap pass.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">BG-Mix Careful, 1.0&ndash;2.5 dB GR, Warmth ON, Clip ON</span></span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JW BG-Mix (denser wall)</span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VBC Rack: Grey 1 dB &gt; Red 1 dB</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">TDR Kotelnikov 1.2&ndash;1.5:1, Low Freq Relax 90&ndash;120 Hz</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">3</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST Maximizer #1</h4>
+            <span class="chip">JST</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="mb-3" aria-label="Copy Slot 3 settings"></button>
+          </div>
+          <dl class="kv" id="mb-3" data-copy-title="PRINT / MIX BUS Slot 3 - JST Maximizer #1">
+            <div class="kv__item"><dt>Preset</dt><dd>"Mix Into This EQ"</dd></div>
+            <div class="kv__item"><dt>Maximize</dt><dd>Backed off, GR = 0.0 dB</dd></div>
+            <div class="kv__item"><dt>Tone (mixing)</dt><dd>Toward Dark <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Tone (mix end)</dt><dd>Sweep Dark &harr; Light <span class="chip">unverified</span></dd></div>
+          </dl>
+          <p class="rack__why">Macro tilt EQ. A dark curve pushes you toward midrange bite and air without ear fatigue.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">4</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Soothe2</h4>
+            <span class="chip">oeksound</span>
+            <span class="tag">RES</span>
+            <button type="button" class="copy-btn" data-copy="mb-4" aria-label="Copy Slot 4 settings"></button>
+          </div>
+          <dl class="kv" id="mb-4" data-copy-title="PRINT / MIX BUS Slot 4 - Soothe2">
+            <div class="kv__item"><dt>Low cut band</dt><dd>250 Hz</dd></div>
+            <div class="kv__item"><dt>Mode</dt><dd>Soft</dd></div>
+            <div class="kv__item"><dt>Depth</dt><dd>0.8&ndash;1.2 max</dd></div>
+            <div class="kv__item"><dt>Engage</dt><dd>Only if dense choruses stack harshness</dd></div>
+          </dl>
+          <p class="rack__why">Catches upper-mid chorus buildup only when it appears. Replaces a redundant TDR Nova.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">5</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">GClip</h4>
+            <span class="chip">GVST</span>
+            <span class="tag">CLIP</span>
+            <button type="button" class="copy-btn" data-copy="mb-5" aria-label="Copy Slot 5 settings"></button>
+          </div>
+          <dl class="kv" id="mb-5" data-copy-title="PRINT / MIX BUS Slot 5 - GClip">
+            <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
+            <div class="kv__item"><dt>Gain</dt><dd>0.0 dB</dd></div>
+            <div class="kv__item"><dt>Softness</dt><dd>15&ndash;25%</dd></div>
+            <div class="kv__item"><dt>Target clip</dt><dd>Shave 1.0&ndash;2.0 dB off stray peaks</dd></div>
+          </dl>
+          <p class="rack__why">Cuts 1 ms snare and kick spikes. Max #2 then runs cleaner and louder.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Clip (adds color)</span></span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">BG-Mix Clip ON</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">ClipShifter</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2 id="master">MASTER track</h2>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">M</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST Maximizer #2</h4>
+            <span class="chip">JST</span>
+            <span class="tag">LIMIT</span>
+            <button type="button" class="copy-btn" data-copy="mb-m" aria-label="Copy MASTER settings"></button>
+          </div>
+          <dl class="kv" id="mb-m" data-copy-title="MASTER - JST Maximizer #2">
+            <div class="kv__item"><dt>Preset</dt><dd>Factory &gt; Genre &gt; Rock (or Heavy Rock)</dd></div>
+            <div class="kv__item"><dt>Maximize</dt><dd>2.5&ndash;4.5 dB GR on loud choruses</dd></div>
+            <div class="kv__item"><dt>Tone</dt><dd>0 (default)</dd></div>
+            <div class="kv__item"><dt>Threshold (output ceiling)</dt><dd>-0.8 to -1.0 dB</dd></div>
+            <div class="kv__item"><dt>OS</dt><dd>4x or 8x <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Loudness</dt><dd>-8.5 to -7.5 LUFS</dd></div>
+          </dl>
+          <p class="rack__why">Final metal loudness with inter-sample ceiling safety.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-X 2 (FG-Comp + FG-Level, True Peak Limiting)</span></span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaLimit, True peak display ON</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Limiter6</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+
+    <div class="callout callout--warn" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Auto-Trim for honest A/B</span>
+        <p>Turn Max #2 Auto-Trim ON during setup. Compare limited and unlimited at equal loudness. Check that the drums keep their punch.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="final-print">Final print pass</h2>
+    <ol class="steps">
+      <li><div><span class="steps__title">Sweep Max #1 Tone</span><p>Sweep Dark &harr; Light. GR must stay at <code class="val-ok">0.0 dB</code>.</p></div></li>
+      <li><div><span class="steps__title">Decide on Soothe2</span><p>Engage Slot 4 only if needed. Low cut band <code>250 Hz</code>, Depth <code>0.8&ndash;1.2</code>.</p></div></li>
+      <li><div><span class="steps__title">Set GClip</span><p>Shave <code>1.0&ndash;2.0 dB</code> of peaks.</p></div></li>
+      <li><div><span class="steps__title">Raise Soothe2 quality</span><p>Switch every Soothe2 instance to <code>4x</code> Oversample <span class="chip">unverified</span>.</p></div></li>
+      <li><div><span class="steps__title">Push Max #2</span><p>Drive to <code class="val-warn">2.5&ndash;4.5 dB GR</code>. Threshold (ceiling) <code class="val-danger">-0.8 dB</code>.</p></div></li>
+      <li><div><span class="steps__title">Print the main master</span><p>Read <code>-8.5 to -7.5 LUFS</code> integrated.</p></div></li>
+      <li><div><span class="steps__title">Print the instrumental</span><p>Mute <code>VOCAL MASTER</code>. Bypass <code>SC_SPOTLIGHT</code>.</p></div></li>
+      <li><div><span class="steps__title">Print the acapella</span><p>Render the vocal branch alone.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2 id="alt-chains">Other full chains</h2>
+    <p>Reference only. The page chain above wins. Each row is one complete <code>PRINT / MIX BUS</code> plus master from a guide.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Flavor</th><th scope="col">Chain</th><th scope="col">Key numbers</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Slate hybrid</td><td>VCC MixBuss &gt; Coffee The Pun &gt; FG-Grey &gt; VTM &gt; FG-X 2</td><td class="mono">FG-X 2 FG-Level 1.5&ndash;2.5 dB GR, Detail +0.6, LoPunch +0.8 <span class="chip">unverified</span></td></tr>
+          <tr><td>Stock + TDR</td><td>SlickEQ &gt; Kotelnikov &gt; GClip &gt; ReaLimit</td><td class="mono">Kotelnikov 1 dB, Low Freq Relax 100 Hz; GClip 1 dB; ReaLimit ceiling -0.5 dBFS (True peak display)</td></tr>
+          <tr><td>JST glue</td><td>BG-Mix &gt; JST Maximizer (Rock)</td><td class="mono">BG-Mix Careful 1.0&ndash;2.5 dB GR, never over 3 dB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="problems">Problem &rarr; fix</h2>
+    <div class="table-wrap">
+      <table class="table table--pf">
+        <thead>
+          <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Mix pumps on double kick</td><td>Raise FG-Grey HPF into <code>90&ndash;100 Hz</code>.</td><td>VBC FG-Grey</td></tr>
+          <tr><td>Max #1 shows gain reduction</td><td>Back off Maximize to <code>0.0 dB GR</code>. Recheck sub-group levels.</td><td>JST Maximizer #1</td></tr>
+          <tr><td>Chorus turns harsh</td><td>Engage Soothe2, Depth <code>0.8&ndash;1.2</code>. Never stack TDR Nova.</td><td>Soothe2</td></tr>
+          <tr><td>Limiter distorts on snare hits</td><td>Shave <code>1.0&ndash;2.0 dB</code> with GClip first.</td><td>GClip, 2x OS</td></tr>
+          <tr><td>Master is too quiet</td><td>Push Max #2 to <code>2.5&ndash;4.5 dB GR</code>. Do not exceed it.</td><td>JST Maximizer #2</td></tr>
+          <tr><td>Mix sounds small, not loud</td><td>Check FG-Grey GR. Stay inside <code>1.5&ndash;2.5 dB</code>.</td><td>VBC FG-Grey</td></tr>
+          <tr><td>Vocal tails in instrumental print</td><td>Move vocal returns into <code>VOCAL MASTER</code>.</td><td><a href="routing.html#fx-returns">Routing</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="page-foot">Sources: original WAP blueprint manual (primary); Slate Digital guide (VBC, VTM, FG-X 2); JST/JW guide (Maximizer roles, BG-Mix); REAPER architecture guide (Kotelnikov, ReaLimit).</footer>
 
 </div>
 </main>

@@ -14,15 +14,480 @@
 
   <header class="page-header">
     <div class="label">Tracks / Guitars</div>
-    <h1>Guitars</h1>
+    <h1>Guitars: Rhythm, Lead, Clean</h1>
     <div class="goal">
       <span class="gchip gchip--lg gchip--guitars" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Content lands in phase 2.</p>
+      <p class="goal__text">A dry, locked 7-string rhythm wall built on <code>JST Toneforge Disruptor</code>. Leads sing in the center. Cleans sit wide in the hall.</p>
     </div>
   </header>
 
-  <div class="stub">This page is a placeholder. Use <kbd>Ctrl K</kbd> to jump to another page.</div>
+  <section class="section">
+    <h2 id="buses">Three guitar buses</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Bus</th><th scope="col">Pan</th><th scope="col">Sends &amp; ducking</th><th scope="col">soothe2 low cut</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>RHYTHM GTR BUS</code></td><td><span class="mono">100% L/R</span></td><td>Zero reverb or delay sends. Ducked by <code>SC_SNARE</code> (210 Hz &amp; 2.8 kHz) and <code>SC_SPOTLIGHT</code>.</td><td><span class="mono">1.5&ndash;2.0 kHz</span></td></tr>
+          <tr><td><code>LEAD GTR BUS</code></td><td><span class="mono">Center 0% to &plusmn;15%</span></td><td>Pre-fader <code>0.0 dB</code> &rarr; <code>SC_SPOTLIGHT</code>. Post-fader &rarr; <code>VOX &amp; LEAD PLATE</code> and <code>STEREO TEMPO DELAY</code>.</td><td><span class="mono">600 Hz&ndash;1.0 kHz</span></td></tr>
+          <tr><td><code>OCTAVE / MELODY GTR</code></td><td><span class="mono">&plusmn;30&ndash;40%</span></td><td>Keep out of <code>SC_SPOTLIGHT</code>. Post-fader 20&ndash;30% &rarr; <code>WIDE MIX HALL</code>.</td><td><span class="mono">None</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Sidechain keys are set up on the <a href="routing.html">Routing</a> page. Return settings are on the <a href="fx-returns.html#returns">FX Returns</a> page.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="rhythm">Rhythm guitars</h2>
+    <p>Hard-pan the 7-string rhythms <code>100% L/R</code>. Keep them <strong>100% dry</strong>. JW BG-Guitars with Chug Slayer tames Drop G&ndash;Bb palm-mute boom.</p>
+
+    <h3 id="rhythm-amp">Amp: JST Toneforge Disruptor</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">A</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Toneforge Disruptor</h4>
+            <span class="chip">JST</span>
+            <span class="tag">AMP</span>
+            <button type="button" class="copy-btn" data-copy="guitars-rhy-amp" aria-label="Copy Toneforge Disruptor settings"></button>
+          </div>
+          <dl class="kv" id="guitars-rhy-amp" data-copy-title="Slot A - Toneforge Disruptor">
+            <div class="kv__item"><dt>Mode</dt><dd>7 STR, tuning to match the guitar</dd></div>
+            <div class="kv__item"><dt>Battle For Utopia Reverb</dt><dd>Bypassed</dd></div>
+            <div class="kv__item"><dt>High-Tech Delay</dt><dd>Bypassed</dd></div>
+            <div class="kv__item"><dt>Fuel Injected Overdrive: Drive</dt><dd>0</dd></div>
+            <div class="kv__item"><dt>Fuel Injected Overdrive: Level</dt><dd>High (8&ndash;10) <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Bass (amp)</dt><dd>Lean</dd></div>
+            <div class="kv__item"><dt>Gate</dt><dd>Threshold high enough to close between chugs</dd></div>
+          </dl>
+          <p class="rack__why">Rules from the Archetype and Misha chains, applied to Disruptor. A zero-drive, high-level overdrive pedal tightens the DI before the gain stages.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">Toneforge Misha Mansoor (Advanced)</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Archetype Nolly, Rhythm amp</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Archetype Gojira, HOT + OD</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Fortin Nameless Suite</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">No Disruptor knob values in sources</span>
+        <p>Sources give knob values for Toneforge Misha and the Archetypes only. They are below as reference. Tune Disruptor by ear against them.</p>
+      </div>
+    </div>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Reference: Toneforge Disruptor controls (from the manual)</span>
+        <button type="button" class="copy-btn" data-copy="guitars-disruptor-ref" aria-label="Copy Reference: Toneforge Disruptor controls"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="guitars-disruptor-ref" data-copy-title="Reference: Toneforge Disruptor controls">
+          <div class="kv__item"><dt>Global</dt><dd>Gate, Input, Output, DI Match, Mode (6/7/8 STR + 13 tunings, E Standard down one octave)</dd></div>
+          <div class="kv__item"><dt>Martyr channel (clean to crunch)</dt><dd>Comp, Gain, Bright, Burn, Bass, Middle, Treble, Presence, Volume, Auto Gain</dd></div>
+          <div class="kv__item"><dt>Replica channel (modded JCM 800)</dt><dd>Hunt (low gain), Kill (high gain), Devour (overall gain), Bass, Middle, Treble, Presence, Volume, Pwr Amp (Tube / SS), Input (Hi / Lo), Auto Gain</dd></div>
+          <div class="kv__item"><dt>Protomech channel (high gain)</dt><dd>Mode (Monolith, Dielectric, Aggression, Mechanized, Damaged), Gain, Bass, Middle, Treble, Presence, Volume</dd></div>
+          <div class="kv__item"><dt>Pedals / Effects</dt><dd>Descent Chorus, Soul Hacker Lofi, Fuel Injected Overdrive (Drive, Level, Bass, Treble), Battle For Utopia Reverb, High-Tech Delay, Sidewidener II, Pixelator</dd></div>
+          <div class="kv__item"><dt>Cab</dt><dd>Rectifire 4x12, Rectifire 2x12, M60B 4x12, External IR, DI blend. Mics: Condenser, Dynamic 421, Dynamic 57, Ribbon</dd></div>
+          <div class="kv__item"><dt>Post-amp</dt><dd>Smooth (resonance reduction), Digital EQ (24 bands, dynamic, Kill Resonances), Analog EQ</dd></div>
+          <div class="kv__item"><dt>Autonomous Dynamic System</dt><dd>Low end compressor: Crossover (20&ndash;400 Hz), Intensity, Volume. Limiter: Threshold</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Reference: Toneforge Misha Mansoor (Advanced)</span>
+        <button type="button" class="copy-btn" data-copy="guitars-misha-ref" aria-label="Copy Reference: Toneforge Misha Mansoor (Advanced)"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="guitars-misha-ref" data-copy-title="Reference: Toneforge Misha Mansoor (Advanced)">
+          <div class="kv__item"><dt>Drive (pedal)</dt><dd>0.0 <span class="chip">unverified</span></dd></div>
+          <div class="kv__item"><dt>Level (pedal)</dt><dd>8.0&ndash;9.0 <span class="chip">unverified</span></dd></div>
+          <div class="kv__item"><dt>Attack (pedal)</dt><dd>3 or 4 <span class="chip">unverified</span></dd></div>
+          <div class="kv__item"><dt>Bright (pedal)</dt><dd>5.5&ndash;6.5 <span class="chip">unverified</span></dd></div>
+          <div class="kv__item"><dt>Gain</dt><dd>4.8&ndash;5.2</dd></div>
+          <div class="kv__item"><dt>Bass</dt><dd>3.8</dd></div>
+          <div class="kv__item"><dt>Middle</dt><dd>7.2</dd></div>
+          <div class="kv__item"><dt>Treble</dt><dd>5.4</dd></div>
+          <div class="kv__item"><dt>Presence</dt><dd>5.8</dd></div>
+          <div class="kv__item"><dt>Cab</dt><dd>4x12 V30, SM57 + R121 <span class="chip">unverified</span></dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Reference: Neural DSP Archetype front end</span>
+        <button type="button" class="copy-btn" data-copy="guitars-archetype-ref" aria-label="Copy Reference: Neural DSP Archetype front end"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="guitars-archetype-ref" data-copy-title="Reference: Neural DSP Archetype front end">
+          <div class="kv__item"><dt>Amp Bass</dt><dd>3.5&ndash;5.0</dd></div>
+          <div class="kv__item"><dt>OD Drive (Gojira OD: Dist)</dt><dd>0</dd></div>
+          <div class="kv__item"><dt>OD Tone</dt><dd>about 6</dd></div>
+          <div class="kv__item"><dt>OD Level</dt><dd>10</dd></div>
+          <div class="kv__item"><dt>Nolly</dt><dd>Rhythm amp (3rd of Clean, Crunch, Rhythm, Lead)</dd></div>
+          <div class="kv__item"><dt>Gojira</dt><dd>HOT amp + OD pedal</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p>Fortin Nameless: engage the Grind booster. It cuts some low end before the head, built for 7- and 8-strings. It also lifts <code>1.5&ndash;3.0 kHz</code> pick attack <span class="chip">unverified</span>. The Hexdrive overdrive is the other front-end option. The Zuul noise gate snaps shut between staccato hits.</p>
+
+    <h3 id="rhythm-chain">Post-amp chain on RHYTHM GTR BUS</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">T</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Virtual Tape Machines (optional)</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">SAT</span>
+            <button type="button" class="copy-btn" data-copy="guitars-rhy-vtm" aria-label="Copy Virtual Tape Machines (optional) settings"></button>
+          </div>
+          <dl class="kv" id="guitars-rhy-vtm" data-copy-title="Slot T - Virtual Tape Machines (optional)">
+            <div class="kv__item"><dt>Machine</dt><dd>2-Inch 16-Track</dd></div>
+            <div class="kv__item"><dt>Speed</dt><dd>30 ips</dd></div>
+            <div class="kv__item"><dt>Tape Type</dt><dd>FG9</dd></div>
+            <div class="kv__item"><dt>Bias</dt><dd>Normal</dd></div>
+            <div class="kv__item"><dt>Noise Reduction</dt><dd>Fully left (-80 dB, no hiss)</dd></div>
+          </dl>
+          <p class="rack__why">Optional first slot. Tape softens fast pick transients and 4&ndash;8 kHz modeler fizz.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST EQ</h4>
+            <span class="chip">JST</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="guitars-rhy-eq" aria-label="Copy JST EQ settings"></button>
+          </div>
+          <dl class="kv" id="guitars-rhy-eq" data-copy-title="Slot 1 - JST EQ">
+            <div class="kv__item"><dt>High Pass</dt><dd>85&ndash;100 Hz, 18&ndash;24 dB/oct <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Low Pass</dt><dd>7.5&ndash;9 kHz</dd></div>
+            <div class="kv__item"><dt>Peak (narrow Q)</dt><dd>-2 to -4 dB @ 3.8&ndash;4.2 kHz</dd></div>
+            <div class="kv__item"><dt>Peak</dt><dd>+2 dB @ 1.8 kHz</dd></div>
+            <div class="kv__item"><dt>Fizz option</dt><dd>4 kHz, Filter Part Sustain, -3 dB</dd></div>
+            <div class="kv__item"><dt>Mud option</dt><dd>140 Hz Dynamic EQ band, Processing Mode Mid</dd></div>
+          </dl>
+          <p class="rack__why">Clears sub rumble and amp fizz. A Sustain-only cut keeps the pick transient bright.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaEQ</span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VM FG-S</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JW BG-Guitars</h4>
+            <span class="chip">JST</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="guitars-rhy-bg" aria-label="Copy JW BG-Guitars settings"></button>
+          </div>
+          <dl class="kv" id="guitars-rhy-bg" data-copy-title="Slot 2 - JW BG-Guitars">
+            <div class="kv__item"><dt>Chug Slayer</dt><dd>ON</dd></div>
+            <div class="kv__item"><dt>Crush</dt><dd>2&ndash;4 dB GR</dd></div>
+            <div class="kv__item"><dt>Loud</dt><dd>Set to level-match</dd></div>
+            <div class="kv__item"><dt>Mix</dt><dd>100%</dd></div>
+          </dl>
+          <p class="rack__why">Chug Slayer applies preset multiband compression in the low mids. It holds down palm-mute bursts in the 100&ndash;250 Hz area <span class="chip">unverified</span>. Open chords keep their low end.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST BG-Guitars (Clamp)</span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VM SD-3A, 1.5&ndash;2 dB on chugs</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">3</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">soothe2</h4>
+            <span class="chip">oeksound</span>
+            <span class="tag">RES</span>
+            <button type="button" class="copy-btn" data-copy="guitars-rhy-soothe" aria-label="Copy soothe2 settings"></button>
+          </div>
+          <dl class="kv" id="guitars-rhy-soothe" data-copy-title="Slot 3 - soothe2">
+            <div class="kv__item"><dt>Low cut band</dt><dd>1.5&ndash;2.0 kHz</dd></div>
+            <div class="kv__item"><dt>Depth</dt><dd>2.0&ndash;3.0</dd></div>
+            <div class="kv__item"><dt>Mode</dt><dd>Soft</dd></div>
+            <div class="kv__item"><dt>Sidechain (opt)</dt><dd>SC_SPOTLIGHT, Depth 1.5&ndash;2.5</dd></div>
+          </dl>
+          <p class="rack__why">Removes 3.5&ndash;4.5 kHz amp fizz. The raised HPF protects 100&ndash;250 Hz chugs.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">4</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JSTClip (optional)</h4>
+            <span class="chip">JST</span>
+            <span class="tag">CLIP</span>
+            <button type="button" class="copy-btn" data-copy="guitars-rhy-clip" aria-label="Copy JSTClip (optional) settings"></button>
+          </div>
+          <dl class="kv" id="guitars-rhy-clip" data-copy-title="Slot 4 - JSTClip (optional)">
+            <div class="kv__item"><dt>Gain</dt><dd>Set for 1&ndash;2 dB of clipping</dd></div>
+            <div class="kv__item"><dt>2x</dt><dd>Off</dd></div>
+            <div class="kv__item"><dt>Mix</dt><dd>100%</dd></div>
+          </dl>
+          <p class="rack__why">Shaves pick chirps so the master limiter does not react to them.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">GClip</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+    <div class="callout callout--danger" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Zero reverb or delay on rhythms</span>
+        <p>Amp-sim reverb on hard-panned rhythms smears phase across the center. It masks the snare and the lead vocal. Turn it off in the amp and send nothing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="leads">Lead guitars</h2>
+    <p>Pan leads center, <code>0%</code> to <code>&plusmn;15%</code>. Keep pre-amp OD and modulation. Turn amp-sim reverb off. Turn delay off unless the riff needs it.</p>
+
+    <h3 id="lead-chain">LEAD GTR BUS chain</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">A</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Archetype Petrucci</h4>
+            <span class="chip">Neural DSP</span>
+            <span class="tag">AMP</span>
+            <button type="button" class="copy-btn" data-copy="guitars-lead-amp" aria-label="Copy Archetype Petrucci settings"></button>
+          </div>
+          <dl class="kv" id="guitars-lead-amp" data-copy-title="Slot A - Archetype Petrucci">
+            <div class="kv__item"><dt>Amp reverb</dt><dd>OFF</dd></div>
+            <div class="kv__item"><dt>Amp delay</dt><dd>OFF unless riff-critical</dd></div>
+            <div class="kv__item"><dt>OD / modulation</dt><dd>Keep</dd></div>
+          </dl>
+          <p class="rack__why">Liquid sustain and focused 800 Hz mids. Notes sustain without turning to noise.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Archetype Nolly, Lead amp</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Archetype Gojira (pitch / whammy leads)</span></span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">Toneforge Disruptor</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST EQ</h4>
+            <span class="chip">JST</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="guitars-lead-eq" aria-label="Copy JST EQ settings"></button>
+          </div>
+          <dl class="kv" id="guitars-lead-eq" data-copy-title="Slot 1 - JST EQ">
+            <div class="kv__item"><dt>High Pass</dt><dd>100&ndash;120 Hz</dd></div>
+            <div class="kv__item"><dt>Low Pass</dt><dd>7&ndash;8 kHz</dd></div>
+            <div class="kv__item"><dt>Peak</dt><dd>+2 dB @ 1.2&ndash;2.5 kHz</dd></div>
+          </dl>
+          <p class="rack__why">The 1.2&ndash;2.5 kHz lift gives the lead a vocal-like sustain.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaEQ</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST BG-Guitars</h4>
+            <span class="chip">JST</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="guitars-lead-bg" aria-label="Copy JST BG-Guitars settings"></button>
+          </div>
+          <dl class="kv" id="guitars-lead-bg" data-copy-title="Slot 2 - JST BG-Guitars">
+            <div class="kv__item"><dt>Mode</dt><dd>Clamp / Tame</dd></div>
+            <div class="kv__item"><dt>Comp</dt><dd>3&ndash;4 dB GR</dd></div>
+            <div class="kv__item"><dt>Tone</dt><dd>Neutral (12:00)</dd></div>
+          </dl>
+          <p class="rack__why">Levels the lead without low-end clamping. Tone and Harm shape it instead.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">3</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">soothe2</h4>
+            <span class="chip">oeksound</span>
+            <span class="tag">RES</span>
+            <button type="button" class="copy-btn" data-copy="guitars-lead-soothe" aria-label="Copy soothe2 settings"></button>
+          </div>
+          <dl class="kv" id="guitars-lead-soothe" data-copy-title="Slot 3 - soothe2">
+            <div class="kv__item"><dt>Low cut band</dt><dd>600 Hz&ndash;1.0 kHz</dd></div>
+            <div class="kv__item"><dt>Depth</dt><dd>2.0&ndash;3.5</dd></div>
+            <div class="kv__item"><dt>Mode</dt><dd>Soft</dd></div>
+          </dl>
+          <p class="rack__why">Rounds ice-pick high-fret bends at 2.5&ndash;5 kHz. The note core stays thick.</p>
+        </div>
+      </li>
+    </ol>
+
+    <h3 id="lead-sends">Lead sends</h3>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">LEAD GTR BUS sends</span>
+        <button type="button" class="copy-btn" data-copy="guitars-lead-sends" aria-label="Copy LEAD GTR BUS sends"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="guitars-lead-sends" data-copy-title="LEAD GTR BUS sends">
+          <div class="kv__item"><dt>Pre-fader</dt><dd>0.0 dB &rarr; SC_SPOTLIGHT</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>VOX &amp; LEAD PLATE</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>STEREO TEMPO DELAY</dd></div>
+          <div class="kv__item"><dt>Subtle</dt><dd>VOX MICRO-PITCH &amp; SLAP</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p>Delay option from the Slate guide: Repeater Space Delay, <code>1/4</code> left, dotted <code>1/8</code> right, HPF <code>300 Hz</code>, LPF <code>4.5 kHz</code>.</p>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Shared returns, not amp reverb</span>
+        <p>A compressor on the shared return, keyed from the dry lead, ducks the tail 3&ndash;5 dB during fast runs. The tail blooms on held notes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="cleans">Cleans, octave &amp; ambient</h2>
+    <p>Octave and melody parts pan <code>&plusmn;30&ndash;40%</code>. They stay out of <code>SC_SPOTLIGHT</code>. The hall gives them space.</p>
+
+    <h3 id="clean-chain">OCTAVE / MELODY GTR chain</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">A</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Archetype Nolly, Clean amp</h4>
+            <span class="chip">Neural DSP</span>
+            <span class="tag">AMP</span>
+            <button type="button" class="copy-btn" data-copy="guitars-clean-amp" aria-label="Copy Archetype Nolly, Clean amp settings"></button>
+          </div>
+          <dl class="kv" id="guitars-clean-amp" data-copy-title="Slot A - Archetype Nolly, Clean amp">
+            <div class="kv__item"><dt>Amp reverb</dt><dd>OFF in the mix</dd></div>
+            <div class="kv__item"><dt>Keep reverb when</dt><dd>The space is part of the part</dd></div>
+          </dl>
+          <p class="rack__why">Transparent, punchy clean channel. The hall supplies the space.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Archetype Petrucci, Piezo</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Archetype Gojira, CLN</span></span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">Toneforge Disruptor</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST EQ</h4>
+            <span class="chip">JST</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="guitars-clean-eq" aria-label="Copy JST EQ settings"></button>
+          </div>
+          <dl class="kv" id="guitars-clean-eq" data-copy-title="Slot 1 - JST EQ">
+            <div class="kv__item"><dt>High Pass</dt><dd>130&ndash;150 Hz</dd></div>
+            <div class="kv__item"><dt>Low Pass</dt><dd>6.5&ndash;7.5 kHz</dd></div>
+            <div class="kv__item"><dt>Peak (scoop)</dt><dd>-2 dB @ 1.5&ndash;2.5 kHz</dd></div>
+          </dl>
+          <p class="rack__why">The scoop opens space for the lead vocal.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaEQ</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST BG-Guitars</h4>
+            <span class="chip">JST</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="guitars-clean-bg" aria-label="Copy JST BG-Guitars settings"></button>
+          </div>
+          <dl class="kv" id="guitars-clean-bg" data-copy-title="Slot 2 - JST BG-Guitars">
+            <div class="kv__item"><dt>Mode</dt><dd>Tame</dd></div>
+            <div class="kv__item"><dt>Comp</dt><dd>Set for 3&ndash;4 dB GR, steady</dd></div>
+          </dl>
+          <p class="rack__why">Tame smooths clean and low-gain parts without changing pick attack.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">3</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">TDR Nova (optional)</h4>
+            <span class="chip">Tokyo Dawn</span>
+            <span class="tag">DYN EQ</span>
+            <button type="button" class="copy-btn" data-copy="guitars-clean-dip" aria-label="Copy TDR Nova (optional) settings"></button>
+          </div>
+          <dl class="kv" id="guitars-clean-dip" data-copy-title="Slot 3 - TDR Nova (optional)">
+            <div class="kv__item"><dt>Band</dt><dd>-2 dB @ 2.5 kHz</dd></div>
+            <div class="kv__item"><dt>Key</dt><dd>SC_SPOTLIGHT</dd></div>
+          </dl>
+          <p class="rack__why">Dips the vocal zone only while the lead vocal sings.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">soothe2 with SC_SPOTLIGHT sidechain</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+
+    <h3 id="ambient-space">Ambient space</h3>
+    <p>Send <code>20&ndash;30%</code> post-fader to <code>WIDE MIX HALL</code>. For swells and clean arpeggios, JST Sky Box <strong>Cloud</strong> or <strong>Shimmer</strong> fits. Keep amp-sim reverb only when that space is part of the composition.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="problems">Problem &rarr; fix</h2>
+    <div class="table-wrap">
+      <table class="table table--pf">
+        <thead>
+          <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Palm mutes boom and pump the mix bus</td><td>Chug Slayer ON. Target <code>2&ndash;4 dB GR</code>.</td><td>JW BG-Guitars</td></tr>
+          <tr><td>Amp fizz at 3.5&ndash;4.5 kHz</td><td>Low cut band <code>1.5&ndash;2.0 kHz</code>, Depth <code>2.0&ndash;3.0</code>, Soft.</td><td>soothe2</td></tr>
+          <tr><td>Fizz cut dulls the pick</td><td>Cut <code>-3 dB @ 4 kHz</code> with Filter Part set to Sustain.</td><td>JST EQ</td></tr>
+          <tr><td>Static cab whistle (for example 3.2 kHz)</td><td>Switch soothe2 to Hard mode on that bus.</td><td>soothe2</td></tr>
+          <tr><td>Guitars sound flat and plastic</td><td>Depth is above <code>3.5</code>. Pull it back.</td><td>soothe2</td></tr>
+          <tr><td>Low end flubs in Drop G</td><td>Zero-drive boost, level high. Keep amp bass lean.</td><td>Amp front end</td></tr>
+          <tr><td>Rhythms blur and mask the snare</td><td>Amp-sim reverb OFF. No sends on rhythms.</td><td>Amp sim</td></tr>
+          <tr><td>Lead bends ice-pick</td><td>Low cut band <code>600 Hz&ndash;1.0 kHz</code>, Depth <code>2.0&ndash;3.5</code>.</td><td>soothe2</td></tr>
+          <tr><td>Clean parts mask the vocal</td><td>Peak cut <code>-2 dB @ 1.5&ndash;2.5 kHz</code>. Add the SC dip.</td><td>JST EQ / TDR Nova</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="page-foot">
+    <span class="label">Sources</span>
+    <ol class="sources">
+      <li>WAP studio mixing blueprint (REAPER console manual), Sec 06 Guitars and Sec 09 soothe2 matrix. Primary.</li>
+      <li>Modern Metal Mixing Plugin Deep Dive: 1.3, 1.4, 1.6, 3.1&ndash;3.5, 4.3, 4.4.</li>
+      <li>JST &amp; JW Modern Metal Mixing Guide: 2A BG-Guitars, 3A Chug Slayer, 3D Sky Box, 4A JST EQ, 5.</li>
+      <li>Slate Digital Modern Metal Mix Guide: Repeater, VTM (Section 4), recipe 7.</li>
+    </ol>
+  </footer>
 
 </div>
 </main>

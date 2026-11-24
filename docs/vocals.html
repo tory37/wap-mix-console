@@ -14,15 +14,424 @@
 
   <header class="page-header">
     <div class="label">Tracks / Vocals</div>
-    <h1>Vocals</h1>
+    <h1>Vocals: Lead, Screams, Stacks</h1>
     <div class="goal">
       <span class="gchip gchip--lg gchip--vocals" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Content lands in phase 2.</p>
+      <p class="goal__text">Clarity first. A dead-mono lead core sits in front of Drop G&ndash;Bb guitars. BGVs wrap wide around it inside <code>VOCAL MASTER</code>.</p>
     </div>
   </header>
 
-  <div class="stub">This page is a placeholder. Use <kbd>Ctrl K</kbd> to jump to another page.</div>
+  <section class="section">
+    <h2 id="buses">Vocal buses</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Bus</th><th scope="col">Pan</th><th scope="col">Sends</th><th scope="col">Parent</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>LEAD VOX BUS</code></td><td><span class="mono">Mono center</span></td><td>Pre-fader &rarr; <code>SC_SPOTLIGHT</code>. Post-fader &rarr; plate, slap, tempo delay.</td><td><code>VOCAL MASTER</code></td></tr>
+          <tr><td><code>BGV / HARMONY</code></td><td><span class="mono">85&ndash;100% L/R</span></td><td>Post-fader &rarr; <code>VOX &amp; LEAD PLATE</code>, <code>WIDE MIX HALL</code>.</td><td><code>VOCAL MASTER</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout--warn" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">HPF before Coffee The Pun</span>
+        <p>Always put an <code>85&ndash;100 Hz</code> HPF before Coffee The Pun. Sub rumble and plosives otherwise drive the preamp model into IMD and pump the compressors.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="clean-lead">Clean lead</h2>
+    <p>One chain serves the whole <code>LEAD VOX BUS</code>. Slots 1&ndash;6 are the manual chain. Slots P1, P2 and F come from the guides and are optional.</p>
+
+    <h3 id="lead-chain">LEAD VOX BUS chain</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">P1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">MetaTune (optional)</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">PITCH</span>
+            <button type="button" class="copy-btn" data-copy="vocals-lv-tune" aria-label="Copy MetaTune (optional) settings"></button>
+          </div>
+          <dl class="kv" id="vocals-lv-tune" data-copy-title="Slot P1 - MetaTune (optional)">
+            <div class="kv__item"><dt>Speed</dt><dd>15 ms</dd></div>
+            <div class="kv__item"><dt>Amount</dt><dd>85%</dd></div>
+            <div class="kv__item"><dt>Note Stabilizer</dt><dd>Mid (ignores notes under 80 ms)</dd></div>
+          </dl>
+          <p class="rack__why">Centers pitch drift before any dynamics. Note Stabilizer ignores short passing notes. It adds 280 ms latency.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Graillon 2</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">P2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">E2Deesser</h4>
+            <span class="chip">Eiosis</span>
+            <span class="tag">DE-ESS</span>
+            <button type="button" class="copy-btn" data-copy="vocals-lv-deess" aria-label="Copy E2Deesser settings"></button>
+          </div>
+          <dl class="kv" id="vocals-lv-deess" data-copy-title="Slot P2 - E2Deesser">
+            <div class="kv__item"><dt>Position</dt><dd>First, or right after tuning</dd></div>
+            <div class="kv__item"><dt>Mode</dt><dd>Solo Vocal</dd></div>
+            <div class="kv__item"><dt>Targets</dt><dd>s, z, t, sh</dd></div>
+          </dl>
+          <p class="rack__why">Splits the signal into a Voiced path and a Sibilants path. Only the sibilants get cut. soothe2 handles harshness later.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">SSL DeEss</span></span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaXcomp, 6.5&ndash;8 kHz</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST EQ</h4>
+            <span class="chip">JST</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="vocals-lv-eq" aria-label="Copy JST EQ settings"></button>
+          </div>
+          <dl class="kv" id="vocals-lv-eq" data-copy-title="Slot 1 - JST EQ">
+            <div class="kv__item"><dt>High Pass</dt><dd>85&ndash;100 Hz, 18&ndash;24 dB/oct <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Peak (opt)</dt><dd>-2 dB @ 240&ndash;300 Hz, only if boxy</dd></div>
+          </dl>
+          <p class="rack__why">Strips mic rumble and room box before saturation and compression.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaEQ</span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VM FG-S</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Coffee The Pun</h4>
+            <span class="chip">Acustica</span>
+            <span class="tag">EQ / SAT</span>
+            <button type="button" class="copy-btn" data-copy="vocals-lv-coffee" aria-label="Copy Coffee The Pun settings"></button>
+          </div>
+          <dl class="kv" id="vocals-lv-coffee" data-copy-title="Slot 2 - Coffee The Pun">
+            <div class="kv__item"><dt>Preamp</dt><dd>ON (Germanium) <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Low 100 Hz Boost</dt><dd>+1.5 to +2.5 <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Low Atten (opt)</dt><dd>+1 to +2 <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>High 10&ndash;12 kHz</dt><dd>Wide bandwidth, Boost +2 to +4 <span class="chip">unverified</span></dd></div>
+          </dl>
+          <p class="rack__why">Adds midrange weight and air above the 7.5&ndash;9 kHz guitar LPF. Boost plus Atten at 100 Hz scoops 250&ndash;400 Hz mud.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VM SD-PE1</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">3</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">VM FG-116 Vintage</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="vocals-lv-116" aria-label="Copy VM FG-116 Vintage settings"></button>
+          </div>
+          <dl class="kv" id="vocals-lv-116" data-copy-title="Slot 3 - VM FG-116 Vintage">
+            <div class="kv__item"><dt>Ratio</dt><dd>4:1</dd></div>
+            <div class="kv__item"><dt>Attack</dt><dd>3&ndash;4 (medium; clockwise is faster) <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Release</dt><dd>6&ndash;7 (fast; clockwise is faster) <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Target GR</dt><dd>4&ndash;6 dB on loud syllable peaks</dd></div>
+          </dl>
+          <p class="rack__why">Catches consonant transients before the opto stage. The needle snaps back to zero.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">4</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">VM Custom Opto</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="vocals-lv-2a" aria-label="Copy VM Custom Opto settings"></button>
+          </div>
+          <dl class="kv" id="vocals-lv-2a" data-copy-title="Slot 4 - VM Custom Opto">
+            <div class="kv__item"><dt>Peak Reduction</dt><dd>Set for 3&ndash;5 dB GR</dd></div>
+            <div class="kv__item"><dt>Ceiling</dt><dd>Never above 6 dB GR</dd></div>
+          </dl>
+          <p class="rack__why">Levels sustain into a steady front-row vocal. Past 6 dB the slow release stacks and the vocal goes dark.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">5</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">soothe2</h4>
+            <span class="chip">oeksound</span>
+            <span class="tag">RES</span>
+            <button type="button" class="copy-btn" data-copy="vocals-lv-soothe" aria-label="Copy soothe2 settings"></button>
+          </div>
+          <dl class="kv" id="vocals-lv-soothe" data-copy-title="Slot 5 - soothe2">
+            <div class="kv__item"><dt>Low cut band</dt><dd>350&ndash;400 Hz</dd></div>
+            <div class="kv__item"><dt>Depth</dt><dd>2.5&ndash;4.5</dd></div>
+            <div class="kv__item"><dt>Mode</dt><dd>Soft (cleans) / Hard (bright screams)</dd></div>
+          </dl>
+          <p class="rack__why">Tames 2.5&ndash;4.5 kHz throat bite and sibilance. The HPF protects chest warmth.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">6</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JW BG-Vocals</h4>
+            <span class="chip">JST</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="vocals-lv-bg" aria-label="Copy JW BG-Vocals settings"></button>
+          </div>
+          <dl class="kv" id="vocals-lv-bg" data-copy-title="Slot 6 - JW BG-Vocals">
+            <div class="kv__item"><dt>Crush</dt><dd>3&ndash;5 dB GR</dd></div>
+            <div class="kv__item"><dt>Tone</dt><dd>15&ndash;30%</dd></div>
+            <div class="kv__item"><dt>Aggro</dt><dd>10&ndash;25% (chorus grit)</dd></div>
+            <div class="kv__item"><dt>Mix</dt><dd>75&ndash;100%</dd></div>
+          </dl>
+          <p class="rack__why">Parallel saturation lets the vocal cut through Drop G&ndash;Bb guitars.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST BG-Vocals: Bold, Character Med, Comp 30&ndash;40%</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">F</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Fresh Air (optional)</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">AIR</span>
+            <button type="button" class="copy-btn" data-copy="vocals-lv-air" aria-label="Copy Fresh Air (optional) settings"></button>
+          </div>
+          <dl class="kv" id="vocals-lv-air" data-copy-title="Slot F - Fresh Air (optional)">
+            <div class="kv__item"><dt>Mid Air</dt><dd>12% <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>High Air</dt><dd>18&ndash;22% <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Ceiling</dt><dd>High Air never above 40 <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Trim</dt><dd>Pull down to level-match</dd></div>
+          </dl>
+          <p class="rack__why">Commercial sheen above the guitars. If sibilance rises, add a de-esser after it.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VM Revival, Shimmer 2.5 <span class="chip">unverified</span></span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+    <div class="callout callout--warn" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">soothe2 Depth above 3.5</span>
+        <p>The blueprint allows Depth up to <code>4.5</code>. The deep dive warns that Depth above <code>3.5</code> sounds flat and pushed back. Start at <code>2.5</code>. Go higher only on bright screams.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="screams">Screams</h2>
+    <p>Screams run the same <code>LEAD VOX BUS</code> chain. Change only these settings.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Setting</th><th scope="col">Clean lead</th><th scope="col">Screams</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>soothe2 Mode</td><td>Soft</td><td>Hard (bright screams only)</td></tr>
+          <tr><td>MetaTune Speed</td><td><span class="mono">15 ms</span></td><td><span class="mono">15&ndash;25 ms</span>, Note Stabilizer Mid</td></tr>
+          <tr><td>De-esser</td><td>E2Deesser</td><td>SSL DeEss: fast VCA bite on high-frequency spit</td></tr>
+          <tr><td>JW BG-Vocals mode</td><td>No mode switch</td><td>No mode switch. Use Crush and Aggro.</td></tr>
+          <tr><td>JW BG-Vocals GR</td><td><span class="mono">3&ndash;5 dB</span></td><td><span class="mono">3&ndash;5 dB</span> on the bus</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Scream-only tracks</span>
+        <p>The JST guide pushes JW BG-Vocals to <code>5&ndash;8 dB GR</code> on dedicated scream tracks. The page keeps the manual <code>3&ndash;5 dB</code>. Push further only if screams still jump out.</p>
+      </div>
+    </div>
+    <div class="callout callout--warn" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Hard mode artifacts</span>
+        <p>Hard mode clamps fast. If the vocal pumps or flanges, switch back to Soft.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="doubles">Doubles &amp; harmonies</h2>
+
+    <h3 id="bgv-chain">BGV / HARMONY chain</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST EQ</h4>
+            <span class="chip">JST</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="vocals-bgv-eq" aria-label="Copy JST EQ settings"></button>
+          </div>
+          <dl class="kv" id="vocals-bgv-eq" data-copy-title="Slot 1 - JST EQ">
+            <div class="kv__item"><dt>High Pass</dt><dd>120&ndash;140 Hz</dd></div>
+            <div class="kv__item"><dt>Low Pass</dt><dd>8&ndash;9 kHz</dd></div>
+          </dl>
+          <p class="rack__why">Thins the stack so it never crowds the lead core.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaEQ</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JW BG-Vocals</h4>
+            <span class="chip">JST</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="vocals-bgv-bg" aria-label="Copy JW BG-Vocals settings"></button>
+          </div>
+          <dl class="kv" id="vocals-bgv-bg" data-copy-title="Slot 2 - JW BG-Vocals">
+            <div class="kv__item"><dt>Crush</dt><dd>4&ndash;6 dB GR</dd></div>
+            <div class="kv__item"><dt>Aggro</dt><dd>15&ndash;25%</dd></div>
+          </dl>
+          <p class="rack__why">Glues the stack into one wide layer. The Crush limiter catches plosive and sibilance peaks.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST BG-Vocals, Blend mode</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">3</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">MetaTune (clean chorus stacks)</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">PITCH</span>
+            <button type="button" class="copy-btn" data-copy="vocals-bgv-tune" aria-label="Copy MetaTune (clean chorus stacks) settings"></button>
+          </div>
+          <dl class="kv" id="vocals-bgv-tune" data-copy-title="Slot 3 - MetaTune (clean chorus stacks)">
+            <div class="kv__item"><dt>Speed</dt><dd>0&ndash;5 ms</dd></div>
+            <div class="kv__item"><dt>Amount</dt><dd>100%</dd></div>
+            <div class="kv__item"><dt>Doubler Wet / Dry</dt><dd>20&ndash;40%</dd></div>
+            <div class="kv__item"><dt>Doubler Width</dt><dd>100% (voices fully L/R)</dd></div>
+          </dl>
+          <p class="rack__why">Hard-tune plus the doubler gives the polished, very wide clean chorus.</p>
+        </div>
+      </li>
+    </ol>
+
+    <h3 id="bgv-placement">Placement &amp; sends</h3>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">BGV / HARMONY placement</span>
+        <button type="button" class="copy-btn" data-copy="vocals-bgv-sends" aria-label="Copy BGV / HARMONY placement"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="vocals-bgv-sends" data-copy-title="BGV / HARMONY placement">
+          <div class="kv__item"><dt>Pan</dt><dd>85&ndash;100% L/R</dd></div>
+          <div class="kv__item"><dt>Width</dt><dd>Wide pan or micro-pitch</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>VOX &amp; LEAD PLATE</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>WIDE MIX HALL</dd></div>
+          <div class="kv__item"><dt>Parent</dt><dd>VOCAL MASTER</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="throws">Throws &amp; sends</h2>
+
+    <h3 id="lead-sends">Lead vox sends</h3>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">LEAD VOX BUS sends</span>
+        <button type="button" class="copy-btn" data-copy="vocals-lv-sends" aria-label="Copy LEAD VOX BUS sends"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="vocals-lv-sends" data-copy-title="LEAD VOX BUS sends">
+          <div class="kv__item"><dt>Pre-fader</dt><dd>SC_SPOTLIGHT</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>VOX &amp; LEAD PLATE</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>VOX MICRO-PITCH &amp; SLAP</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>STEREO TEMPO DELAY (automated)</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <h3 id="delay-throws">Delay throws</h3>
+    <ol class="steps">
+      <li><div><span class="steps__title">Automate the send</span><p>Draw send-level automation on <code>LEAD VOX BUS</code> &rarr; <code>STEREO TEMPO DELAY</code>.</p></div></li>
+      <li><div><span class="steps__title">Raise it on throw words</span><p>Lift the send only on the phrases you want repeated.</p></div></li>
+      <li><div><span class="steps__title">Let the duck work</span><p>The return ducks <code>3&ndash;4 dB</code> from <code>SC_SPOTLIGHT</code>. Repeats bloom in the gaps.</p></div></li>
+    </ol>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">STEREO TEMPO DELAY (shared return)</span>
+        <button type="button" class="copy-btn" data-copy="vocals-throw-delay" aria-label="Copy STEREO TEMPO DELAY (shared return)"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="vocals-throw-delay" data-copy-title="STEREO TEMPO DELAY (shared return)">
+          <div class="kv__item"><dt>Time</dt><dd>1/4 or 1/8 dotted</dd></div>
+          <div class="kv__item"><dt>Ping-Pong</dt><dd>ON</dd></div>
+          <div class="kv__item"><dt>Feedback L / R</dt><dd>20&ndash;30%</dd></div>
+          <div class="kv__item"><dt>HPF L / R, LPF L / R</dt><dd>300 Hz, 3.5 kHz</dd></div>
+          <div class="kv__item"><dt>Duck (compressor after the delay)</dt><dd>3&ndash;4 dB by SC_SPOTLIGHT</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p>Full return chains are on the <a href="fx-returns.html#tempo-delay">FX Returns</a> page.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="problems">Problem &rarr; fix</h2>
+    <div class="table-wrap">
+      <table class="table table--pf">
+        <thead>
+          <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Plosives pump the compressors</td><td>HPF <code>85&ndash;100 Hz</code> before Coffee The Pun.</td><td>JST EQ / ReaEQ</td></tr>
+          <tr><td>Raw mic sounds boxy</td><td>Peak <code>-2 dB @ 240&ndash;300 Hz</code>.</td><td>JST EQ</td></tr>
+          <tr><td>Chest mud near 300 Hz</td><td>Boost and Atten together at <code>100 Hz</code>.</td><td>Coffee The Pun</td></tr>
+          <tr><td>Throat bite at 2.5&ndash;4.5 kHz</td><td>Low cut band <code>350&ndash;400 Hz</code>, Depth from <code>2.5</code>.</td><td>soothe2</td></tr>
+          <tr><td>Vocal thin, distant or lisping</td><td>soothe2 low cut band is below 350 Hz or Depth is too high. Raise the low cut. Lower Depth.</td><td>soothe2</td></tr>
+          <tr><td>Sibilance on s and t</td><td>De-ess first, soothe2 after.</td><td>E2Deesser</td></tr>
+          <tr><td>Vocal turns dark and buried</td><td>Custom Opto is past <code>6 dB GR</code>. Return to <code>3&ndash;5 dB</code>.</td><td>VM Custom Opto</td></tr>
+          <tr><td>Vocal does not cut the guitars</td><td>Aggro <code>10&ndash;25%</code> in choruses.</td><td>JW BG-Vocals</td></tr>
+          <tr><td>Air turns harsh</td><td>Keep High Air under <code>40</code>. De-ess after Fresh Air.</td><td>Fresh Air</td></tr>
+          <tr><td>BGVs crowd the lead</td><td>HPF <code>120&ndash;140 Hz</code>. Pan <code>85&ndash;100%</code>.</td><td>JST EQ / pan</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="page-foot">
+    <span class="label">Sources</span>
+    <ol class="sources">
+      <li>WAP studio mixing blueprint (REAPER console manual), Sec 07 Vocals and Sec 09 returns. Primary.</li>
+      <li>Modern Metal Mixing Plugin Deep Dive: 1.3, 1.4, 1.6, 2.2&ndash;2.5, 4.1, 4.2.</li>
+      <li>JST &amp; JW Modern Metal Mixing Guide: 2D BG-Vocals, 6 matrix.</li>
+      <li>Slate Digital Modern Metal Mix Guide: FG-116, FG-2A, MetaTune, Fresh Air, Section 3.1 serial compression, recipe 8.</li>
+    </ol>
+  </footer>
 
 </div>
 </main>

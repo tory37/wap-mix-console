@@ -1034,3 +1034,71 @@ main {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---- Phase 2: schematic + checklist ---- */
+/* Phase 2 setup pages (routing, checklist). Merge into docs/css/app.css. */
+
+/* ------------------------------------------------------------------ routing schematic additions */
+/* Wide schematic: keep text legible on phones by scrolling instead of shrinking. */
+.flow--scroll { overflow-x: auto; }
+.flow--scroll svg { min-width: 760px; }
+
+.sf-node--folder { fill: var(--surface-1); stroke: var(--border-strong); }
+.sf-node--sc { fill: var(--bg); stroke: var(--danger); stroke-dasharray: 6 4; }
+.sf-wire--sc { stroke: var(--danger); stroke-dasharray: 5 3; }
+.sf-arrow--sc { fill: var(--danger); }
+.sf-sub--danger { fill: var(--danger); }
+.sf-sub--ok { fill: var(--ok); }
+.sf-dot--fx { fill: var(--g-fx); }
+.sf-dot--master { fill: var(--g-master); }
+.sf-dot--sc { fill: var(--danger); }
+
+.flow__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2) var(--s6);
+  margin-top: var(--s3);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--border);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+.flow__legend-item { display: inline-flex; align-items: center; gap: var(--s2); }
+.flow__swatch { width: var(--s6); height: 0; border-top: 2px solid var(--text-muted); }
+.flow__swatch--sc { border-top: 2px dashed var(--danger); }
+
+/* ------------------------------------------------------------------ checklist */
+.checks {
+  list-style: none;
+  display: grid;
+  gap: var(--s2);
+}
+.checks__item {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: var(--s3);
+  align-items: start;
+  padding: var(--s3) var(--s4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  background: var(--surface-1);
+  cursor: pointer;
+  transition: border-color var(--t-fast), background-color var(--t-fast);
+}
+.checks__item:hover { border-color: var(--border-strong); background: var(--surface-2); }
+.checks__box {
+  width: 16px;
+  height: 16px;
+  margin: 3px 0 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.checks__text { min-width: 0; }
+.checks__box:checked + .checks__text { color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--border-strong); }
+
+.phase-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+}

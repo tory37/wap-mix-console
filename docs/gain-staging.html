@@ -97,7 +97,7 @@
           <tr><td class="mono">02</td><td>Group buses</td><td class="mono val-ok">-8 to -6 dBFS</td><td>Drums, Bass, Rhythm, Lead Vox</td></tr>
           <tr><td class="mono">03</td><td>Master sub-groups</td><td class="mono val-warn">-6 to -5 dBFS</td><td><code>INSTRUMENT BUS</code> and <code>VOCAL MASTER</code></td></tr>
           <tr><td class="mono">04</td><td>PRINT / MIX BUS in</td><td class="mono val-warn">-4 to -3 dBFS</td><td>Summing headroom before the limiter</td></tr>
-          <tr><td class="mono">05</td><td>MASTER ceiling</td><td class="mono val-danger">-0.8 to -1.0 dBFS</td><td>JST Maximizer #2 (Rock)</td></tr>
+          <tr><td class="mono">05</td><td>MASTER ceiling</td><td class="mono val-danger">-0.8 to -1.0 dBFS</td><td>JST Maximizer #2 (Rock preset)</td></tr>
         </tbody>
       </table>
     </div>
@@ -137,13 +137,13 @@
             <button type="button" class="copy-btn" data-copy="slot-1" aria-label="Copy Slot 1 settings"></button>
           </div>
           <dl class="kv" id="slot-1" data-copy-title="Slot 1 - VCC / Coffee">
-            <div class="kv__item"><dt>VCC</dt><dd>Brit 4k, Drive 11:30</dd></div>
-            <div class="kv__item"><dt>Coffee</dt><dd>Preamp ON, EQ 0</dd></div>
+            <div class="kv__item"><dt>VCC</dt><dd>Brit 4k E or G, Drive 11:30</dd></div>
+            <div class="kv__item"><dt>Coffee</dt><dd>Preamp ON <span class="chip">unverified</span>, Bass / Treble 0</dd></div>
           </dl>
           <p class="rack__why">Use one or the other. Color only, no EQ moves at this stage.</p>
           <div class="alts">
             <span class="label alts__title">Options</span>
-            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VCC Brit 4k</span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VCC Brit 4k E / Brit 4k G</span></span>
             <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Coffee The Pun</span></span>
           </div>
         </div>
@@ -158,8 +158,8 @@
             <button type="button" class="copy-btn" data-copy="slot-2" aria-label="Copy Slot 2 settings"></button>
           </div>
           <dl class="kv" id="slot-2" data-copy-title="Slot 2 - VBC FG-Grey">
-            <div class="kv__item"><dt>Ratio</dt><dd>2:1</dd></div>
-            <div class="kv__item"><dt>Attack</dt><dd>30 ms</dd></div>
+            <div class="kv__item"><dt>Ratio</dt><dd>2:1 <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Attack</dt><dd>30 ms <span class="chip">unverified</span></dd></div>
             <div class="kv__item"><dt>Release</dt><dd>Auto</dd></div>
             <div class="kv__item"><dt>HPF</dt><dd>95 Hz</dd></div>
             <div class="kv__item"><dt>Threshold</dt><dd>0 dB</dd></div>
@@ -177,9 +177,9 @@
             <button type="button" class="copy-btn" data-copy="slot-3" aria-label="Copy Slot 3 settings"></button>
           </div>
           <dl class="kv" id="slot-3" data-copy-title="Slot 3 - JST Maximizer #1">
-            <div class="kv__item"><dt>Mode</dt><dd>"Mix Into This EQ"</dd></div>
+            <div class="kv__item"><dt>Preset</dt><dd>"Mix Into This EQ"</dd></div>
             <div class="kv__item"><dt>GR</dt><dd>0.0 dB</dd></div>
-            <div class="kv__item"><dt>Tone</dt><dd>Dark</dd></div>
+            <div class="kv__item"><dt>Tone</dt><dd>Dark <span class="chip">unverified</span></dd></div>
           </dl>
           <p class="rack__why">Tone shaping only. It must show <strong>0.0 dB GR</strong>.</p>
         </div>
@@ -194,7 +194,7 @@
             <button type="button" class="copy-btn" data-copy="slot-4" aria-label="Copy Slot 4 settings"></button>
           </div>
           <dl class="kv" id="slot-4" data-copy-title="Slot 4 - Soothe2">
-            <div class="kv__item"><dt>HPF</dt><dd>250 Hz</dd></div>
+            <div class="kv__item"><dt>Low cut band</dt><dd>250 Hz</dd></div>
             <div class="kv__item"><dt>Depth</dt><dd>0.8&ndash;1.2</dd></div>
             <div class="kv__item"><dt>State</dt><dd>Bypassed initially</dd></div>
           </dl>
@@ -210,11 +210,11 @@
             <button type="button" class="copy-btn" data-copy="slot-5" aria-label="Copy Slot 5 settings"></button>
           </div>
           <dl class="kv" id="slot-5" data-copy-title="Slot 5 - GClip">
-            <div class="kv__item"><dt>Oversampling</dt><dd>2x</dd></div>
+            <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
             <div class="kv__item"><dt>Gain</dt><dd>0.0 dB</dd></div>
-            <div class="kv__item"><dt>Clip</dt><dd>-3.0 dBFS</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>71% (about -3.0 dBFS)</dd></div>
           </dl>
-          <p class="rack__why">Clip point parks at <strong>-3.0 dBFS</strong>, the top of the mix bus input target.</p>
+          <p class="rack__why">Clip level parks at <strong>71%</strong> (about -3.0 dBFS), the top of the mix bus input target.</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -227,8 +227,8 @@
             <button type="button" class="copy-btn" data-copy="slot-m" aria-label="Copy MASTER settings"></button>
           </div>
           <dl class="kv" id="slot-m" data-copy-title="MASTER - JST Maximizer #2">
-            <div class="kv__item"><dt>Profile</dt><dd>Rock</dd></div>
-            <div class="kv__item"><dt>Ceiling</dt><dd>-0.8 to -1.0 dB</dd></div>
+            <div class="kv__item"><dt>Preset</dt><dd>Factory &gt; Genre &gt; Rock (or Heavy Rock)</dd></div>
+            <div class="kv__item"><dt>Threshold (output ceiling)</dt><dd>-0.8 to -1.0 dB</dd></div>
           </dl>
           <p class="rack__why">Sits on the MASTER track, after the print bus.</p>
         </div>

@@ -14,15 +14,208 @@
 
   <header class="page-header">
     <div class="label">Tracks / Orchestral</div>
-    <h1>Orchestral</h1>
+    <h1>Orchestral Strings</h1>
     <div class="goal">
       <span class="gchip gchip--lg gchip--orch" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Content lands in phase 2.</p>
+      <p class="goal__text">Chorus strings hold sustained notes behind the guitars. Width carries them. <code>WIDE MIX HALL</code> supplies the tail.</p>
     </div>
   </header>
 
-  <div class="stub">This page is a placeholder. Use <kbd>Ctrl K</kbd> to jump to another page.</div>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Deep research lands in phase 3</span>
+        <p>Sources cover Spitfire LABS strings and the shared bus only. Section voicing, articulations, brass and choir have no source yet.</p>
+      </div>
+    </div>
+
+  <section class="section">
+    <h2 id="sources-strings">String sources &amp; built-in reverb</h2>
+    <p>The manual builds chorus strings on <strong>Spitfire LABS</strong>. Violins sit wide. Cellos sit mid-wide.</p>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Spitfire LABS strings</span>
+        <button type="button" class="copy-btn" data-copy="orchestral-labs" aria-label="Copy Spitfire LABS strings"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="orchestral-labs" data-copy-title="Spitfire LABS strings">
+          <div class="kv__item"><dt>Reverb knob</dt><dd>0&ndash;15% <span class="chip">unverified</span></dd></div>
+          <div class="kv__item"><dt>Violins</dt><dd>Wide</dd></div>
+          <div class="kv__item"><dt>Cellos</dt><dd>Mid-wide</dd></div>
+          <div class="kv__item"><dt>Output</dt><dd>ORCH &amp; SYNTH BUS</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p>A low reverb knob keeps the bow attack. The hall supplies the tail.</p>
+    <p>Installed string sources with no settings in the sources: BBC Symphony Orchestra, Orchestral Strings, DSK Strings.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="strings-chain">String chain</h2>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">VM Custom Opto</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="orchestral-str-2a" aria-label="Copy VM Custom Opto settings"></button>
+          </div>
+          <dl class="kv" id="orchestral-str-2a" data-copy-title="Slot 1 - VM Custom Opto">
+            <div class="kv__item"><dt>Peak Reduction</dt><dd>Set for 3&ndash;5 dB GR</dd></div>
+            <div class="kv__item"><dt>Speed</dt><dd>Slow</dd></div>
+          </dl>
+          <p class="rack__why">Sustained notes hold their level under chorus guitars.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST EQ (Mid/Side)</h4>
+            <span class="chip">JST</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="orchestral-str-eq" aria-label="Copy JST EQ (Mid/Side) settings"></button>
+          </div>
+          <dl class="kv" id="orchestral-str-eq" data-copy-title="Slot 2 - JST EQ (Mid/Side)">
+            <div class="kv__item"><dt>High Pass</dt><dd>150&ndash;180 Hz</dd></div>
+            <div class="kv__item"><dt>Low Pass</dt><dd>8&ndash;10 kHz</dd></div>
+            <div class="kv__item"><dt>Peak, Processing Mode Mid</dt><dd>-2.5 dB @ 1.5&ndash;3 kHz</dd></div>
+            <div class="kv__item"><dt>Peak, Processing Mode Side</dt><dd>+2 dB @ 3&ndash;5 kHz</dd></div>
+          </dl>
+          <p class="rack__why">The Mid cut clears the vocal zone. The Side lift pushes strings to the edges.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">3</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">soothe2</h4>
+            <span class="chip">oeksound</span>
+            <span class="tag">RES</span>
+            <button type="button" class="copy-btn" data-copy="orchestral-str-soothe" aria-label="Copy soothe2 settings"></button>
+          </div>
+          <dl class="kv" id="orchestral-str-soothe" data-copy-title="Slot 3 - soothe2">
+            <div class="kv__item"><dt>Low cut band</dt><dd>350 Hz</dd></div>
+            <div class="kv__item"><dt>Depth</dt><dd>2.0&ndash;3.0</dd></div>
+            <div class="kv__item"><dt>Mode</dt><dd>Soft</dd></div>
+          </dl>
+          <p class="rack__why">Softens bow edge and scrape. The HPF keeps 100&ndash;300 Hz warmth.</p>
+        </div>
+      </li>
+    </ol>
+
+    <h3 id="strings-sends">Routing &amp; sends</h3>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">String routing</span>
+        <button type="button" class="copy-btn" data-copy="orchestral-str-sends" aria-label="Copy String routing"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="orchestral-str-sends" data-copy-title="String routing">
+          <div class="kv__item"><dt>Output</dt><dd>ORCH &amp; SYNTH BUS</dd></div>
+          <div class="kv__item"><dt>Send</dt><dd>20&ndash;30% &rarr; WIDE MIX HALL</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="slotting">EQ slotting vs guitars &amp; vocals</h2>
+    <p>Each part owns a band. Values come from each bus chain in the manual.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Part</th><th scope="col">HPF</th><th scope="col">LPF</th><th scope="col">Mid move</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rhythm guitars</td><td><span class="mono">85&ndash;100 Hz</span></td><td><span class="mono">7.5&ndash;9 kHz</span></td><td><span class="mono">+2 dB @ 1.8 kHz</span>, notch <span class="mono">3.8&ndash;4.2 kHz</span></td></tr>
+          <tr><td>Lead guitar</td><td><span class="mono">100&ndash;120 Hz</span></td><td><span class="mono">7&ndash;8 kHz</span></td><td><span class="mono">+2 dB @ 1.2&ndash;2.5 kHz</span></td></tr>
+          <tr><td>Octave / melody guitar</td><td><span class="mono">130&ndash;150 Hz</span></td><td><span class="mono">6.5&ndash;7.5 kHz</span></td><td><span class="mono">-2 dB @ 1.5&ndash;2.5 kHz</span></td></tr>
+          <tr><td>Lead vocal</td><td><span class="mono">85&ndash;100 Hz</span></td><td>None</td><td>Air boost <span class="mono">10&ndash;12 kHz</span></td></tr>
+          <tr><td>BGVs</td><td><span class="mono">120&ndash;140 Hz</span></td><td><span class="mono">8&ndash;9 kHz</span></td><td>None</td></tr>
+          <tr><td>Strings</td><td><span class="mono">150&ndash;180 Hz</span></td><td><span class="mono">8&ndash;10 kHz</span></td><td>Mid <span class="mono">-2.5 dB @ 1.5&ndash;3 kHz</span>, Side <span class="mono">+2 dB @ 3&ndash;5 kHz</span></td></tr>
+          <tr><td>Synth pads</td><td><span class="mono">250&ndash;400 Hz</span></td><td>None</td><td><span class="mono">-3 dB @ 1&ndash;3 kHz</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Strings cut the Mid where the vocal lives. They lift the Sides above the guitar presence. Their warmth sits at <code>100&ndash;300 Hz</code>.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="bus">ORCH &amp; SYNTH BUS</h2>
+    <p>Strings and synths share one parent folder. It sums into <code>INSTRUMENT BUS</code>. <code>SC_SPOTLIGHT</code> ducks it through the parent folder.</p>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JW BG-Keys</h4>
+            <span class="chip">JST</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="orchestral-bus-keys" aria-label="Copy JW BG-Keys settings"></button>
+          </div>
+          <dl class="kv" id="orchestral-bus-keys" data-copy-title="Slot 1 - JW BG-Keys">
+            <div class="kv__item"><dt>Push</dt><dd>ON</dd></div>
+            <div class="kv__item"><dt>Crush</dt><dd>2&ndash;3 dB GR</dd></div>
+            <div class="kv__item"><dt>Loud</dt><dd>Set to level-match</dd></div>
+            <div class="kv__item"><dt>Mix</dt><dd>80&ndash;100%</dd></div>
+          </dl>
+          <p class="rack__why">Push widens the layers around the guitars. The Crush limiter caps filter-sweep peaks.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST BG-Keys, Glued mode</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">soothe2 (optional)</h4>
+            <span class="chip">oeksound</span>
+            <span class="tag">RES</span>
+            <button type="button" class="copy-btn" data-copy="orchestral-bus-soothe" aria-label="Copy soothe2 (optional) settings"></button>
+          </div>
+          <dl class="kv" id="orchestral-bus-soothe" data-copy-title="Slot 2 - soothe2 (optional)">
+            <div class="kv__item"><dt>Low cut band</dt><dd>300&ndash;500 Hz</dd></div>
+            <div class="kv__item"><dt>Depth</dt><dd>2.0&ndash;3.5</dd></div>
+            <div class="kv__item"><dt>Mode</dt><dd>Soft</dd></div>
+          </dl>
+          <p class="rack__why">Softens saw buzz and bow edge so the bus sits behind heavy guitars.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2 id="problems">Problem &rarr; fix</h2>
+    <div class="table-wrap">
+      <table class="table table--pf">
+        <thead>
+          <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Strings mask the vocal</td><td>Mid <code>-2.5 dB @ 1.5&ndash;3 kHz</code>.</td><td>JST EQ (Mid/Side)</td></tr>
+          <tr><td>Bow attack smears</td><td>LABS reverb to <code>0&ndash;15%</code>. Use the hall.</td><td>Spitfire LABS</td></tr>
+          <tr><td>Low-mid mud with guitars</td><td>HPF <code>150&ndash;180 Hz</code>.</td><td>JST EQ</td></tr>
+          <tr><td>Bow scrape is harsh</td><td>Low cut band <code>350 Hz</code>, Depth <code>2.0&ndash;3.0</code>, Soft.</td><td>soothe2</td></tr>
+          <tr><td>Held notes drop under chorus guitars</td><td>Level with <code>3&ndash;5 dB GR</code>.</td><td>VM Custom Opto</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="page-foot">
+    <span class="label">Sources</span>
+    <ol class="sources">
+      <li>WAP studio mixing blueprint (REAPER console manual), Sec 08 Synths &amp; Strings and Sec 09 soothe2 matrix. Primary.</li>
+      <li>Modern Metal Mixing Plugin Deep Dive: 1.3 (orchestral / synth bus).</li>
+      <li>JST &amp; JW Modern Metal Mixing Guide: 2E BG-Keys.</li>
+    </ol>
+  </footer>
 
 </div>
 </main>

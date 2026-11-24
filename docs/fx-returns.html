@@ -14,15 +14,294 @@
 
   <header class="page-header">
     <div class="label">Tracks / FX Returns</div>
-    <h1>FX Returns</h1>
+    <h1>FX Returns &amp; soothe2 Matrix</h1>
     <div class="goal">
       <span class="gchip gchip--lg gchip--fx" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Content lands in phase 2.</p>
+      <p class="goal__text">Six named returns build one shared space. Every soothe2 instance runs with a raised low cut band. Never full-band default.</p>
     </div>
   </header>
 
-  <div class="stub">This page is a placeholder. Use <kbd>Ctrl K</kbd> to jump to another page.</div>
+  <section class="section">
+    <h2 id="why-shared">Why shared returns</h2>
+    <ol class="steps">
+      <li><div><span class="steps__title">One space</span><p>Drums, vocals and guitars share the same reverbs. The ear hears one room.</p></div></li>
+      <li><div><span class="steps__title">Phase coherence</span><p>Separate stereo reverbs on hard-panned rhythms wash out of phase across the center. They mask the snare and the vocal.</p></div></li>
+      <li><div><span class="steps__title">Ducking</span><p>A return can duck from a key. Tails drop <code>3&ndash;5 dB</code> during fast parts and bloom in the gaps.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2 id="returns">Six named returns</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Return</th><th scope="col">Fed by</th><th scope="col">Destination &amp; ducking</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="#drum-crush"><code>DRUM PARALLEL CRUSH</code></a></td><td>Kick, snare &amp; tom shells only (no OH or triggers)</td><td>Into <code>DRUM BUS</code></td></tr>
+          <tr><td><a href="#snare-plate"><code>SNARE PLATE</code></a></td><td><code>SNARE BUS</code> + subtle toms (<span class="mono">-8 to -10 dB</span>)</td><td>Into <code>DRUM BUS</code></td></tr>
+          <tr><td><a href="#vox-plate"><code>VOX &amp; LEAD PLATE</code></a></td><td>LEAD VOX, BGVs, LEAD GTR BUS</td><td>Inside <code>VOCAL MASTER</code>. Ducked <span class="mono">2&ndash;3 dB</span> by <code>SC_SPOTLIGHT</code></td></tr>
+          <tr><td><a href="#slap"><code>VOX MICRO-PITCH &amp; SLAP</code></a></td><td>LEAD VOX BUS, subtle LEAD GTR</td><td>Inside <code>VOCAL MASTER</code></td></tr>
+          <tr><td><a href="#tempo-delay"><code>STEREO TEMPO DELAY</code></a></td><td>LEAD VOX (automated throws), LEAD GTR, ANA 2 arps</td><td>Inside <code>VOCAL MASTER</code>. Ducked <span class="mono">3&ndash;4 dB</span> by <code>SC_SPOTLIGHT</code></td></tr>
+          <tr><td><a href="#wide-hall"><code>WIDE MIX HALL</code></a></td><td>LABS strings, ANA 2 pads, octave guitars, BGVs</td><td>Inside <code>INSTRUMENT BUS</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Set returns <code>100%</code> wet. Feed them about <code>-18 dBFS</code>.</p>
+
+    <h3 id="drum-crush">DRUM PARALLEL CRUSH</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">VM FG-116 Vintage</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="fx-returns-crush" aria-label="Copy VM FG-116 Vintage settings"></button>
+          </div>
+          <dl class="kv" id="fx-returns-crush" data-copy-title="Slot 1 - VM FG-116 Vintage">
+            <div class="kv__item"><dt>Type</dt><dd>FET</dd></div>
+            <div class="kv__item"><dt>Ratio</dt><dd>10:1 (or All-Buttons <span class="chip">unverified</span>)</dd></div>
+            <div class="kv__item"><dt>Release</dt><dd>Fast</dd></div>
+            <div class="kv__item"><dt>Target GR</dt><dd>10&ndash;15 dB</dd></div>
+          </dl>
+          <p class="rack__why">Hard crush on shells only. Blend it under the dry kit for energy.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VBC FG-MU</span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VM FG-401 (British console channel comp)</span></span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JW BG-Drums, Pumpin&#39; mode</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+    <p>Blend reference from the guides: return at <code>-14 dB</code> (FG-MU) or <code>-14 to -18 dB</code> (JW BG-Drums) under the dry kit.</p>
+
+    <h3 id="snare-plate">SNARE PLATE</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Lustrous Plates</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">VERB</span>
+            <button type="button" class="copy-btn" data-copy="fx-returns-snare-plate" aria-label="Copy Lustrous Plates settings"></button>
+          </div>
+          <dl class="kv" id="fx-returns-snare-plate" data-copy-title="Slot 1 - Lustrous Plates">
+            <div class="kv__item"><dt>Plate</dt><dd>Steel</dd></div>
+            <div class="kv__item"><dt>Damper (decay)</dt><dd>Short, about 0.85&ndash;1.25 s by ear</dd></div>
+            <div class="kv__item"><dt>Pre-delay</dt><dd>20&ndash;35 ms</dd></div>
+            <div class="kv__item"><dt>Low cut</dt><dd>220 Hz</dd></div>
+            <div class="kv__item"><dt>High cut</dt><dd>7 kHz</dd></div>
+          </dl>
+          <p class="rack__why">A dense, dark plate gives the snare size without washing over guitars.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Sky Box, Plate</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">SSL PlateVerb</span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VerbSuite Classics, FG-16X, NonLin 2 program <span class="chip">unverified</span> (toms)</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+
+    <h3 id="vox-plate">VOX &amp; LEAD PLATE</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Lustrous Plates</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">VERB</span>
+            <button type="button" class="copy-btn" data-copy="fx-returns-vox-plate" aria-label="Copy Lustrous Plates settings"></button>
+          </div>
+          <dl class="kv" id="fx-returns-vox-plate" data-copy-title="Slot 1 - Lustrous Plates">
+            <div class="kv__item"><dt>Plate</dt><dd>Silver / Gold</dd></div>
+            <div class="kv__item"><dt>Damper (decay)</dt><dd>Medium, about 1.4&ndash;1.8 s by ear</dd></div>
+            <div class="kv__item"><dt>Pre-delay</dt><dd>30&ndash;45 ms</dd></div>
+            <div class="kv__item"><dt>Low cut</dt><dd>250 Hz</dd></div>
+            <div class="kv__item"><dt>High cut</dt><dd>6 kHz</dd></div>
+            <div class="kv__item"><dt>Dynamics: Reverb ducking</dt><dd>2&ndash;3 dB, external sidechain SC_SPOTLIGHT</dd></div>
+          </dl>
+          <p class="rack__why">Pre-delay keeps consonants dry. The duck lets the tail bloom only in gaps.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VerbSuite Classics, FG-480, Rich Plate program <span class="chip">unverified</span>, 35 ms, 1.4 s</span></span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Sky Box, Plate</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+
+    <h3 id="slap">VOX MICRO-PITCH &amp; SLAP</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Repeater</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">DELAY</span>
+            <button type="button" class="copy-btn" data-copy="fx-returns-slap" aria-label="Copy Repeater settings"></button>
+          </div>
+          <dl class="kv" id="fx-returns-slap" data-copy-title="Slot 1 - Repeater">
+            <div class="kv__item"><dt>Pan L / Pan R</dt><dd>Both near center (mono / narrow)</dd></div>
+            <div class="kv__item"><dt>Delay L / R</dt><dd>85&ndash;115 ms</dd></div>
+            <div class="kv__item"><dt>Feedback L / R</dt><dd>0%</dd></div>
+            <div class="kv__item"><dt>HPF L / R, LPF L / R</dt><dd>300 Hz, 3 kHz</dd></div>
+          </dl>
+          <p class="rack__why">One short repeat thickens the dry front-row vocal body.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaDelay</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">SSL X-Delay</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">kHs Pitch Shifter (optional)</h4>
+            <span class="chip">Kilohearts</span>
+            <span class="tag">PITCH</span>
+            <button type="button" class="copy-btn" data-copy="fx-returns-pitch" aria-label="Copy kHs Pitch Shifter (optional) settings"></button>
+          </div>
+          <dl class="kv" id="fx-returns-pitch" data-copy-title="Slot 2 - kHs Pitch Shifter (optional)">
+            <div class="kv__item"><dt>Pitch</dt><dd>&plusmn;0.08 st (about 8 cents), one instance per side <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Mix</dt><dd>100% (on a return)</dd></div>
+          </dl>
+          <p class="rack__why">A small pitch offset per side widens the slap without a chorus effect. The plugin has no Spread control.</p>
+        </div>
+      </li>
+    </ol>
+
+    <h3 id="tempo-delay">STEREO TEMPO DELAY</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Repeater</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">DELAY</span>
+            <button type="button" class="copy-btn" data-copy="fx-returns-tempo" aria-label="Copy Repeater settings"></button>
+          </div>
+          <dl class="kv" id="fx-returns-tempo" data-copy-title="Slot 1 - Repeater">
+            <div class="kv__item"><dt>Delay L / R</dt><dd>1/4 or 1/8 dotted</dd></div>
+            <div class="kv__item"><dt>Ping-Pong</dt><dd>ON</dd></div>
+            <div class="kv__item"><dt>Feedback L / R</dt><dd>20&ndash;30%</dd></div>
+            <div class="kv__item"><dt>HPF L / R, LPF L / R</dt><dd>300 Hz, 3.5 kHz</dd></div>
+            <div class="kv__item"><dt>Duck (compressor after Repeater)</dt><dd>3&ndash;4 dB by SC_SPOTLIGHT</dd></div>
+          </dl>
+          <p class="rack__why">The HPF and LPF keep repeats out of the 7-string low mids and the cymbals. Repeater has no ducker, so a keyed compressor follows it.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaDelay</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">SSL X-Delay</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+
+    <h3 id="wide-hall">WIDE MIX HALL</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">VerbSuite Classics (hall)</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">VERB</span>
+            <button type="button" class="copy-btn" data-copy="fx-returns-hall" aria-label="Copy VerbSuite Classics (hall) settings"></button>
+          </div>
+          <dl class="kv" id="fx-returns-hall" data-copy-title="Slot 1 - VerbSuite Classics (hall)">
+            <div class="kv__item"><dt>Device type</dt><dd>Hall</dd></div>
+            <div class="kv__item"><dt>Decay</dt><dd>2.0&ndash;2.8 s</dd></div>
+            <div class="kv__item"><dt>Pre-delay</dt><dd>40&ndash;60 ms</dd></div>
+            <div class="kv__item"><dt>HPF (ReaEQ after the reverb)</dt><dd>200 Hz</dd></div>
+            <div class="kv__item"><dt>LPF (ReaEQ after the reverb)</dt><dd>5.5 kHz</dd></div>
+          </dl>
+          <p class="rack__why">One album backdrop for strings, pads, octave guitars and BGVs. VerbSuite has only a 3-band Reverb EQ, with no HPF or LPF, so a ReaEQ follows it.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Sky Box, Cloud, Duck 40%, Width 140%</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">ValhallaSupermassive</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Dragonfly Hall Reverb</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Sky Box extras</span>
+        <p>Mono Low End (on/off) makes the low end of the tail mono. The manual gives no crossover frequency. Duck <code>0&ndash;100%</code> keeps fast parts dry. Kill fades the tail out at hard stops.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="soothe2-matrix">Global soothe2 matrix</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Bus / track</th><th scope="col">Low cut band</th><th scope="col">Depth &amp; mode</th><th scope="col">Controls / protects</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="vocals.html#lead-chain"><code>LEAD VOX BUS</code></a></td><td><span class="mono">350&ndash;400 Hz</span></td><td><span class="mono">2.5&ndash;4.5</span> Soft / Hard</td><td>Tames 2.5&ndash;4.5 kHz throat bite and sibilance. Protects chest body.</td></tr>
+          <tr><td><a href="drums.html"><code>OVERHEADS / CYMBALS</code></a></td><td><span class="mono">1.5&ndash;2.0 kHz</span></td><td><span class="mono">2.0&ndash;3.5</span> Soft</td><td>Smooths crash wash. Leaves snare bleed untouched. Never on shells.</td></tr>
+          <tr><td><a href="guitars.html#rhythm-chain"><code>RHYTHM GTR BUS</code></a></td><td><span class="mono">1.5&ndash;2.0 kHz</span></td><td><span class="mono">2.0&ndash;3.0</span> Soft</td><td>Removes 3.5&ndash;4.5 kHz fizz. Protects 100&ndash;250 Hz chugs.</td></tr>
+          <tr><td><a href="guitars.html#lead-chain"><code>LEAD GTR BUS</code></a></td><td><span class="mono">600 Hz&ndash;1.0 kHz</span></td><td><span class="mono">2.0&ndash;3.5</span> Soft</td><td>Rounds 2.5&ndash;5 kHz ice-pick bends.</td></tr>
+          <tr><td><a href="orchestral.html#bus"><code>ORCH &amp; SYNTH BUS</code></a></td><td><span class="mono">300&ndash;500 Hz</span></td><td><span class="mono">2.0&ndash;3.5</span> Soft</td><td>Softens saw buzz and bow edge.</td></tr>
+          <tr><td><a href="mix-bus.html"><code>PRINT / MIX BUS</code></a> (opt)</td><td><span class="mono">250 Hz</span></td><td><span class="mono">0.8&ndash;1.2</span> max, Soft</td><td>Only if dense choruses stack upper-mid harshness.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 id="soothe2-rules">soothe2 rules</h3>
+    <ol class="steps">
+      <li><div><span class="steps__title">Never leave the low cut band at 20 Hz</span><p>The low cut band shapes what soothe2 reacts to. Full-band soothe2 reacts to sub and chugs. It pumps and guts the low end.</p></div></li>
+      <li><div><span class="steps__title">Soft by default</span><p>Soft keeps transients. Use Hard only for static artifacts, like a 3.2 kHz cab whistle.</p></div></li>
+      <li><div><span class="steps__title">Oversample on render</span><p>Set the offline rendering quality higher than real-time. Use <code>1x</code> or <code>2x</code> Oversample while mixing and <code>4x</code> for the offline bounce <span class="chip">unverified</span>.</p></div></li>
+      <li><div><span class="steps__title">Watch Depth</span><p>Above <code>3.5</code> on guitars or vocals the source goes flat. The blueprint allows up to <code>4.5</code> on bright screams only.</p></div></li>
+      <li><div><span class="steps__title">Keep Sharpness and Selectivity at 7 or below</span><p>Higher values act like narrow comb filters. Sustained notes flange.</p></div></li>
+      <li><div><span class="steps__title">Level-match</span><p>soothe2 output is quieter. Trim the output before you compare bypass.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2 id="problems">Problem &rarr; fix</h2>
+    <div class="table-wrap">
+      <table class="table table--pf">
+        <thead>
+          <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Reverb wash masks the vocal</td><td>Duck the plate <code>2&ndash;3 dB</code> from <code>SC_SPOTLIGHT</code>.</td><td>Lustrous Plates / SC_SPOTLIGHT</td></tr>
+          <tr><td>Delay clutters guitar low mids</td><td>HPF <code>300 Hz</code>, LPF <code>3.5 kHz</code> on both channels.</td><td>Repeater</td></tr>
+          <tr><td>Hall muddies the low end</td><td>HPF <code>200 Hz</code> after VerbSuite. On Sky Box, turn Mono Low End ON.</td><td>ReaEQ / Sky Box</td></tr>
+          <tr><td>Cymbals warble with snare hits</td><td>Overheads soothe2 low cut band below <code>1.5 kHz</code>. Raise it.</td><td>soothe2</td></tr>
+          <tr><td>Low end pumps and thins</td><td>soothe2 low cut band left at <code>20 Hz</code>. Set the matrix value.</td><td>soothe2</td></tr>
+          <tr><td>Sustained notes flange</td><td>Sharpness and Selectivity above <code>7</code>. Lower them.</td><td>soothe2</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="page-foot">
+    <span class="label">Sources</span>
+    <ol class="sources">
+      <li>WAP studio mixing blueprint (REAPER console manual), Sec 09 FX Returns &amp; soothe2 Matrix. Primary.</li>
+      <li>Modern Metal Mixing Plugin Deep Dive: 1.2&ndash;1.6, 3.4.</li>
+      <li>JST &amp; JW Modern Metal Mixing Guide: 3D Sky Box, 5.3 JW BG-Drums.</li>
+      <li>Slate Digital Modern Metal Mix Guide: Lustrous Plates, VerbSuite Classics, Repeater, Section 4.1 FG-MU.</li>
+    </ol>
+  </footer>
 
 </div>
 </main>

@@ -18,11 +18,156 @@
     <div class="goal">
       <span class="gchip gchip--lg gchip--synth" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Content lands in phase 2.</p>
+      <p class="goal__text">Atmosphere sits inside the shared returns. Built-in synth FX never clutter the low mids or collapse the width.</p>
     </div>
   </header>
 
-  <div class="stub">This page is a placeholder. Use <kbd>Ctrl K</kbd> to jump to another page.</div>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Deep research lands in phase 3</span>
+        <p>Sources cover ANA 2 synths and the shared bus. Impacts, hits and transition SFX have no settings in the sources yet.</p>
+      </div>
+    </div>
+
+  <section class="section">
+    <h2 id="built-in-fx">Built-in FX rules (ANA 2)</h2>
+    <p>Strip or dial down preset reverbs and delays. Every layer then sits in <code>WIDE MIX HALL</code> or <code>STEREO TEMPO DELAY</code>.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Part</th><th scope="col">Internal reverb</th><th scope="col">Internal delay / filter</th><th scope="col">Compression</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Arps, plucks, synth bass</td><td><span class="mono">0% (OFF)</span></td><td>Cut the delay slot Dry/Wet <span class="mono">50&ndash;70%</span>, delay High Pass <span class="mono">300 Hz</span></td><td><span class="mono">0&ndash;2 dB GR</span> max</td></tr>
+          <tr><td>Pads, risers</td><td><span class="mono">15&ndash;25%</span> max</td><td>HPF <span class="mono">250&ndash;400 Hz</span>, scoop <span class="mono">-3 dB @ 1&ndash;3 kHz</span></td><td><span class="mono">0&ndash;2 dB GR</span> max</td></tr>
+          <tr><td>Sub drops</td><td>None</td><td>Mono below <span class="mono">150 Hz</span></td><td><span class="mono">3&ndash;5 dB GR</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Signature preset delays</span>
+        <p>Keep a preset delay only in exposed intros and breakdowns. Cut it everywhere else.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="pads">Pads &amp; aux synths</h2>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST EQ</h4>
+            <span class="chip">JST</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="synths-sfx-pad-eq" aria-label="Copy JST EQ settings"></button>
+          </div>
+          <dl class="kv" id="synths-sfx-pad-eq" data-copy-title="Slot 1 - JST EQ">
+            <div class="kv__item"><dt>High Pass</dt><dd>250&ndash;400 Hz</dd></div>
+            <div class="kv__item"><dt>Peak (scoop)</dt><dd>-3 dB @ 1&ndash;3 kHz</dd></div>
+          </dl>
+          <p class="rack__why">Clears low-mid room for guitars and bass. The scoop clears the vocal zone.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaEQ</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+
+    <h3 id="arps">Arps &amp; plucks</h3>
+    <p>Internal reverb off. Delay Dry/Wet cut and delay High Pass at <code>300 Hz</code>. Send arps and plucks to <code>STEREO TEMPO DELAY</code>.</p>
+
+    <h3 id="synth-sends">Synth sends</h3>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Synth sends</span>
+        <button type="button" class="copy-btn" data-copy="synths-sfx-syn-sends" aria-label="Copy Synth sends"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="synths-sfx-syn-sends" data-copy-title="Synth sends">
+          <div class="kv__item"><dt>Pads</dt><dd>&rarr; WIDE MIX HALL</dd></div>
+          <div class="kv__item"><dt>Arps / plucks</dt><dd>&rarr; STEREO TEMPO DELAY</dd></div>
+          <div class="kv__item"><dt>Output</dt><dd>ORCH &amp; SYNTH BUS</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="risers-impacts">Risers, impacts &amp; sub drops</h2>
+
+    <h3 id="risers">Risers</h3>
+    <p>Treat risers like pads. Internal reverb <code>15&ndash;25%</code> max. HPF <code>250&ndash;400 Hz</code>. Compression <code>0&ndash;2 dB GR</code> max.</p>
+
+    <h3 id="sub-drops">Sub drops</h3>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Sub drops</span>
+        <button type="button" class="copy-btn" data-copy="synths-sfx-sub" aria-label="Copy Sub drops"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="synths-sfx-sub" data-copy-title="Sub drops">
+          <div class="kv__item"><dt>Width</dt><dd>Mono below 150 Hz</dd></div>
+          <div class="kv__item"><dt>Compression</dt><dd>3&ndash;5 dB GR</dd></div>
+          <div class="kv__item"><dt>Duck</dt><dd>2&ndash;3 dB by SC_KICK</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p>The kick ducks the drop so both keep their punch.</p>
+
+    <h3 id="impacts">Impacts &amp; transitions</h3>
+    <p>Sources give no impact settings. JST Sky Box has transition tools:</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Sky Box control</th><th scope="col">Use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Blood mode</td><td>Ambient reverb with aggressive modulation, for cinematic breakdown transitions. Its extra control, Bleed Out, modulates the input with white noise.</td></tr>
+          <tr><td>Kill</td><td>Fades out the tail at hard stops and breakdown drops.</td></tr>
+          <tr><td>Freeze</td><td>Holds the current tail as a drone.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="bus">ORCH &amp; SYNTH BUS</h2>
+    <p>Synths share the strings bus: JW BG-Keys <code>2&ndash;3 dB GR</code>, optional soothe2 with its low cut band at <code>300&ndash;500 Hz</code>. The BG-Keys Crush limiter caps synth filter-sweep peaks. Full chain: <a href="orchestral.html#bus">Orchestral, ORCH &amp; SYNTH BUS</a>.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="problems">Problem &rarr; fix</h2>
+    <div class="table-wrap">
+      <table class="table table--pf">
+        <thead>
+          <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Low-mid delay clutter</td><td>Cut the delay Dry/Wet <code>50&ndash;70%</code>. Set the delay High Pass to <code>300 Hz</code>.</td><td>ANA 2</td></tr>
+          <tr><td>Stereo width collapses</td><td>Internal reverb off or <code>15&ndash;25%</code> max. Use the shared hall.</td><td>ANA 2 / WIDE MIX HALL</td></tr>
+          <tr><td>Sub drop fights the kick</td><td>Mono below <code>150 Hz</code>. Duck <code>2&ndash;3 dB</code> from the kick.</td><td>SC_KICK</td></tr>
+          <tr><td>Saw buzz sits on top of guitars</td><td>Low cut band <code>300&ndash;500 Hz</code>, Depth <code>2.0&ndash;3.5</code>, Soft.</td><td>soothe2 (bus)</td></tr>
+          <tr><td>Filter sweep spikes</td><td>Raise Crush until the spikes sit. BG-Keys has no Clip control.</td><td>JW BG-Keys</td></tr>
+          <tr><td>Tail rings into a hard stop</td><td>Hit Kill.</td><td>JST Sky Box</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="page-foot">
+    <span class="label">Sources</span>
+    <ol class="sources">
+      <li>WAP studio mixing blueprint (REAPER console manual), Sec 08 Synths &amp; Strings. Primary.</li>
+      <li>Modern Metal Mixing Plugin Deep Dive: 1.3 (orchestral / synth bus).</li>
+      <li>JST &amp; JW Modern Metal Mixing Guide: 2E BG-Keys, 3D Sky Box.</li>
+    </ol>
+  </footer>
 
 </div>
 </main>

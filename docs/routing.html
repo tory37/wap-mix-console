@@ -14,15 +14,281 @@
 
   <header class="page-header">
     <div class="label">Setup / 02</div>
-    <h1>Routing</h1>
+    <h1>Folder &amp; Bus Routing</h1>
     <div class="goal">
       <span class="gchip gchip--lg gchip--master" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Content lands in phase 2.</p>
+      <p class="goal__text">Two-branch summing. <code>INSTRUMENT BUS</code> and <code>VOCAL MASTER</code> both feed <code>PRINT / MIX BUS</code>. Three silent hubs carry every sidechain.</p>
     </div>
   </header>
 
-  <div class="stub">This page is a placeholder. Use <kbd>Ctrl K</kbd> to jump to another page.</div>
+  <section class="section">
+    <h2 id="schematic">Signal flow schematic</h2>
+    <p>All instrument buses live in one parent folder, <code>INSTRUMENT BUS</code> ("ALL MUSIC"). All vocal tracks and vocal FX returns live in <code>VOCAL MASTER</code>. Both folders route into <code>PRINT / MIX BUS</code>.</p>
+
+    <figure class="flow flow--scroll">
+      <svg viewBox="0 0 960 560" role="img" aria-labelledby="routing-svg-title routing-svg-desc">
+        <title id="routing-svg-title">REAPER folder and bus routing</title>
+        <desc id="routing-svg-desc">INSTRUMENT BUS holds Drum, Bass, Guitar and Orch and Synth buses. VOCAL MASTER holds lead vox, BGVs and vocal FX returns. Both feed PRINT / MIX BUS, which feeds MASTER. Silent hubs: SC_KICK ducks BASS LOW. SC_SPOTLIGHT ducks INSTRUMENT BUS and the vocal plate and tempo delay.</desc>
+
+        <!-- INSTRUMENT BUS folder -->
+        <rect class="sf-node sf-node--folder" x="10" y="10" width="380" height="540" rx="4"/>
+        <text class="sf-title" x="26" y="36">INSTRUMENT BUS</text>
+        <text class="sf-sub" x="26" y="54">"ALL MUSIC" folder  -6 to -5 dBFS peak</text>
+
+        <rect class="sf-node" x="26" y="64" width="350" height="104" rx="4"/>
+        <circle class="sf-dot--drums" cx="42" cy="86" r="4"/>
+        <text class="sf-title" x="54" y="91">DRUM BUS</text>
+        <text class="sf-sub" x="42" y="114">Kick, Snare, Toms, OH, Rooms</text>
+        <text class="sf-sub" x="42" y="134">+ PARALLEL CRUSH, SNARE PLATE returns</text>
+        <text class="sf-sub sf-sub--ok" x="42" y="154">-8 to -6 dBFS peak</text>
+
+        <rect class="sf-node" x="26" y="180" width="350" height="104" rx="4"/>
+        <circle class="sf-dot--bass" cx="42" cy="202" r="4"/>
+        <text class="sf-title" x="54" y="207">BASS BUS</text>
+        <text class="sf-sub" x="42" y="230">BASS LOW  &lt;180 Hz, 100% mono</text>
+        <text class="sf-sub" x="42" y="250">BASS HIGH &gt;180 Hz grit</text>
+        <text class="sf-sub sf-sub--ok" x="42" y="270">-8 to -6 dBFS peak</text>
+
+        <rect class="sf-node" x="26" y="296" width="350" height="104" rx="4"/>
+        <circle class="sf-dot--guitars" cx="42" cy="318" r="4"/>
+        <text class="sf-title" x="54" y="323">GUITAR BUSES</text>
+        <text class="sf-sub" x="42" y="346">RHYTHM  100% L/R, 100% dry</text>
+        <text class="sf-sub" x="42" y="366">LEAD center  |  OCTAVE +/-35%</text>
+        <text class="sf-sub sf-sub--ok" x="42" y="386">-8 to -6 dBFS peak</text>
+
+        <rect class="sf-node" x="26" y="412" width="350" height="124" rx="4"/>
+        <circle class="sf-dot--orch" cx="42" cy="434" r="4"/>
+        <circle class="sf-dot--synth" cx="56" cy="434" r="4"/>
+        <text class="sf-title" x="68" y="439">ORCH &amp; SYNTH BUS</text>
+        <text class="sf-sub" x="42" y="462">ANA 2 synths, LABS strings</text>
+        <text class="sf-sub" x="42" y="482">+ WIDE MIX HALL return</text>
+        <text class="sf-sub" x="42" y="502">Soothe2 &gt; JW BG-Keys glue</text>
+
+        <!-- VOCAL MASTER folder -->
+        <rect class="sf-node sf-node--folder" x="430" y="10" width="250" height="200" rx="4"/>
+        <circle class="sf-dot--vocals" cx="446" cy="31" r="4"/>
+        <text class="sf-title" x="458" y="36">VOCAL MASTER</text>
+        <text class="sf-sub sf-sub--ok" x="446" y="56">-6 to -5 dBFS peak</text>
+        <text class="sf-sub" x="446" y="84">LEAD VOX BUS  dead mono</text>
+        <text class="sf-sub" x="446" y="104">BGV &amp; HARMONY 85-100% L/R</text>
+        <circle class="sf-dot--fx" cx="450" cy="128" r="4"/>
+        <text class="sf-sub" x="462" y="132">FX returns, inside folder:</text>
+        <text class="sf-sub" x="462" y="150">VOX &amp; LEAD PLATE</text>
+        <text class="sf-sub" x="462" y="168">SLAP, STEREO TEMPO DELAY</text>
+        <text class="sf-sub" x="446" y="196">Mute = clean instrumental</text>
+
+        <!-- Sidechain hubs -->
+        <rect class="sf-node sf-node--sc" x="430" y="250" width="250" height="290" rx="4"/>
+        <text class="sf-title" x="446" y="278">SIDECHAIN HUBS</text>
+        <text class="sf-sub sf-sub--danger" x="446" y="296">Master/Parent Send OFF</text>
+        <circle class="sf-dot--sc" cx="450" cy="325" r="4"/>
+        <text class="sf-title" x="462" y="330">SC_KICK</text>
+        <text class="sf-sub" x="462" y="348">ducks BASS LOW, sub drops</text>
+        <circle class="sf-dot--sc" cx="450" cy="379" r="4"/>
+        <text class="sf-title" x="462" y="384">SC_SNARE</text>
+        <text class="sf-sub" x="462" y="402">optional dip: gtr, synths</text>
+        <circle class="sf-dot--sc" cx="450" cy="435" r="4"/>
+        <text class="sf-title" x="462" y="440">SC_SPOTLIGHT</text>
+        <text class="sf-sub" x="462" y="458">ducks INSTRUMENT BUS</text>
+        <text class="sf-sub" x="462" y="476">ducks PLATE, TEMPO DELAY</text>
+        <text class="sf-sub sf-sub--danger" x="462" y="514">never VOCAL MASTER / PRINT</text>
+
+        <!-- PRINT and MASTER -->
+        <rect class="sf-node sf-node--print" x="730" y="110" width="220" height="110" rx="4"/>
+        <text class="sf-title sf-title--accent" x="746" y="138">PRINT / MIX BUS</text>
+        <text class="sf-sub sf-sub--ok" x="746" y="160">-4 to -3 dBFS in</text>
+        <text class="sf-sub" x="746" y="182">VCC &gt; FG-Grey &gt; Max #1</text>
+        <text class="sf-sub" x="746" y="202">&gt; Soothe2 &gt; GClip</text>
+
+        <rect class="sf-node sf-node--master" x="730" y="300" width="220" height="104" rx="4"/>
+        <text class="sf-title sf-title--accent" x="746" y="328">MASTER</text>
+        <text class="sf-sub" x="746" y="350">JST Maximizer #2, Rock preset</text>
+        <text class="sf-sub sf-sub--ok" x="746" y="370">ceiling -0.8 to -1.0</text>
+        <text class="sf-sub" x="746" y="390">-8.5 to -7.5 LUFS</text>
+
+        <!-- Audio wires -->
+        <path class="sf-wire" d="M680 130 H722"/>
+        <polygon class="sf-arrow" points="722,124 730,130 722,136"/>
+        <path class="sf-wire" d="M390 232 H710 V196 H722"/>
+        <polygon class="sf-arrow" points="722,190 730,196 722,202"/>
+        <text class="sf-sub" x="560" y="226">ALL MUSIC</text>
+        <path class="sf-wire" d="M840 220 V292"/>
+        <polygon class="sf-arrow" points="834,292 840,300 846,292"/>
+
+        <!-- Sidechain wires -->
+        <path class="sf-wire sf-wire--sc" d="M430 326 H404 V250 H388"/>
+        <polygon class="sf-arrow sf-arrow--sc" points="388,244 380,250 388,256"/>
+        <path class="sf-wire sf-wire--sc" d="M430 440 H416 V30 H398"/>
+        <polygon class="sf-arrow sf-arrow--sc" points="398,24 390,30 398,36"/>
+        <path class="sf-wire sf-wire--sc" d="M680 458 H702 V160 H688"/>
+        <polygon class="sf-arrow sf-arrow--sc" points="688,154 680,160 688,166"/>
+      </svg>
+      <figcaption class="flow__legend">
+        <span class="flow__legend-item"><span class="flow__swatch"></span>Audio path</span>
+        <span class="flow__legend-item"><span class="flow__swatch flow__swatch--sc"></span>Sidechain key (pre-fader, ch 3/4)</span>
+      </figcaption>
+    </figure>
+
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Why two branches</span>
+        <p>Vocals never hit the instrument glue. Screams cannot pump the guitar wall. Muting <code>VOCAL MASTER</code> prints a clean instrumental in one pass.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="folders">Folder map</h2>
+    <p>Peak targets per folder. Full ladder on <a href="gain-staging.html#meter-ladder">Gain Staging</a>.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Folder / bus</th><th scope="col">Contains</th><th scope="col">Peak target</th><th scope="col">Chain</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <code>INSTRUMENT BUS</code></td><td>All non-vocal buses, <code>WIDE MIX HALL</code></td><td class="mono val-warn">-6 to -5 dBFS</td><td>Receives <code>SC_SPOTLIGHT</code> duck</td></tr>
+          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> <a href="drums.html"><code>DRUM BUS</code></a></td><td>Kick, Snare, Toms, OH, Rooms, <code>DRUM PARALLEL CRUSH</code>, <code>SNARE PLATE</code></td><td class="mono val-ok">-8 to -6 dBFS</td><td>FG-Grey 4:1 &gt; GClip</td></tr>
+          <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> <a href="bass.html"><code>BASS BUS</code></a></td><td><code>BASS LOW</code> (&lt;180 Hz), <code>BASS HIGH</code> (&gt;180 Hz)</td><td class="mono val-ok">-8 to -6 dBFS</td><td>JST BG-Bass</td></tr>
+          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> <a href="guitars.html">Guitar buses</a></td><td><code>RHYTHM GTR BUS</code>, <code>LEAD GTR BUS</code>, <code>OCTAVE / MELODY GTR</code></td><td class="mono val-ok">-8 to -6 dBFS</td><td>JW / JST BG-Guitars &gt; Soothe2</td></tr>
+          <tr><td><span class="gchip gchip--orch" aria-hidden="true"></span> <a href="orchestral.html"><code>ORCH &amp; SYNTH BUS</code></a></td><td>ANA 2, Spitfire LABS, <code>WIDE MIX HALL</code> return</td><td class="mono val-ok">-8 to -6 dBFS</td><td>Soothe2 &gt; JW BG-Keys</td></tr>
+          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> <a href="vocals.html"><code>VOCAL MASTER</code></a></td><td><code>LEAD VOX BUS</code>, <code>BGV &amp; HARMONY</code>, vocal FX returns</td><td class="mono val-warn">-6 to -5 dBFS</td><td>Bypasses <code>INSTRUMENT BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="mix-bus.html"><code>PRINT / MIX BUS</code></a></td><td><code>INSTRUMENT BUS</code> + <code>VOCAL MASTER</code></td><td class="mono val-warn">-4 to -3 dBFS in</td><td>VCC &gt; FG-Grey &gt; Max #1 &gt; Soothe2 &gt; GClip</td></tr>
+          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="mix-bus.html#master">MASTER</a></td><td><code>PRINT / MIX BUS</code></td><td class="mono val-danger">-0.8 to -1.0 dBFS ceiling</td><td>JST Maximizer #2 (Rock preset)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="sidechain-hubs">Silent sidechain hubs</h2>
+    <p>Each hub is a utility track with no output to the mix. It feeds plugin detectors only. Fader moves on the source never change the duck.</p>
+
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Hub</th><th scope="col">Fed by</th><th scope="col">Keys</th><th scope="col">Target GR</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>SC_KICK</code></td><td>Kick, pre-fader, <code>0.0 dB</code></td><td><code>BASS LOW</code> ducker (after ReaLimit)<br>ANA 2 sub drops</td><td class="mono">2.5&ndash;3.5 dB<br>2&ndash;3 dB</td></tr>
+          <tr><td><code>SC_SNARE</code></td><td>Snare, pre-fader, <code>0.0 dB</code></td><td>Optional dynamic dip on Rhythm Gtr and Synths at <code>210 Hz</code> and <code>2.8 kHz</code></td><td class="mono">Optional</td></tr>
+          <tr><td><code>SC_SPOTLIGHT</code></td><td>Lead Vox + Lead Gtr, pre-fader</td><td><code>INSTRUMENT BUS</code> at <code>2.5&ndash;4 kHz</code><br><code>VOX &amp; LEAD PLATE</code><br><code>STEREO TEMPO DELAY</code></td><td class="mono">-1.5 to -2.5 dB<br>2&ndash;3 dB<br>3&ndash;4 dB</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 id="hub-setup">Hub setup in REAPER</h3>
+    <ol class="steps">
+      <li><div><span class="steps__title">Create the hub track</span><p>Name it <code>SC_KICK</code>, <code>SC_SNARE</code> or <code>SC_SPOTLIGHT</code>.</p></div></li>
+      <li><div><span class="steps__title">Uncheck Master/Parent Send</span><p>Open the hub's Route window. The hub is now silent in the mix.</p></div></li>
+      <li><div><span class="steps__title">Feed the hub</span><p>Send the source track to the hub. Mode: Pre-Fader (Post-FX). Level: <code>0.0 dB</code>.</p></div></li>
+      <li><div><span class="steps__title">Set 4 channels on the target</span><p>On the ducked track, set Track Channels from <code>2</code> to <code>4</code>.</p></div></li>
+      <li><div><span class="steps__title">Send hub to target</span><p>Create a Pre-Fader (Post-FX) send. Audio: <code>1/2</code> to <code>3/4</code>.</p></div></li>
+      <li><div><span class="steps__title">Point the detector at 3/4</span><p>ReaComp: Detector input = <code>Auxiliary Input L+R</code>. TDR Nova: Sidechain Input = EXT SC.</p></div></li>
+    </ol>
+
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Hub routing values</span>
+        <button type="button" class="copy-btn" data-copy="hub-values" aria-label="Copy hub routing values"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="hub-values" data-copy-title="Sidechain hub routing">
+          <div class="kv__item"><dt>Hub Master/Parent Send</dt><dd>OFF</dd></div>
+          <div class="kv__item"><dt>Source &gt; hub</dt><dd>Pre-Fader (Post-FX), 0.0 dB</dd></div>
+          <div class="kv__item"><dt>Target track channels</dt><dd>4</dd></div>
+          <div class="kv__item"><dt>Hub &gt; target</dt><dd>Audio 1/2 to 3/4, Pre-Fader</dd></div>
+          <div class="kv__item"><dt>Detector</dt><dd>Auxiliary Input L+R</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <h3 id="spotlight">SC_SPOTLIGHT duck on INSTRUMENT BUS</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">TDR Nova</h4>
+            <span class="chip">Tokyo Dawn</span>
+            <span class="tag">DYN EQ</span>
+            <button type="button" class="copy-btn" data-copy="spot-nova" aria-label="Copy SC_SPOTLIGHT ducker settings"></button>
+          </div>
+          <dl class="kv" id="spot-nova" data-copy-title="INSTRUMENT BUS - SC_SPOTLIGHT ducker (TDR Nova)">
+            <div class="kv__item"><dt>Key</dt><dd>SC_SPOTLIGHT (Sidechain Input = EXT SC)</dd></div>
+            <div class="kv__item"><dt>Band</dt><dd>2.5&ndash;4 kHz, centered 3 kHz</dd></div>
+            <div class="kv__item"><dt>Target</dt><dd>-1.5 to -2.5 dB</dd></div>
+          </dl>
+          <p class="rack__why">Opens a pocket for the lead vocal and solos. The guitar wall keeps its body.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaComp, Auxiliary L+R detector</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2 id="fx-returns">Where FX returns live</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Return</th><th scope="col">Sums into</th><th scope="col">Why</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>DRUM PARALLEL CRUSH</code></td><td><code>DRUM BUS</code></td><td>Drum bus glue hits dry and crush together.</td></tr>
+          <tr><td><code>SNARE PLATE</code></td><td><code>DRUM BUS</code></td><td>Plate moves with the kit level.</td></tr>
+          <tr><td><code>WIDE MIX HALL</code></td><td><code>ORCH &amp; SYNTH BUS</code> (inside <code>INSTRUMENT BUS</code>)</td><td>Hall stays out of the vocal branch.</td></tr>
+          <tr><td><code>VOX &amp; LEAD PLATE</code></td><td><code>VOCAL MASTER</code></td><td>Mute <code>VOCAL MASTER</code> = no vocal tails in the instrumental.</td></tr>
+          <tr><td><code>VOX MICRO-PITCH &amp; SLAP</code></td><td><code>VOCAL MASTER</code></td><td>Same reason.</td></tr>
+          <tr><td><code>STEREO TEMPO DELAY</code></td><td><code>VOCAL MASTER</code></td><td>Same reason.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Return chains live on <a href="fx-returns.html">FX Returns</a>.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="guardrails">Do / do not</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Track / bus</th><th scope="col">Do</th><th scope="col">Do not</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Vocals (Lead Vox, BGVs)</td><td>Route into <code>VOCAL MASTER</code>, then <code>PRINT / MIX BUS</code>.</td><td class="val-danger">Never route into <code>INSTRUMENT BUS</code>. Never bypass <code>PRINT / MIX BUS</code>.</td></tr>
+          <tr><td>Spatial FX returns</td><td>Crush and Snare Plate to <code>DRUM BUS</code>. Hall to <code>INSTRUMENT BUS</code>. Vocal FX to <code>VOCAL MASTER</code>.</td><td class="val-danger">Never put vocal plates or delays outside <code>VOCAL MASTER</code>.</td></tr>
+          <tr><td><code>SC_SPOTLIGHT</code></td><td>Send from Lead Vox and Lead Gtr, pre-fader. Receive on <code>INSTRUMENT BUS</code>, Vox Plate, Tempo Delay.</td><td class="val-danger">Never receive on <code>VOCAL MASTER</code> or <code>PRINT / MIX BUS</code>. Vocals would duck themselves.</td></tr>
+          <tr><td><code>BASS LOW</code> (&lt;180 Hz)</td><td>Route to <code>BASS BUS</code>, then <code>INSTRUMENT BUS</code>. 100% mono.</td><td class="val-danger">Never send to reverb, delay or chorus.</td></tr>
+          <tr><td>All three hubs</td><td>Send to detector inputs, channels 3/4.</td><td class="val-danger">Never leave Master/Parent Send on. Silent triggers would double the audio.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="problems">Problem &rarr; fix</h2>
+    <div class="table-wrap">
+      <table class="table table--pf">
+        <thead>
+          <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Vocals pump the guitar wall</td><td>Move vocals out of <code>INSTRUMENT BUS</code>. Route them to <code>VOCAL MASTER</code>.</td><td>REAPER folders</td></tr>
+          <tr><td>Kick fader automation changes the bass duck</td><td>Key the ducker from <code>SC_KICK</code>, fed pre-fader.</td><td>Silent hub, ch 3/4</td></tr>
+          <tr><td>Kick suddenly louder after adding a hub</td><td>Uncheck Master/Parent Send on the hub.</td><td>Route window</td></tr>
+          <tr><td>Lead vocal ducks itself</td><td>Remove the <code>SC_SPOTLIGHT</code> receive from <code>VOCAL MASTER</code> and <code>PRINT / MIX BUS</code>.</td><td>Route window</td></tr>
+          <tr><td>Reverb tails in the instrumental print</td><td>Move vocal returns inside <code>VOCAL MASTER</code>.</td><td>REAPER folders</td></tr>
+          <tr><td>Sub sounds wide or phasey</td><td>Remove every FX send from <code>BASS LOW</code>. Keep it mono.</td><td>JS: Utility/chanmix2</td></tr>
+          <tr><td>Ducker never reacts</td><td>Set target to 4 channels. Set send to 1/2 &gt; 3/4. Set detector to Auxiliary L+R.</td><td>ReaComp / TDR Nova</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="page-foot">Sources: original WAP blueprint manual (primary); REAPER modern metal architecture guide (hub setup, 4-channel detector routing).</footer>
 
 </div>
 </main>
