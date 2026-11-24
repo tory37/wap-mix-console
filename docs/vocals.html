@@ -30,7 +30,9 @@
           <tr><th scope="col">Bus</th><th scope="col">Pan</th><th scope="col">Sends</th><th scope="col">Parent</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>vox_ld_bus</code></td><td><span class="mono">Mono center</span></td><td>Pre-fader &rarr; <code>sc_spotlight</code>. Post-fader &rarr; <code>fx_vox_plate</code>, <code>fx_vox_slap</code>, <code>fx_vox_dly</code>.</td><td><code>vocal_master</code></td></tr>
+          <tr><td><code>vox_ld_bus</code></td><td><span class="mono">Mono center</span></td><td>Post-fader &rarr; <code>fx_vox_plate</code>, <code>fx_vox_slap</code>, <code>fx_vox_dly</code>. <code>vox_ld</code> and <code>vox_scrm</code> each send pre-fader &rarr; <code>sc_spotlight</code>.</td><td><code>vocal_master</code></td></tr>
+          <tr><td><code>vox_ld_dbl_bus</code></td><td><span class="mono">100% L/R</span></td><td>None. Sums into <code>vox_ld_bus</code>.</td><td><code>vox_ld_bus</code></td></tr>
+          <tr><td><code>vox_scrm_dbl_bus</code></td><td><span class="mono">100% L/R</span></td><td>None. Sums into <code>vox_ld_bus</code>.</td><td><code>vox_ld_bus</code></td></tr>
           <tr><td><code>vox_bgv_bus</code></td><td><span class="mono">85&ndash;100% L/R</span></td><td>Post-fader &rarr; <code>fx_vox_plate</code>, <code>fx_vox_hall</code>.</td><td><code>vocal_master</code></td></tr>
         </tbody>
       </table>
@@ -289,6 +291,7 @@
 
     <h3 id="lead-doubles">Lead doubles</h3>
     <p>Do not double every line. Erik Ron skips doubles on many parts. A single lead reads closer and clearer in verses. Save doubles for choruses and big screams.</p>
+    <p>Doubles thicken the lead, so they go with the lead, not with the BGVs. Put <code>vox_ld_dbl_l</code> and <code>vox_ld_dbl_r</code> in <code>vox_ld_dbl_bus</code>, inside <code>vox_ld_bus</code>. Joe Rickard sends the lead and its double to one bus so they hit one compressor together. Taylor Larson and the Nail The Mix vocal FAQ also glue doubles to the lead. No source found puts lead doubles in a BGV bus.</p>
     <div class="settings">
       <div class="settings__head">
         <span class="label">Lead doubles</span>
@@ -297,15 +300,47 @@
       <div class="settings__body">
         <dl class="kv" id="vocals-lead-doubles" data-copy-title="Lead doubles">
           <div class="kv__item"><dt>Verses</dt><dd>Single lead, dead center</dd></div>
-          <div class="kv__item"><dt>Tucked double</dt><dd>Pan about 1 o'clock (about 30% R), under the lead</dd></div>
-          <div class="kv__item"><dt>Chorus stereo pair</dt><dd>Two doubles, 85&ndash;100% L/R, for size without a second singer</dd></div>
-          <div class="kv__item"><dt>Double level</dt><dd>-6 to -10 dB under the lead (starting point)</dd></div>
-          <div class="kv__item"><dt>Breaths on doubles</dt><dd>Cut them. Keep breaths on the lead only (starting point)</dd></div>
-          <div class="kv__item"><dt>Routing</dt><dd>Doubles go to vox_bgv_bus, not vox_ld_bus (starting point)</dd></div>
+          <div class="kv__item"><dt>Routing</dt><dd>vox_ld_dbl_l / vox_ld_dbl_r &rarr; vox_ld_dbl_bus &rarr; vox_ld_bus. No sends of their own</dd></div>
+          <div class="kv__item"><dt>Pan</dt><dd>100% L / 100% R, width 0, tucked under the lead</dd></div>
+          <div class="kv__item"><dt>L / R balance</dt><dd>Same level on each side</dd></div>
+          <div class="kv__item"><dt>Double level</dt><dd>About -8 dB under the lead (starting point, no source)</dd></div>
+          <div class="kv__item"><dt>Compression</dt><dd>Copy of the lead compression, or about half of it</dd></div>
+          <div class="kv__item"><dt>De-essing</dt><dd>Hard, on the doubles only</dd></div>
+          <div class="kv__item"><dt>Breaths on doubles</dt><dd>Cut them. Keep breaths on the lead only</dd></div>
         </dl>
       </div>
     </div>
-    <p>Bendeth tucked one double near center under the lead, plus a stereo pair. Breaking Benjamin's background vocals on <em>Dark Before Dawn</em> come from the band's other singers, per Ben Burnley.</p>
+    <p>Andrew Wade copies the lead compressor onto the doubles. He pans them hard L/R, tucked quietly under the main vocal, and de-esses only the doubles, hard, so the lead keeps its top end. Rickard uses about half the lead compression on the double and cuts its breaths. Mike Senior: give split doubles equal levels, or the image goes lopsided. Hard-panned layers drop about 3 dB in mono, so check mono.</p>
+    <p>Breaking Benjamin's background vocals on <em>Dark Before Dawn</em> come from the band's other singers, per Ben Burnley. Those are BGVs: they go in <code>vox_bgv_bus</code>, not with the doubles.</p>
+
+    <h3 id="scream-doubles">Scream doubles</h3>
+    <p>Keep the main scream on <code>vox_scrm</code>, center. Add a hard L/R pair, <code>vox_scrm_dbl_l</code> and <code>vox_scrm_dbl_r</code>, in <code>vox_scrm_dbl_bus</code>. The pair is a texture layer under the main scream, not a second lead. Michael Lessard pulls his scream layers down as a texture layer and glues them with compression. Buster Odeholm sends his panned layers to a pan bus with its own compressor.</p>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Scream doubles</span>
+        <button type="button" class="copy-btn" data-copy="vocals-scream-doubles" aria-label="Copy Scream doubles settings"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="vocals-scream-doubles" data-copy-title="Scream doubles">
+          <div class="kv__item"><dt>Main scream</dt><dd>vox_scrm, center</dd></div>
+          <div class="kv__item"><dt>Pair</dt><dd>vox_scrm_dbl_l / vox_scrm_dbl_r, 100% L / 100% R, width 0</dd></div>
+          <div class="kv__item"><dt>Pair level</dt><dd>About -6 dB under the main scream (starting point, no source)</dd></div>
+          <div class="kv__item"><dt>vox_scrm_dbl_bus</dt><dd>Glue compressor on the bus</dd></div>
+          <div class="kv__item"><dt>Verses</dt><dd>Narrow: main scream plus a layer tucked under it</dd></div>
+          <div class="kv__item"><dt>Breakdowns</dt><dd>Wide: bring the L/R pair up</dd></div>
+          <div class="kv__item"><dt>Quad</dt><dd>Second pair in the same vox_scrm_dbl_bus</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p>Josh Schroeder keeps verses narrow and pans the stacked layers wide in breakdowns. He fades the extra layers out at transitions. Lessard quad-tracks screams: two mid takes and two high takes, each pair hard L/R, all real separate takes. For a quad, add the second pair as two more tracks inside <code>vox_scrm_dbl_bus</code>, with the same width <span class="mono">0%</span>.</p>
+    <p>Use the layers per section, not on every line. Mute or automate them where the main scream must stand alone.</p>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Doubles do not key the spotlight</span>
+        <p>Only <code>vox_ld</code> and <code>vox_scrm</code> send to <code>sc_spotlight</code>. The doubles come in on choruses and breakdowns, where the guitars need to be biggest. If they fed the key, they would push the instruments down further right there.</p>
+      </div>
+    </div>
 
     <h3 id="bgv-chain">vox_bgv_bus chain</h3>
     <ol class="rack">
@@ -398,13 +433,13 @@
       </div>
       <div class="settings__body">
         <dl class="kv" id="vocals-lv-sends" data-copy-title="vox_ld_bus sends">
-          <div class="kv__item"><dt>Pre-fader</dt><dd>sc_spotlight</dd></div>
           <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_plate</dd></div>
           <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_slap (Bendeth slap: 80 ms)</dd></div>
           <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_dly (automated)</dd></div>
         </dl>
       </div>
     </div>
+    <p>The spotlight key leaves from the tracks, not the bus: <code>vox_ld</code> and <code>vox_scrm</code> each send pre-fader <code>0 dB</code> to <code>sc_spotlight</code>. The doubles buses reach the returns only through <code>vox_ld_bus</code>.</p>
 
     <h3 id="delay-throws">Delay throws</h3>
     <ol class="steps">
@@ -470,6 +505,14 @@
       <li>URM Podcast EP126, Erik Ron, URM Academy.</li>
       <li>Using Trackspacer to carve a pocket for vocals (Joey Sturgis, Oceano), Nail The Mix.</li>
       <li>Breaking Benjamin's Ben Burnley talks Dark Before Dawn, Loudwire, 2015.</li>
+      <li>Nail The Mix: In Flames, Joe Rickard. Lead and double on one bus, half compression, breath cuts.</li>
+      <li>Nail The Mix: Asking Alexandria, Taylor Larson. All vocals into one master vocal bus.</li>
+      <li>Nail The Mix: A Day To Remember, Andrew Wade. Lead compressor copied to the doubles, hard de-essing, hard L/R pan.</li>
+      <li>Nail The Mix: The Contortionist, Michael Lessard. Quad-tracked screams as a texture layer.</li>
+      <li>Nail The Mix: Lorna Shore, Josh Schroeder. Narrow verses, wide breakdowns.</li>
+      <li>Nail The Mix: Buster Odeholm. Panned scream layers on a pan bus with its own compressor.</li>
+      <li>Nail The Mix: Metal Vocal Mixing FAQs. Doubles panned L/R, slightly lower than the lead.</li>
+      <li>How should you pan vocals when double-tracking, Mike Senior, Sound On Sound. Equal L/R levels, mono check.</li>
     </ol>
   </footer>
 

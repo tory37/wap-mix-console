@@ -30,7 +30,7 @@
           <tr><th scope="col">Bus</th><th scope="col">Pan</th><th scope="col">Sends &amp; ducking</th><th scope="col">soothe2 low cut</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>gtr_rhy_bus</code></td><td><span class="mono">100% L/R</span></td><td>Zero reverb or delay sends. Ducked by <code>sc_snare</code> (210 Hz &amp; 2.8 kHz) and <code>sc_spotlight</code>.</td><td><span class="mono">1.5&ndash;2.0 kHz</span></td></tr>
+          <tr><td><code>gtr_rhy_bus</code></td><td><span class="mono">100% L/R</span></td><td>Zero reverb or delay sends. Ducked by <code>sc_snare</code> (210 Hz &amp; 2.8 kHz, key on 3/4) and <code>sc_spotlight</code> (key on 5/6).</td><td><span class="mono">1.5&ndash;2.0 kHz</span></td></tr>
           <tr><td><code>gtr_ld_bus</code></td><td><span class="mono">Center 0% to &plusmn;15%</span></td><td>Pre-fader <code>0.0 dB</code> &rarr; <code>sc_spotlight</code>. Post-fader &rarr; <code>fx_inst_plate</code> and <code>fx_inst_dly</code>.</td><td><span class="mono">600 Hz&ndash;1.0 kHz</span></td></tr>
           <tr><td><code>gtr_mel_bus</code></td><td><span class="mono">&plusmn;30&ndash;40%</span></td><td>Keep out of <code>sc_spotlight</code>. Post-fader 20&ndash;30% &rarr; <code>fx_hall</code>.</td><td><span class="mono">None</span></td></tr>
         </tbody>
@@ -42,6 +42,30 @@
   <section class="section">
     <h2 id="rhythm">Rhythm guitars</h2>
     <p>Hard-pan the 7-string rhythms <code>100% L/R</code>. Keep them <strong>100% dry</strong>. JW BG-Guitars with Chug Slayer tames Drop G&ndash;Bb palm-mute boom.</p>
+
+    <h3 id="rhythm-layout">Track layout: amp blend</h3>
+    <p>The template builds an amp blend, not a quad. Both DIs play through two amp sims. Amp A carries the tone. Amp B, the clarity amp, sits under it.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Track</th><th scope="col">Role</th><th scope="col">Routing</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>gtr_rhy_bus</code></td><td>Rhythm bus, 6 channels. Holds the post-amp chain below.</td><td>Keys: <code>sc_snare</code> on 3/4, <code>sc_spotlight</code> on 5/6. Sends only 1/2 to its parent.</td></tr>
+          <tr><td><code>gtr_rhy_amp_a</code></td><td>Folder inside <code>gtr_rhy_bus</code>. The main stereo amp sim is its first plugin.</td><td>The two DIs inside it feed it.</td></tr>
+          <tr><td><code>gtr_rhy_l</code> / <code>gtr_rhy_r</code></td><td>DIs inside <code>gtr_rhy_amp_a</code>.</td><td>Pan <span class="mono">100% L</span> / <span class="mono">100% R</span>, width <span class="mono">0%</span>. Post-fader <code>0.0 dB</code> send &rarr; <code>gtr_rhy_amp_b</code>.</td></tr>
+          <tr><td><code>gtr_rhy_amp_b</code></td><td>Clarity amp inside <code>gtr_rhy_bus</code>: a second stereo amp sim.</td><td>Fed only by the DI sends. Post-fader sends carry the pan, so amp B gets the same L/R image.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Template assumption: every amp sim used has stereo inputs, so one instance on the amp track processes the hard-panned L/R DIs. Disruptor and Nolly input handling <span class="chip">unverified</span>. To check, solo <code>gtr_rhy_l</code>: the sound must stay left. If it spreads right, the sim sums to mono. Split it into two mono instances by hand.</p>
+    <ol class="steps">
+      <li><div><span class="steps__title">Width 0% on the DIs</span><p>The template sets the DIs to stereo pan mode with width 0%. Each DI is summed to mono, then panned. A stereo plugin on a DI cannot be half-muted by balance pan.</p></div></li>
+      <li><div><span class="steps__title">Set amp A alone first</span><p>Mute <code>gtr_rhy_amp_b</code>. Dial the full tone on amp A.</p></div></li>
+      <li><div><span class="steps__title">Blend amp B under it</span><p>Unmute amp B with its fader down. Raise it until the pick attack and note definition clear up, then back off a little. Amp A stays the louder amp (starting point).</p></div></li>
+      <li><div><span class="steps__title">Check polarity</span><p>Two amp sims can partly cancel. Flip the track polarity on <code>gtr_rhy_amp_b</code> and keep the fuller, tighter result. Full procedure in <a href="#rhythm-amp-b">Amp B: clarity layer</a>.</p></div></li>
+      <li><div><span class="steps__title">Check mono</span><p>Sum the mix to mono. The rhythm wall must not hollow out when amp B comes in.</p></div></li>
+    </ol>
 
     <h3 id="rhythm-amp">Amp: JST Toneforge Disruptor</h3>
     <ol class="rack">
@@ -67,7 +91,7 @@
             <div class="kv__item"><dt>Fuel Injected Overdrive: Bass</dt><dd>Low, cuts lows into the amp (starting point)</dd></div>
             <div class="kv__item"><dt>Cab</dt><dd>Rectifire 4 x 12, Dynamic 57 + Ribbon in dual cab, Blend to taste (starting point)</dd></div>
             <div class="kv__item"><dt>Autonomous Dynamic System</dt><dd>Low end compressor ON, Crossover 120&ndash;180 Hz, Intensity until chugs stop jumping (starting point)</dd></div>
-            <div class="kv__item"><dt>Gate</dt><dd>Threshold high enough to close between chugs</dd></div>
+            <div class="kv__item"><dt>Gate</dt><dd>Off when kHs Gate sits on the DIs (see amp B gating). Without a DI gate: Threshold high enough to close between chugs</dd></div>
           </dl>
           <p class="rack__why">Killswitch Engage use a Maxon 808 in front of tube high gain to add pick attack and remove flub. The Fuel Injected Overdrive at Drive 0 does the same job. Adam Dutkiewicz says most players use too much low end. He turns the mids up and the treble down for clarity. JST built the Autonomous Dynamic System to stop down-tuned low end from dominating the tone.</p>
           <div class="alts">
@@ -143,6 +167,117 @@
     </div>
     <p>Fortin Nameless: engage the Grind booster. It cuts some low end before the head, built for 7- and 8-strings. The Hexdrive overdrive is the other front-end option. The Zuul noise gate snaps shut between staccato hits.</p>
 
+    <h3 id="rhythm-amp-b">Amp B: clarity layer</h3>
+    <p>Amp B puts back the pick attack and string detail that the high-gain amp compresses away. It is a lower-gain, brighter amp tucked under amp A. Joey Sturgis, Taylor Larson, Carson Slovak and Buster Odeholm all blend a version of it. Sturgis puts the high-gain amp at about 90% of the final tone. If you hear amp B as a separate sound, it is too loud.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Range</th><th scope="col">Owner</th><th scope="col">Amp B setting</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="mono">Below 200&ndash;300 Hz</span></td><td>Amp A</td><td>High-pass amp B at <span class="mono">200&ndash;300 Hz</span> (starting point). This also removes most of the low-mid comb filtering between the two sims.</td></tr>
+          <tr><td><span class="mono">1&ndash;5 kHz</span></td><td>Amp B</td><td>Pick and string detail. Leave this range open.</td></tr>
+          <tr><td><span class="mono">Above 6&ndash;8 kHz</span></td><td>Bus low pass</td><td>Optional amp B low pass at <span class="mono">6&ndash;8 kHz</span> if fizz grows (starting point).</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">B</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Toneforge Disruptor, second instance</h4>
+            <span class="chip">JST</span>
+            <span class="tag">AMP</span>
+            <button type="button" class="copy-btn" data-copy="guitars-rhy-amp-b" aria-label="Copy amp B Toneforge Disruptor settings"></button>
+          </div>
+          <dl class="kv" id="guitars-rhy-amp-b" data-copy-title="Slot B - Toneforge Disruptor (clarity layer)">
+            <div class="kv__item"><dt>Amplifier</dt><dd>Replica (modded JCM 800), mid-gain crunch</dd></div>
+            <div class="kv__item"><dt>Replica gain</dt><dd>Hunt (low gain), well below amp A's gain (starting point)</dd></div>
+            <div class="kv__item"><dt>Replica Middle</dt><dd>Above noon (starting point)</dd></div>
+            <div class="kv__item"><dt>Replica Bass</dt><dd>Low. The high pass removes it anyway (starting point)</dd></div>
+            <div class="kv__item"><dt>Battle For Utopia Reverb</dt><dd>Bypassed</dd></div>
+            <div class="kv__item"><dt>High-Tech Delay</dt><dd>Bypassed</dd></div>
+            <div class="kv__item"><dt>Gate</dt><dd>Off. The DI gate does this job</dd></div>
+            <div class="kv__item"><dt>Cab</dt><dd>One cab. Disable the second cab if you load an External IR</dd></div>
+            <div class="kv__item"><dt>Fader</dt><dd>-8 to -12 dB under amp A (starting point)</dd></div>
+          </dl>
+          <p class="rack__why">Sturgis's mid-gain "spank" layer is "not about adding more gain; it's about adding clarity". No published Drop G settings exist for any amp B option, so every knob value is a starting point.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">Disruptor, Martyr channel (cleaner layer)</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Archetype Nolly, Crunch amp</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Archetype Nolly, Clean amp</span></span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">Bassforge Bonecrusher or Hellraiser (bass amp, niche)</span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST EQ</h4>
+            <span class="chip">JST</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="guitars-rhy-amp-b-eq" aria-label="Copy amp B JST EQ settings"></button>
+          </div>
+          <dl class="kv" id="guitars-rhy-amp-b-eq" data-copy-title="Amp B slot 1 - JST EQ">
+            <div class="kv__item"><dt>High Pass</dt><dd>200&ndash;300 Hz (starting point)</dd></div>
+            <div class="kv__item"><dt>Low Pass</dt><dd>Optional, 6&ndash;8 kHz if fizz grows (starting point)</dd></div>
+          </dl>
+          <p class="rack__why">Amp A owns the lows. Sturgis cuts his low-gain layer around 250 Hz. Odeholm filters out everything that does not add string detail. Larson low-passes guitars at 7&ndash;8 kHz.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">kHs Channel Mixer (if the flip wins)</h4>
+            <span class="chip">Kilohearts</span>
+            <span class="tag">PHASE</span>
+            <button type="button" class="copy-btn" data-copy="guitars-rhy-amp-b-pol" aria-label="Copy amp B kHs Channel Mixer settings"></button>
+          </div>
+          <dl class="kv" id="guitars-rhy-amp-b-pol" data-copy-title="Amp B slot 2 - kHs Channel Mixer (polarity)">
+            <div class="kv__item"><dt>Left to Left</dt><dd>-1 (phase inverted)</dd></div>
+            <div class="kv__item"><dt>Right to Right</dt><dd>-1 (phase inverted)</dd></div>
+            <div class="kv__item"><dt>Right to Left</dt><dd>0</dd></div>
+            <div class="kv__item"><dt>Left to Right</dt><dd>0</dd></div>
+          </dl>
+          <p class="rack__why">Flips amp B's polarity on both sides and keeps L/R apart. Use it only if the flipped setting sounds fuller.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">REAPER track polarity button <span class="chip">unverified</span></span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+    <p><strong>Blend.</strong> Start amp B <span class="mono">8&ndash;12 dB</span> under amp A (starting point). Raise it until it adds the detail you want, then pull it back slightly. Set the final level by ear in the full mix.</p>
+    <p><strong>Phase.</strong> Two different sims on one DI always interact. Plugin latency and cab IR timing differ, so amp B can arrive a few samples off.</p>
+    <ol class="steps">
+      <li><div><span class="steps__title">Set up the check</span><p>Solo <code>gtr_rhy_amp_a</code> and <code>gtr_rhy_amp_b</code>. Bring amp B up to amp A's level. Sum the monitor to mono.</p></div></li>
+      <li><div><span class="steps__title">Polarity first</span><p>Flip amp B's polarity. Keep the setting with more low-mid body.</p></div></li>
+      <li><div><span class="steps__title">Then single-sample nudges</span><p>If both settings sound hollow, delay amp B one sample at a time and A/B each step. MAutoAlign or MTrackAlign can do this <span class="chip">unverified</span>.</p></div></li>
+      <li><div><span class="steps__title">Back to blend level</span><p>Pull amp B back down. Redo the check after any amp, cab or IR change.</p></div></li>
+    </ol>
+    <p><strong>Gating.</strong> Gate once on the DIs. Bypass the gates inside both sims. Two gates on two amps open and close at different times, so amp B's tails stick out. No source covers this case. It is a starting point.</p>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">kHs Gate on gtr_rhy_l and gtr_rhy_r</span>
+        <button type="button" class="copy-btn" data-copy="guitars-rhy-di-gate" aria-label="Copy kHs Gate on the DIs settings"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="guitars-rhy-di-gate" data-copy-title="kHs Gate on gtr_rhy_l and gtr_rhy_r">
+          <div class="kv__item"><dt>Placement</dt><dd>First plugin on each DI, before the sends. Both amps get the same gated signal</dd></div>
+          <div class="kv__item"><dt>Threshold</dt><dd>High enough to close between chugs (starting point)</dd></div>
+          <div class="kv__item"><dt>Tolerance</dt><dd>A few dB, so the gate does not chatter (starting point)</dd></div>
+          <div class="kv__item"><dt>Hold, Release, Range</dt><dd>By ear on the fastest riff (starting point)</dd></div>
+          <div class="kv__item"><dt>Look-ahead</dt><dd>On. Lets transients through with 5 ms latency, same on both amps</dd></div>
+          <div class="kv__item"><dt>Sim gates</dt><dd>Disruptor Gate off on both instances. Bypass any gate inside Nolly</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p><strong>Compression.</strong> None on amp B by default. High-gain rhythms need little compression, and Chug Slayer and JSTClip on the bus cover it. A lower-gain amp keeps more pick spikes. If amp B jumps out on hard picks, add <span class="mono">1&ndash;2 dB</span> of light compression on amp B only (starting point).</p>
+
     <h3 id="rhythm-tracking">Double or quad</h3>
     <div class="table-wrap">
       <table class="table">
@@ -155,6 +290,7 @@
         </tbody>
       </table>
     </div>
+    <p>This table is tracking guidance. The template builds the double. For a quad, add the second pair as two more DI tracks inside <code>gtr_rhy_amp_a</code>. Give them the same width <span class="mono">0%</span> and their own post-fader sends to <code>gtr_rhy_amp_b</code>.</p>
     <ol class="steps">
       <li><div><span class="steps__title">One player, both sides</span><p>Adam Dutkiewicz has the songwriter track both rhythm sides on Killswitch Engage records.</p></div></li>
       <li><div><span class="steps__title">Flatten the low string for chugs</span><p>Tune the low string about 15 cents flat for palm-mute sections. Hard picking pulls it sharp. Tune near zero for open chords.</p></div></li>
@@ -243,7 +379,7 @@
             <div class="kv__item"><dt>Low cut band</dt><dd>1.5&ndash;2.0 kHz</dd></div>
             <div class="kv__item"><dt>Depth</dt><dd>2.0&ndash;3.0</dd></div>
             <div class="kv__item"><dt>Mode</dt><dd>Soft</dd></div>
-            <div class="kv__item"><dt>Sidechain (opt)</dt><dd>sc_spotlight, Depth 1.5&ndash;2.5</dd></div>
+            <div class="kv__item"><dt>Sidechain (opt)</dt><dd>sc_spotlight on channels 5/6, Depth 1.5&ndash;2.5</dd></div>
           </dl>
           <p class="rack__why">Removes 3.5&ndash;4.5 kHz amp fizz. The raised HPF protects 100&ndash;250 Hz chugs.</p>
         </div>
@@ -287,7 +423,7 @@
       </div>
       <div class="settings__body">
         <dl class="kv" id="guitars-vocal-pocket" data-copy-title="Vocal pocket on gtr_rhy_bus (soothe2 sidechain)">
-          <div class="kv__item"><dt>Sidechain</dt><dd>ON, key = sc_spotlight</dd></div>
+          <div class="kv__item"><dt>Sidechain</dt><dd>ON, key = sc_spotlight on channels 5/6. Map the plugin's sidechain pins to 5/6 in the REAPER pin connector. 3/4 carries the sc_snare key.</dd></div>
           <div class="kv__item"><dt>Stereo mode</dt><dd>Mid/side, link 100%</dd></div>
           <div class="kv__item"><dt>Stereo balance</dt><dd>Toward mid, so the cut follows the centered vocal (starting point)</dd></div>
           <div class="kv__item"><dt>Range</dt><dd>Low cut band 1 kHz, high cut band 5 kHz (starting point)</dd></div>
@@ -531,6 +667,14 @@
           <tr><td>Low end flubs in Drop G</td><td>Zero-drive boost, level high. Keep amp bass lean.</td><td>Amp front end</td></tr>
           <tr><td>Rhythms blur and mask the snare</td><td>Amp-sim reverb OFF. No sends on rhythms.</td><td>Amp sim</td></tr>
           <tr><td>Lead bends ice-pick</td><td>Low cut band <code>600 Hz&ndash;1.0 kHz</code>, Depth <code>2.0&ndash;3.5</code>.</td><td>soothe2</td></tr>
+          <tr><td>Amp blend sounds hollow or thin in the low mids</td><td>Flip amp B's polarity. Nudge amp B by single samples. Raise amp B's high pass.</td><td>kHs Channel Mixer / JST EQ</td></tr>
+          <tr><td>Tone gets fizzy or harsh when amp B comes up</td><td>Amp B is too loud. Pull it back <code>2&ndash;3 dB</code>. Add an amp B low pass at <code>6&ndash;8 kHz</code>.</td><td>Fader / JST EQ</td></tr>
+          <tr><td>You hear two amps, not one guitar</td><td>Lower amp B. Move its gain closer to amp A.</td><td>Fader / amp B</td></tr>
+          <tr><td>Noise or tails between chugs</td><td>Gate once on the DIs. Bypass the gates inside the sims.</td><td>kHs Gate</td></tr>
+          <tr><td>Picks spike on amp B only</td><td><code>1&ndash;2 dB</code> of light compression on amp B.</td><td>Compressor on amp B</td></tr>
+          <tr><td>Low end gets muddy or phasey with amp B</td><td>Amp B carries lows. High-pass it at <code>200&ndash;300 Hz</code>. Amp A owns the lows.</td><td>JST EQ</td></tr>
+          <tr><td>Rhythm image collapses to the center</td><td>The amp sim sums to mono. Split it into two mono instances.</td><td>Amp sim</td></tr>
+          <tr><td>Blend changed after a preset tweak</td><td>Latency or IR changed. Redo the polarity and sample check.</td><td>kHs Channel Mixer</td></tr>
           <tr><td>Clean parts mask the vocal</td><td>Peak cut <code>-2 dB @ 1.5&ndash;2.5 kHz</code>. Add the SC dip.</td><td>JST EQ / TDR Nova</td></tr>
         </tbody>
       </table>
@@ -550,6 +694,13 @@
       <li>Adam D: Perfecting Rhythm Guitars, URM Academy podcast.</li>
       <li>Killswitch Engage's 8 tips on mastering metalcore, MusicRadar.</li>
       <li>Using Trackspacer to carve a pocket for vocals (Joey Sturgis, Oceano), Nail The Mix.</li>
+      <li>Stacking three DI layers for heavy guitars that stay clear (Joey Sturgis, Oceano), Nail The Mix.</li>
+      <li>Blending two weak amps into one massive tone (Taylor Larson, Holding Absence), Nail The Mix.</li>
+      <li>How to blend amp sim tones for crushing rhythm guitars (Carson Slovak, Erra), Nail The Mix.</li>
+      <li>Buster Odeholm's very weird guitar tone trick (Oceano), Nail The Mix.</li>
+      <li>Achieving intelligibility whilst maintaining heaviness when producing contemporary metal music, Mark Mynett, Journal on the Art of Record Production.</li>
+      <li>The distortion paradox, Mark Mynett, Routledge.</li>
+      <li>Snapins docs, Kilohearts (vendor). Channel Mixer, Gate.</li>
     </ol>
   </footer>
 

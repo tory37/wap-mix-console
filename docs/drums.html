@@ -29,7 +29,8 @@
       <li><div><span class="steps__title">One snare shell</span><p>Keep a single natural snare. No multi-snare stacking.</p></div></li>
       <li><div><span class="steps__title">Sample-align triggers</span><p>Align the Invasion snare trigger to the shell. Ghost notes stay organic.</p></div></li>
       <li><div><span class="steps__title">Skip close-mic gates and compressors</span><p>GGD at Max Turbo already controls bleed and dynamics.</p></div></li>
-      <li><div><span class="steps__title">Feed the crush from shells only</span><p>Kick, Snare and Tom acoustic shells. No triggers. No overheads.</p></div></li>
+      <li><div><span class="steps__title">Check snare bottom polarity</span><p>Inside GGD, play <code>snr_top</code> and <code>snr_bot</code> together. Flip the bottom mic's polarity and keep the version with more body. If the kit has no polarity switch for the bottom mic, use the REAPER Phase button on <code>snr_bot</code> <span class="chip">unverified</span>.</p></div></li>
+      <li><div><span class="steps__title">Feed the crush from shells only</span><p>The crush feed is <code>kick_sum</code>, <code>snr_top</code>, <code>snr_bot</code>, <code>tom_1</code>, <code>tom_2</code> and <code>tom_flr</code>. <code>kick_sub</code> is excluded: its sub energy makes the crush bus pump. No triggers. No overheads. No rooms.</p></div></li>
     </ol>
 
     <div class="table-wrap">
@@ -38,9 +39,9 @@
           <tr><th scope="col">Bus</th><th scope="col">Pan</th><th scope="col">Pre-fader send</th><th scope="col">Post-fader sends</th></tr>
         </thead>
         <tbody>
-          <tr><td><a href="#kick"><code>kick_bus</code></a></td><td class="mono">0% mono</td><td>None. <code>kick_smp</code> feeds <code>sc_kick</code> at <code>0.0 dB</code></td><td>M&amp;M shells only &gt; <code>fx_crush</code></td></tr>
-          <tr><td><a href="#snare"><code>snr_bus</code></a></td><td class="mono">0% mono</td><td>None. <code>snr_smp</code> feeds <code>sc_snare</code> at <code>0.0 dB</code></td><td><code>fx_snr_plate</code> + <code>fx_crush</code></td></tr>
-          <tr><td><a href="#toms"><code>tom_bus</code></a></td><td class="mono">45% L to 75% R</td><td>&mdash;</td><td><code>fx_snr_plate</code> at <code>-8 to -10 dB</code>; crush (shells)</td></tr>
+          <tr><td><a href="#kick"><code>kick_bus</code></a></td><td class="mono">0% mono</td><td>None. <code>kick_smp</code> feeds <code>sc_kick</code> at <code>0.0 dB</code></td><td><code>kick_sum</code> only &gt; <code>fx_crush</code> (not <code>kick_sub</code>)</td></tr>
+          <tr><td><a href="#snare"><code>snr_bus</code></a></td><td class="mono">0% mono</td><td>None. <code>snr_smp</code> feeds <code>sc_snare</code> at <code>0.0 dB</code></td><td><code>fx_snr_plate</code> (bus) + <code>fx_crush</code> (<code>snr_top</code>, <code>snr_bot</code>)</td></tr>
+          <tr><td><a href="#toms"><code>tom_bus</code></a></td><td class="mono">45% L to 75% R</td><td>&mdash;</td><td><code>fx_snr_plate</code> at <code>-8 to -10 dB</code>; <code>fx_crush</code> (<code>tom_1</code>, <code>tom_2</code>, <code>tom_flr</code>)</td></tr>
           <tr><td><a href="#overheads"><code>oh_cym_bus</code></a></td><td class="mono">85&ndash;100% L/R</td><td>&mdash;</td><td>None. Exclude from crush.</td></tr>
           <tr><td><a href="#room"><code>room_bus</code></a></td><td class="mono">100% L/R</td><td>&mdash;</td><td>&mdash;</td></tr>
         </tbody>
@@ -349,7 +350,7 @@
     </ol>
 
     <h3 id="fx-crush">fx_crush</h3>
-    <p>Fed post-fader by Kick, Snare and Tom acoustic shells only.</p>
+    <p>Fed post-fader at <code>0.0 dB</code> by <code>kick_sum</code>, <code>snr_top</code>, <code>snr_bot</code>, <code>tom_1</code>, <code>tom_2</code> and <code>tom_flr</code>. Not <code>kick_sub</code>: sub energy makes the crush bus pump. The template sets the <code>fx_crush</code> return fader to <code>-16 dB</code>. That return fader is the blend.</p>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -363,7 +364,7 @@
           <dl class="kv" id="crush-1" data-copy-title="fx_crush - FG-401">
             <div class="kv__item"><dt>Ratio</dt><dd>About 10:1 (starting point)</dd></div>
             <div class="kv__item"><dt>Target GR</dt><dd>12&ndash;18 dB</dd></div>
-            <div class="kv__item"><dt>Blend</dt><dd>Under dry kit, start -14 to -18 dB</dd></div>
+            <div class="kv__item"><dt>Blend</dt><dd>Return fader under dry kit, start -14 to -18 dB (template: -16 dB)</dd></div>
           </dl>
           <p class="rack__why">Adds density and sustain. The dry kit keeps the transient. A documented modern-metal crush ran about 18 dB GR, fed by kick, snare and toms, never cymbals. Heavier GR at a lower blend gives density with less transient smear.</p>
           <div class="alts">

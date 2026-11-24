@@ -105,10 +105,10 @@
 
     <h3 id="stage-01">Stage 01 procedure</h3>
     <ol class="steps">
-      <li><div><span class="steps__title">Park faders</span><p>Set all track and bus faders to <code>0.00 dB</code> unity.</p></div></li>
+      <li><div><span class="steps__title">Park faders</span><p>Set all track and bus faders to <code>0.00 dB</code> unity. One exception: the template sets the <code>fx_crush</code> return fader to <code>-16 dB</code>. That return sits after its plugins, so it sets the blend, not the plugin input.</p></div></li>
       <li><div><span class="steps__title">Bypass track FX</span><p>Hear the raw source only.</p></div></li>
       <li><div><span class="steps__title">Trim clip gain</span><p>Drag the top edge of each audio item. Or press <kbd>F2</kbd> and set Take volume.</p></div></li>
-      <li><div><span class="steps__title">Turn down VSTi outputs</span><p>Lower the master output on GGD, DjinnBass, ANA 2 and LABS.</p></div></li>
+      <li><div><span class="steps__title">Turn down VSTi outputs</span><p>Lower the master output on DjinnBass, ANA 2 and LABS. Leave the GGD output alone. The template's 16 GGD output sends sit at <code>-10 dB</code>, and they are the GGD trim. Do not trim GGD again: two trims stack and leave the kit tracks too low.</p></div></li>
       <li><div><span class="steps__title">Read the meter</span><p>Stop when the MCP peak readout shows <code class="val-ok">-12.0 to -10.0 dBFS</code> on the loudest chorus.</p></div></li>
     </ol>
 
