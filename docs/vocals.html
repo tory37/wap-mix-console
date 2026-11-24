@@ -18,7 +18,7 @@
     <div class="goal">
       <span class="gchip gchip--lg gchip--vocals" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Clarity first. A dead-mono lead core sits in front of Drop G&ndash;Bb guitars. BGVs wrap wide around it inside <code>VOCAL MASTER</code>.</p>
+      <p class="goal__text">Clarity first. A dead-mono lead core sits in front of Drop G&ndash;Bb guitars. BGVs wrap wide around it inside <code>vocal_master</code>.</p>
     </div>
   </header>
 
@@ -30,11 +30,12 @@
           <tr><th scope="col">Bus</th><th scope="col">Pan</th><th scope="col">Sends</th><th scope="col">Parent</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>LEAD VOX BUS</code></td><td><span class="mono">Mono center</span></td><td>Pre-fader &rarr; <code>SC_SPOTLIGHT</code>. Post-fader &rarr; plate, slap, tempo delay.</td><td><code>VOCAL MASTER</code></td></tr>
-          <tr><td><code>BGV / HARMONY</code></td><td><span class="mono">85&ndash;100% L/R</span></td><td>Post-fader &rarr; <code>VOX &amp; LEAD PLATE</code>, <code>WIDE MIX HALL</code>.</td><td><code>VOCAL MASTER</code></td></tr>
+          <tr><td><code>vox_ld_bus</code></td><td><span class="mono">Mono center</span></td><td>Pre-fader &rarr; <code>sc_spotlight</code>. Post-fader &rarr; <code>fx_vox_plate</code>, <code>fx_vox_slap</code>, <code>fx_vox_dly</code>.</td><td><code>vocal_master</code></td></tr>
+          <tr><td><code>vox_bgv_bus</code></td><td><span class="mono">85&ndash;100% L/R</span></td><td>Post-fader &rarr; <code>fx_vox_plate</code>, <code>fx_vox_hall</code>.</td><td><code>vocal_master</code></td></tr>
         </tbody>
       </table>
     </div>
+    <p>Every vocal send lands on a return inside <code>vocal_master</code>. Never send a vocal to <code>fx_hall</code>: it lives in <code>instrument_bus</code>, and its vocal tail would stay in the instrumental print.</p>
     <div class="callout callout--warn" role="note">
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
       <div class="callout__body">
@@ -46,9 +47,9 @@
 
   <section class="section">
     <h2 id="clean-lead">Clean lead</h2>
-    <p>One chain serves the whole <code>LEAD VOX BUS</code>. Slots 1&ndash;6 are the manual chain. Slots P1, P2 and F come from the guides and are optional.</p>
+    <p>One chain serves the whole <code>vox_ld_bus</code>. Slots 1&ndash;6 are the manual chain. Slots P1, P2 and F come from the guides and are optional.</p>
 
-    <h3 id="lead-chain">LEAD VOX BUS chain</h3>
+    <h3 id="lead-chain">vox_ld_bus chain</h3>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">P1</div>
@@ -243,7 +244,7 @@
 
   <section class="section">
     <h2 id="screams">Screams</h2>
-    <p>Screams run the same <code>LEAD VOX BUS</code> chain. Change only these settings.</p>
+    <p>Screams run the same <code>vox_ld_bus</code> chain. Change only these settings.</p>
     <div class="table-wrap">
       <table class="table">
         <thead>
@@ -300,13 +301,13 @@
           <div class="kv__item"><dt>Chorus stereo pair</dt><dd>Two doubles, 85&ndash;100% L/R, for size without a second singer</dd></div>
           <div class="kv__item"><dt>Double level</dt><dd>-6 to -10 dB under the lead (starting point)</dd></div>
           <div class="kv__item"><dt>Breaths on doubles</dt><dd>Cut them. Keep breaths on the lead only (starting point)</dd></div>
-          <div class="kv__item"><dt>Routing</dt><dd>Doubles go to BGV / HARMONY, not LEAD VOX BUS (starting point)</dd></div>
+          <div class="kv__item"><dt>Routing</dt><dd>Doubles go to vox_bgv_bus, not vox_ld_bus (starting point)</dd></div>
         </dl>
       </div>
     </div>
     <p>Bendeth tucked one double near center under the lead, plus a stereo pair. Breaking Benjamin's background vocals on <em>Dark Before Dawn</em> come from the band's other singers, per Ben Burnley.</p>
 
-    <h3 id="bgv-chain">BGV / HARMONY chain</h3>
+    <h3 id="bgv-chain">vox_bgv_bus chain</h3>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -371,16 +372,16 @@
     <h3 id="bgv-placement">Placement &amp; sends</h3>
     <div class="settings">
       <div class="settings__head">
-        <span class="label">BGV / HARMONY placement</span>
-        <button type="button" class="copy-btn" data-copy="vocals-bgv-sends" aria-label="Copy BGV / HARMONY placement"></button>
+        <span class="label">vox_bgv_bus placement</span>
+        <button type="button" class="copy-btn" data-copy="vocals-bgv-sends" aria-label="Copy vox_bgv_bus placement"></button>
       </div>
       <div class="settings__body">
-        <dl class="kv" id="vocals-bgv-sends" data-copy-title="BGV / HARMONY placement">
+        <dl class="kv" id="vocals-bgv-sends" data-copy-title="vox_bgv_bus placement">
           <div class="kv__item"><dt>Pan</dt><dd>85&ndash;100% L/R</dd></div>
           <div class="kv__item"><dt>Width</dt><dd>Wide pan or micro-pitch</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>VOX &amp; LEAD PLATE</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>WIDE MIX HALL</dd></div>
-          <div class="kv__item"><dt>Parent</dt><dd>VOCAL MASTER</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_plate</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_hall</dd></div>
+          <div class="kv__item"><dt>Parent</dt><dd>vocal_master</dd></div>
         </dl>
       </div>
     </div>
@@ -389,44 +390,44 @@
   <section class="section">
     <h2 id="throws">Throws &amp; sends</h2>
 
-    <h3 id="lead-sends">Lead vox sends</h3>
+    <h3 id="lead-sends">vox_ld_bus sends</h3>
     <div class="settings">
       <div class="settings__head">
-        <span class="label">LEAD VOX BUS sends</span>
-        <button type="button" class="copy-btn" data-copy="vocals-lv-sends" aria-label="Copy LEAD VOX BUS sends"></button>
+        <span class="label">vox_ld_bus sends</span>
+        <button type="button" class="copy-btn" data-copy="vocals-lv-sends" aria-label="Copy vox_ld_bus sends"></button>
       </div>
       <div class="settings__body">
-        <dl class="kv" id="vocals-lv-sends" data-copy-title="LEAD VOX BUS sends">
-          <div class="kv__item"><dt>Pre-fader</dt><dd>SC_SPOTLIGHT</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>VOX &amp; LEAD PLATE</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>VOX MICRO-PITCH &amp; SLAP (Bendeth slap: 80 ms)</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>STEREO TEMPO DELAY (automated)</dd></div>
+        <dl class="kv" id="vocals-lv-sends" data-copy-title="vox_ld_bus sends">
+          <div class="kv__item"><dt>Pre-fader</dt><dd>sc_spotlight</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_plate</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_slap (Bendeth slap: 80 ms)</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_dly (automated)</dd></div>
         </dl>
       </div>
     </div>
 
     <h3 id="delay-throws">Delay throws</h3>
     <ol class="steps">
-      <li><div><span class="steps__title">Automate the send</span><p>Draw send-level automation on <code>LEAD VOX BUS</code> &rarr; <code>STEREO TEMPO DELAY</code>.</p></div></li>
+      <li><div><span class="steps__title">Automate the send</span><p>Draw send-level automation on <code>vox_ld_bus</code> &rarr; <code>fx_vox_dly</code>.</p></div></li>
       <li><div><span class="steps__title">Raise it on throw words</span><p>Lift the send only on the phrases you want repeated.</p></div></li>
-      <li><div><span class="steps__title">Let the duck work</span><p>The return ducks <code>3&ndash;4 dB</code> from <code>SC_SPOTLIGHT</code>. Repeats bloom in the gaps.</p></div></li>
+      <li><div><span class="steps__title">Let the duck work</span><p>The return ducks <code>3&ndash;4 dB</code> from <code>sc_spotlight</code>. Repeats bloom in the gaps.</p></div></li>
     </ol>
     <div class="settings">
       <div class="settings__head">
-        <span class="label">STEREO TEMPO DELAY (shared return)</span>
-        <button type="button" class="copy-btn" data-copy="vocals-throw-delay" aria-label="Copy STEREO TEMPO DELAY (shared return)"></button>
+        <span class="label">fx_vox_dly (vocal return)</span>
+        <button type="button" class="copy-btn" data-copy="vocals-throw-delay" aria-label="Copy fx_vox_dly (vocal return)"></button>
       </div>
       <div class="settings__body">
-        <dl class="kv" id="vocals-throw-delay" data-copy-title="STEREO TEMPO DELAY (shared return)">
+        <dl class="kv" id="vocals-throw-delay" data-copy-title="fx_vox_dly (vocal return)">
           <div class="kv__item"><dt>Time</dt><dd>1/4 or 1/8 dotted</dd></div>
           <div class="kv__item"><dt>Ping-Pong</dt><dd>ON</dd></div>
           <div class="kv__item"><dt>Feedback L / R</dt><dd>20&ndash;30%</dd></div>
           <div class="kv__item"><dt>HPF L / R, LPF L / R</dt><dd>300 Hz, 3.5 kHz</dd></div>
-          <div class="kv__item"><dt>Duck (compressor after the delay)</dt><dd>3&ndash;4 dB by SC_SPOTLIGHT</dd></div>
+          <div class="kv__item"><dt>Duck (compressor after the delay)</dt><dd>3&ndash;4 dB by sc_spotlight</dd></div>
         </dl>
       </div>
     </div>
-    <p>Full return chains are on the <a href="fx-returns.html#tempo-delay">FX Returns</a> page.</p>
+    <p>Full return chains are on the <a href="fx-returns.html#fx-vox-dly">FX Returns</a> page. Guitars and arps use <code>fx_inst_dly</code>, a copy of this chain.</p>
   </section>
 
   <section class="section">
@@ -447,7 +448,7 @@
           <tr><td>Vocal does not cut the guitars</td><td>Aggro <code>10&ndash;25%</code> in choruses.</td><td>JW BG-Vocals</td></tr>
           <tr><td>Air turns harsh</td><td>Keep High Air under <code>40</code>. De-ess after Fresh Air.</td><td>Fresh Air</td></tr>
           <tr><td>BGVs crowd the lead</td><td>HPF <code>120&ndash;140 Hz</code>. Pan <code>85&ndash;100%</code>.</td><td>JST EQ / pan</td></tr>
-          <tr><td>Vocal disappears in the riffs</td><td>Mid-only cut on the guitars, keyed from <code>SC_SPOTLIGHT</code>. See <a href="guitars.html#vocal-pocket">Guitars</a>.</td><td>soothe2 / TDR Nova</td></tr>
+          <tr><td>Vocal disappears in the riffs</td><td>Mid-only cut on the guitars, keyed from <code>sc_spotlight</code>. See <a href="guitars.html#vocal-pocket">Guitars</a>.</td><td>soothe2 / TDR Nova</td></tr>
           <tr><td>Vocal clear solo, buried in the mix</td><td>Check the bass. Bendeth: 1 dB too much bass makes the vocal vanish. Pull the bass 1 dB and compare.</td><td>Bass fader</td></tr>
           <tr><td>Screams smear</td><td>Less reverb. Use 1/8 delay throws.</td><td>Sends</td></tr>
         </tbody>

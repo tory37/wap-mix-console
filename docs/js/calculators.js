@@ -473,7 +473,7 @@
         hzText(z.lowHz) + " Hz low note on purpose" +
         (g.rhythmHpfLow < z.secondHarmonicHz ? " and below its " + hzText(z.secondHarmonicHz) + " Hz 2nd harmonic." : "."));
       if (z.lowInKickWindow) {
-        notes.push("The low note sits in the " + g.kickPunchLow + "-" + g.kickPunchHigh + " Hz kick punch window. The SC_KICK duck on the bass matters.");
+        notes.push("The low note sits in the " + g.kickPunchLow + "-" + g.kickPunchHigh + " Hz kick punch window. The sc_kick duck on the bass matters.");
       }
       if (z.octaveBelowBassHpf) {
         notes.push("A bass an octave below (" + hzText(z.bassOctaveHz) + " Hz) sits under the " + g.bassHpfLow + "-" + g.bassHpfHigh +

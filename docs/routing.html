@@ -18,64 +18,67 @@
     <div class="goal">
       <span class="gchip gchip--lg gchip--master" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Two-branch summing. <code>INSTRUMENT BUS</code> and <code>VOCAL MASTER</code> both feed <code>PRINT / MIX BUS</code>. Three silent hubs carry every sidechain.</p>
+      <p class="goal__text">Two-branch summing. <code>instrument_bus</code> and <code>vocal_master</code> both feed <code>print_bus</code>. Three silent hubs carry every sidechain.</p>
     </div>
   </header>
 
   <section class="section">
     <h2 id="schematic">Signal flow schematic</h2>
-    <p>All instrument buses live in one parent folder, <code>INSTRUMENT BUS</code> ("ALL MUSIC"). All vocal tracks and vocal FX returns live in <code>VOCAL MASTER</code>. Both folders route into <code>PRINT / MIX BUS</code>.</p>
+    <p>All instrument buses live in one parent folder, <code>instrument_bus</code>. All vocal tracks and vocal FX returns live in <code>vocal_master</code>. Instrument FX returns live in <code>instrument_bus</code>. Both folders route into <code>print_bus</code>. <code>print_bus</code> routes into <code>master_bus</code>, the top folder, which holds the mastering chain. The REAPER master stays empty, at unity.</p>
 
     <figure class="flow flow--scroll">
       <svg viewBox="0 0 960 560" role="img" aria-labelledby="routing-svg-title routing-svg-desc">
         <title id="routing-svg-title">REAPER folder and bus routing</title>
-        <desc id="routing-svg-desc">INSTRUMENT BUS holds Drum, Bass, Guitar and Orch and Synth buses. VOCAL MASTER holds lead vox, BGVs and vocal FX returns. Both feed PRINT / MIX BUS, which feeds MASTER. Silent hubs: SC_KICK ducks BASS LOW. SC_SPOTLIGHT ducks INSTRUMENT BUS and the vocal plate and tempo delay.</desc>
+        <desc id="routing-svg-desc">instrument_bus holds drum_bus, bass_bus, the guitar buses, orch_syn_bus and the instrument FX returns fx_inst_plate and fx_inst_dly. vocal_master holds vox_ld_bus, vox_bgv_bus and the vocal FX returns fx_vox_plate, fx_vox_slap, fx_vox_dly and fx_vox_hall. Both feed print_bus, which feeds master_bus. master_bus holds the mastering chain and feeds the empty REAPER master. Silent hubs: sc_kick, fed by kick_smp, ducks bass_low. sc_snare is fed by snr_smp. sc_spotlight ducks instrument_bus, fx_vox_plate, fx_vox_dly, fx_vox_hall, fx_inst_plate and fx_inst_dly.</desc>
 
-        <!-- INSTRUMENT BUS folder -->
+        <!-- instrument_bus folder -->
         <rect class="sf-node sf-node--folder" x="10" y="10" width="380" height="540" rx="4"/>
-        <text class="sf-title" x="26" y="36">INSTRUMENT BUS</text>
-        <text class="sf-sub" x="26" y="54">"ALL MUSIC" folder  -6 to -5 dBFS peak</text>
+        <text class="sf-title" x="26" y="36">instrument_bus</text>
+        <text class="sf-sub" x="26" y="54">folder  -6 to -5 dBFS peak</text>
 
         <rect class="sf-node" x="26" y="64" width="350" height="104" rx="4"/>
-        <circle class="sf-dot--drums" cx="42" cy="86" r="4"/>
-        <text class="sf-title" x="54" y="91">DRUM BUS</text>
+        <circle class="sf-dot--drums-bus" cx="42" cy="86" r="4"/>
+        <text class="sf-title" x="54" y="91">drum_bus</text>
         <text class="sf-sub" x="42" y="114">Kick, Snare, Toms, OH, Rooms</text>
-        <text class="sf-sub" x="42" y="134">+ PARALLEL CRUSH, SNARE PLATE returns</text>
+        <text class="sf-sub" x="42" y="134">+ fx_crush, fx_snr_plate returns</text>
         <text class="sf-sub sf-sub--ok" x="42" y="154">-8 to -6 dBFS peak</text>
 
         <rect class="sf-node" x="26" y="180" width="350" height="104" rx="4"/>
-        <circle class="sf-dot--bass" cx="42" cy="202" r="4"/>
-        <text class="sf-title" x="54" y="207">BASS BUS</text>
-        <text class="sf-sub" x="42" y="230">BASS LOW  &lt;180 Hz, 100% mono</text>
-        <text class="sf-sub" x="42" y="250">BASS HIGH &gt;180 Hz grit</text>
+        <circle class="sf-dot--bass-bus" cx="42" cy="202" r="4"/>
+        <text class="sf-title" x="54" y="207">bass_bus</text>
+        <text class="sf-sub" x="42" y="230">bass_low  &lt;180 Hz, 100% mono</text>
+        <text class="sf-sub" x="42" y="250">bass_high &gt;180 Hz grit</text>
         <text class="sf-sub sf-sub--ok" x="42" y="270">-8 to -6 dBFS peak</text>
 
         <rect class="sf-node" x="26" y="296" width="350" height="104" rx="4"/>
-        <circle class="sf-dot--guitars" cx="42" cy="318" r="4"/>
+        <circle class="sf-dot--guitars-bus" cx="42" cy="318" r="4"/>
         <text class="sf-title" x="54" y="323">GUITAR BUSES</text>
-        <text class="sf-sub" x="42" y="346">RHYTHM  100% L/R, 100% dry</text>
-        <text class="sf-sub" x="42" y="366">LEAD center  |  OCTAVE +/-35%</text>
+        <text class="sf-sub" x="42" y="346">gtr_rhy_bus  100% L/R, 100% dry</text>
+        <text class="sf-sub" x="42" y="366">gtr_ld_bus center | gtr_mel_bus +/-35%</text>
         <text class="sf-sub sf-sub--ok" x="42" y="386">-8 to -6 dBFS peak</text>
 
-        <rect class="sf-node" x="26" y="412" width="350" height="124" rx="4"/>
-        <circle class="sf-dot--orch" cx="42" cy="434" r="4"/>
+        <rect class="sf-node" x="26" y="412" width="350" height="104" rx="4"/>
+        <circle class="sf-dot--orch-bus" cx="42" cy="434" r="4"/>
         <circle class="sf-dot--synth" cx="56" cy="434" r="4"/>
-        <text class="sf-title" x="68" y="439">ORCH &amp; SYNTH BUS</text>
+        <text class="sf-title" x="68" y="439">orch_syn_bus</text>
         <text class="sf-sub" x="42" y="462">ANA 2 synths, LABS strings</text>
-        <text class="sf-sub" x="42" y="482">+ WIDE MIX HALL return</text>
+        <text class="sf-sub" x="42" y="482">+ fx_hall return</text>
         <text class="sf-sub" x="42" y="502">Soothe2 &gt; JW BG-Keys glue</text>
 
-        <!-- VOCAL MASTER folder -->
+        <circle class="sf-dot--fx" cx="30" cy="532" r="4"/>
+        <text class="sf-sub" x="42" y="536">+ fx_inst_plate, fx_inst_dly returns</text>
+
+        <!-- vocal_master folder -->
         <rect class="sf-node sf-node--folder" x="430" y="10" width="250" height="200" rx="4"/>
-        <circle class="sf-dot--vocals" cx="446" cy="31" r="4"/>
-        <text class="sf-title" x="458" y="36">VOCAL MASTER</text>
+        <circle class="sf-dot--master" cx="446" cy="31" r="4"/>
+        <text class="sf-title" x="458" y="36">vocal_master</text>
         <text class="sf-sub sf-sub--ok" x="446" y="56">-6 to -5 dBFS peak</text>
-        <text class="sf-sub" x="446" y="84">LEAD VOX BUS  dead mono</text>
-        <text class="sf-sub" x="446" y="104">BGV / HARMONY 85-100% L/R</text>
+        <text class="sf-sub" x="446" y="84">vox_ld_bus  dead mono</text>
+        <text class="sf-sub" x="446" y="104">vox_bgv_bus 85-100% L/R</text>
         <circle class="sf-dot--fx" cx="450" cy="128" r="4"/>
         <text class="sf-sub" x="462" y="132">FX returns, inside folder:</text>
-        <text class="sf-sub" x="462" y="150">VOX &amp; LEAD PLATE</text>
-        <text class="sf-sub" x="462" y="168">SLAP, STEREO TEMPO DELAY</text>
+        <text class="sf-sub" x="462" y="150">fx_vox_plate, fx_vox_slap</text>
+        <text class="sf-sub" x="462" y="168">fx_vox_dly, fx_vox_hall</text>
         <text class="sf-sub" x="446" y="196">Mute = clean instrumental</text>
 
         <!-- Sidechain hubs -->
@@ -83,36 +86,41 @@
         <text class="sf-title" x="446" y="278">SIDECHAIN HUBS</text>
         <text class="sf-sub sf-sub--danger" x="446" y="296">Master/Parent Send OFF</text>
         <circle class="sf-dot--sc" cx="450" cy="325" r="4"/>
-        <text class="sf-title" x="462" y="330">SC_KICK</text>
-        <text class="sf-sub" x="462" y="348">ducks BASS LOW, sub drops</text>
+        <text class="sf-title" x="462" y="330">sc_kick</text>
+        <text class="sf-sub" x="462" y="348">kick_smp &gt; bass_low, syn_sub</text>
         <circle class="sf-dot--sc" cx="450" cy="379" r="4"/>
-        <text class="sf-title" x="462" y="384">SC_SNARE</text>
-        <text class="sf-sub" x="462" y="402">optional dip: gtr, synths</text>
+        <text class="sf-title" x="462" y="384">sc_snare</text>
+        <text class="sf-sub" x="462" y="402">snr_smp &gt; optional dip</text>
         <circle class="sf-dot--sc" cx="450" cy="435" r="4"/>
-        <text class="sf-title" x="462" y="440">SC_SPOTLIGHT</text>
-        <text class="sf-sub" x="462" y="458">ducks INSTRUMENT BUS</text>
-        <text class="sf-sub" x="462" y="476">ducks PLATE, TEMPO DELAY</text>
-        <text class="sf-sub sf-sub--danger" x="462" y="514">never VOCAL MASTER / PRINT</text>
+        <text class="sf-title" x="462" y="440">sc_spotlight</text>
+        <text class="sf-sub" x="462" y="458">ducks instrument_bus,</text>
+        <text class="sf-sub" x="462" y="476">fx_vox_plate, fx_vox_dly,</text>
+        <text class="sf-sub" x="462" y="494">fx_vox_hall, fx_inst_plate,</text>
+        <text class="sf-sub" x="462" y="512">fx_inst_dly</text>
+        <text class="sf-sub sf-sub--danger" x="462" y="530">never vocal_master, print_bus</text>
 
-        <!-- PRINT and MASTER -->
+        <!-- print_bus and master_bus -->
         <rect class="sf-node sf-node--print" x="730" y="110" width="220" height="110" rx="4"/>
-        <text class="sf-title sf-title--accent" x="746" y="138">PRINT / MIX BUS</text>
+        <text class="sf-title sf-title--accent" x="746" y="138">print_bus</text>
         <text class="sf-sub sf-sub--ok" x="746" y="160">-4 to -3 dBFS in</text>
         <text class="sf-sub" x="746" y="182">VCC &gt; FG-Grey &gt; Max #1</text>
         <text class="sf-sub" x="746" y="202">&gt; Soothe2 &gt; GClip</text>
 
         <rect class="sf-node sf-node--master" x="730" y="300" width="220" height="104" rx="4"/>
-        <text class="sf-title sf-title--accent" x="746" y="328">MASTER</text>
+        <text class="sf-title sf-title--accent" x="746" y="328">master_bus</text>
         <text class="sf-sub" x="746" y="350">JST Maximizer #2, Rock preset</text>
         <text class="sf-sub sf-sub--ok" x="746" y="370">ceiling -1.5, TP -1.0 max</text>
         <text class="sf-sub" x="746" y="390">-8.5 to -7.5 LUFS</text>
+        <path class="sf-wire" d="M840 404 V436"/>
+        <polygon class="sf-arrow" points="834,436 840,444 846,436"/>
+        <text class="sf-sub" x="746" y="462">REAPER master: empty</text>
 
         <!-- Audio wires -->
         <path class="sf-wire" d="M680 130 H722"/>
         <polygon class="sf-arrow" points="722,124 730,130 722,136"/>
         <path class="sf-wire" d="M390 232 H710 V196 H722"/>
         <polygon class="sf-arrow" points="722,190 730,196 722,202"/>
-        <text class="sf-sub" x="560" y="226">ALL MUSIC</text>
+        <text class="sf-sub" x="560" y="226">instrument_bus</text>
         <path class="sf-wire" d="M840 220 V292"/>
         <polygon class="sf-arrow" points="834,292 840,300 846,292"/>
 
@@ -134,9 +142,26 @@
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
       <div class="callout__body">
         <span class="callout__title">Why two branches</span>
-        <p>Vocals never hit the instrument glue. Screams cannot pump the guitar wall. Muting <code>VOCAL MASTER</code> prints a clean instrumental in one pass.</p>
+        <p>Vocals never hit the instrument glue. Screams cannot pump the guitar wall. Muting <code>vocal_master</code> prints a clean instrumental in one pass.</p>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <h2 id="build-template">Build the template</h2>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Whole layout in one run: ReaScript</span>
+        <p>The script builds every track, folder, send, hub, name and color on this page. It adds no plugins. The <code>ggd_drums</code> track gets <code>64</code> channels and 16 pre-fader sends into the kit tracks. Insert GetGood Drums on it. If the project already has tracks, the script asks first and adds the template after them. It never deletes a track. One undo step reverts it. Edit the <code>TEMPLATE</code> table at the top of the file to change the layout.</p>
+        <p><a href="reaper-scripts/wap_build_mix_template.lua" download>Download wap_build_mix_template.lua</a></p>
+      </div>
+    </div>
+    <ol class="steps">
+      <li><div><span class="steps__title">Load the script</span><p>Choose <strong>Actions</strong> &gt; <strong>Show action list</strong> &gt; <strong>New action</strong> &gt; <strong>Load ReaScript</strong>. Select the downloaded file.</p></div></li>
+      <li><div><span class="steps__title">Run it</span><p>Run the action in a new project. The ReaScript console shows the track and send counts. Press <kbd>Ctrl+Z</kbd> to undo.</p></div></li>
+      <li><div><span class="steps__title">Insert GetGood Drums</span><p>Load the GGD kit on <code>ggd_drums</code> with 16 stereo outputs. Outputs <code>1/2</code> to <code>31/32</code> already feed the kit tracks.</p></div></li>
+    </ol>
   </section>
 
   <section class="section">
@@ -148,14 +173,14 @@
           <tr><th scope="col">Folder / bus</th><th scope="col">Contains</th><th scope="col">Peak target</th><th scope="col">Chain</th></tr>
         </thead>
         <tbody>
-          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <code>INSTRUMENT BUS</code></td><td>All non-vocal buses, <code>WIDE MIX HALL</code></td><td class="mono val-warn">-6 to -5 dBFS</td><td>Receives <code>SC_SPOTLIGHT</code> duck</td></tr>
-          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> <a href="drums.html"><code>DRUM BUS</code></a></td><td>Kick, Snare, Toms, OH, Rooms, <code>DRUM PARALLEL CRUSH</code>, <code>SNARE PLATE</code></td><td class="mono val-ok">-8 to -6 dBFS</td><td>FG-Grey 4:1 &gt; GClip</td></tr>
-          <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> <a href="bass.html"><code>BASS BUS</code></a></td><td><code>BASS LOW</code> (&lt;180 Hz), <code>BASS HIGH</code> (&gt;180 Hz)</td><td class="mono val-ok">-8 to -6 dBFS</td><td>JST BG-Bass</td></tr>
-          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> <a href="guitars.html">Guitar buses</a></td><td><code>RHYTHM GTR BUS</code>, <code>LEAD GTR BUS</code>, <code>OCTAVE / MELODY GTR</code></td><td class="mono val-ok">-8 to -6 dBFS</td><td>JW / JST BG-Guitars &gt; Soothe2</td></tr>
-          <tr><td><span class="gchip gchip--orch" aria-hidden="true"></span> <a href="orchestral.html"><code>ORCH &amp; SYNTH BUS</code></a></td><td>ANA 2, Spitfire LABS, <code>WIDE MIX HALL</code> return</td><td class="mono val-ok">-8 to -6 dBFS</td><td>Soothe2 &gt; JW BG-Keys</td></tr>
-          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> <a href="vocals.html"><code>VOCAL MASTER</code></a></td><td><code>LEAD VOX BUS</code>, <code>BGV / HARMONY</code>, vocal FX returns</td><td class="mono val-warn">-6 to -5 dBFS</td><td>Bypasses <code>INSTRUMENT BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="mix-bus.html"><code>PRINT / MIX BUS</code></a></td><td><code>INSTRUMENT BUS</code> + <code>VOCAL MASTER</code></td><td class="mono val-warn">-4 to -3 dBFS in</td><td>VCC &gt; FG-Grey &gt; Max #1 &gt; Soothe2 &gt; GClip</td></tr>
-          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="mix-bus.html#master">MASTER</a></td><td><code>PRINT / MIX BUS</code></td><td class="mono val-danger">-1.5 dBFS ceiling; true peak -1.0 dBTP max</td><td>JST Maximizer #2 (Rock preset)</td></tr>
+          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <code>instrument_bus</code></td><td>All non-vocal buses, <code>fx_hall</code>, <code>fx_inst_plate</code>, <code>fx_inst_dly</code></td><td class="mono val-warn">-6 to -5 dBFS</td><td><a href="mix-bus.html#instrument-bus">Ozone 9 Imager (mono check) &gt; TDR Nova (<code>sc_spotlight</code> duck)</a></td></tr>
+          <tr><td><span class="gchip gchip--drums-bus" aria-hidden="true"></span> <a href="drums.html"><code>drum_bus</code></a></td><td>Kick, Snare, Toms, OH, Rooms, <code>fx_crush</code>, <code>fx_snr_plate</code></td><td class="mono val-ok">-8 to -6 dBFS</td><td>FG-Grey 4:1 &gt; GClip</td></tr>
+          <tr><td><span class="gchip gchip--bass-bus" aria-hidden="true"></span> <a href="bass.html"><code>bass_bus</code></a></td><td><code>bass_low</code> (&lt;180 Hz), <code>bass_high</code> (&gt;180 Hz)</td><td class="mono val-ok">-8 to -6 dBFS</td><td>JST BG-Bass</td></tr>
+          <tr><td><span class="gchip gchip--guitars-bus" aria-hidden="true"></span> <a href="guitars.html">Guitar buses</a></td><td><code>gtr_rhy_bus</code>, <code>gtr_ld_bus</code>, <code>gtr_mel_bus</code></td><td class="mono val-ok">-8 to -6 dBFS</td><td>JW / JST BG-Guitars &gt; Soothe2</td></tr>
+          <tr><td><span class="gchip gchip--orch-bus" aria-hidden="true"></span> <a href="orchestral.html"><code>orch_syn_bus</code></a></td><td>ANA 2, Spitfire LABS, <code>fx_hall</code> return</td><td class="mono val-ok">-8 to -6 dBFS</td><td>Soothe2 &gt; JW BG-Keys</td></tr>
+          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="vocals.html"><code>vocal_master</code></a></td><td><code>vox_ld_bus</code>, <code>vox_bgv_bus</code>, <code>fx_vox_plate</code>, <code>fx_vox_slap</code>, <code>fx_vox_dly</code>, <code>fx_vox_hall</code></td><td class="mono val-warn">-6 to -5 dBFS</td><td>Bypasses <code>instrument_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="mix-bus.html"><code>print_bus</code></a></td><td><code>instrument_bus</code> + <code>vocal_master</code></td><td class="mono val-warn">-4 to -3 dBFS in</td><td>VCC &gt; FG-Grey &gt; Max #1 &gt; Soothe2 &gt; GClip</td></tr>
+          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="mix-bus.html#master"><code>master_bus</code></a></td><td><code>print_bus</code>. Feeds the REAPER master, which stays empty.</td><td class="mono val-danger">-1.5 dBFS ceiling; true peak -1.0 dBTP max</td><td>JST Maximizer #2 (Rock preset)</td></tr>
         </tbody>
       </table>
     </div>
@@ -171,18 +196,19 @@
           <tr><th scope="col">Hub</th><th scope="col">Fed by</th><th scope="col">Keys</th><th scope="col">Target GR</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>SC_KICK</code></td><td>Kick, pre-fader, <code>0.0 dB</code></td><td><code>BASS LOW</code> ducker (after ReaLimit)<br>ANA 2 sub drops</td><td class="mono">2.5&ndash;3.5 dB<br>2&ndash;3 dB</td></tr>
-          <tr><td><code>SC_SNARE</code></td><td>Snare, pre-fader, <code>0.0 dB</code></td><td>Optional dynamic dip on Rhythm Gtr and Synths at <code>210 Hz</code> and <code>2.8 kHz</code></td><td class="mono">Optional</td></tr>
-          <tr><td><code>SC_SPOTLIGHT</code></td><td>Lead Vox + Lead Gtr, pre-fader</td><td><code>INSTRUMENT BUS</code> at <code>2.5&ndash;4 kHz</code><br><code>VOX &amp; LEAD PLATE</code><br><code>STEREO TEMPO DELAY</code></td><td class="mono">-1.5 to -2.5 dB<br>2&ndash;3 dB<br>3&ndash;4 dB</td></tr>
+          <tr><td><code>sc_kick</code></td><td><code>kick_smp</code> (GGD trigger), pre-fader, <code>0.0 dB</code></td><td><code>bass_low</code> ducker (after ReaLimit)<br>ANA 2 sub drops (<code>syn_sub</code>)</td><td class="mono">2.5&ndash;3.5 dB<br>2&ndash;3 dB</td></tr>
+          <tr><td><code>sc_snare</code></td><td><code>snr_smp</code> (GGD trigger), pre-fader, <code>0.0 dB</code></td><td>Optional dynamic dip on <code>gtr_rhy_bus</code> and <code>orch_syn_bus</code> at <code>210 Hz</code> and <code>2.8 kHz</code></td><td class="mono">Optional</td></tr>
+          <tr><td><code>sc_spotlight</code></td><td><code>vox_ld_bus</code> + <code>gtr_ld_bus</code>, pre-fader</td><td><code>instrument_bus</code> at <code>2.5&ndash;4 kHz</code><br><code>fx_vox_plate</code>, <code>fx_inst_plate</code><br><code>fx_vox_dly</code>, <code>fx_inst_dly</code><br><code>fx_vox_hall</code></td><td class="mono">-1.5 to -2.5 dB<br>2&ndash;3 dB<br>3&ndash;4 dB<br>2&ndash;3 dB</td></tr>
         </tbody>
       </table>
     </div>
+    <p>Key <code>sc_kick</code> and <code>sc_snare</code> from the trigger tracks, not the kick or snare buses. Triggers hit at a constant level with no bleed, so the ducking stays consistent.</p>
 
     <h3 id="hub-setup">Hub setup in REAPER</h3>
     <ol class="steps">
-      <li><div><span class="steps__title">Create the hub track</span><p>Name it <code>SC_KICK</code>, <code>SC_SNARE</code> or <code>SC_SPOTLIGHT</code>.</p></div></li>
+      <li><div><span class="steps__title">Create the hub track</span><p>Name it <code>sc_kick</code>, <code>sc_snare</code> or <code>sc_spotlight</code>.</p></div></li>
       <li><div><span class="steps__title">Uncheck Master/Parent Send</span><p>Open the hub's Route window. The hub is now silent in the mix.</p></div></li>
-      <li><div><span class="steps__title">Feed the hub</span><p>Send the source track to the hub. Mode: Pre-Fader (Post-FX). Level: <code>0.0 dB</code>.</p></div></li>
+      <li><div><span class="steps__title">Feed the hub</span><p>Send the source track to the hub: <code>kick_smp</code> to <code>sc_kick</code>, <code>snr_smp</code> to <code>sc_snare</code>. Mode: Pre-Fader (Post-FX). Level: <code>0.0 dB</code>.</p></div></li>
       <li><div><span class="steps__title">Set 4 channels on the target</span><p>On the ducked track, set Track Channels from <code>2</code> to <code>4</code>.</p></div></li>
       <li><div><span class="steps__title">Send hub to target</span><p>Create a Pre-Fader (Post-FX) send. Audio: <code>1/2</code> to <code>3/4</code>.</p></div></li>
       <li><div><span class="steps__title">Point the detector at 3/4</span><p>ReaComp: Detector input = <code>Auxiliary Input L+R</code>. TDR Nova: Sidechain Input = EXT SC.</p></div></li>
@@ -204,30 +230,8 @@
       </div>
     </div>
 
-    <h3 id="spotlight">SC_SPOTLIGHT duck on INSTRUMENT BUS</h3>
-    <ol class="rack">
-      <li class="rack__slot">
-        <div class="rack__num" aria-hidden="true">1</div>
-        <div class="rack__body">
-          <div class="rack__head">
-            <h4 class="rack__name">TDR Nova</h4>
-            <span class="chip">Tokyo Dawn</span>
-            <span class="tag">DYN EQ</span>
-            <button type="button" class="copy-btn" data-copy="spot-nova" aria-label="Copy SC_SPOTLIGHT ducker settings"></button>
-          </div>
-          <dl class="kv" id="spot-nova" data-copy-title="INSTRUMENT BUS - SC_SPOTLIGHT ducker (TDR Nova)">
-            <div class="kv__item"><dt>Key</dt><dd>SC_SPOTLIGHT (Sidechain Input = EXT SC)</dd></div>
-            <div class="kv__item"><dt>Band</dt><dd>2.5&ndash;4 kHz, centered 3 kHz</dd></div>
-            <div class="kv__item"><dt>Target</dt><dd>-1.5 to -2.5 dB</dd></div>
-          </dl>
-          <p class="rack__why">Opens a pocket for the lead vocal and solos. The guitar wall keeps its body.</p>
-          <div class="alts">
-            <span class="label alts__title">Alternatives</span>
-            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaComp, Auxiliary L+R detector</span></span>
-          </div>
-        </div>
-      </li>
-    </ol>
+    <h3 id="spotlight">sc_spotlight duck on instrument_bus</h3>
+    <p>Route it here: set <code>instrument_bus</code> to 4 channels and send <code>sc_spotlight</code> to <code>3/4</code>, as in the steps above. The duck itself is TDR Nova, the last slot of the <a href="mix-bus.html#instrument-bus">instrument_bus chain</a> on Mix Bus: <code>2.5&ndash;4 kHz</code>, <code>-1.5 to -2.5 dB</code>.</p>
   </section>
 
   <section class="section">
@@ -238,15 +242,20 @@
           <tr><th scope="col">Return</th><th scope="col">Sums into</th><th scope="col">Why</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>DRUM PARALLEL CRUSH</code></td><td><code>DRUM BUS</code></td><td>Drum bus glue hits dry and crush together.</td></tr>
-          <tr><td><code>SNARE PLATE</code></td><td><code>DRUM BUS</code></td><td>Plate moves with the kit level.</td></tr>
-          <tr><td><code>WIDE MIX HALL</code></td><td><code>ORCH &amp; SYNTH BUS</code> (inside <code>INSTRUMENT BUS</code>)</td><td>Hall stays out of the vocal branch.</td></tr>
-          <tr><td><code>VOX &amp; LEAD PLATE</code></td><td><code>VOCAL MASTER</code></td><td>Mute <code>VOCAL MASTER</code> = no vocal tails in the instrumental.</td></tr>
-          <tr><td><code>VOX MICRO-PITCH &amp; SLAP</code></td><td><code>VOCAL MASTER</code></td><td>Same reason.</td></tr>
-          <tr><td><code>STEREO TEMPO DELAY</code></td><td><code>VOCAL MASTER</code></td><td>Same reason.</td></tr>
+          <tr><td><code>fx_crush</code></td><td><code>drum_bus</code></td><td>The <code>drum_bus</code> glue hits dry and crush together.</td></tr>
+          <tr><td><code>fx_snr_plate</code></td><td><code>drum_bus</code></td><td>Plate moves with the kit level.</td></tr>
+          <tr><td><code>fx_hall</code></td><td><code>orch_syn_bus</code> (inside <code>instrument_bus</code>)</td><td>Instruments only. No vocal sends.</td></tr>
+          <tr><td><code>fx_vox_plate</code></td><td><code>vocal_master</code></td><td>Mute <code>vocal_master</code> = no vocal tails in the instrumental.</td></tr>
+          <tr><td><code>fx_vox_slap</code></td><td><code>vocal_master</code></td><td>Same reason.</td></tr>
+          <tr><td><code>fx_vox_dly</code></td><td><code>vocal_master</code></td><td>Same reason.</td></tr>
+          <tr><td><code>fx_vox_hall</code></td><td><code>vocal_master</code></td><td>BGV hall. Same reason.</td></tr>
+          <tr><td><code>fx_inst_plate</code></td><td><code>instrument_bus</code> (direct)</td><td>Copy of <code>fx_vox_plate</code> for <code>gtr_ld_bus</code>. The a cappella keeps no guitar tail. The <code>sc_spotlight</code> Nova duck on <code>instrument_bus</code> also acts on it.</td></tr>
+          <tr><td><code>fx_inst_dly</code></td><td><code>instrument_bus</code> (direct)</td><td>Copy of <code>fx_vox_dly</code> for <code>gtr_ld_bus</code> and <code>syn_arp</code>. Same reason.</td></tr>
         </tbody>
       </table>
     </div>
+    <p>Vocal returns take vocal sends only. Instrument returns take instrument sends only. Each stem then carries only its own tails.</p>
+    <p>Rule: every send from a vocal track lands inside <code>vocal_master</code>. Muting it then leaves no vocal tails, so the instrumental prints clean.</p>
     <p>Return chains live on <a href="fx-returns.html">FX Returns</a>.</p>
   </section>
 
@@ -264,37 +273,48 @@
       <li>Order fields broad to narrow: <code>gtr_rhy_l</code>. Related tracks then sort together.</li>
       <li>Put song, version, tempo and sample rate on the folder, not the files: <code>wap-song_name-v3-140bpm-48k/</code>.</li>
       <li>Render every stem from the same start to the same end.</li>
+      <li>Buses, returns and hubs follow the same rules: <code>drum_bus</code>, <code>fx_hall</code>, <code>sc_kick</code>.</li>
     </ul>
 
     <h3 id="naming-prefixes">Prefix &rarr; bus map</h3>
+    <p id="track-colors">The script colors the track list as a rainbow, top to bottom. The chips on this site use the same colors.</p>
+    <ul>
+      <li>Sections: drums red, bass orange, guitars yellow, orchestral green, synths blue, SFX indigo, vocals violet.</li>
+      <li>Each section bus takes a darker shade of its section color. Synths have no bus of their own. They sit in the green <code>orch_syn_bus</code>.</li>
+      <li>White: <code>master_bus</code>, <code>print_bus</code>, <code>instrument_bus</code> and <code>vocal_master</code>.</li>
+      <li>Gray: every FX return.</li>
+      <li>Black: the sidechain hubs.</li>
+    </ul>
     <div class="table-wrap">
       <table class="table">
         <thead>
           <tr><th scope="col">Section</th><th scope="col">Prefix</th><th scope="col">Example track names</th><th scope="col">Feeds bus</th></tr>
         </thead>
         <tbody>
-          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>kick</code></td><td><code>kick_in</code>, <code>kick_out</code>, <code>kick_sub</code>, <code>kick_smp</code></td><td><code>KICK BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>snr</code></td><td><code>snr_top</code>, <code>snr_bot</code>, <code>snr_smp</code></td><td><code>SNARE BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>tom</code></td><td><code>tom_1</code>, <code>tom_2</code>, <code>tom_flr</code></td><td><code>TOMS BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>hh</code> <code>ride</code> <code>oh</code></td><td><code>hh</code>, <code>ride</code>, <code>oh_l</code>, <code>oh_r</code></td><td><code>OVERHEADS / CYMBALS</code></td></tr>
-          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>room</code></td><td><code>room_l</code>, <code>room_r</code>, <code>room_mono</code></td><td><code>ROOM BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_di</code></td><td><code>BASS LOW</code> + <code>BASS HIGH</code></td></tr>
-          <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_low</code></td><td><code>BASS BUS</code> (this is <code>BASS LOW</code>)</td></tr>
-          <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_amp</code>, <code>bass_grit</code></td><td><code>BASS HIGH</code></td></tr>
-          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_rhy</code></td><td><code>gtr_rhy_l</code>, <code>gtr_rhy_r</code>, quad: <code>gtr_rhy_l2</code>, <code>gtr_rhy_r2</code></td><td><code>RHYTHM GTR BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_ld</code></td><td><code>gtr_ld</code>, <code>gtr_ld_harm</code></td><td><code>LEAD GTR BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_cln</code> <code>gtr_oct</code> <code>gtr_amb</code></td><td><code>gtr_cln_l</code>, <code>gtr_oct</code>, <code>gtr_amb</code></td><td><code>OCTAVE / MELODY GTR</code></td></tr>
-          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_ld</code> <code>vox_scrm</code></td><td><code>vox_ld</code>, <code>vox_scrm</code></td><td><code>LEAD VOX BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_dbl</code> <code>vox_harm</code></td><td><code>vox_dbl_l</code>, <code>vox_dbl_r</code>, <code>vox_harm_hi</code>, <code>vox_harm_lo</code></td><td><code>BGV / HARMONY</code></td></tr>
-          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_bgv</code> <code>vox_gang</code></td><td><code>vox_bgv_l</code>, <code>vox_bgv_r</code>, <code>vox_gang</code></td><td><code>BGV / HARMONY</code></td></tr>
-          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_adlib</code></td><td><code>vox_adlib</code></td><td><code>BGV / HARMONY</code> (starting point; the guide sets no bus)</td></tr>
-          <tr><td><span class="gchip gchip--orch" aria-hidden="true"></span> Orchestral</td><td><code>orch</code></td><td><code>orch_str_vln</code>, <code>orch_str_vc</code>, <code>orch_brass</code>, <code>orch_choir</code>, <code>orch_perc</code></td><td><code>ORCH &amp; SYNTH BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--synth" aria-hidden="true"></span> Synths</td><td><code>syn</code></td><td><code>syn_pad</code>, <code>syn_ld</code>, <code>syn_arp</code>, <code>syn_bass</code>, <code>syn_sub</code></td><td><code>ORCH &amp; SYNTH BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--synth" aria-hidden="true"></span> SFX</td><td><code>sfx</code></td><td><code>sfx_riser</code>, <code>sfx_impact</code>, <code>sfx_sweep</code>, <code>sfx_rev</code>, <code>sfx_subdrop</code></td><td>SFX folder &gt; <code>INSTRUMENT BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--fx" aria-hidden="true"></span> FX returns</td><td><code>fx</code></td><td><code>fx_crush</code> (<code>DRUM PARALLEL CRUSH</code>), <code>fx_snr_plate</code> (<code>SNARE PLATE</code>)</td><td><code>DRUM BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--fx" aria-hidden="true"></span> FX returns</td><td><code>fx</code></td><td><code>fx_hall</code> (<code>WIDE MIX HALL</code>)</td><td><code>ORCH &amp; SYNTH BUS</code></td></tr>
-          <tr><td><span class="gchip gchip--fx" aria-hidden="true"></span> FX returns</td><td><code>fx</code></td><td><code>fx_vox_plate</code> (<code>VOX &amp; LEAD PLATE</code>), <code>fx_vox_slap</code> (<code>VOX MICRO-PITCH &amp; SLAP</code>), <code>fx_dly</code> (<code>STEREO TEMPO DELAY</code>)</td><td><code>VOCAL MASTER</code></td></tr>
-          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> Hubs</td><td><code>sc</code></td><td><code>sc_kick</code>, <code>sc_snare</code>, <code>sc_spotlight</code></td><td>None. Master/Parent Send OFF.</td></tr>
+          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> Master</td><td><code>master</code></td><td><code>master_bus</code></td><td>REAPER master (empty, unity)</td></tr>
+          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>kick</code></td><td><code>kick_in</code>, <code>kick_out</code>, <code>kick_sub</code>, <code>kick_smp</code></td><td><code>kick_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>snr</code></td><td><code>snr_top</code>, <code>snr_bot</code>, <code>snr_smp</code></td><td><code>snr_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>tom</code></td><td><code>tom_1</code>, <code>tom_2</code>, <code>tom_flr</code></td><td><code>tom_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>hh</code> <code>ride</code> <code>oh</code></td><td><code>hh</code>, <code>ride</code>, <code>oh_l</code>, <code>oh_r</code></td><td><code>oh_cym_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>room</code></td><td><code>room_l</code>, <code>room_r</code>, <code>room_mono</code></td><td><code>room_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_di</code></td><td><code>bass_low</code> + <code>bass_high</code></td></tr>
+          <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_low</code></td><td><code>bass_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_amp</code>, <code>bass_grit</code></td><td><code>bass_high</code></td></tr>
+          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_rhy</code></td><td><code>gtr_rhy_l</code>, <code>gtr_rhy_r</code>, quad: <code>gtr_rhy_l2</code>, <code>gtr_rhy_r2</code></td><td><code>gtr_rhy_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_ld</code></td><td><code>gtr_ld</code>, <code>gtr_ld_harm</code></td><td><code>gtr_ld_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_cln</code> <code>gtr_oct</code> <code>gtr_amb</code></td><td><code>gtr_cln_l</code>, <code>gtr_oct</code>, <code>gtr_amb</code></td><td><code>gtr_mel_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_ld</code> <code>vox_scrm</code></td><td><code>vox_ld</code>, <code>vox_scrm</code></td><td><code>vox_ld_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_dbl</code> <code>vox_harm</code></td><td><code>vox_dbl_l</code>, <code>vox_dbl_r</code>, <code>vox_harm_hi</code>, <code>vox_harm_lo</code></td><td><code>vox_bgv_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_bgv</code> <code>vox_gang</code></td><td><code>vox_bgv_l</code>, <code>vox_bgv_r</code>, <code>vox_gang</code></td><td><code>vox_bgv_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_adlib</code></td><td><code>vox_adlib</code></td><td><code>vox_bgv_bus</code> (starting point; the guide sets no bus)</td></tr>
+          <tr><td><span class="gchip gchip--orch" aria-hidden="true"></span> Orchestral</td><td><code>orch</code></td><td><code>orch_str_vln</code>, <code>orch_str_vc</code>, <code>orch_brass</code>, <code>orch_choir</code>, <code>orch_perc</code></td><td><code>orch_syn_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--synth" aria-hidden="true"></span> Synths</td><td><code>syn</code></td><td><code>syn_pad</code>, <code>syn_ld</code>, <code>syn_arp</code>, <code>syn_bass</code>, <code>syn_sub</code></td><td><code>orch_syn_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--sfx" aria-hidden="true"></span> SFX</td><td><code>sfx</code></td><td><code>sfx_riser</code>, <code>sfx_impact</code>, <code>sfx_sweep</code>, <code>sfx_rev</code>, <code>sfx_subdrop</code></td><td><code>sfx_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--fx" aria-hidden="true"></span> FX returns</td><td><code>fx</code></td><td><code>fx_crush</code>, <code>fx_snr_plate</code></td><td><code>drum_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--fx" aria-hidden="true"></span> FX returns</td><td><code>fx</code></td><td><code>fx_hall</code></td><td><code>orch_syn_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--fx" aria-hidden="true"></span> FX returns</td><td><code>fx_inst</code></td><td><code>fx_inst_plate</code>, <code>fx_inst_dly</code></td><td><code>instrument_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--fx" aria-hidden="true"></span> FX returns</td><td><code>fx_vox</code></td><td><code>fx_vox_plate</code>, <code>fx_vox_slap</code>, <code>fx_vox_dly</code>, <code>fx_vox_hall</code></td><td><code>vocal_master</code></td></tr>
+          <tr><td><span class="gchip gchip--hub" aria-hidden="true"></span> Hubs</td><td><code>sc</code></td><td><code>sc_kick</code>, <code>sc_snare</code>, <code>sc_spotlight</code></td><td>None. Master/Parent Send OFF.</td></tr>
         </tbody>
       </table>
     </div>
@@ -309,7 +329,7 @@
           <tr><td><code>_l</code> / <code>_r</code></td><td>Hard-panned pair. Put it right after the part name, before <code>_di</code> or <code>_print</code>.</td><td><code>gtr_rhy_l</code>, <code>oh_r</code></td></tr>
           <tr><td><code>_di</code></td><td>Raw DI. Keep it for re-amping. Mute it when an amp track carries the part.</td><td><code>gtr_rhy_l_di</code>, <code>bass_di</code></td></tr>
           <tr><td><code>_print</code></td><td>Printed (rendered) version of a track. Keeps the same bus as its source.</td><td><code>gtr_rhy_l_print</code></td></tr>
-          <tr><td><code>_ref</code></td><td>Reference mix for A/B. Keep it out of <code>PRINT / MIX BUS</code>.</td><td><code>song_name_ref</code>, <code>mix_v2_ref</code></td></tr>
+          <tr><td><code>_ref</code></td><td>Reference mix for A/B. Keep it out of <code>print_bus</code>.</td><td><code>song_name_ref</code>, <code>mix_v2_ref</code></td></tr>
         </tbody>
       </table>
     </div>
@@ -345,10 +365,10 @@
           <tr><th scope="col">Track / bus</th><th scope="col">Do</th><th scope="col">Do not</th></tr>
         </thead>
         <tbody>
-          <tr><td>Vocals (Lead Vox, BGVs)</td><td>Route into <code>VOCAL MASTER</code>, then <code>PRINT / MIX BUS</code>.</td><td class="val-danger">Never route into <code>INSTRUMENT BUS</code>. Never bypass <code>PRINT / MIX BUS</code>.</td></tr>
-          <tr><td>Spatial FX returns</td><td>Crush and Snare Plate to <code>DRUM BUS</code>. Hall to <code>INSTRUMENT BUS</code>. Vocal FX to <code>VOCAL MASTER</code>.</td><td class="val-danger">Never put vocal plates or delays outside <code>VOCAL MASTER</code>.</td></tr>
-          <tr><td><code>SC_SPOTLIGHT</code></td><td>Send from Lead Vox and Lead Gtr, pre-fader. Receive on <code>INSTRUMENT BUS</code>, Vox Plate, Tempo Delay.</td><td class="val-danger">Never receive on <code>VOCAL MASTER</code> or <code>PRINT / MIX BUS</code>. Vocals would duck themselves.</td></tr>
-          <tr><td><code>BASS LOW</code> (&lt;180 Hz)</td><td>Route to <code>BASS BUS</code>, then <code>INSTRUMENT BUS</code>. 100% mono.</td><td class="val-danger">Never send to reverb, delay or chorus.</td></tr>
+          <tr><td>Vocals (<code>vox_ld_bus</code>, <code>vox_bgv_bus</code>)</td><td>Route into <code>vocal_master</code>, then <code>print_bus</code>.</td><td class="val-danger">Never route into <code>instrument_bus</code>. Never bypass <code>print_bus</code>.</td></tr>
+          <tr><td>Spatial FX returns</td><td><code>fx_crush</code> and <code>fx_snr_plate</code> to <code>drum_bus</code>. <code>fx_hall</code>, <code>fx_inst_plate</code> and <code>fx_inst_dly</code> to <code>instrument_bus</code>. Vocal returns, <code>fx_vox_hall</code> included, to <code>vocal_master</code>.</td><td class="val-danger">Never send a vocal track to a return outside <code>vocal_master</code>. Never send an instrument to a return inside it.</td></tr>
+          <tr><td><code>sc_spotlight</code></td><td>Send from <code>vox_ld_bus</code> and <code>gtr_ld_bus</code>, pre-fader. Receive on <code>instrument_bus</code>, <code>fx_vox_plate</code>, <code>fx_vox_dly</code>, <code>fx_vox_hall</code>, <code>fx_inst_plate</code>, <code>fx_inst_dly</code>.</td><td class="val-danger">Never receive on <code>vocal_master</code> or <code>print_bus</code>. Vocals would duck themselves.</td></tr>
+          <tr><td><code>bass_low</code> (&lt;180 Hz)</td><td>Route to <code>bass_bus</code>, then <code>instrument_bus</code>. 100% mono.</td><td class="val-danger">Never send to reverb, delay or chorus.</td></tr>
           <tr><td>All three hubs</td><td>Send to detector inputs, channels 3/4.</td><td class="val-danger">Never leave Master/Parent Send on. Silent triggers would double the audio.</td></tr>
         </tbody>
       </table>
@@ -363,12 +383,13 @@
           <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
         </thead>
         <tbody>
-          <tr><td>Vocals pump the guitar wall</td><td>Move vocals out of <code>INSTRUMENT BUS</code>. Route them to <code>VOCAL MASTER</code>.</td><td>REAPER folders</td></tr>
-          <tr><td>Kick fader automation changes the bass duck</td><td>Key the ducker from <code>SC_KICK</code>, fed pre-fader.</td><td>Silent hub, ch 3/4</td></tr>
+          <tr><td>Vocals pump the guitar wall</td><td>Move vocals out of <code>instrument_bus</code>. Route them to <code>vocal_master</code>.</td><td>REAPER folders</td></tr>
+          <tr><td>Kick fader automation changes the bass duck</td><td>Key the ducker from <code>sc_kick</code>, fed pre-fader from <code>kick_smp</code>.</td><td>Silent hub, ch 3/4</td></tr>
           <tr><td>Kick suddenly louder after adding a hub</td><td>Uncheck Master/Parent Send on the hub.</td><td>Route window</td></tr>
-          <tr><td>Lead vocal ducks itself</td><td>Remove the <code>SC_SPOTLIGHT</code> receive from <code>VOCAL MASTER</code> and <code>PRINT / MIX BUS</code>.</td><td>Route window</td></tr>
-          <tr><td>Reverb tails in the instrumental print</td><td>Move vocal returns inside <code>VOCAL MASTER</code>.</td><td>REAPER folders</td></tr>
-          <tr><td>Sub sounds wide or phasey</td><td>Remove every FX send from <code>BASS LOW</code>. Keep it mono.</td><td>JS: Utility/chanmix2</td></tr>
+          <tr><td>Lead vocal ducks itself</td><td>Remove the <code>sc_spotlight</code> receive from <code>vocal_master</code> and <code>print_bus</code>.</td><td>Route window</td></tr>
+          <tr><td>Reverb tails in the instrumental print</td><td>Move vocal returns inside <code>vocal_master</code>. Send BGVs to <code>fx_vox_hall</code>, not <code>fx_hall</code>.</td><td>REAPER folders</td></tr>
+          <tr><td>Guitar or arp tails in the a cappella print</td><td>Send <code>gtr_ld_bus</code> and <code>syn_arp</code> to <code>fx_inst_plate</code> and <code>fx_inst_dly</code>, not to a <code>fx_vox_</code> return.</td><td>REAPER folders</td></tr>
+          <tr><td>Sub sounds wide or phasey</td><td>Remove every FX send from <code>bass_low</code>. Keep it mono.</td><td>JS: Utility/chanmix2</td></tr>
           <tr><td>Ducker never reacts</td><td>Set target to 4 channels. Set send to 1/2 &gt; 3/4. Set detector to Auxiliary L+R.</td><td>ReaComp / TDR Nova</td></tr>
         </tbody>
       </table>

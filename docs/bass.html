@@ -18,7 +18,7 @@
     <div class="goal">
       <span class="gchip gchip--lg gchip--bass" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Mono sub that never moves under <code>180 Hz</code>. Grit and pick above it. <code>BASS BUS</code> peaks at <code>-8 to -6 dBFS</code>.</p>
+      <p class="goal__text">Mono sub that never moves under <code>180 Hz</code>. Grit and pick above it. <code>bass_bus</code> peaks at <code>-8 to -6 dBFS</code>.</p>
     </div>
   </header>
 
@@ -42,7 +42,7 @@
         </dl>
       </div>
     </div>
-    <p>Amplifier Power OFF bypasses the Pre-Processed Tones. Bonecrusher gets a clean DI. Route post-DI/Bonecrusher equally (<code>0.0 dB</code>) into <code>BASS LOW</code> and <code>BASS HIGH</code>.</p>
+    <p>Amplifier Power OFF bypasses the Pre-Processed Tones. Bonecrusher gets a clean DI. Route post-DI/Bonecrusher equally (<code>0.0 dB</code>) into <code>bass_low</code> and <code>bass_high</code>.</p>
   </section>
 
   <section class="section">
@@ -57,7 +57,7 @@
           <tr><td>Kick window</td><td>Kick punch sits at <code>50&ndash;70 Hz</code>, resonance to <code>100&ndash;120 Hz</code>. The sub band holds the bass fundamentals below the low-mid box.</td></tr>
           <tr><td>Guitar chug</td><td>Palm-mute cab thump lives at <code>120&ndash;160 Hz</code>. A <code>180 Hz</code> ceiling keeps the sub out of it.</td></tr>
           <tr><td>Mono safe</td><td>Below <code>150&ndash;200 Hz</code> the ear cannot localize. Sum it to mono and compress it flat.</td></tr>
-          <tr><td>Note range</td><td>DjinnBass plays down to G0 in Kontakt naming (C3 = MIDI 60). That is <code>49 Hz</code>. Bb is <code>58 Hz</code>. The bass sits in the same octave as the Drop G 7-string. Its fundamentals overlap the <code>50&ndash;70 Hz</code> kick punch, so the <code>SC_KICK</code> duck matters.</td></tr>
+          <tr><td>Note range</td><td>DjinnBass plays down to G0 in Kontakt naming (C3 = MIDI 60). That is <code>49 Hz</code>. Bb is <code>58 Hz</code>. The bass sits in the same octave as the Drop G 7-string. Its fundamentals overlap the <code>50&ndash;70 Hz</code> kick punch, so the <code>sc_kick</code> duck matters.</td></tr>
           <tr><td>Common range</td><td>Split points in metal guides run <code>100&ndash;300 Hz</code>. <code>180 Hz</code> sits inside it.</td></tr>
         </tbody>
       </table>
@@ -66,14 +66,14 @@
     <h3 id="polarity">Zero-latency split &amp; polarity check</h3>
     <ol class="steps">
       <li><div><span class="steps__title">Use minimum-phase filters</span><p><code>24 dB/oct</code>: TDR Nova HP/LP Slope, or two stacked ReaEQ pass bands. They replace ReaFIR. Zero latency, sharp sub transients.</p></div></li>
-      <li><div><span class="steps__title">Play a sustained low note</span><p>Keep <code>BASS LOW</code> and <code>BASS HIGH</code> both active.</p></div></li>
+      <li><div><span class="steps__title">Play a sustained low note</span><p>Keep <code>bass_low</code> and <code>bass_high</code> both active.</p></div></li>
       <li><div><span class="steps__title">Flip polarity on one band</span><p>Use the track Phase button, or <code>JS: Utility/chanmix2</code> Left Phase and Right Phase = Invert.</p></div></li>
       <li><div><span class="steps__title">Keep the thicker setting</span><p>Listen at <code>180 Hz</code>. Pick the fuller result.</p></div></li>
     </ol>
   </section>
 
   <section class="section">
-    <h2 id="bass-low">BASS LOW (&lt;180 Hz) chain</h2>
+    <h2 id="bass-low">bass_low (&lt;180 Hz) chain</h2>
     <p>Six slots. Slammed sub, harmonic floor, kick duck last.</p>
     <ol class="rack">
       <li class="rack__slot">
@@ -83,9 +83,9 @@
             <h4 class="rack__name">ReaEQ</h4>
             <span class="chip">REAPER</span>
             <span class="tag">FILTER</span>
-            <button type="button" class="copy-btn" data-copy="low-1" aria-label="Copy BASS LOW slot 1 settings"></button>
+            <button type="button" class="copy-btn" data-copy="low-1" aria-label="Copy bass_low slot 1 settings"></button>
           </div>
-          <dl class="kv" id="low-1" data-copy-title="BASS LOW Slot 1 - ReaEQ">
+          <dl class="kv" id="low-1" data-copy-title="bass_low Slot 1 - ReaEQ">
             <div class="kv__item"><dt>LPF</dt><dd>24 dB/oct @ 180 Hz (two stacked Low Pass bands) <span class="chip">unverified</span></dd></div>
             <div class="kv__item"><dt>HPF</dt><dd>24 dB/oct @ 30&ndash;35 Hz (two stacked High Pass bands) <span class="chip">unverified</span></dd></div>
           </dl>
@@ -104,9 +104,9 @@
             <span class="chip">REAPER / JST</span>
             <span class="tag">MONO</span>
             <span class="tag">EQ</span>
-            <button type="button" class="copy-btn" data-copy="low-2" aria-label="Copy BASS LOW slot 2 settings"></button>
+            <button type="button" class="copy-btn" data-copy="low-2" aria-label="Copy bass_low slot 2 settings"></button>
           </div>
-          <dl class="kv" id="low-2" data-copy-title="BASS LOW Slot 2 - Mono + JST EQ">
+          <dl class="kv" id="low-2" data-copy-title="bass_low Slot 2 - Mono + JST EQ">
             <div class="kv__item"><dt>Mono</dt><dd>chanmix2 sum (or track Width 0%)</dd></div>
             <div class="kv__item"><dt>chanmix2 sliders</dt><dd>Left Pan 0, Right Pan 0, Left/Right Volume -6 dB</dd></div>
             <div class="kv__item"><dt>Weight</dt><dd>+2 dB @ 55&ndash;65 Hz</dd></div>
@@ -126,9 +126,9 @@
             <h4 class="rack__name">VM Revival</h4>
             <span class="chip">Slate</span>
             <span class="tag">HARM</span>
-            <button type="button" class="copy-btn" data-copy="low-3" aria-label="Copy BASS LOW slot 3 settings"></button>
+            <button type="button" class="copy-btn" data-copy="low-3" aria-label="Copy bass_low slot 3 settings"></button>
           </div>
-          <dl class="kv" id="low-3" data-copy-title="BASS LOW Slot 3 - Revival">
+          <dl class="kv" id="low-3" data-copy-title="bass_low Slot 3 - Revival">
             <div class="kv__item"><dt>Thickness</dt><dd>6&ndash;10 of 40 (starting point)</dd></div>
             <div class="kv__item"><dt>Shimmer</dt><dd>0</dd></div>
           </dl>
@@ -146,9 +146,9 @@
             <h4 class="rack__name">VM FG-116</h4>
             <span class="chip">Slate</span>
             <span class="tag">COMP</span>
-            <button type="button" class="copy-btn" data-copy="low-4" aria-label="Copy BASS LOW slot 4 settings"></button>
+            <button type="button" class="copy-btn" data-copy="low-4" aria-label="Copy bass_low slot 4 settings"></button>
           </div>
-          <dl class="kv" id="low-4" data-copy-title="BASS LOW Slot 4 - FG-116 (Stage 1 smash)">
+          <dl class="kv" id="low-4" data-copy-title="bass_low Slot 4 - FG-116 (Stage 1 smash)">
             <div class="kv__item"><dt>Ratio</dt><dd>12:1 (or 8:1) (starting point)</dd></div>
             <div class="kv__item"><dt>Attack</dt><dd>Fast (clockwise). No ms scale; it is fast even fully counter-clockwise</dd></div>
             <div class="kv__item"><dt>Release</dt><dd>Fast (clockwise). No ms scale; set by ear</dd></div>
@@ -169,9 +169,9 @@
             <h4 class="rack__name">ReaLimit</h4>
             <span class="chip">REAPER</span>
             <span class="tag">LIMIT</span>
-            <button type="button" class="copy-btn" data-copy="low-5" aria-label="Copy BASS LOW slot 5 settings"></button>
+            <button type="button" class="copy-btn" data-copy="low-5" aria-label="Copy bass_low slot 5 settings"></button>
           </div>
-          <dl class="kv" id="low-5" data-copy-title="BASS LOW Slot 5 - ReaLimit (Stage 2 brickwall)">
+          <dl class="kv" id="low-5" data-copy-title="bass_low Slot 5 - ReaLimit (Stage 2 brickwall)">
             <div class="kv__item"><dt>Threshold</dt><dd>-12.00 dB</dd></div>
             <div class="kv__item"><dt>Brickwall ceiling</dt><dd>-12.00 dB (same as Threshold = 0 dB makeup)</dd></div>
             <div class="kv__item"><dt>Target GR</dt><dd>3.0&ndash;4.5 dB</dd></div>
@@ -180,7 +180,7 @@
             <div class="kv__item"><dt>True peak</dt><dd>OFF (display only)</dd></div>
             <div class="kv__item"><dt>Performance</dt><dd>High quality</dd></div>
           </dl>
-          <p class="rack__why">Stage 2 brickwall. Every note hits the same sub shelf. Set sub level with the <code>BASS LOW</code> fader.</p>
+          <p class="rack__why">Stage 2 brickwall. Every note hits the same sub shelf. Set sub level with the <code>bass_low</code> fader.</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -190,10 +190,10 @@
             <h4 class="rack__name">ReaComp</h4>
             <span class="chip">REAPER</span>
             <span class="tag">DUCK</span>
-            <button type="button" class="copy-btn" data-copy="low-6" aria-label="Copy BASS LOW slot 6 settings"></button>
+            <button type="button" class="copy-btn" data-copy="low-6" aria-label="Copy bass_low slot 6 settings"></button>
           </div>
-          <dl class="kv" id="low-6" data-copy-title="BASS LOW Slot 6 - ReaComp SC_KICK ducker">
-            <div class="kv__item"><dt>Key</dt><dd>SC_KICK (Aux L+R, ch 3/4)</dd></div>
+          <dl class="kv" id="low-6" data-copy-title="bass_low Slot 6 - ReaComp sc_kick ducker">
+            <div class="kv__item"><dt>Key</dt><dd>sc_kick (Aux L+R, ch 3/4)</dd></div>
             <div class="kv__item"><dt>Attack</dt><dd>2 ms</dd></div>
             <div class="kv__item"><dt>Release</dt><dd>50&ndash;65 ms</dd></div>
             <div class="kv__item"><dt>Target GR</dt><dd>2.5&ndash;3.5 dB every kick</dd></div>
@@ -213,7 +213,7 @@
     <div class="callout callout--danger" role="note">
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
       <div class="callout__body">
-        <span class="callout__title">No FX sends on BASS LOW</span>
+        <span class="callout__title">No FX sends on bass_low</span>
         <p>Zero reverb, delay or chorus. Wide lows cause wash and phase cancellation.</p>
       </div>
     </div>
@@ -226,17 +226,18 @@
       </div>
     </div>
 
-    <h3 id="sc-kick-setup">SC_KICK into BASS LOW</h3>
+    <h3 id="sc-kick-setup">sc_kick into bass_low</h3>
     <ol class="steps">
-      <li><div><span class="steps__title">Set 4 channels</span><p>On <code>BASS LOW</code>, set Track Channels to <code>4</code>.</p></div></li>
-      <li><div><span class="steps__title">Send from SC_KICK</span><p>Pre-Fader (Post-FX). Audio <code>1/2</code> to <code>3/4</code>.</p></div></li>
+      <li><div><span class="steps__title">Set 4 channels</span><p>On <code>bass_low</code>, set Track Channels to <code>4</code>.</p></div></li>
+      <li><div><span class="steps__title">Feed sc_kick from kick_smp</span><p>Pre-Fader (Post-FX), <code>0.0 dB</code>. The GGD kick trigger hits at a constant level with no bleed, so the duck stays consistent.</p></div></li>
+      <li><div><span class="steps__title">Send from sc_kick</span><p>Pre-Fader (Post-FX). Audio <code>1/2</code> to <code>3/4</code>.</p></div></li>
       <li><div><span class="steps__title">Set the detector</span><p>ReaComp Detector input = <code>Auxiliary Input L+R</code>.</p></div></li>
     </ol>
     <p>Full hub rules on <a href="routing.html#hub-setup">Routing</a>.</p>
   </section>
 
   <section class="section">
-    <h2 id="bass-high">BASS HIGH (&gt;180 Hz) chain</h2>
+    <h2 id="bass-high">bass_high (&gt;180 Hz) chain</h2>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -245,9 +246,9 @@
             <h4 class="rack__name">TDR Nova</h4>
             <span class="chip">Tokyo Dawn</span>
             <span class="tag">DYN EQ</span>
-            <button type="button" class="copy-btn" data-copy="high-1" aria-label="Copy BASS HIGH slot 1 settings"></button>
+            <button type="button" class="copy-btn" data-copy="high-1" aria-label="Copy bass_high slot 1 settings"></button>
           </div>
-          <dl class="kv" id="high-1" data-copy-title="BASS HIGH Slot 1 - TDR Nova">
+          <dl class="kv" id="high-1" data-copy-title="bass_high Slot 1 - TDR Nova">
             <div class="kv__item"><dt>HPF</dt><dd>24 dB/oct @ 180 Hz</dd></div>
             <div class="kv__item"><dt>Dynamic band</dt><dd>-2 to -3 dB @ 2&ndash;3 kHz</dd></div>
             <div class="kv__item"><dt>Band Q</dt><dd>~2.5</dd></div>
@@ -264,9 +265,9 @@
             <h4 class="rack__name">Bassforge Bonecrusher</h4>
             <span class="chip">JST</span>
             <span class="tag">AMP</span>
-            <button type="button" class="copy-btn" data-copy="high-2" aria-label="Copy BASS HIGH slot 2 settings"></button>
+            <button type="button" class="copy-btn" data-copy="high-2" aria-label="Copy bass_high slot 2 settings"></button>
           </div>
-          <dl class="kv" id="high-2" data-copy-title="BASS HIGH Slot 2 - Bonecrusher">
+          <dl class="kv" id="high-2" data-copy-title="bass_high Slot 2 - Bonecrusher">
             <div class="kv__item"><dt>Amp</dt><dd>Bonecrusher</dd></div>
             <div class="kv__item"><dt>Crush</dt><dd>Up until grit fills 800 Hz &ndash; 2.5 kHz (by ear)</dd></div>
           </dl>
@@ -285,9 +286,9 @@
             <h4 class="rack__name">JST EQ</h4>
             <span class="chip">JST</span>
             <span class="tag">EQ</span>
-            <button type="button" class="copy-btn" data-copy="high-3" aria-label="Copy BASS HIGH slot 3 settings"></button>
+            <button type="button" class="copy-btn" data-copy="high-3" aria-label="Copy bass_high slot 3 settings"></button>
           </div>
-          <dl class="kv" id="high-3" data-copy-title="BASS HIGH Slot 3 - JST EQ">
+          <dl class="kv" id="high-3" data-copy-title="bass_high Slot 3 - JST EQ">
             <div class="kv__item"><dt>Scoop</dt><dd>-2 to -3 dB @ 300&ndash;400 Hz, broad</dd></div>
             <div class="kv__item"><dt>Pick</dt><dd>+2 to +3 dB @ 1.2&ndash;2 kHz</dd></div>
             <div class="kv__item"><dt>LPF</dt><dd>6&ndash;7 kHz</dd></div>
@@ -307,9 +308,9 @@
             <h4 class="rack__name">VM FG-116</h4>
             <span class="chip">Slate</span>
             <span class="tag">COMP</span>
-            <button type="button" class="copy-btn" data-copy="high-4" aria-label="Copy BASS HIGH slot 4 settings"></button>
+            <button type="button" class="copy-btn" data-copy="high-4" aria-label="Copy bass_high slot 4 settings"></button>
           </div>
-          <dl class="kv" id="high-4" data-copy-title="BASS HIGH Slot 4 - FG-116">
+          <dl class="kv" id="high-4" data-copy-title="bass_high Slot 4 - FG-116">
             <div class="kv__item"><dt>Ratio</dt><dd>4:1 &ndash; 8:1 (starting point)</dd></div>
             <div class="kv__item"><dt>Target GR</dt><dd>4&ndash;6 dB</dd></div>
           </dl>
@@ -320,8 +321,8 @@
   </section>
 
   <section class="section">
-    <h2 id="bass-bus">BASS BUS glue</h2>
-    <p>Sums <code>BASS LOW</code> + <code>BASS HIGH</code>. Peak target <code class="val-ok">-8 to -6 dBFS</code>.</p>
+    <h2 id="bass-bus">bass_bus glue</h2>
+    <p>Sums <code>bass_low</code> + <code>bass_high</code>. Peak target <code class="val-ok">-8 to -6 dBFS</code>.</p>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -330,9 +331,9 @@
             <h4 class="rack__name">JST BG-Bass</h4>
             <span class="chip">JST</span>
             <span class="tag">GLUE</span>
-            <button type="button" class="copy-btn" data-copy="bbus-1" aria-label="Copy BASS BUS settings"></button>
+            <button type="button" class="copy-btn" data-copy="bbus-1" aria-label="Copy bass_bus settings"></button>
           </div>
-          <dl class="kv" id="bbus-1" data-copy-title="BASS BUS - JST BG-Bass">
+          <dl class="kv" id="bbus-1" data-copy-title="bass_bus - JST BG-Bass">
             <div class="kv__item"><dt>Method</dt><dd>Low + High</dd></div>
             <div class="kv__item"><dt>Threshold + Comp</dt><dd>Set for 2&ndash;3 dB GR</dd></div>
             <div class="kv__item"><dt>Mix</dt><dd>100%</dd></div>
@@ -350,9 +351,9 @@
 
     <h3 id="bass-balance">Set the bass level against the vocal</h3>
     <ol class="steps">
-      <li><div><span class="steps__title">Lock kick and bass first</span><p>Kick and bass should hit together as one low-end event. The <code>SC_KICK</code> duck keeps the kick on top.</p></div></li>
+      <li><div><span class="steps__title">Lock kick and bass first</span><p>Kick and bass should hit together as one low-end event. The <code>sc_kick</code> duck keeps the kick on top.</p></div></li>
       <li><div><span class="steps__title">Dovetail bass top with guitar bottom</span><p>Bendeth matched the bass top end to the guitar bottom end. Where the guitar HPF ends, the bass grit takes over.</p></div></li>
-      <li><div><span class="steps__title">Check the vocal last</span><p>Play a chorus. Move <code>BASS BUS</code> &plusmn;1 dB. Keep the lowest level that still feels heavy. Bendeth: one dB too much bass makes the vocal disappear.</p></div></li>
+      <li><div><span class="steps__title">Check the vocal last</span><p>Play a chorus. Move <code>bass_bus</code> &plusmn;1 dB. Keep the lowest level that still feels heavy. Bendeth: one dB too much bass makes the vocal disappear.</p></div></li>
     </ol>
   </section>
 
@@ -366,14 +367,14 @@
         <tbody>
           <tr><td>Bass thin at the split</td><td>Flip polarity on one band. Keep the thicker result at <code>180 Hz</code>.</td><td>Track Phase / JS: Utility/chanmix2</td></tr>
           <tr><td>Sub level jumps note to note</td><td>FG-116 <code>6&ndash;10 dB GR</code>, then ReaLimit <code>-12.00 dB</code>.</td><td>FG-116 + ReaLimit</td></tr>
-          <tr><td>Kick buried by the sub</td><td>Duck <code>2.5&ndash;3.5 dB</code> from <code>SC_KICK</code>, after ReaLimit.</td><td>ReaComp</td></tr>
+          <tr><td>Kick buried by the sub</td><td>Duck <code>2.5&ndash;3.5 dB</code> from <code>sc_kick</code>, after ReaLimit.</td><td>ReaComp</td></tr>
           <tr><td>Duck clicks</td><td>Attack <code>2 ms</code>. Never <code>0.0 ms</code>.</td><td>ReaComp</td></tr>
           <tr><td>Sub never recovers in double kick runs</td><td>Release <code>50&ndash;65 ms</code>. Stay under 80 ms.</td><td>ReaComp</td></tr>
           <tr><td>Bass vanishes on phones</td><td>Revival Thickness <code>6&ndash;10</code> (of 40).</td><td>VM Revival</td></tr>
           <tr><td>Clank jumps out on hard hits</td><td>Dynamic band <code>-2 to -3 dB</code> at <code>2&ndash;3 kHz</code>.</td><td>TDR Nova</td></tr>
-          <tr><td>Low mids mud up with guitars</td><td>Scoop <code>-2 to -3 dB</code> at <code>300&ndash;400 Hz</code> on <code>BASS HIGH</code>.</td><td>JST EQ</td></tr>
-          <tr><td>Low G weaker than Bb</td><td>BASS LOW HPF is too high. Set it to <code>30&ndash;35 Hz</code>.</td><td>ReaEQ</td></tr>
-          <tr><td>Vocal buried in choruses</td><td>Pull <code>BASS BUS</code> 1 dB and compare.</td><td>Bass fader</td></tr>
+          <tr><td>Low mids mud up with guitars</td><td>Scoop <code>-2 to -3 dB</code> at <code>300&ndash;400 Hz</code> on <code>bass_high</code>.</td><td>JST EQ</td></tr>
+          <tr><td>Low G weaker than Bb</td><td>bass_low HPF is too high. Set it to <code>30&ndash;35 Hz</code>.</td><td>ReaEQ</td></tr>
+          <tr><td>Vocal buried in choruses</td><td>Pull <code>bass_bus</code> 1 dB and compare.</td><td>Bass fader</td></tr>
           <tr><td>Sub sounds wide</td><td>Mono sum. Remove every FX send.</td><td>JS: Utility/chanmix2</td></tr>
         </tbody>
       </table>

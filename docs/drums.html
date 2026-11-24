@@ -14,11 +14,11 @@
 
   <header class="page-header">
     <div class="label">Tracks / Drums</div>
-    <h1>Drums &amp; DRUM BUS</h1>
+    <h1>Drums &amp; drum_bus</h1>
     <div class="goal">
       <span class="gchip gchip--lg gchip--drums" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Punchy kick, cracking snare, tame cymbals. <code>DRUM BUS</code> peaks at <code>-8 to -6 dBFS</code>.</p>
+      <p class="goal__text">Punchy kick, cracking snare, tame cymbals. <code>drum_bus</code> peaks at <code>-8 to -6 dBFS</code>.</p>
     </div>
   </header>
 
@@ -38,18 +38,18 @@
           <tr><th scope="col">Bus</th><th scope="col">Pan</th><th scope="col">Pre-fader send</th><th scope="col">Post-fader sends</th></tr>
         </thead>
         <tbody>
-          <tr><td><a href="#kick"><code>KICK BUS</code></a></td><td class="mono">0% mono</td><td><code>SC_KICK</code> at <code>0.0 dB</code></td><td>M&amp;M shells only &gt; <code>DRUM PARALLEL CRUSH</code></td></tr>
-          <tr><td><a href="#snare"><code>SNARE BUS</code></a></td><td class="mono">0% mono</td><td><code>SC_SNARE</code> at <code>0.0 dB</code></td><td><code>SNARE PLATE</code> + <code>DRUM PARALLEL CRUSH</code></td></tr>
-          <tr><td><a href="#toms"><code>TOMS BUS</code></a></td><td class="mono">45% L to 75% R</td><td>&mdash;</td><td><code>SNARE PLATE</code> at <code>-8 to -10 dB</code>; crush (shells)</td></tr>
-          <tr><td><a href="#overheads">OVERHEADS / CYMBALS</a></td><td class="mono">85&ndash;100% L/R</td><td>&mdash;</td><td>None. Exclude from crush.</td></tr>
-          <tr><td><a href="#room"><code>ROOM BUS</code></a></td><td class="mono">100% L/R</td><td>&mdash;</td><td>&mdash;</td></tr>
+          <tr><td><a href="#kick"><code>kick_bus</code></a></td><td class="mono">0% mono</td><td>None. <code>kick_smp</code> feeds <code>sc_kick</code> at <code>0.0 dB</code></td><td>M&amp;M shells only &gt; <code>fx_crush</code></td></tr>
+          <tr><td><a href="#snare"><code>snr_bus</code></a></td><td class="mono">0% mono</td><td>None. <code>snr_smp</code> feeds <code>sc_snare</code> at <code>0.0 dB</code></td><td><code>fx_snr_plate</code> + <code>fx_crush</code></td></tr>
+          <tr><td><a href="#toms"><code>tom_bus</code></a></td><td class="mono">45% L to 75% R</td><td>&mdash;</td><td><code>fx_snr_plate</code> at <code>-8 to -10 dB</code>; crush (shells)</td></tr>
+          <tr><td><a href="#overheads"><code>oh_cym_bus</code></a></td><td class="mono">85&ndash;100% L/R</td><td>&mdash;</td><td>None. Exclude from crush.</td></tr>
+          <tr><td><a href="#room"><code>room_bus</code></a></td><td class="mono">100% L/R</td><td>&mdash;</td><td>&mdash;</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
   <section class="section">
-    <h2 id="kick">KICK BUS</h2>
+    <h2 id="kick">kick_bus</h2>
     <p>M&amp;M Sum/Sub + Invasion trigger.</p>
     <ol class="rack">
       <li class="rack__slot">
@@ -61,7 +61,7 @@
             <span class="tag">EQ</span>
             <button type="button" class="copy-btn" data-copy="kick-1" aria-label="Copy kick EQ settings"></button>
           </div>
-          <dl class="kv" id="kick-1" data-copy-title="KICK BUS - EQ">
+          <dl class="kv" id="kick-1" data-copy-title="kick_bus - EQ">
             <div class="kv__item"><dt>HPF</dt><dd>42&ndash;45 Hz, 24 dB/oct (two stacked High Pass bands) <span class="chip">unverified</span></dd></div>
             <div class="kv__item"><dt>Punch</dt><dd>+2 to +3 dB @ 65&ndash;75 Hz, Bandwidth 1.0 oct (about Q 1.4)</dd></div>
             <div class="kv__item"><dt>Boxiness</dt><dd>-4 to -5 dB @ 280&ndash;350 Hz</dd></div>
@@ -86,7 +86,7 @@
             <span class="tag">OPTIONAL</span>
             <button type="button" class="copy-btn" data-copy="kick-2" aria-label="Copy kick GClip settings"></button>
           </div>
-          <dl class="kv" id="kick-2" data-copy-title="KICK BUS - GClip">
+          <dl class="kv" id="kick-2" data-copy-title="kick_bus - GClip">
             <div class="kv__item"><dt>Gain / Clip</dt><dd>Shave 1.0&ndash;1.5 dB</dd></div>
             <div class="kv__item"><dt>Softness</dt><dd>Raised (soft knee)</dd></div>
             <div class="kv__item"><dt>Target</dt><dd>Beater spikes</dd></div>
@@ -103,7 +103,7 @@
   </section>
 
   <section class="section">
-    <h2 id="snare">SNARE BUS</h2>
+    <h2 id="snare">snr_bus</h2>
     <p>Single snare + Invasion trigger.</p>
     <ol class="rack">
       <li class="rack__slot">
@@ -115,7 +115,7 @@
             <span class="tag">EQ</span>
             <button type="button" class="copy-btn" data-copy="snare-1" aria-label="Copy snare EQ settings"></button>
           </div>
-          <dl class="kv" id="snare-1" data-copy-title="SNARE BUS - EQ">
+          <dl class="kv" id="snare-1" data-copy-title="snr_bus - EQ">
             <div class="kv__item"><dt>HPF</dt><dd>100&ndash;120 Hz, 24 dB/oct (two stacked High Pass bands) <span class="chip">unverified</span></dd></div>
             <div class="kv__item"><dt>Body</dt><dd>+2 to +3 dB @ 200&ndash;220 Hz</dd></div>
             <div class="kv__item"><dt>Ring</dt><dd>-3 dB @ 550&ndash;700 Hz</dd></div>
@@ -139,7 +139,7 @@
             <span class="tag">CLIP</span>
             <button type="button" class="copy-btn" data-copy="snare-2" aria-label="Copy snare GClip settings"></button>
           </div>
-          <dl class="kv" id="snare-2" data-copy-title="SNARE BUS - GClip">
+          <dl class="kv" id="snare-2" data-copy-title="snr_bus - GClip">
             <div class="kv__item"><dt>Gain / Clip</dt><dd>Shave 1.5&ndash;2.5 dB</dd></div>
             <div class="kv__item"><dt>Softness</dt><dd>0% (hard clip)</dd></div>
             <div class="kv__item"><dt>Target</dt><dd>Stick spikes</dd></div>
@@ -157,7 +157,7 @@
   </section>
 
   <section class="section">
-    <h2 id="toms">TOMS BUS</h2>
+    <h2 id="toms">tom_bus</h2>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -168,7 +168,7 @@
             <span class="tag">EQ</span>
             <button type="button" class="copy-btn" data-copy="toms-1" aria-label="Copy toms EQ settings"></button>
           </div>
-          <dl class="kv" id="toms-1" data-copy-title="TOMS BUS - EQ">
+          <dl class="kv" id="toms-1" data-copy-title="tom_bus - EQ">
             <div class="kv__item"><dt>HPF rack</dt><dd>75 Hz</dd></div>
             <div class="kv__item"><dt>HPF floor</dt><dd>55 Hz</dd></div>
             <div class="kv__item"><dt>Mud</dt><dd>-4 dB @ 380&ndash;450 Hz</dd></div>
@@ -190,7 +190,7 @@
             <span class="tag">TRANS</span>
             <button type="button" class="copy-btn" data-copy="toms-2" aria-label="Copy toms transient shaper settings"></button>
           </div>
-          <dl class="kv" id="toms-2" data-copy-title="TOMS BUS - kHs Transient Shaper">
+          <dl class="kv" id="toms-2" data-copy-title="tom_bus - kHs Transient Shaper">
             <div class="kv__item"><dt>Sustain</dt><dd>-20% to -35% (starting point)</dd></div>
             <div class="kv__item"><dt>Attack</dt><dd>+10&ndash;15% (starting point)</dd></div>
           </dl>
@@ -210,9 +210,9 @@
             <span class="tag">CLIP</span>
             <button type="button" class="copy-btn" data-copy="toms-3" aria-label="Copy toms GClip settings"></button>
           </div>
-          <dl class="kv" id="toms-3" data-copy-title="TOMS BUS - GClip">
+          <dl class="kv" id="toms-3" data-copy-title="tom_bus - GClip">
             <div class="kv__item"><dt>Gain / Clip</dt><dd>Shave 1.5&ndash;2.0 dB</dd></div>
-            <div class="kv__item"><dt>Send</dt><dd>SNARE PLATE at -8 to -10 dB</dd></div>
+            <div class="kv__item"><dt>Send</dt><dd>fx_snr_plate at -8 to -10 dB</dd></div>
           </dl>
           <p class="rack__why">Evens out fill peaks. A subtle plate send glues toms to the snare space.</p>
           <div class="alts">
@@ -225,7 +225,7 @@
   </section>
 
   <section class="section">
-    <h2 id="overheads">OVERHEADS / CYMBALS</h2>
+    <h2 id="overheads">oh_cym_bus</h2>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -273,7 +273,7 @@
   </section>
 
   <section class="section">
-    <h2 id="room">ROOM BUS</h2>
+    <h2 id="room">room_bus</h2>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -284,7 +284,7 @@
             <span class="tag">EQ</span>
             <button type="button" class="copy-btn" data-copy="room-1" aria-label="Copy room EQ settings"></button>
           </div>
-          <dl class="kv" id="room-1" data-copy-title="ROOM BUS - EQ">
+          <dl class="kv" id="room-1" data-copy-title="room_bus - EQ">
             <div class="kv__item"><dt>HPF</dt><dd>150&ndash;185 Hz</dd></div>
             <div class="kv__item"><dt>LPF</dt><dd>6.5&ndash;7.5 kHz</dd></div>
             <div class="kv__item"><dt>Cut</dt><dd>-3 dB @ 300 Hz</dd></div>
@@ -301,7 +301,7 @@
             <span class="tag">COMP</span>
             <button type="button" class="copy-btn" data-copy="room-2" aria-label="Copy room Smash and Grab settings"></button>
           </div>
-          <dl class="kv" id="room-2" data-copy-title="ROOM BUS - GGD Smash and Grab">
+          <dl class="kv" id="room-2" data-copy-title="room_bus - GGD Smash and Grab">
             <div class="kv__item"><dt>Drum type</dt><dd>Room <span class="chip">unverified</span></dd></div>
             <div class="kv__item"><dt>Compressor</dt><dd>Smash (weight and size)</dd></div>
             <div class="kv__item"><dt>GR</dt><dd>6&ndash;10 dB</dd></div>
@@ -319,9 +319,9 @@
 
   <section class="section">
     <h2 id="returns">Parallel &amp; plate returns</h2>
-    <p>Both returns sum into <code>DRUM BUS</code>. Placement rules live on <a href="routing.html#fx-returns">Routing</a>.</p>
+    <p>Both returns sum into <code>drum_bus</code>. Placement rules live on <a href="routing.html#fx-returns">Routing</a>.</p>
 
-    <h3 id="snare-plate">SNARE PLATE</h3>
+    <h3 id="fx-snr-plate">fx_snr_plate</h3>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -330,9 +330,9 @@
             <h4 class="rack__name">Lustrous Plates</h4>
             <span class="chip">LiquidSonics</span>
             <span class="tag">VERB</span>
-            <button type="button" class="copy-btn" data-copy="plate-1" aria-label="Copy snare plate settings"></button>
+            <button type="button" class="copy-btn" data-copy="plate-1" aria-label="Copy fx_snr_plate settings"></button>
           </div>
-          <dl class="kv" id="plate-1" data-copy-title="SNARE PLATE - Lustrous Plates">
+          <dl class="kv" id="plate-1" data-copy-title="fx_snr_plate - Lustrous Plates">
             <div class="kv__item"><dt>Plate</dt><dd>Steel</dd></div>
             <div class="kv__item"><dt>Damper (reverb length)</dt><dd>Short: heavy damping. The Damper has no seconds scale. Set it by ear.</dd></div>
             <div class="kv__item"><dt>Pre-delay</dt><dd>10&ndash;20 ms</dd></div>
@@ -348,7 +348,7 @@
       </li>
     </ol>
 
-    <h3 id="parallel-crush">DRUM PARALLEL CRUSH</h3>
+    <h3 id="fx-crush">fx_crush</h3>
     <p>Fed post-fader by Kick, Snare and Tom acoustic shells only.</p>
     <ol class="rack">
       <li class="rack__slot">
@@ -358,9 +358,9 @@
             <h4 class="rack__name">VM FG-401</h4>
             <span class="chip">Slate</span>
             <span class="tag">COMP</span>
-            <button type="button" class="copy-btn" data-copy="crush-1" aria-label="Copy parallel crush settings"></button>
+            <button type="button" class="copy-btn" data-copy="crush-1" aria-label="Copy fx_crush settings"></button>
           </div>
-          <dl class="kv" id="crush-1" data-copy-title="DRUM PARALLEL CRUSH - FG-401">
+          <dl class="kv" id="crush-1" data-copy-title="fx_crush - FG-401">
             <div class="kv__item"><dt>Ratio</dt><dd>About 10:1 (starting point)</dd></div>
             <div class="kv__item"><dt>Target GR</dt><dd>12&ndash;18 dB</dd></div>
             <div class="kv__item"><dt>Blend</dt><dd>Under dry kit, start -14 to -18 dB</dd></div>
@@ -379,7 +379,7 @@
   </section>
 
   <section class="section">
-    <h2 id="drum-bus">DRUM BUS master</h2>
+    <h2 id="drum-bus">drum_bus master</h2>
     <p>Peak target: <code class="val-ok">-8 to -6 dBFS</code>.</p>
     <ol class="rack">
       <li class="rack__slot">
@@ -389,9 +389,9 @@
             <h4 class="rack__name">ReaEQ</h4>
             <span class="chip">REAPER</span>
             <span class="tag">EQ</span>
-            <button type="button" class="copy-btn" data-copy="dbus-1" aria-label="Copy drum bus EQ settings"></button>
+            <button type="button" class="copy-btn" data-copy="dbus-1" aria-label="Copy drum_bus EQ settings"></button>
           </div>
-          <dl class="kv" id="dbus-1" data-copy-title="DRUM BUS - EQ">
+          <dl class="kv" id="dbus-1" data-copy-title="drum_bus - EQ">
             <div class="kv__item"><dt>Low</dt><dd>+1 dB @ 65 Hz</dd></div>
             <div class="kv__item"><dt>Low-mid</dt><dd>-1.5 dB @ 320 Hz</dd></div>
             <div class="kv__item"><dt>Top</dt><dd>+1 dB @ 10 kHz</dd></div>
@@ -411,9 +411,9 @@
             <h4 class="rack__name">VBC FG-Grey</h4>
             <span class="chip">Slate</span>
             <span class="tag">COMP</span>
-            <button type="button" class="copy-btn" data-copy="dbus-2" aria-label="Copy drum bus FG-Grey settings"></button>
+            <button type="button" class="copy-btn" data-copy="dbus-2" aria-label="Copy drum_bus FG-Grey settings"></button>
           </div>
-          <dl class="kv" id="dbus-2" data-copy-title="DRUM BUS - VBC FG-Grey">
+          <dl class="kv" id="dbus-2" data-copy-title="drum_bus - VBC FG-Grey">
             <div class="kv__item"><dt>Ratio</dt><dd>4:1 (starting point)</dd></div>
             <div class="kv__item"><dt>Attack</dt><dd>30 ms (starting point)</dd></div>
             <div class="kv__item"><dt>Release</dt><dd>Auto</dd></div>
@@ -436,13 +436,13 @@
             <h4 class="rack__name">GClip</h4>
             <span class="chip">GVST</span>
             <span class="tag">CLIP</span>
-            <button type="button" class="copy-btn" data-copy="dbus-3" aria-label="Copy drum bus GClip settings"></button>
+            <button type="button" class="copy-btn" data-copy="dbus-3" aria-label="Copy drum_bus GClip settings"></button>
           </div>
-          <dl class="kv" id="dbus-3" data-copy-title="DRUM BUS - GClip">
+          <dl class="kv" id="dbus-3" data-copy-title="drum_bus - GClip">
             <div class="kv__item"><dt>Gain / Clip</dt><dd>Subtle, shave 1.0&ndash;1.5 dB</dd></div>
             <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
           </dl>
-          <p class="rack__why">Catches kick, snare and crash hitting together before <code>INSTRUMENT BUS</code>.</p>
+          <p class="rack__why">Catches kick, snare and crash hitting together before <code>instrument_bus</code>.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Clip</span></span>
@@ -470,9 +470,9 @@
           <tr><td>Harsh cymbals</td><td>Soothe2 low cut band <code>1.5&ndash;2.0 kHz</code>, Depth <code>2.0&ndash;3.5</code>. Never on shells.</td><td>Soothe2</td></tr>
           <tr><td>Crush sounds washy</td><td>Remove overheads and triggers from the crush feed.</td><td>Sends</td></tr>
           <tr><td>Snare thumps under the kick</td><td>Raise snare HPF to <code>100&ndash;120 Hz</code>.</td><td>ReaEQ</td></tr>
-          <tr><td>Room blurs the double kick</td><td>Room HPF <code>150&ndash;185 Hz</code>. Damp the snare plate harder, or shorten it with its Gate.</td><td>ReaEQ / Lustrous Plates</td></tr>
-          <tr><td>Drum bus pumps on double kick</td><td>HPF <code>90 Hz</code>. Keep <code>2&ndash;3 dB GR</code>.</td><td>VBC FG-Grey</td></tr>
-          <tr><td>Bass duck follows kick fader moves</td><td>Feed <code>SC_KICK</code> pre-fader at <code>0.0 dB</code>.</td><td><a href="routing.html#sidechain-hubs">Routing</a></td></tr>
+          <tr><td>Room blurs the double kick</td><td>Room HPF <code>150&ndash;185 Hz</code>. Damp <code>fx_snr_plate</code> harder, or shorten it with its Gate.</td><td>ReaEQ / Lustrous Plates</td></tr>
+          <tr><td><code>drum_bus</code> pumps on double kick</td><td>HPF <code>90 Hz</code>. Keep <code>2&ndash;3 dB GR</code>.</td><td>VBC FG-Grey</td></tr>
+          <tr><td>Bass duck follows kick fader moves</td><td>Feed <code>sc_kick</code> from <code>kick_smp</code>, pre-fader, at <code>0.0 dB</code>.</td><td><a href="routing.html#sidechain-hubs">Routing</a></td></tr>
         </tbody>
       </table>
     </div>

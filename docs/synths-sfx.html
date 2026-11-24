@@ -31,8 +31,8 @@
           <tr><th scope="col">Role</th><th scope="col">Band</th><th scope="col">Width</th><th scope="col">Send / route</th></tr>
         </thead>
         <tbody>
-          <tr><td>Pad</td><td>HPF <span class="mono">250&ndash;400 Hz</span>, scoop <span class="mono">1&ndash;3 kHz</span></td><td>Wide</td><td>WIDE MIX HALL</td></tr>
-          <tr><td>Arp / pluck</td><td>Delay High Pass <span class="mono">300 Hz</span></td><td>Wide repeats, narrow dry</td><td>STEREO TEMPO DELAY</td></tr>
+          <tr><td>Pad</td><td>HPF <span class="mono">250&ndash;400 Hz</span>, scoop <span class="mono">1&ndash;3 kHz</span></td><td>Wide</td><td>fx_hall</td></tr>
+          <tr><td>Arp / pluck</td><td>Delay High Pass <span class="mono">300 Hz</span></td><td>Wide repeats, narrow dry</td><td>fx_inst_dly</td></tr>
           <tr><td>Riff reinforcement synth</td><td>Low mids, shares the guitar band</td><td>Narrow or mono when guitars are already wide</td><td>Dry. Distort it to blend.</td></tr>
           <tr><td>Low-mid fuzz synth</td><td>Low mids, no sub</td><td>Narrow</td><td>Routes with the bass, keyed from the kick</td></tr>
           <tr><td>Lead synth</td><td>Above the guitar presence</td><td>Center, widened slightly</td><td>Own delay throw. Out of the vocal line.</td></tr>
@@ -45,7 +45,7 @@
 
   <section class="section">
     <h2 id="built-in-fx">Built-in FX rules (ANA 2)</h2>
-    <p>Strip or dial down preset reverbs and delays. Every layer then sits in <code>WIDE MIX HALL</code> or <code>STEREO TEMPO DELAY</code>.</p>
+    <p>Strip or dial down preset reverbs and delays. Every layer then sits in <code>fx_hall</code> or <code>fx_inst_dly</code>.</p>
     <div class="table-wrap">
       <table class="table">
         <thead>
@@ -65,7 +65,7 @@
         <p>Keep a preset delay only in exposed intros and breakdowns. Cut it everywhere else.</p>
       </div>
     </div>
-    <p>ANA 2 Sidekick ducks the synth on a tempo-synced volume curve. Leave it off on pads by default. The bus already ducks from <code>SC_SPOTLIGHT</code>. Use Sidekick only for an obvious pumping effect.</p>
+    <p>ANA 2 Sidekick ducks the synth on a tempo-synced volume curve. Leave it off on pads by default. The bus already ducks from <code>sc_spotlight</code>. Use Sidekick only for an obvious pumping effect.</p>
   </section>
 
   <section class="section">
@@ -129,7 +129,7 @@
     </ol>
 
     <h3 id="arps">Arps &amp; plucks</h3>
-    <p>Internal reverb off. Delay Dry/Wet cut and delay High Pass at <code>300 Hz</code>. Send arps and plucks to <code>STEREO TEMPO DELAY</code>.</p>
+    <p>Internal reverb off. Delay Dry/Wet cut and delay High Pass at <code>300 Hz</code>. Send arps and plucks to <code>fx_inst_dly</code>, the <a href="fx-returns.html#fx-inst-dly">instrument copy of the vocal delay</a>. The a cappella print then has no arp repeats.</p>
 
     <h3 id="synth-sends">Synth sends</h3>
     <div class="settings">
@@ -139,10 +139,10 @@
       </div>
       <div class="settings__body">
         <dl class="kv" id="synths-sfx-syn-sends" data-copy-title="Synth sends">
-          <div class="kv__item"><dt>Pads</dt><dd>&rarr; WIDE MIX HALL</dd></div>
-          <div class="kv__item"><dt>Arps / plucks</dt><dd>&rarr; STEREO TEMPO DELAY</dd></div>
+          <div class="kv__item"><dt>Pads</dt><dd>&rarr; fx_hall</dd></div>
+          <div class="kv__item"><dt>Arps / plucks</dt><dd>&rarr; fx_inst_dly</dd></div>
           <div class="kv__item"><dt>Reinforcement synths</dt><dd>Dry</dd></div>
-          <div class="kv__item"><dt>Output</dt><dd>ORCH &amp; SYNTH BUS</dd></div>
+          <div class="kv__item"><dt>Output</dt><dd>orch_syn_bus</dd></div>
         </dl>
       </div>
     </div>
@@ -194,7 +194,7 @@
         <dl class="kv" id="synths-sfx-sub" data-copy-title="Sub drops">
           <div class="kv__item"><dt>Width</dt><dd>Mono below 150 Hz</dd></div>
           <div class="kv__item"><dt>Compression</dt><dd>3&ndash;5 dB GR</dd></div>
-          <div class="kv__item"><dt>Duck</dt><dd>2&ndash;3 dB by SC_KICK</dd></div>
+          <div class="kv__item"><dt>Duck</dt><dd>2&ndash;3 dB by sc_kick</dd></div>
           <div class="kv__item"><dt>Pitch</dt><dd>Tune to the riff root. Fast pitch envelope down.</dd></div>
         </dl>
       </div>
@@ -244,7 +244,7 @@
             <button type="button" class="copy-btn" data-copy="synths-sfx-sub-duck" aria-label="Copy kHs Compressor (keyed) settings"></button>
           </div>
           <dl class="kv" id="synths-sfx-sub-duck" data-copy-title="Slot 3 - kHs Compressor (keyed)">
-            <div class="kv__item"><dt>Sidechain</dt><dd>On, keyed from SC_KICK</dd></div>
+            <div class="kv__item"><dt>Sidechain</dt><dd>On, keyed from sc_kick</dd></div>
             <div class="kv__item"><dt>Threshold</dt><dd>Set for 2&ndash;3 dB GR on each kick</dd></div>
             <div class="kv__item"><dt>Mode</dt><dd>Peak</dd></div>
             <div class="kv__item"><dt>Attack / Release</dt><dd>Fast. Starting point.</dd></div>
@@ -329,16 +329,16 @@
     <h3 id="transitions">Transition automation</h3>
     <ol class="steps">
       <li><div><span class="steps__title">Dip, then hit</span><p>Pull the mix down about <code>1.5 dB</code> over the last 1&ndash;2 bars. Return to <code>0 dB</code> on the downbeat.</p></div></li>
-      <li><div><span class="steps__title">Close a low-pass, then open it</span><p>Close a kHs Filter (Type low pass) on the instrument bus across the build. Bypass it on the hit.</p></div></li>
+      <li><div><span class="steps__title">Close a low-pass, then open it</span><p>Close a kHs Filter (Type low pass) on <code>instrument_bus</code> across the build. Bypass it on the hit.</p></div></li>
       <li><div><span class="steps__title">Thin, then fill</span><p>Raise the guitar and bass HPF during the build. Drop it back on the hit.</p></div></li>
       <li><div><span class="steps__title">Narrow, then widen</span><p>Narrow the rhythm guitars in the bar before. Return to full width on the downbeat.</p></div></li>
     </ol>
   </section>
 
   <section class="section">
-    <h2 id="bus">ORCH &amp; SYNTH BUS</h2>
-    <p>Synths share the strings bus: JW BG-Keys <code>2&ndash;3 dB GR</code>, optional soothe2 with its low cut band at <code>300&ndash;500 Hz</code>. The BG-Keys Crush limiter caps synth filter-sweep peaks. Full chain: <a href="orchestral.html#bus">Orchestral, ORCH &amp; SYNTH BUS</a>.</p>
-    <p>SFX can run on their own folder into <code>INSTRUMENT BUS</code>. That keeps impacts out of the BG-Keys limiter. Starting point.</p>
+    <h2 id="bus">orch_syn_bus</h2>
+    <p>Synths share <code>orch_syn_bus</code> with the strings: JW BG-Keys <code>2&ndash;3 dB GR</code>, optional soothe2 with its low cut band at <code>300&ndash;500 Hz</code>. The BG-Keys Crush limiter caps synth filter-sweep peaks. Full chain: <a href="orchestral.html#bus">Orchestral, orch_syn_bus</a>.</p>
+    <p>SFX run in their own folder, <code>sfx_bus</code>, into <code>instrument_bus</code>. That keeps impacts out of the BG-Keys limiter. Starting point.</p>
   </section>
 
   <section class="section">
@@ -350,8 +350,8 @@
         </thead>
         <tbody>
           <tr><td>Low-mid delay clutter</td><td>Cut the delay Dry/Wet <code>50&ndash;70%</code>. Set the delay High Pass to <code>300 Hz</code>.</td><td>ANA 2</td></tr>
-          <tr><td>Stereo width collapses</td><td>Internal reverb off or <code>15&ndash;25%</code> max. Use the shared hall.</td><td>ANA 2 / WIDE MIX HALL</td></tr>
-          <tr><td>Sub drop fights the kick</td><td>Mono below <code>150 Hz</code>. Duck <code>2&ndash;3 dB</code> from the kick.</td><td>SC_KICK</td></tr>
+          <tr><td>Stereo width collapses</td><td>Internal reverb off or <code>15&ndash;25%</code> max. Use the shared hall.</td><td>ANA 2 / fx_hall</td></tr>
+          <tr><td>Sub drop fights the kick</td><td>Mono below <code>150 Hz</code>. Duck <code>2&ndash;3 dB</code> from the kick.</td><td>sc_kick</td></tr>
           <tr><td>Saw buzz sits on top of guitars</td><td>Low cut band <code>300&ndash;500 Hz</code>, Depth <code>2.0&ndash;3.5</code>, Soft.</td><td>soothe2 (bus)</td></tr>
           <tr><td>Filter sweep spikes</td><td>Raise Crush until the spikes sit. BG-Keys has no Clip control.</td><td>JW BG-Keys</td></tr>
           <tr><td>Tail rings into a hard stop</td><td>Hit Kill.</td><td>JST Sky Box</td></tr>

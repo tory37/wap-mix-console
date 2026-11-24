@@ -30,9 +30,9 @@
           <tr><th scope="col">Bus</th><th scope="col">Pan</th><th scope="col">Sends &amp; ducking</th><th scope="col">soothe2 low cut</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>RHYTHM GTR BUS</code></td><td><span class="mono">100% L/R</span></td><td>Zero reverb or delay sends. Ducked by <code>SC_SNARE</code> (210 Hz &amp; 2.8 kHz) and <code>SC_SPOTLIGHT</code>.</td><td><span class="mono">1.5&ndash;2.0 kHz</span></td></tr>
-          <tr><td><code>LEAD GTR BUS</code></td><td><span class="mono">Center 0% to &plusmn;15%</span></td><td>Pre-fader <code>0.0 dB</code> &rarr; <code>SC_SPOTLIGHT</code>. Post-fader &rarr; <code>VOX &amp; LEAD PLATE</code> and <code>STEREO TEMPO DELAY</code>.</td><td><span class="mono">600 Hz&ndash;1.0 kHz</span></td></tr>
-          <tr><td><code>OCTAVE / MELODY GTR</code></td><td><span class="mono">&plusmn;30&ndash;40%</span></td><td>Keep out of <code>SC_SPOTLIGHT</code>. Post-fader 20&ndash;30% &rarr; <code>WIDE MIX HALL</code>.</td><td><span class="mono">None</span></td></tr>
+          <tr><td><code>gtr_rhy_bus</code></td><td><span class="mono">100% L/R</span></td><td>Zero reverb or delay sends. Ducked by <code>sc_snare</code> (210 Hz &amp; 2.8 kHz) and <code>sc_spotlight</code>.</td><td><span class="mono">1.5&ndash;2.0 kHz</span></td></tr>
+          <tr><td><code>gtr_ld_bus</code></td><td><span class="mono">Center 0% to &plusmn;15%</span></td><td>Pre-fader <code>0.0 dB</code> &rarr; <code>sc_spotlight</code>. Post-fader &rarr; <code>fx_inst_plate</code> and <code>fx_inst_dly</code>.</td><td><span class="mono">600 Hz&ndash;1.0 kHz</span></td></tr>
+          <tr><td><code>gtr_mel_bus</code></td><td><span class="mono">&plusmn;30&ndash;40%</span></td><td>Keep out of <code>sc_spotlight</code>. Post-fader 20&ndash;30% &rarr; <code>fx_hall</code>.</td><td><span class="mono">None</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -161,7 +161,7 @@
       <li><div><span class="steps__title">Punch in, keep the take</span><p>Track full takes. Fix only the bad sections with punch-ins.</p></div></li>
     </ol>
 
-    <h3 id="rhythm-chain">Post-amp chain on RHYTHM GTR BUS</h3>
+    <h3 id="rhythm-chain">Post-amp chain on gtr_rhy_bus</h3>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">T</div>
@@ -243,7 +243,7 @@
             <div class="kv__item"><dt>Low cut band</dt><dd>1.5&ndash;2.0 kHz</dd></div>
             <div class="kv__item"><dt>Depth</dt><dd>2.0&ndash;3.0</dd></div>
             <div class="kv__item"><dt>Mode</dt><dd>Soft</dd></div>
-            <div class="kv__item"><dt>Sidechain (opt)</dt><dd>SC_SPOTLIGHT, Depth 1.5&ndash;2.5</dd></div>
+            <div class="kv__item"><dt>Sidechain (opt)</dt><dd>sc_spotlight, Depth 1.5&ndash;2.5</dd></div>
           </dl>
           <p class="rack__why">Removes 3.5&ndash;4.5 kHz amp fizz. The raised HPF protects 100&ndash;250 Hz chugs.</p>
         </div>
@@ -262,7 +262,7 @@
             <div class="kv__item"><dt>2x</dt><dd>Off</dd></div>
             <div class="kv__item"><dt>Mix</dt><dd>100%</dd></div>
           </dl>
-          <p class="rack__why">Shaves pick chirps so the master limiter does not react to them.</p>
+          <p class="rack__why">Shaves pick chirps so the <code>master_bus</code> limiter does not react to them.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">GClip</span></span>
@@ -279,15 +279,15 @@
     </div>
 
     <h3 id="vocal-pocket">Vocal pocket: guitars keyed to the vocal</h3>
-    <p>The rhythm wall is the main thing that masks the lead vocal. Cut the guitars only while the singer sings. Key the cut from <code>SC_SPOTLIGHT</code>. Keep the cut in the mids. Chug lows and pick air stay untouched.</p>
+    <p>The rhythm wall is the main thing that masks the lead vocal. Cut the guitars only while the singer sings. Key the cut from <code>sc_spotlight</code>. Keep the cut in the mids. Chug lows and pick air stay untouched.</p>
     <div class="settings">
       <div class="settings__head">
-        <span class="label">Vocal pocket on RHYTHM GTR BUS (soothe2 sidechain)</span>
+        <span class="label">Vocal pocket on gtr_rhy_bus (soothe2 sidechain)</span>
         <button type="button" class="copy-btn" data-copy="guitars-vocal-pocket" aria-label="Copy Vocal pocket settings"></button>
       </div>
       <div class="settings__body">
-        <dl class="kv" id="guitars-vocal-pocket" data-copy-title="Vocal pocket on RHYTHM GTR BUS (soothe2 sidechain)">
-          <div class="kv__item"><dt>Sidechain</dt><dd>ON, key = SC_SPOTLIGHT</dd></div>
+        <dl class="kv" id="guitars-vocal-pocket" data-copy-title="Vocal pocket on gtr_rhy_bus (soothe2 sidechain)">
+          <div class="kv__item"><dt>Sidechain</dt><dd>ON, key = sc_spotlight</dd></div>
           <div class="kv__item"><dt>Stereo mode</dt><dd>Mid/side, link 100%</dd></div>
           <div class="kv__item"><dt>Stereo balance</dt><dd>Toward mid, so the cut follows the centered vocal (starting point)</dd></div>
           <div class="kv__item"><dt>Range</dt><dd>Low cut band 1 kHz, high cut band 5 kHz (starting point)</dd></div>
@@ -305,7 +305,7 @@
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
       <div class="callout__body">
         <span class="callout__title">Why this works</span>
-        <p>The oeksound manual describes this exact use: key the instruments from the lead vocal to carve space. Joey Sturgis keys his whole instrument bus from the vocal bus over about 300 Hz&ndash;6 kHz. Do one pocket only. If the instrument-bus <code>SC_SPOTLIGHT</code> duck on Routing already clears the vocal, skip this one.</p>
+        <p>The oeksound manual describes this exact use: key the instruments from the lead vocal to carve space. Joey Sturgis keys his whole instrument bus from the vocal bus over about 300 Hz&ndash;6 kHz. Do one pocket only. If the <a href="mix-bus.html#instrument-bus"><code>instrument_bus</code> <code>sc_spotlight</code> duck</a> already clears the vocal, skip this one.</p>
       </div>
     </div>
   </section>
@@ -314,7 +314,7 @@
     <h2 id="leads">Lead guitars</h2>
     <p>Pan leads center, <code>0%</code> to <code>&plusmn;15%</code>. Keep pre-amp OD and modulation. Turn amp-sim reverb off. Turn delay off unless the riff needs it.</p>
 
-    <h3 id="lead-chain">LEAD GTR BUS chain</h3>
+    <h3 id="lead-chain">gtr_ld_bus chain</h3>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">A</div>
@@ -399,18 +399,18 @@
     <h3 id="lead-sends">Lead sends</h3>
     <div class="settings">
       <div class="settings__head">
-        <span class="label">LEAD GTR BUS sends</span>
-        <button type="button" class="copy-btn" data-copy="guitars-lead-sends" aria-label="Copy LEAD GTR BUS sends"></button>
+        <span class="label">gtr_ld_bus sends</span>
+        <button type="button" class="copy-btn" data-copy="guitars-lead-sends" aria-label="Copy gtr_ld_bus sends"></button>
       </div>
       <div class="settings__body">
-        <dl class="kv" id="guitars-lead-sends" data-copy-title="LEAD GTR BUS sends">
-          <div class="kv__item"><dt>Pre-fader</dt><dd>0.0 dB &rarr; SC_SPOTLIGHT</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>VOX &amp; LEAD PLATE</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>STEREO TEMPO DELAY</dd></div>
-          <div class="kv__item"><dt>Subtle</dt><dd>VOX MICRO-PITCH &amp; SLAP</dd></div>
+        <dl class="kv" id="guitars-lead-sends" data-copy-title="gtr_ld_bus sends">
+          <div class="kv__item"><dt>Pre-fader</dt><dd>0.0 dB &rarr; sc_spotlight</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>fx_inst_plate</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>fx_inst_dly</dd></div>
         </dl>
       </div>
     </div>
+    <p>Both returns are <a href="fx-returns.html#fx-inst-plate">copies of the vocal plate and delay</a> inside <code>instrument_bus</code>. The lead shares the vocal sound, but the a cappella print has no guitar tail.</p>
     <p>Delay option from the Slate guide: Repeater Space Delay, <code>1/4</code> left, dotted <code>1/8</code> right, HPF <code>300 Hz</code>, LPF <code>4.5 kHz</code>.</p>
     <div class="callout callout--info" role="note">
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
@@ -423,9 +423,9 @@
 
   <section class="section">
     <h2 id="cleans">Cleans, octave &amp; ambient</h2>
-    <p>Octave and melody parts pan <code>&plusmn;30&ndash;40%</code>. They stay out of <code>SC_SPOTLIGHT</code>. The hall gives them space.</p>
+    <p>Octave and melody parts pan <code>&plusmn;30&ndash;40%</code>. They stay out of <code>sc_spotlight</code>. The hall gives them space.</p>
 
-    <h3 id="clean-chain">OCTAVE / MELODY GTR chain</h3>
+    <h3 id="clean-chain">gtr_mel_bus chain</h3>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">A</div>
@@ -497,19 +497,19 @@
           </div>
           <dl class="kv" id="guitars-clean-dip" data-copy-title="Slot 3 - TDR Nova (optional)">
             <div class="kv__item"><dt>Band</dt><dd>-2 dB @ 2.5 kHz</dd></div>
-            <div class="kv__item"><dt>Key</dt><dd>SC_SPOTLIGHT</dd></div>
+            <div class="kv__item"><dt>Key</dt><dd>sc_spotlight</dd></div>
           </dl>
           <p class="rack__why">Dips the vocal zone only while the lead vocal sings.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
-            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">soothe2 with SC_SPOTLIGHT sidechain</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">soothe2 with sc_spotlight sidechain</span></span>
           </div>
         </div>
       </li>
     </ol>
 
     <h3 id="ambient-space">Ambient space</h3>
-    <p>Send <code>20&ndash;30%</code> post-fader to <code>WIDE MIX HALL</code>. For swells and clean arpeggios, JST Sky Box <strong>Cloud</strong> or <strong>Shimmer</strong> fits. Keep amp-sim reverb only when that space is part of the composition.</p>
+    <p>Send <code>20&ndash;30%</code> post-fader to <code>fx_hall</code>. For swells and clean arpeggios, JST Sky Box <strong>Cloud</strong> or <strong>Shimmer</strong> fits. Keep amp-sim reverb only when that space is part of the composition.</p>
   </section>
 
   <section class="section">
@@ -520,8 +520,8 @@
           <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
         </thead>
         <tbody>
-          <tr><td>Palm mutes boom and pump the mix bus</td><td>Chug Slayer ON. Target <code>2&ndash;3 dB GR</code>. Add the <code>130&ndash;140 Hz</code> dynamic band.</td><td>JW BG-Guitars / JST EQ</td></tr>
-          <tr><td>Lead vocal disappears in the riffs</td><td>Vocal pocket: mid-only cut keyed from <code>SC_SPOTLIGHT</code>.</td><td>soothe2 / TDR Nova</td></tr>
+          <tr><td>Palm mutes boom and pump <code>print_bus</code></td><td>Chug Slayer ON. Target <code>2&ndash;3 dB GR</code>. Add the <code>130&ndash;140 Hz</code> dynamic band.</td><td>JW BG-Guitars / JST EQ</td></tr>
+          <tr><td>Lead vocal disappears in the riffs</td><td>Vocal pocket: mid-only cut keyed from <code>sc_spotlight</code>.</td><td>soothe2 / TDR Nova</td></tr>
           <tr><td>Quad rhythms sound washy</td><td>Drop to a double. Or pull the second pair to <code>85%</code> and lower.</td><td>Tracking / pan</td></tr>
           <tr><td>Low string sounds sharp on chugs</td><td>Retune the low string about 15 cents flat for those sections.</td><td>Tracking</td></tr>
           <tr><td>Amp fizz at 3.5&ndash;4.5 kHz</td><td>Low cut band <code>1.5&ndash;2.0 kHz</code>, Depth <code>2.0&ndash;3.0</code>, Soft.</td><td>soothe2</td></tr>

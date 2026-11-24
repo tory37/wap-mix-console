@@ -18,14 +18,24 @@
   --danger: #f43f5e;
   --info: #38bdf8;
 
-  --g-drums: #fb923c;
-  --g-bass: #10b981;
-  --g-guitars: #f43f5e;
-  --g-vocals: #06b6d4;
-  --g-orch: #a78bfa;
-  --g-synth: #e879f9;
-  --g-fx: #38bdf8;
-  --g-master: #eab308;
+  /* Group colors = REAPER template palette (reaper-scripts/wap_build_mix_template.lua).
+     Tracks run a rainbow; folder buses take the darker -bus shade. */
+  --g-drums: #ff0000;
+  --g-drums-bus: #c00000;
+  --g-bass: #ff8000;
+  --g-bass-bus: #c06000;
+  --g-guitars: #ffff00;
+  --g-guitars-bus: #c0c000;
+  --g-orch: #00ff00;
+  --g-orch-bus: #00c000;
+  --g-synth: #0080ff;
+  --g-sfx: #4000ff;
+  --g-sfx-bus: #3000c0;
+  --g-vocals: #bf00ff;
+  --g-vocals-bus: #9000c0;
+  --g-master: #ffffff;
+  --g-fx: #8a8a8a;
+  --g-hub: #000000;
   --g-none: #3a3f45;
 
   --font-display: "Bahnschrift", "DIN Alternate", "Arial Narrow", sans-serif;
@@ -177,14 +187,25 @@ strong { font-weight: 600; color: var(--text); }
 }
 .gchip--lg { width: 12px; height: 12px; }
 .gchip--drums { --gc: var(--g-drums); }
+.gchip--drums-bus { --gc: var(--g-drums-bus); }
 .gchip--bass { --gc: var(--g-bass); }
+.gchip--bass-bus { --gc: var(--g-bass-bus); }
 .gchip--guitars { --gc: var(--g-guitars); }
-.gchip--vocals { --gc: var(--g-vocals); }
+.gchip--guitars-bus { --gc: var(--g-guitars-bus); }
 .gchip--orch { --gc: var(--g-orch); }
+.gchip--orch-bus { --gc: var(--g-orch-bus); }
 .gchip--synth { --gc: var(--g-synth); }
+.gchip--sfx { --gc: var(--g-sfx); }
+.gchip--sfx-bus { --gc: var(--g-sfx-bus); }
+.gchip--vocals { --gc: var(--g-vocals); }
+.gchip--vocals-bus { --gc: var(--g-vocals-bus); }
 .gchip--fx { --gc: var(--g-fx); }
 .gchip--master { --gc: var(--g-master); }
+.gchip--hub { --gc: var(--g-hub); }
 .gchip--none { --gc: var(--g-none); }
+/* White buses and black hubs: 1px rule keeps the edge visible on the dark UI. */
+.gchip--master,
+.gchip--hub { box-shadow: inset 0 0 0 1px var(--border-strong); }
 
 /* ------------------------------------------------------------------ shell */
 .rail {
@@ -918,10 +939,15 @@ main {
   font-size: 12px;
 }
 .sf-dot--drums { fill: var(--g-drums); }
+.sf-dot--drums-bus { fill: var(--g-drums-bus); }
 .sf-dot--bass { fill: var(--g-bass); }
+.sf-dot--bass-bus { fill: var(--g-bass-bus); }
 .sf-dot--guitars { fill: var(--g-guitars); }
+.sf-dot--guitars-bus { fill: var(--g-guitars-bus); }
 .sf-dot--orch { fill: var(--g-orch); }
+.sf-dot--orch-bus { fill: var(--g-orch-bus); }
 .sf-dot--synth { fill: var(--g-synth); }
+.sf-dot--sfx { fill: var(--g-sfx); }
 .sf-dot--vocals { fill: var(--g-vocals); }
 
 /* ------------------------------------------------------------------ sources */
@@ -1095,8 +1121,8 @@ h2[id], h3[id] {
 .sf-sub--danger { fill: var(--danger); }
 .sf-sub--ok { fill: var(--ok); }
 .sf-dot--fx { fill: var(--g-fx); }
-.sf-dot--master { fill: var(--g-master); }
-.sf-dot--sc { fill: var(--danger); }
+.sf-dot--master { fill: var(--g-master); stroke: var(--border-strong); stroke-width: 1; }
+.sf-dot--sc { fill: var(--g-hub); stroke: var(--border-strong); stroke-width: 1; }
 
 .flow__legend {
   display: flex;

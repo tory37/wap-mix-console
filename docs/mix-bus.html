@@ -24,13 +24,93 @@
 
   <section class="section">
     <h2 id="concept">Two Maximizers, one polish stage</h2>
-    <p>Two JST Maximizer instances split the work. Max #1 on <code>PRINT / MIX BUS</code> is a dark tilt EQ only. Max #2 on <code>MASTER</code> sets loudness from a Rock genre preset.</p>
-    <p>Soothe2 in Slot 4 is the only dynamic harshness stage. Do not stack TDR Nova on top of it.</p>
+    <p>Two JST Maximizer instances split the work. Max #1 on <code>print_bus</code> is a dark tilt EQ only. Max #2 on <code>master_bus</code> sets loudness from a Rock genre preset.</p>
+    <p><code>master_bus</code> is the top folder. It holds <code>print_bus</code> and feeds the REAPER master. Keep the REAPER master empty, at unity.</p>
+    <p>Soothe2 in Slot 4 is the only dynamic harshness stage. Do not stack a TDR Nova harshness cut on top of it. The Nova on <code>instrument_bus</code> is the vocal duck only.</p>
     <p>Park the chain and calibrate it first. Steps live on <a href="gain-staging.html#calibration">Gain Staging</a>.</p>
   </section>
 
   <section class="section">
-    <h2 id="print-chain">PRINT / MIX BUS chain</h2>
+    <h2 id="instrument-bus">instrument_bus chain</h2>
+    <p>Input target: <code class="val-warn">-6 to -5 dBFS</code> peak. The chain is near unity, so read the peak after it.</p>
+    <p>The <code>instrument_bus</code> folder holds every non-vocal bus. It gets two utility slots only. Glue, color and clipping happen once, on <code>print_bus</code>.</p>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Ozone 9 Imager</h4>
+            <span class="chip">iZotope</span>
+            <span class="tag">WIDTH</span>
+            <button type="button" class="copy-btn" data-copy="ib-1" aria-label="Copy instrument_bus Slot 1 settings"></button>
+          </div>
+          <dl class="kv" id="ib-1" data-copy-title="instrument_bus Slot 1 - Ozone 9 Imager">
+            <div class="kv__item"><dt>Bands</dt><dd>2, crossover 100 Hz (starting point; 120 Hz max)</dd></div>
+            <div class="kv__item"><dt>Band 1 Width</dt><dd>0 to check. -100 (mono) only if the check fails</dd></div>
+            <div class="kv__item"><dt>Band 2 Width</dt><dd>0 (no widening)</dd></div>
+            <div class="kv__item"><dt>Stereoize</dt><dd>OFF</dd></div>
+            <div class="kv__item"><dt>View</dt><dd>Stereo Width Spectrum, then Correlation Trace</dd></div>
+            <div class="kv__item"><dt>Crossover Type (Imager options)</dt><dd>Digital (starting point)</dd></div>
+          </dl>
+          <p class="rack__why">Mono check for the low end. Kick, <code>bass_low</code> and the guitar HPFs already keep this band near mono. Stereo SFX, synth subs and pads are the usual leaks. Width <code>-100</code> makes the band effectively mono. Summing wide lows can drop the band level, so set it before you balance kick and bass.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">Inf EQ, Low Cut band set to S (Side) 100%, 100 Hz</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">Multipass, kHs Stereo in the lowest band lane, Width fully down, split at 100 Hz</span></span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">JS: Mid/Side Encoder &gt; ReaEQ High Pass 100 Hz on channel 2 only &gt; JS: Mid/Side Decoder <span class="chip">unverified</span></span></span>
+          </div>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">TDR Nova (sc_spotlight duck)</h4>
+            <span class="chip">Tokyo Dawn</span>
+            <span class="tag">DYN EQ</span>
+            <button type="button" class="copy-btn" data-copy="ib-2" aria-label="Copy instrument_bus Slot 2 settings"></button>
+          </div>
+          <dl class="kv" id="ib-2" data-copy-title="instrument_bus Slot 2 - TDR Nova sc_spotlight duck">
+            <div class="kv__item"><dt>Sidechain Input</dt><dd>EXT SC, key = sc_spotlight on 3/4</dd></div>
+            <div class="kv__item"><dt>HP</dt><dd>ON, 20 Hz, 12 dB/oct (starting point)</dd></div>
+            <div class="kv__item"><dt>Band</dt><dd>Bell, 3 kHz, covers 2.5&ndash;4 kHz, Q about 2 (starting point)</dd></div>
+            <div class="kv__item"><dt>Gain</dt><dd>0.0 dB</dd></div>
+            <div class="kv__item"><dt>Threshold</dt><dd>ON. Set for -1.5 to -2.5 dB on sung lines</dd></div>
+            <div class="kv__item"><dt>Split</dt><dd>ON</dd></div>
+            <div class="kv__item"><dt>Ratio</dt><dd>2:1 (starting point)</dd></div>
+            <div class="kv__item"><dt>Attack / Release</dt><dd>Fast / 150&ndash;250 ms (starting point)</dd></div>
+            <div class="kv__item"><dt>Process target</dt><dd>Stereo. Sum ducks the mid only (option)</dd></div>
+          </dl>
+          <p class="rack__why">Opens a pocket for the lead vocal and solos while they play. The guitar wall keeps its body. Keep it last: nothing after it on this bus can push the dip back up, and the instrumental print bypasses one slot. The HP clears infrasonic SFX energy that would spend Max #2 headroom.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">Inf EQ, dynamic Bell, External sidechain, Target Gain -2.5 dB, Time Tight</span></span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaComp, Auxiliary Input L+R detector (ducks the full band)</span></span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">soothe2 sidechain pocket on <code>gtr_rhy_bus</code> (use one pocket only)</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+    <p>Hub, channel and pin setup for the key lives on <a href="routing.html#sidechain-hubs">Routing</a>.</p>
+
+    <div class="callout callout--warn" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Not on this bus</span>
+        <p>No glue compressor: FG-Grey glues once on <code>print_bus</code>. No saturation: VCC / Coffee color the sum. No clipper or limiter: GClip runs on <code>drum_bus</code> and the print bus. No tone EQ: Max #1 tilts the whole mix. No widener. Each one would double a print-bus stage.</p>
+      </div>
+    </div>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Glue in one place</span>
+        <p>Some metal mixers compress the music bus and leave the vocals out of it. If you move glue to <code>instrument_bus</code>, take FG-Grey off <code>print_bus</code>. Never run both.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="print-chain">print_bus chain</h2>
     <p>Input target: <code class="val-warn">-4 to -3 dBFS</code> peak.</p>
     <ol class="rack">
       <li class="rack__slot">
@@ -42,7 +122,7 @@
             <span class="tag">SAT</span>
             <button type="button" class="copy-btn" data-copy="mb-1" aria-label="Copy Slot 1 settings"></button>
           </div>
-          <dl class="kv" id="mb-1" data-copy-title="PRINT / MIX BUS Slot 1 - VCC / Coffee The Pun">
+          <dl class="kv" id="mb-1" data-copy-title="print_bus Slot 1 - VCC / Coffee The Pun">
             <div class="kv__item"><dt>VCC console</dt><dd>Brit 4k E or G</dd></div>
             <div class="kv__item"><dt>VCC drive</dt><dd>11:00&ndash;12:00</dd></div>
             <div class="kv__item"><dt>Coffee preamp</dt><dd>ON (germanium) <span class="chip">unverified</span></dd></div>
@@ -66,7 +146,7 @@
             <span class="tag">COMP</span>
             <button type="button" class="copy-btn" data-copy="mb-2" aria-label="Copy Slot 2 settings"></button>
           </div>
-          <dl class="kv" id="mb-2" data-copy-title="PRINT / MIX BUS Slot 2 - VBC FG-Grey">
+          <dl class="kv" id="mb-2" data-copy-title="print_bus Slot 2 - VBC FG-Grey">
             <div class="kv__item"><dt>Ratio</dt><dd>2:1 (starting point)</dd></div>
             <div class="kv__item"><dt>Attack</dt><dd>30 ms (starting point)</dd></div>
             <div class="kv__item"><dt>Release</dt><dd>Auto</dd></div>
@@ -92,7 +172,7 @@
             <span class="tag">EQ</span>
             <button type="button" class="copy-btn" data-copy="mb-3" aria-label="Copy Slot 3 settings"></button>
           </div>
-          <dl class="kv" id="mb-3" data-copy-title="PRINT / MIX BUS Slot 3 - JST Maximizer #1">
+          <dl class="kv" id="mb-3" data-copy-title="print_bus Slot 3 - JST Maximizer #1">
             <div class="kv__item"><dt>Preset</dt><dd>"Mix Into This EQ"</dd></div>
             <div class="kv__item"><dt>Maximize</dt><dd>Backed off, GR = 0.0 dB</dd></div>
             <div class="kv__item"><dt>Tone (mixing)</dt><dd>Toward Dark</dd></div>
@@ -110,7 +190,7 @@
             <span class="tag">RES</span>
             <button type="button" class="copy-btn" data-copy="mb-4" aria-label="Copy Slot 4 settings"></button>
           </div>
-          <dl class="kv" id="mb-4" data-copy-title="PRINT / MIX BUS Slot 4 - Soothe2">
+          <dl class="kv" id="mb-4" data-copy-title="print_bus Slot 4 - Soothe2">
             <div class="kv__item"><dt>Low cut band</dt><dd>250 Hz</dd></div>
             <div class="kv__item"><dt>Mode</dt><dd>Soft</dd></div>
             <div class="kv__item"><dt>Depth</dt><dd>0.8&ndash;1.2 max</dd></div>
@@ -128,7 +208,7 @@
             <span class="tag">CLIP</span>
             <button type="button" class="copy-btn" data-copy="mb-5" aria-label="Copy Slot 5 settings"></button>
           </div>
-          <dl class="kv" id="mb-5" data-copy-title="PRINT / MIX BUS Slot 5 - GClip">
+          <dl class="kv" id="mb-5" data-copy-title="print_bus Slot 5 - GClip">
             <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
             <div class="kv__item"><dt>Gain</dt><dd>0.0 dB</dd></div>
             <div class="kv__item"><dt>Softness</dt><dd>15&ndash;25%</dd></div>
@@ -147,7 +227,8 @@
   </section>
 
   <section class="section">
-    <h2 id="master">MASTER track</h2>
+    <h2 id="master">master_bus chain</h2>
+    <p>Mastering chain on <code>master_bus</code>, after <code>print_bus</code>. No plugins on the REAPER master.</p>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">M</div>
@@ -156,9 +237,9 @@
             <h4 class="rack__name">JST Maximizer #2</h4>
             <span class="chip">JST</span>
             <span class="tag">LIMIT</span>
-            <button type="button" class="copy-btn" data-copy="mb-m" aria-label="Copy MASTER settings"></button>
+            <button type="button" class="copy-btn" data-copy="mb-m" aria-label="Copy master_bus settings"></button>
           </div>
-          <dl class="kv" id="mb-m" data-copy-title="MASTER - JST Maximizer #2">
+          <dl class="kv" id="mb-m" data-copy-title="master_bus - JST Maximizer #2">
             <div class="kv__item"><dt>Preset</dt><dd>Factory &gt; Genre &gt; Rock (or Heavy Rock)</dd></div>
             <div class="kv__item"><dt>Maximize</dt><dd>2.5&ndash;4.5 dB GR on loud choruses</dd></div>
             <div class="kv__item"><dt>Tone</dt><dd>0 (default)</dd></div>
@@ -197,7 +278,7 @@
       <li><div><span class="steps__title">Push Max #2</span><p>Drive to <code class="val-warn">2.5&ndash;4.5 dB GR</code>. Threshold (ceiling) <code class="val-danger">-1.5 dB</code>.</p></div></li>
       <li><div><span class="steps__title">Check true peak</span><p>Put FG-X 2 after Max #2 as a meter. Leave its FG-Comp and FG-Level off <span class="chip">unverified</span>. Max true peak must read <code class="val-danger">-1.0 dBTP</code> or lower. If it reads higher, lower the Max #2 Threshold.</p></div></li>
       <li><div><span class="steps__title">Print the main master</span><p>Read <code>-8.5 to -7.5 LUFS</code> integrated.</p></div></li>
-      <li><div><span class="steps__title">Print the instrumental</span><p>Mute <code>VOCAL MASTER</code>. Bypass <code>SC_SPOTLIGHT</code>.</p></div></li>
+      <li><div><span class="steps__title">Print the instrumental</span><p>Mute <code>vocal_master</code>. Bypass the <code>sc_spotlight</code> duck (<code>instrument_bus</code> Slot 2) and the ducks on <code>fx_inst_plate</code> and <code>fx_inst_dly</code>.</p></div></li>
       <li><div><span class="steps__title">Print the acapella</span><p>Render the vocal branch alone.</p></div></li>
     </ol>
   </section>
@@ -236,7 +317,7 @@
 
   <section class="section">
     <h2 id="alt-chains">Other full chains</h2>
-    <p>Reference only. The page chain above wins. Each row is one complete <code>PRINT / MIX BUS</code> plus master from a guide.</p>
+    <p>Reference only. The page chain above wins. Each row is one complete <code>print_bus</code> plus master from a guide.</p>
     <div class="table-wrap">
       <table class="table">
         <thead>
@@ -267,13 +348,16 @@
           <tr><td>Mix sounds small, not loud</td><td>Check FG-Grey GR. Stay inside <code>2&ndash;3 dB</code>.</td><td>VBC FG-Grey</td></tr>
           <tr><td>Master distorts after upload</td><td>Lower Max #2 Threshold until true peak reads <code>-1.0 dBTP</code> or lower. For a streaming-only file, use <code>-2.0 dBTP</code>.</td><td>JST Maximizer #2 / FG-X 2 meter</td></tr>
           <tr><td>Master sounds quieter than the references on Spotify</td><td>Normalization turns both down to <code>-14 LUFS</code>. Compare punch, not level. Do not push past <code>-7.5 LUFS</code>.</td><td>FG-X 2 meter</td></tr>
-          <tr><td>Vocal tails in instrumental print</td><td>Move vocal returns into <code>VOCAL MASTER</code>.</td><td><a href="routing.html#fx-returns">Routing</a></td></tr>
+          <tr><td>Lead vocal buried in the guitar wall</td><td>Deepen the Nova duck to <code>-2.5 dB</code>. Still buried: add the guitar vocal pocket.</td><td>TDR Nova / <a href="guitars.html#vocal-pocket">soothe2</a></td></tr>
+          <tr><td>Music pumps under the singer</td><td>Duck less than <code>2.5 dB</code>. Shorten the Nova Release.</td><td>TDR Nova</td></tr>
+          <tr><td>Low end thins or wanders in mono</td><td>Set Imager Band 1 Width <code>-100</code> below <code>100 Hz</code>. Rebalance kick and bass.</td><td>Ozone 9 Imager</td></tr>
+          <tr><td>Vocal tails in instrumental print</td><td>Move vocal returns into <code>vocal_master</code>.</td><td><a href="routing.html#fx-returns">Routing</a></td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <footer class="page-foot">Sources: original WAP blueprint manual (primary); Slate Digital guide (VBC, VTM, FG-X 2); JST/JW guide (Maximizer roles, BG-Mix); REAPER architecture guide (Kotelnikov, ReaLimit). Phase 3 research: Slate Digital, Virtual Buss Compressors guide (GR range); Mark Mynett, "Making Modern Metal Part 3", Sound On Sound, 2018 (bus compression, master loudness); Spotify for Artists, "Loudness normalization" (targets, true peak); Ian Shepherd, "Apple Switches to LUFS", MeterPlugs, 2022 (Apple -16 LUFS); Dynamic Range Database album logs (reference peaks and RMS); Slate Digital, FG-X 2 guide (True Peak metering).</footer>
+  <footer class="page-foot">Sources: original WAP blueprint manual (primary); Slate Digital guide (VBC, VTM, FG-X 2); JST/JW guide (Maximizer roles, BG-Mix); REAPER architecture guide (Kotelnikov, ReaLimit). Phase 3 research: Slate Digital, Virtual Buss Compressors guide (GR range); Mark Mynett, "Making Modern Metal Part 3", Sound On Sound, 2018 (bus compression, master loudness); Spotify for Artists, "Loudness normalization" (targets, true peak); Ian Shepherd, "Apple Switches to LUFS", MeterPlugs, 2022 (Apple -16 LUFS); Dynamic Range Database album logs (reference peaks and RMS); Slate Digital, FG-X 2 guide (True Peak metering). instrument_bus research: TDR Nova manual, Tokyo Dawn (Sidechain Input EXT SC, Split, HP slopes, Process-Target); Ozone 9 Help, iZotope (Imager Width -100, Crossover Type); Infinity EQ 2 guide, Slate Digital (Low Cut, M/S panning, dynamic bands); Kilohearts Multipass and Snapins docs; Chris Wainwright, "Mono vs. Stereo in Audio Mixing", iZotope, 2022 (mono below 125 Hz, level loss); "Using Trackspacer to carve a perfect pocket for vocals" (Joey Sturgis, Oceano), Nail The Mix (vocal-keyed instrument bus, 300 Hz&ndash;6 kHz); "Sidechain Compression for Insanely Punchy Metal Mixes", Nail The Mix (2:1, 1&ndash;2 dB, fast attack); Mark Mynett, "Masters Of The Art Of Mixing", Sound On Sound, 2024 (instrument pre-master bus, vocal-keyed guitar duck).</footer>
 
 </div>
 </main>

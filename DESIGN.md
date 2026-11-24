@@ -33,8 +33,26 @@ Design read: desk-side reference for a power user in a dim studio. Precision & D
 | `--accent-ink` | `#0b0c0d` | text on accent |
 | `--ok` `--warn` `--danger` | `#34d399` `#fb923c` `#f43f5e` | meter zones, callouts |
 
-Group colors (match REAPER folder colors from the original manual):
-`--g-drums #fb923c` · `--g-bass #10b981` · `--g-guitars #f43f5e` · `--g-vocals #06b6d4` · `--g-orch #a78bfa` · `--g-synth #e879f9` · `--g-fx #38bdf8` · `--g-master #eab308`
+Group colors equal the REAPER template palette. Source of truth: the constants at the top of `docs/reaper-scripts/wap_build_mix_template.lua`. Change both together.
+
+Tracks run a rainbow down the track list. Each section bus takes the darker `-bus` shade.
+
+| Group | Track token | Bus token |
+|---|---|---|
+| Drums | `--g-drums #ff0000` | `--g-drums-bus #c00000` |
+| Bass | `--g-bass #ff8000` | `--g-bass-bus #c06000` |
+| Guitars | `--g-guitars #ffff00` | `--g-guitars-bus #c0c000` |
+| Orchestral | `--g-orch #00ff00` | `--g-orch-bus #00c000` |
+| Synths | `--g-synth #0080ff` | none (synths sit in the green `orch_syn_bus`) |
+| SFX | `--g-sfx #4000ff` | `--g-sfx-bus #3000c0` |
+| Vocals | `--g-vocals #bf00ff` | `--g-vocals-bus #9000c0` |
+
+- White `--g-master #ffffff`: `master_bus`, `print_bus`, `instrument_bus`, `vocal_master`.
+- Gray `--g-fx #8a8a8a`: every FX return.
+- Black `--g-hub #000000`: sidechain hubs.
+- `--g-none #3a3f45`: site-only neutral for Tools pages. Not a REAPER color.
+- Classes: `.gchip--<group>` and `.gchip--<group>-bus`; SVG dots use `.sf-dot--<group>` and `.sf-dot--<group>-bus`.
+- White and black chips carry a 1px `--border-strong` inset rule so they stay visible on the dark UI. Chips carry no text.
 
 Contrast (WCAG, computed from relative luminance):
 - text on bg: 16.9:1 · text-muted on surface-1: 7.0:1 · accent on bg: 10.4:1 · accent-ink on accent: 10.4:1. All pass AA, most AAA.
