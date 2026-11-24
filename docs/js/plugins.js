@@ -4,6 +4,7 @@
   "use strict";
 
   var MANUAL_STATUS_LABEL = { pdf: "PDF", html: "Docs", "product-page": "Product page" };
+  var QUERY_HASH_PREFIX = "#q=";
 
   function escapeHtml(text) {
     return String(text)
@@ -86,12 +87,29 @@
       count.textContent = matches.length + " of " + plugins.length + " plugins";
     }
 
+    function applyQueryFromHash() {
+      var hash = window.location.hash;
+      if (hash.indexOf(QUERY_HASH_PREFIX) !== 0) return;
+      try {
+        query.value = decodeURIComponent(hash.slice(QUERY_HASH_PREFIX.length));
+      } catch (malformedHash) {
+        return;
+      }
+      vendor.value = "";
+      category.value = "";
+      usedOnly.checked = false;
+      render();
+      query.scrollIntoView({ block: "start" });
+    }
+
     form.addEventListener("submit", function (e) { e.preventDefault(); });
+    window.addEventListener("hashchange", applyQueryFromHash);
     query.addEventListener("input", render);
     vendor.addEventListener("change", render);
     category.addEventListener("change", render);
     usedOnly.addEventListener("change", render);
     render();
+    applyQueryFromHash();
   }
 
   document.addEventListener("DOMContentLoaded", init);

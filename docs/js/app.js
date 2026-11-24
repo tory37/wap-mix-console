@@ -160,37 +160,91 @@
   }
 
   /* ---------------------------------------------------------------- search palette */
-  function scoreEntry(entry, tokens) {
-    var title = entry.title.toLowerCase();
-    var text = (entry.text || "").toLowerCase();
-    var score = 0;
-    for (var i = 0; i < tokens.length; i++) {
-      var t = tokens[i];
-      var inTitle = title.indexOf(t) !== -1;
-      var inText = text.indexOf(t) !== -1;
-      if (!inTitle && !inText) return 0;
-      if (inTitle) score += title.indexOf(t) === 0 ? 4 : 3;
-      if (inText) score += 1;
-    }
-    return score;
+  var SEARCH_RESULT_LIMIT = 20;
+  var PLUGIN_QUERY_HASH_PREFIX = "#q=";
+  var LANDING_HIGHLIGHT_MS = 1600;
+  var LANDING_HEADING_TAGS = { H1: true, H2: true, H3: true, H4: true };
+  var preparedRecords = null;
+  var landingHighlightTimer = null;
+
+  function isPluginEntry(entry) {
+    return entry.type === window.WAP_SEARCH.TYPE_PLUGIN;
   }
 
   function search(query) {
     var index = window.WAP_SEARCH_INDEX || [];
-    var tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
-    if (!tokens.length) {
-      return index.filter(function (e) { return !e.anchor; });
+    if (!query.trim()) {
+      return index.filter(function (e) { return !isPluginEntry(e) && !e.anchor; });
     }
-    return index
-      .map(function (e) { return { entry: e, score: scoreEntry(e, tokens) }; })
-      .filter(function (r) { return r.score > 0; })
-      .sort(function (a, b) { return b.score - a.score; })
-      .slice(0, 20)
-      .map(function (r) { return r.entry; });
+    if (!preparedRecords) preparedRecords = window.WAP_SEARCH.prepareIndex(index);
+    return window.WAP_SEARCH.rank(preparedRecords, query, SEARCH_RESULT_LIMIT)
+      .map(function (result) { return result.entry; });
   }
 
   function hrefFor(entry) {
+    if (isPluginEntry(entry)) return entry.file + PLUGIN_QUERY_HASH_PREFIX + encodeURIComponent(entry.title);
     return entry.file + (entry.anchor ? "#" + entry.anchor : "");
+  }
+
+  function highlightHtml(text, query) {
+    var ranges = window.WAP_SEARCH.highlightRanges(text, query);
+    var html = "";
+    var cursor = 0;
+    ranges.forEach(function (range) {
+      html += escapeHtml(text.slice(cursor, range[0])) +
+        '<mark class="palette__mark">' + escapeHtml(text.slice(range[0], range[1])) + "</mark>";
+      cursor = range[1];
+    });
+    return html + escapeHtml(text.slice(cursor));
+  }
+
+  function resultContextText(entry) {
+    if (isPluginEntry(entry)) return entry.vendor + " · " + entry.category;
+    return entry.page;
+  }
+
+  function resultSnippetText(entry, query) {
+    if (isPluginEntry(entry)) return entry.text ? "Used on " + entry.text : "Not used in the guide";
+    return window.WAP_SEARCH.snippet(entry.text, query);
+  }
+
+  function resultItemHtml(entry, i, isSelected, query) {
+    var typeLabel = isPluginEntry(entry) ? "Plugin" : "Section";
+    var snippetText = resultSnippetText(entry, query);
+    return '<li><a class="palette__item" role="option" id="palette-opt-' + i + '" href="' + escapeHtml(hrefFor(entry)) + '"' +
+      ' aria-selected="' + isSelected + '" data-index="' + i + '" tabindex="-1">' +
+      '<span class="palette__item-head">' +
+      '<span class="palette__item-title">' + highlightHtml(entry.title, query) + "</span>" +
+      '<span class="palette__type label">' + typeLabel + "</span>" +
+      "</span>" +
+      '<span class="palette__item-page">' + escapeHtml(resultContextText(entry)) + "</span>" +
+      (snippetText ? '<span class="palette__item-snippet">' + highlightHtml(snippetText, query) + "</span>" : "") +
+      "</a></li>";
+  }
+
+  function currentPageFile() {
+    return window.location.pathname.split("/").pop() || "index.html";
+  }
+
+  function landingTarget() {
+    var hash = window.location.hash;
+    if (!hash || hash.indexOf(PLUGIN_QUERY_HASH_PREFIX) === 0) return null;
+    var target = document.getElementById(hash.slice(1));
+    return target && LANDING_HEADING_TAGS[target.tagName] ? target : null;
+  }
+
+  function highlightLandingTarget() {
+    var target = landingTarget();
+    if (!target) return;
+    target.scrollIntoView({ block: "start" });
+    target.classList.add("is-landed");
+    clearTimeout(landingHighlightTimer);
+    landingHighlightTimer = setTimeout(function () { target.classList.remove("is-landed"); }, LANDING_HIGHLIGHT_MS);
+  }
+
+  function initLandingHighlight() {
+    highlightLandingTarget();
+    window.addEventListener("hashchange", highlightLandingTarget);
   }
 
   function initPalette() {
@@ -200,7 +254,7 @@
       '<button type="button" class="palette__backdrop" tabindex="-1" aria-label="Close search"></button>' +
       '<div class="palette__panel" role="dialog" aria-modal="true" aria-label="Search">' +
       '<div class="palette__field">' + icon("search") +
-      '<input class="palette__input" type="text" placeholder="Search pages and sections" autocomplete="off" spellcheck="false"' +
+      '<input class="palette__input" type="text" placeholder="Search pages, sections and plugins" autocomplete="off" spellcheck="false"' +
       ' role="combobox" aria-expanded="true" aria-controls="palette-results" aria-autocomplete="list">' +
       '<kbd>Esc</kbd></div>' +
       '<ul class="palette__results" id="palette-results" role="listbox"></ul>' +
@@ -222,12 +276,8 @@
         return;
       }
       if (selected >= results.length) selected = results.length - 1;
-      list.innerHTML = results.map(function (e, i) {
-        return '<li><a class="palette__item" role="option" id="palette-opt-' + i + '" href="' + escapeHtml(hrefFor(e)) + '"' +
-          ' aria-selected="' + (i === selected) + '" data-index="' + i + '" tabindex="-1">' +
-          '<span class="palette__item-title">' + escapeHtml(e.title) + "</span>" +
-          '<span class="palette__item-page">' + escapeHtml(e.page) + (e.anchor ? " / #" + escapeHtml(e.anchor) : "") + "</span>" +
-          "</a></li>";
+      list.innerHTML = results.map(function (entry, i) {
+        return resultItemHtml(entry, i, i === selected, input.value);
       }).join("");
       input.setAttribute("aria-activedescendant", "palette-opt-" + selected);
     }
@@ -259,7 +309,12 @@
 
     function go(entry) {
       close();
-      window.location.href = hrefFor(entry);
+      var href = hrefFor(entry);
+      var hash = href.slice(entry.file.length);
+      var isSameLocation = entry.file === currentPageFile() && hash === window.location.hash;
+      // Re-selecting the current URL fires no hashchange, so replay it for the landing highlight and plugin filter.
+      if (isSameLocation) window.dispatchEvent(new Event("hashchange"));
+      else window.location.href = href;
     }
 
     input.addEventListener("input", function () { selected = 0; render(); });
@@ -301,5 +356,6 @@
     buildRail();
     initCopyButtons();
     initPalette();
+    initLandingHighlight();
   });
 })();
