@@ -22,13 +22,48 @@
     </div>
   </header>
 
+  <section class="section">
+    <h2 id="roles">Lead or pad: pick one per section</h2>
+    <p>A string part does one job at a time. The job sets its register, level and reverb.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Role</th><th scope="col">When</th><th scope="col">Writing</th><th scope="col">Mix</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Pad</td><td>Under a busy or syncopated vocal</td><td>Slow whole and half notes. Divisi chords in violins 2 and violas.</td><td>Back. More hall. Mid cut on.</td></tr>
+          <tr><td>Counter-melody</td><td>In gaps between vocal phrases</td><td>Simple line. High violin register, often in octaves.</td><td>Forward. Less hall. Ride it up in the gaps.</td></tr>
+          <tr><td>Rhythmic drive</td><td>Builds, pre-choruses</td><td>Fast 16th figures in unison octaves. Cellos an octave below.</td><td>Drier. Shorts get less reverb than longs.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Soft textures disappear under distorted guitars. Harmonics and divisi tremolo make no impression there. Write firmer parts.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="register">Register vs Drop G&ndash;Bb guitars &amp; vocal</h2>
+    <p>Drop G sits at <code>49 Hz</code>. Drop Bb sits at <code>58 Hz</code>. The guitar body owns the low octaves. The vocal owns the octave it sings in.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Section</th><th scope="col">Where to write it</th><th scope="col">Why</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Violins</td><td>An octave or more above the vocal melody</td><td>The high register cuts through a dense mix. It stays out of the vocal octave.</td></tr>
+          <tr><td>Violas / violins 2</td><td>Chord tones between vocal and violins</td><td>Fills the middle without doubling the vocal line.</td></tr>
+          <tr><td>Cellos</td><td>Above the guitar chug body. Octave under the violin line.</td><td>Warmth at <code>100&ndash;300 Hz</code> without stacking on the riff root.</td></tr>
+          <tr><td>Basses</td><td>Usually leave out. If used, double cellos an octave down and pan center.</td><td>A double bass low E is <code>41 Hz</code>. That is kick and bass guitar territory.</td></tr>
+        </tbody>
+      </table>
+    </div>
     <div class="callout callout--info" role="note">
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
       <div class="callout__body">
-        <span class="callout__title">Deep research lands in phase 3</span>
-        <p>Sources cover Spitfire LABS strings and the shared bus only. Section voicing, articulations, brass and choir have no source yet.</p>
+        <span class="callout__title">Starting point, not a sourced rule</span>
+        <p>"Above the vocal" and "above the chug body" are judgment calls from the sources below. No Red, Breaking Benjamin or FFTG engineer has published their string voicing.</p>
       </div>
     </div>
+  </section>
 
   <section class="section">
     <h2 id="sources-strings">String sources &amp; built-in reverb</h2>
@@ -48,7 +83,19 @@
       </div>
     </div>
     <p>A low reverb knob keeps the bow attack. The hall supplies the tail.</p>
-    <p>Installed string sources with no settings in the sources: BBC Symphony Orchestra, Orchestral Strings, DSK Strings.</p>
+    <p>Installed string sources with no settings in the sources: BBC Symphony Orchestra, Orchestral Strings, DSK Strings. Use them as layers. See <a href="#bigger">Make LABS strings bigger</a>.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="bigger">Make LABS strings bigger</h2>
+    <ol class="steps">
+      <li><div><span class="steps__title">Double in octaves</span><p>Put the line in violins and an octave down in cellos. Octave doubling is how arrangers lift a second chorus.</p></div></li>
+      <li><div><span class="steps__title">Layer a second library on long notes only</span><p>Add BBC Symphony Orchestra or DSK Strings under LABS longs. Doubling everything sounds massive but loses detail. This is a starting point.</p></div></li>
+      <li><div><span class="steps__title">Taper the note ends</span><p>Players fade a long note out. Draw a short diminuendo on each release. Hard cut-offs sound sampled.</p></div></li>
+      <li><div><span class="steps__title">Make each section full before it meets the band</span><p>Mix bottom-up: cellos, then violas, then violins. Add weight first. Cut only where it clashes.</p></div></li>
+      <li><div><span class="steps__title">Saturate lightly</span><p>Tape saturation adds density. See slot 4 in the chain.</p></div></li>
+      <li><div><span class="steps__title">Split shorts and longs</span><p>Shorts read wetter than longs. Send shorts less hall than longs.</p></div></li>
+    </ol>
   </section>
 
   <section class="section">
@@ -67,7 +114,7 @@
             <div class="kv__item"><dt>Peak Reduction</dt><dd>Set for 3&ndash;5 dB GR</dd></div>
             <div class="kv__item"><dt>Speed</dt><dd>Slow</dd></div>
           </dl>
-          <p class="rack__why">Sustained notes hold their level under chorus guitars.</p>
+          <p class="rack__why">Sustained notes hold their level under chorus guitars. Sound On Sound used 3&ndash;4 dB of gentle compression on strings in a rock mix. It also made level rides easier.</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -80,12 +127,12 @@
             <button type="button" class="copy-btn" data-copy="orchestral-str-eq" aria-label="Copy JST EQ (Mid/Side) settings"></button>
           </div>
           <dl class="kv" id="orchestral-str-eq" data-copy-title="Slot 2 - JST EQ (Mid/Side)">
-            <div class="kv__item"><dt>High Pass</dt><dd>150&ndash;180 Hz</dd></div>
+            <div class="kv__item"><dt>High Pass</dt><dd>150&ndash;180 Hz (violins, violas, pads). Cellos with a line: 100&ndash;120 Hz, starting point.</dd></div>
             <div class="kv__item"><dt>Low Pass</dt><dd>8&ndash;10 kHz</dd></div>
             <div class="kv__item"><dt>Peak, Processing Mode Mid</dt><dd>-2.5 dB @ 1.5&ndash;3 kHz</dd></div>
             <div class="kv__item"><dt>Peak, Processing Mode Side</dt><dd>+2 dB @ 3&ndash;5 kHz</dd></div>
           </dl>
-          <p class="rack__why">The Mid cut clears the vocal zone. The Side lift pushes strings to the edges.</p>
+          <p class="rack__why">The Mid cut clears the vocal zone. The Side lift pushes strings to the edges. Engineers report the string and synth clash with heavy guitars at 1&ndash;2 kHz. Set the HPF last, in context. A cello HPF at 150 Hz removes its warmth.</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -105,6 +152,24 @@
           <p class="rack__why">Softens bow edge and scrape. The HPF keeps 100&ndash;300 Hz warmth.</p>
         </div>
       </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">4</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Virtual Tape Machines (optional)</h4>
+            <span class="chip">Slate</span>
+            <span class="tag">SAT</span>
+            <button type="button" class="copy-btn" data-copy="orchestral-str-vtm" aria-label="Copy Virtual Tape Machines (optional) settings"></button>
+          </div>
+          <dl class="kv" id="orchestral-str-vtm" data-copy-title="Slot 4 - Virtual Tape Machines (optional)">
+            <div class="kv__item"><dt>Machine</dt><dd>2-Inch 16-Track</dd></div>
+            <div class="kv__item"><dt>Tape Type</dt><dd>456 (thicker lows) or GP9 (more punch)</dd></div>
+            <div class="kv__item"><dt>Input</dt><dd>Push until the strings thicken. Starting point.</dd></div>
+            <div class="kv__item"><dt>Output</dt><dd>Level-match to bypass</dd></div>
+          </dl>
+          <p class="rack__why">A hotter Input gives more tape saturation and compression. Sound On Sound drove VTM hard on a rock string section for density.</p>
+        </div>
+      </li>
     </ol>
 
     <h3 id="strings-sends">Routing &amp; sends</h3>
@@ -117,9 +182,37 @@
         <dl class="kv" id="orchestral-str-sends" data-copy-title="String routing">
           <div class="kv__item"><dt>Output</dt><dd>ORCH &amp; SYNTH BUS</dd></div>
           <div class="kv__item"><dt>Send</dt><dd>20&ndash;30% &rarr; WIDE MIX HALL</dd></div>
+          <div class="kv__item"><dt>Shorts send</dt><dd>Lower than longs. Starting point: half the longs send.</dd></div>
         </dl>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <h2 id="depth">Depth: front and back</h2>
+    <ol class="steps">
+      <li><div><span class="steps__title">Pads sit back</span><p>More hall send. Lower fader.</p></div></li>
+      <li><div><span class="steps__title">Counter-melodies sit forward</span><p>Less send. Ride the fader up in vocal gaps.</p></div></li>
+      <li><div><span class="steps__title">Automate the send, not only the fader</span><p>Raise the hall send at phrase ends and rests. Pull it down under held notes.</p></div></li>
+      <li><div><span class="steps__title">Clear the center</span><p>Sound On Sound cut the mid of the string reverb to free the vocal. See <a href="fx-returns.html#wide-hall">WIDE MIX HALL</a> slot 2.</p></div></li>
+    </ol>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Fast songs</span>
+        <p>Mix magazine suggests zero pre-delay and no early reflections for strings that compete with vocals at fast tempos. The shared hall keeps <code>40&ndash;60 ms</code> pre-delay. If fast strings smear, lower their hall send first. Do not change the shared hall for one part.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="automation">Dynamics through the song</h2>
+    <ol class="steps">
+      <li><div><span class="steps__title">Ride before you compress</span><p>Automate the notes that jump out. A ride adds no tone of its own.</p></div></li>
+      <li><div><span class="steps__title">Bring a section in on a rise</span><p>Fade the strings in. Then lift them for the second half of the section.</p></div></li>
+      <li><div><span class="steps__title">Narrow verses, wide choruses</span><p>Keep verse strings narrower. Open them on the chorus downbeat.</p></div></li>
+      <li><div><span class="steps__title">Cut a bright note, not the whole part</span><p>Find the harsh note with a boost. Then pull that band down only where the note plays.</p></div></li>
+    </ol>
   </section>
 
   <section class="section">
@@ -137,11 +230,35 @@
           <tr><td>Lead vocal</td><td><span class="mono">85&ndash;100 Hz</span></td><td>None</td><td>Air boost <span class="mono">10&ndash;12 kHz</span></td></tr>
           <tr><td>BGVs</td><td><span class="mono">120&ndash;140 Hz</span></td><td><span class="mono">8&ndash;9 kHz</span></td><td>None</td></tr>
           <tr><td>Strings</td><td><span class="mono">150&ndash;180 Hz</span></td><td><span class="mono">8&ndash;10 kHz</span></td><td>Mid <span class="mono">-2.5 dB @ 1.5&ndash;3 kHz</span>, Side <span class="mono">+2 dB @ 3&ndash;5 kHz</span></td></tr>
+          <tr><td>Choir</td><td><span class="mono">150&ndash;200 Hz</span>, steep</td><td>None</td><td>Mid cut like strings, starting point</td></tr>
           <tr><td>Synth pads</td><td><span class="mono">250&ndash;400 Hz</span></td><td>None</td><td><span class="mono">-3 dB @ 1&ndash;3 kHz</span></td></tr>
         </tbody>
       </table>
     </div>
     <p>Strings cut the Mid where the vocal lives. They lift the Sides above the guitar presence. Their warmth sits at <code>100&ndash;300 Hz</code>.</p>
+    <p>Do not over-carve. Orchestral parts sound natural with some overlap. Cut only where you hear a clash.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="brass-choir">Choir, brass &amp; percussion</h2>
+    <p>Installed: DSK ChoirZ, DSK Brass, DSK Overture, BBC Symphony Orchestra. No source gives settings for these instruments.</p>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Choir &amp; brass starting points</span>
+        <button type="button" class="copy-btn" data-copy="orchestral-choir-brass" aria-label="Copy Choir and brass starting points"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="orchestral-choir-brass" data-copy-title="Choir and brass starting points">
+          <div class="kv__item"><dt>Choir HPF</dt><dd>150&ndash;200 Hz, steep. Higher if the arrangement is dense.</dd></div>
+          <div class="kv__item"><dt>Choir place</dt><dd>Behind the BGVs. Same hall. Never in the lead vocal octave.</dd></div>
+          <div class="kv__item"><dt>Brass role</dt><dd>Chorus hits and swells on chord roots. Starting point.</dd></div>
+          <div class="kv__item"><dt>Brass EQ</dt><dd>Mid cut at 1.5&ndash;3 kHz like the strings. Starting point.</dd></div>
+          <div class="kv__item"><dt>Output</dt><dd>ORCH &amp; SYNTH BUS</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p>Choirs and pads carry rumble that muddies a dense mix. A steep HPF clears it. Brass owns the same upper mids as the vocal bite. Use it for hits, not long pads under the vocal.</p>
+    <p>Cinematic percussion and hits: see <a href="synths-sfx.html#impacts">Impacts &amp; transitions</a>.</p>
   </section>
 
   <section class="section">
@@ -163,7 +280,7 @@
             <div class="kv__item"><dt>Loud</dt><dd>Set to level-match</dd></div>
             <div class="kv__item"><dt>Mix</dt><dd>80&ndash;100%</dd></div>
           </dl>
-          <p class="rack__why">Push widens the layers around the guitars. The Crush limiter caps filter-sweep peaks.</p>
+          <p class="rack__why">Push adds parallel saturation and glue compression. It slightly widens the layers around the guitars. Crush is a limiter with auto-gain, so the bus gets louder as you add Crush. Pull Loud down to level-match.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST BG-Keys, Glued mode</span></span>
@@ -188,6 +305,13 @@
         </div>
       </li>
     </ol>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">JW BG-Keys has no Comp control</span>
+        <p>The JW manual lists Crush, Loud, GR, Push, Mix and Link. A "Comp 25&ndash;35%" value belongs to JST BG-Keys, a different plugin. Use Crush on JW BG-Keys.</p>
+      </div>
+    </div>
   </section>
 
   <section class="section">
@@ -203,6 +327,11 @@
           <tr><td>Low-mid mud with guitars</td><td>HPF <code>150&ndash;180 Hz</code>.</td><td>JST EQ</td></tr>
           <tr><td>Bow scrape is harsh</td><td>Low cut band <code>350 Hz</code>, Depth <code>2.0&ndash;3.0</code>, Soft.</td><td>soothe2</td></tr>
           <tr><td>Held notes drop under chorus guitars</td><td>Level with <code>3&ndash;5 dB GR</code>.</td><td>VM Custom Opto</td></tr>
+          <tr><td>Strings sound thin and small</td><td>Double in octaves. Layer a second library on longs. Raise the cello HPF only if it clashes.</td><td>Arrangement / JST EQ</td></tr>
+          <tr><td>Strings vanish under the riff</td><td>Write firmer parts. Move violins up an octave. Ride them up in vocal gaps.</td><td>Arrangement / automation</td></tr>
+          <tr><td>Cellos fight the bass guitar</td><td>Lower the cellos first. Then check the cello HPF.</td><td>Fader / JST EQ</td></tr>
+          <tr><td>Sampled strings sound fake</td><td>Taper note ends. Program parts a player could play.</td><td>MIDI editing</td></tr>
+          <tr><td>Hall clouds the vocal center</td><td>Lower the Mid of the hall return.</td><td>kHs Stereo on WIDE MIX HALL</td></tr>
         </tbody>
       </table>
     </div>
@@ -214,6 +343,14 @@
       <li>WAP studio mixing blueprint (REAPER console manual), Sec 08 Synths &amp; Strings and Sec 09 soothe2 matrix. Primary.</li>
       <li>Modern Metal Mixing Plugin Deep Dive: 1.3 (orchestral / synth bus).</li>
       <li>JST &amp; JW Modern Metal Mixing Guide: 2E BG-Keys.</li>
+      <li>Dave Stewart, Arranging For Strings: Part 4. Sound On Sound.</li>
+      <li>Neil Rogers, Mix Rescue: Getting Strings To Sit In A Mix. Sound On Sound, 2014.</li>
+      <li>Kevin Becka, Inside Track: Mixing Strings. Mix, 2007.</li>
+      <li>How to mix orchestral strings in metal without losing heaviness (Stefano Morabito, Fleshgod Apocalypse). Nail The Mix.</li>
+      <li>How to EQ synths so they stop fighting your guitars (Eyal Levi, Chelsea Grin). Nail The Mix.</li>
+      <li>Mixing Metal Guitars Around Orchestral Arrangements (Lasse Lammert, Alestorm). Nail The Mix.</li>
+      <li>Mixing Orchestral Samples (Christian Henson, Jake Jackson). Spitfire Audio.</li>
+      <li>JW BG-Keys manual; VM Custom Opto docs; Virtual Tape Machines docs; JST BG-Keys manual. Vendor manuals.</li>
     </ol>
   </footer>
 

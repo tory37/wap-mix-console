@@ -307,6 +307,14 @@ main {
 .section > h2 + * { margin-top: 0; }
 .section h3 { margin-top: var(--s6); }
 
+.content ul:not([class]) {
+  padding-left: var(--s6);
+  list-style: disc;
+}
+.content ul:not([class]) > li + li { margin-top: var(--s1); }
+.content ul:not([class]) > li::marker { color: var(--text-muted); }
+.content ul:not([class]) ul:not([class]) { margin-top: var(--s1); }
+
 .page-foot {
   margin-top: var(--s16);
   padding-top: var(--s4);
@@ -700,7 +708,7 @@ main {
 .zone--s2 { left: 66.6667%; width: 8.3333%; } /* -8 to -6 */
 .zone--s3 { left: 75%; width: 4.1667%; }      /* -6 to -5 */
 .zone--s4 { left: 83.3333%; width: 4.1667%; } /* -4 to -3 */
-.zone--s5 { left: 95.8333%; width: .8333%; }  /* -1.0 to -0.8 */
+.zone--s5 { left: 93.75%; width: 2.0833%; }   /* -1.5 to -1.0 (threshold -1.5, TP -1.0) */
 
 .ladder__value {
   grid-column: 3;

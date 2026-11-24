@@ -18,7 +18,7 @@
     <div class="goal">
       <span class="gchip gchip--lg gchip--master" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Glue at <code>1.5&ndash;2.5 dB GR</code>. Tone with Max #1 at <code>0.0 dB GR</code>. Print at <code>-8.5 to -7.5 LUFS</code> under a <code>-0.8 to -1.0 dB</code> ceiling.</p>
+      <p class="goal__text">Glue at <code>2&ndash;3 dB GR</code>. Tone with Max #1 at <code>0.0 dB GR</code>. Print at <code>-8.5 to -7.5 LUFS</code> with true peak at or below <code>-1.0 dBTP</code>.</p>
     </div>
   </header>
 
@@ -71,9 +71,9 @@
             <div class="kv__item"><dt>Attack</dt><dd>30 ms <span class="chip">unverified</span></dd></div>
             <div class="kv__item"><dt>Release</dt><dd>Auto</dd></div>
             <div class="kv__item"><dt>HPF (detector)</dt><dd>90&ndash;100 Hz</dd></div>
-            <div class="kv__item"><dt>Target GR</dt><dd>1.5&ndash;2.5 dB on choruses</dd></div>
+            <div class="kv__item"><dt>Target GR</dt><dd>2&ndash;3 dB on chorus peaks</dd></div>
           </dl>
-          <p class="rack__why">Glues drums, bass, guitars and vocals. The detector HPF lets kick sub and snare snap pass.</p>
+          <p class="rack__why">Glues drums, bass, guitars and vocals. The detector HPF lets kick sub and snare snap pass. Slate's VBC guide suggests about 2&ndash;4 dB GR. A documented modern-metal mix ran an SSL-style bus at 2:1 with 3&ndash;4 dB GR on peaks. 2&ndash;3 dB keeps glue while Max #2 does the loudness work. If the kit pokes out of the wall, try a faster Attack.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">BG-Mix Careful, 1.0&ndash;2.5 dB GR, Warmth ON, Clip ON</span></span>
@@ -162,11 +162,12 @@
             <div class="kv__item"><dt>Preset</dt><dd>Factory &gt; Genre &gt; Rock (or Heavy Rock)</dd></div>
             <div class="kv__item"><dt>Maximize</dt><dd>2.5&ndash;4.5 dB GR on loud choruses</dd></div>
             <div class="kv__item"><dt>Tone</dt><dd>0 (default)</dd></div>
-            <div class="kv__item"><dt>Threshold (output ceiling)</dt><dd>-0.8 to -1.0 dB</dd></div>
+            <div class="kv__item"><dt>Threshold (output ceiling)</dt><dd>-1.5 dB (starting point)</dd></div>
             <div class="kv__item"><dt>OS</dt><dd>4x or 8x <span class="chip">unverified</span></dd></div>
-            <div class="kv__item"><dt>Loudness</dt><dd>-8.5 to -7.5 LUFS</dd></div>
+            <div class="kv__item"><dt>Loudness</dt><dd>-8.5 to -7.5 LUFS integrated</dd></div>
+            <div class="kv__item"><dt>True peak</dt><dd>-1.0 dBTP max, read on the FG-X 2 meter</dd></div>
           </dl>
-          <p class="rack__why">Final metal loudness with inter-sample ceiling safety.</p>
+          <p class="rack__why">Final metal loudness. The JST manual calls Threshold the maximum output peak. It does not say the ceiling is true-peak. A sample-peak ceiling of -0.8 dB can still produce inter-sample overs. Start Threshold at -1.5 dB. Then confirm the true peak on a BS.1770 meter.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-X 2 (FG-Comp + FG-Level, True Peak Limiting)</span></span>
@@ -193,11 +194,44 @@
       <li><div><span class="steps__title">Decide on Soothe2</span><p>Engage Slot 4 only if needed. Low cut band <code>250 Hz</code>, Depth <code>0.8&ndash;1.2</code>.</p></div></li>
       <li><div><span class="steps__title">Set GClip</span><p>Shave <code>1.0&ndash;2.0 dB</code> of peaks.</p></div></li>
       <li><div><span class="steps__title">Raise Soothe2 quality</span><p>Switch every Soothe2 instance to <code>4x</code> Oversample <span class="chip">unverified</span>.</p></div></li>
-      <li><div><span class="steps__title">Push Max #2</span><p>Drive to <code class="val-warn">2.5&ndash;4.5 dB GR</code>. Threshold (ceiling) <code class="val-danger">-0.8 dB</code>.</p></div></li>
+      <li><div><span class="steps__title">Push Max #2</span><p>Drive to <code class="val-warn">2.5&ndash;4.5 dB GR</code>. Threshold (ceiling) <code class="val-danger">-1.5 dB</code>.</p></div></li>
+      <li><div><span class="steps__title">Check true peak</span><p>Put FG-X 2 after Max #2 as a meter. Leave its FG-Comp and FG-Level off <span class="chip">unverified</span>. Max true peak must read <code class="val-danger">-1.0 dBTP</code> or lower. If it reads higher, lower the Max #2 Threshold.</p></div></li>
       <li><div><span class="steps__title">Print the main master</span><p>Read <code>-8.5 to -7.5 LUFS</code> integrated.</p></div></li>
       <li><div><span class="steps__title">Print the instrumental</span><p>Mute <code>VOCAL MASTER</code>. Bypass <code>SC_SPOTLIGHT</code>.</p></div></li>
       <li><div><span class="steps__title">Print the acapella</span><p>Render the vocal branch alone.</p></div></li>
     </ol>
+  </section>
+
+  <section class="section">
+    <h2 id="loudness">Loudness targets and streaming</h2>
+    <p>No public LUFS measurements exist for the reference records. The table uses the DR database logs (peak and RMS from the TT DR meter). The LUFS column is an estimate, not a measurement. Treat it as &plusmn;1.5 dB.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Release</th><th scope="col">DR</th><th scope="col">Peak</th><th scope="col">RMS (loud tracks)</th><th scope="col">LUFS estimate</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Breaking Benjamin, Dark Before Dawn (2015 CD)</td><td class="mono">6</td><td class="mono">0.00 dB</td><td class="mono">-7.6 to -6.3 dB</td><td class="mono">about -9 to -7</td></tr>
+          <tr><td>Breaking Benjamin, Ember (2018, lossy)</td><td class="mono">5</td><td class="mono">0.00 dB</td><td class="mono">-6.7 to -5.2 dB</td><td class="mono">about -8 to -6</td></tr>
+          <tr><td>Breaking Benjamin, Aurora (2020, Apple Digital Master)</td><td class="mono">6</td><td class="mono">0.00 dB</td><td class="mono">-8.1 to -6.4 dB</td><td class="mono">about -9 to -7</td></tr>
+          <tr><td>Red, Of Beauty and Rage (2015 CD)</td><td class="mono">6</td><td class="mono">over</td><td class="mono">-8.0 to -6.5 dB</td><td class="mono">about -9 to -7</td></tr>
+          <tr><td>Fire From The Gods, American Sun (2019)</td><td class="mono">&mdash;</td><td class="mono">&mdash;</td><td class="mono">&mdash;</td><td class="mono">not found</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Platform</th><th scope="col">Normalizes to</th><th scope="col">Effect on a -8 LUFS master</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Spotify (Normal)</td><td class="mono">-14 LUFS</td><td>Turned down about 6 dB. Spotify asks for true peak below -2 dBTP on masters louder than -14 LUFS.</td></tr>
+          <tr><td>Spotify (Loud)</td><td class="mono">-11 LUFS</td><td>Turned down about 3 dB.</td></tr>
+          <tr><td>Apple Music (Sound Check)</td><td class="mono">-16 LUFS</td><td>Turned down about 8 dB.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Why <code>-8.5 to -7.5 LUFS</code>: it sits inside the reference range. Every platform turns it down, so louder buys nothing on streams. Each extra dB of limiting costs kick and snare punch. Starting point: print at about <code>-8 LUFS</code>. Go no louder than <code>-7 LUFS</code>.</p>
   </section>
 
   <section class="section">
@@ -230,14 +264,16 @@
           <tr><td>Chorus turns harsh</td><td>Engage Soothe2, Depth <code>0.8&ndash;1.2</code>. Never stack TDR Nova.</td><td>Soothe2</td></tr>
           <tr><td>Limiter distorts on snare hits</td><td>Shave <code>1.0&ndash;2.0 dB</code> with GClip first.</td><td>GClip, 2x OS</td></tr>
           <tr><td>Master is too quiet</td><td>Push Max #2 to <code>2.5&ndash;4.5 dB GR</code>. Do not exceed it.</td><td>JST Maximizer #2</td></tr>
-          <tr><td>Mix sounds small, not loud</td><td>Check FG-Grey GR. Stay inside <code>1.5&ndash;2.5 dB</code>.</td><td>VBC FG-Grey</td></tr>
+          <tr><td>Mix sounds small, not loud</td><td>Check FG-Grey GR. Stay inside <code>2&ndash;3 dB</code>.</td><td>VBC FG-Grey</td></tr>
+          <tr><td>Master distorts after upload</td><td>Lower Max #2 Threshold until true peak reads <code>-1.0 dBTP</code> or lower. For a streaming-only file, use <code>-2.0 dBTP</code>.</td><td>JST Maximizer #2 / FG-X 2 meter</td></tr>
+          <tr><td>Master sounds quieter than the references on Spotify</td><td>Normalization turns both down to <code>-14 LUFS</code>. Compare punch, not level. Do not push past <code>-7.5 LUFS</code>.</td><td>FG-X 2 meter</td></tr>
           <tr><td>Vocal tails in instrumental print</td><td>Move vocal returns into <code>VOCAL MASTER</code>.</td><td><a href="routing.html#fx-returns">Routing</a></td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <footer class="page-foot">Sources: original WAP blueprint manual (primary); Slate Digital guide (VBC, VTM, FG-X 2); JST/JW guide (Maximizer roles, BG-Mix); REAPER architecture guide (Kotelnikov, ReaLimit).</footer>
+  <footer class="page-foot">Sources: original WAP blueprint manual (primary); Slate Digital guide (VBC, VTM, FG-X 2); JST/JW guide (Maximizer roles, BG-Mix); REAPER architecture guide (Kotelnikov, ReaLimit). Phase 3 research: Slate Digital, Virtual Buss Compressors guide (GR range); Mark Mynett, "Making Modern Metal Part 3", Sound On Sound, 2018 (bus compression, master loudness); Spotify for Artists, "Loudness normalization" (targets, true peak); Ian Shepherd, "Apple Switches to LUFS", MeterPlugs, 2022 (Apple -16 LUFS); Dynamic Range Database album logs (reference peaks and RMS); Slate Digital, FG-X 2 guide (True Peak metering).</footer>
 
 </div>
 </main>

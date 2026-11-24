@@ -26,6 +26,7 @@
     <h2 id="why">Why gain stage</h2>
     <p>Analog-modeled plugins expect <code>-18 dBFS RMS</code>. That equals about <code>-12 to -10 dBFS</code> peaks. This applies to:</p>
     <p><span class="chip">Slate VCC</span> <span class="chip">Coffee The Pun</span> <span class="chip">VBC FG-Grey</span> <span class="chip">JW/JST Bus Glue</span></p>
+    <p>The Slate manuals state the reference. VCC: <code>0 VU = -18 dBFS</code> (1 kHz sine). Revival: <code>0 VU</code> at a <code>-18 dBFS</code> peak sine. VTM ships with a <code>-15 dB</code> Calibration Level. Per the VTM guide, a lower Calibration Level drives the tape harder, so the default reads about 3 dB cooler than a <code>-18 dB</code> calibration. Hold the targets below and the drive knobs act as labeled.</p>
     <div class="callout callout--danger" role="note">
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
       <div class="callout__body">
@@ -39,7 +40,7 @@
     <h2 id="meter-ladder">Meter ladder</h2>
     <p>Peak targets per stage. Read them on the REAPER MCP peak readout during the loudest chorus.</p>
 
-    <div class="ladder" role="img" aria-label="dBFS peak targets: raw tracks -12 to -10, group buses -8 to -6, master sub-groups -6 to -5, print mix bus input -4 to -3, master ceiling -0.8 to -1.0. Reference line at -18 dBFS RMS.">
+    <div class="ladder" role="img" aria-label="dBFS peak targets: raw tracks -12 to -10, group buses -8 to -6, master sub-groups -6 to -5, print mix bus input -4 to -3, master threshold -1.5 with true peak at or below -1.0 dBTP. Reference line at -18 dBFS RMS.">
       <ol class="ladder__grid" aria-hidden="true">
         <li class="ladder__row">
           <span class="ladder__axis-label label">Stage</span>
@@ -76,7 +77,7 @@
         <li class="ladder__row">
           <span class="ladder__name"><span class="ladder__stage">05</span>MASTER ceiling</span>
           <span class="ladder__track"><span class="ladder__zone ladder__zone--danger zone--s5"></span></span>
-          <span class="ladder__value val-danger">-0.8 to -1.0</span>
+          <span class="ladder__value val-danger">-1.5 (TP -1.0)</span>
         </li>
       </ol>
       <div class="ladder__legend" aria-hidden="true">
@@ -97,7 +98,7 @@
           <tr><td class="mono">02</td><td>Group buses</td><td class="mono val-ok">-8 to -6 dBFS</td><td>Drums, Bass, Rhythm, Lead Vox</td></tr>
           <tr><td class="mono">03</td><td>Master sub-groups</td><td class="mono val-warn">-6 to -5 dBFS</td><td><code>INSTRUMENT BUS</code> and <code>VOCAL MASTER</code></td></tr>
           <tr><td class="mono">04</td><td>PRINT / MIX BUS in</td><td class="mono val-warn">-4 to -3 dBFS</td><td>Summing headroom before the limiter</td></tr>
-          <tr><td class="mono">05</td><td>MASTER ceiling</td><td class="mono val-danger">-0.8 to -1.0 dBFS</td><td>JST Maximizer #2 (Rock preset)</td></tr>
+          <tr><td class="mono">05</td><td>MASTER ceiling</td><td class="mono val-danger">-1.5 dBFS; true peak -1.0 dBTP max</td><td>JST Maximizer #2 (Rock preset). Confirm true peak on the FG-X 2 meter.</td></tr>
         </tbody>
       </table>
     </div>
@@ -161,7 +162,7 @@
             <div class="kv__item"><dt>Ratio</dt><dd>2:1 <span class="chip">unverified</span></dd></div>
             <div class="kv__item"><dt>Attack</dt><dd>30 ms <span class="chip">unverified</span></dd></div>
             <div class="kv__item"><dt>Release</dt><dd>Auto</dd></div>
-            <div class="kv__item"><dt>HPF</dt><dd>95 Hz</dd></div>
+            <div class="kv__item"><dt>HPF</dt><dd>90&ndash;100 Hz</dd></div>
             <div class="kv__item"><dt>Threshold</dt><dd>0 dB</dd></div>
           </dl>
           <p class="rack__why">Threshold parks at <strong>0 dB</strong>. You set it in Step B.</p>
@@ -228,9 +229,9 @@
           </div>
           <dl class="kv" id="slot-m" data-copy-title="MASTER - JST Maximizer #2">
             <div class="kv__item"><dt>Preset</dt><dd>Factory &gt; Genre &gt; Rock (or Heavy Rock)</dd></div>
-            <div class="kv__item"><dt>Threshold (output ceiling)</dt><dd>-0.8 to -1.0 dB</dd></div>
+            <div class="kv__item"><dt>Threshold (output ceiling)</dt><dd>-1.5 dB (starting point)</dd></div>
           </dl>
-          <p class="rack__why">Sits on the MASTER track, after the print bus.</p>
+          <p class="rack__why">Sits on the MASTER track, after the print bus. The ceiling is a peak value. Confirm true peak at or below -1.0 dBTP at print time.</p>
         </div>
       </li>
     </ol>
@@ -238,7 +239,7 @@
     <h3 id="step-b">Step B: first-chorus calibration</h3>
     <ol class="steps">
       <li><div><span class="steps__title">Loop a loud chorus</span><p>Keep Drums, Bass and Rhythm Guitars active.</p></div></li>
-      <li><div><span class="steps__title">Pull down VBC FG-Grey Threshold</span><p>Stop when the needle hits <code class="val-warn">1.5&ndash;2.5 dB GR</code> on snare and kick hits.</p></div></li>
+      <li><div><span class="steps__title">Pull down VBC FG-Grey Threshold</span><p>Stop when the needle hits <code class="val-warn">2&ndash;3 dB GR</code> on snare and kick hits.</p></div></li>
       <li><div><span class="steps__title">Gain-match Makeup</span><p>Bypassed and active must sound equally loud.</p></div></li>
       <li><div><span class="steps__title">Check JST Maximizer #1</span><p>It must still read <code class="val-ok">0.0 dB GR</code>.</p></div></li>
     </ol>
@@ -250,7 +251,7 @@
       </div>
       <div class="settings__body">
         <dl class="kv" id="step-b-targets" data-copy-title="Step B - first-chorus calibration">
-          <div class="kv__item"><dt>FG-Grey GR</dt><dd>1.5&ndash;2.5 dB on snare/kick</dd></div>
+          <div class="kv__item"><dt>FG-Grey GR</dt><dd>2&ndash;3 dB on snare/kick</dd></div>
           <div class="kv__item"><dt>FG-Grey Makeup</dt><dd>Gain-matched</dd></div>
           <div class="kv__item"><dt>JST Max #1 GR</dt><dd>0.0 dB</dd></div>
         </dl>
@@ -284,7 +285,7 @@
     </div>
   </section>
 
-  <footer class="page-foot">Source: original WAP blueprint manual.</footer>
+  <footer class="page-foot">Source: original WAP blueprint manual. Phase 3 research: Slate Digital, Virtual Console Collection, Revival and Virtual Tape Machines guides (calibration levels); Slate Digital, Virtual Buss Compressors guide (GR range); Spotify for Artists, "Loudness normalization" (true peak); Slate Digital, FG-X 2 guide (True Peak metering).</footer>
 
 </div>
 </main>

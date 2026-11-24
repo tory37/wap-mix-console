@@ -57,6 +57,8 @@
           <tr><td>Kick window</td><td>Kick punch sits at <code>50&ndash;70 Hz</code>, resonance to <code>100&ndash;120 Hz</code>. The sub band holds the bass fundamentals below the low-mid box.</td></tr>
           <tr><td>Guitar chug</td><td>Palm-mute cab thump lives at <code>120&ndash;160 Hz</code>. A <code>180 Hz</code> ceiling keeps the sub out of it.</td></tr>
           <tr><td>Mono safe</td><td>Below <code>150&ndash;200 Hz</code> the ear cannot localize. Sum it to mono and compress it flat.</td></tr>
+          <tr><td>Note range</td><td>DjinnBass plays down to G0 in Kontakt naming (C3 = MIDI 60). That is <code>49 Hz</code>. Bb is <code>58 Hz</code>. The bass sits in the same octave as the Drop G 7-string. Its fundamentals overlap the <code>50&ndash;70 Hz</code> kick punch, so the <code>SC_KICK</code> duck matters.</td></tr>
+          <tr><td>Common range</td><td>Split points in metal guides run <code>100&ndash;300 Hz</code>. <code>180 Hz</code> sits inside it.</td></tr>
         </tbody>
       </table>
     </div>
@@ -85,9 +87,9 @@
           </div>
           <dl class="kv" id="low-1" data-copy-title="BASS LOW Slot 1 - ReaEQ">
             <div class="kv__item"><dt>LPF</dt><dd>24 dB/oct @ 180 Hz (two stacked Low Pass bands) <span class="chip">unverified</span></dd></div>
-            <div class="kv__item"><dt>HPF</dt><dd>24 dB/oct @ 40&ndash;45 Hz (two stacked High Pass bands) <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>HPF</dt><dd>24 dB/oct @ 30&ndash;35 Hz (two stacked High Pass bands) <span class="chip">unverified</span></dd></div>
           </dl>
-          <p class="rack__why">Isolates the sub fundamentals at zero latency.</p>
+          <p class="rack__why">Isolates the sub fundamentals at zero latency. The HPF sits below the <code>49 Hz</code> low G. At 40&ndash;45 Hz it would cut the low G fundamental by several dB more than Bb.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">TDR Nova</span></span>
@@ -286,11 +288,11 @@
             <button type="button" class="copy-btn" data-copy="high-3" aria-label="Copy BASS HIGH slot 3 settings"></button>
           </div>
           <dl class="kv" id="high-3" data-copy-title="BASS HIGH Slot 3 - JST EQ">
-            <div class="kv__item"><dt>Scoop</dt><dd>-2 to -3 dB @ 250&ndash;400 Hz</dd></div>
+            <div class="kv__item"><dt>Scoop</dt><dd>-2 to -3 dB @ 300&ndash;400 Hz, broad</dd></div>
             <div class="kv__item"><dt>Pick</dt><dd>+2 to +3 dB @ 1.2&ndash;2 kHz</dd></div>
             <div class="kv__item"><dt>LPF</dt><dd>6&ndash;7 kHz</dd></div>
           </dl>
-          <p class="rack__why">Clears low-mid mud. Pushes pick definition above the guitar chugs.</p>
+          <p class="rack__why">Clears low-mid mud. Pushes pick definition above the guitar chugs. Mark Mynett cuts the bass group at 385 Hz. He keeps 600 Hz, 900 Hz and 2 kHz on the distorted channel.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaEQ</span></span>
@@ -336,7 +338,7 @@
             <div class="kv__item"><dt>Mix</dt><dd>100%</dd></div>
             <div class="kv__item"><dt>Output</dt><dd>0 dB (unity)</dd></div>
           </dl>
-          <p class="rack__why">Welds the sub floor and Bonecrusher clank into one instrument. No baked-in EQ.</p>
+          <p class="rack__why">Welds the sub floor and Bonecrusher clank into one instrument. No baked-in EQ. The vendor manual lists Method as Low, High, or Low + High. It has no Clamp mode.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JW BG-Bass (grittier, mid-forward)</span></span>
@@ -344,6 +346,13 @@
           </div>
         </div>
       </li>
+    </ol>
+
+    <h3 id="bass-balance">Set the bass level against the vocal</h3>
+    <ol class="steps">
+      <li><div><span class="steps__title">Lock kick and bass first</span><p>Kick and bass should hit together as one low-end event. The <code>SC_KICK</code> duck keeps the kick on top.</p></div></li>
+      <li><div><span class="steps__title">Dovetail bass top with guitar bottom</span><p>Bendeth matched the bass top end to the guitar bottom end. Where the guitar HPF ends, the bass grit takes over.</p></div></li>
+      <li><div><span class="steps__title">Check the vocal last</span><p>Play a chorus. Move <code>BASS BUS</code> &plusmn;1 dB. Keep the lowest level that still feels heavy. Bendeth: one dB too much bass makes the vocal disappear.</p></div></li>
     </ol>
   </section>
 
@@ -362,14 +371,16 @@
           <tr><td>Sub never recovers in double kick runs</td><td>Release <code>50&ndash;65 ms</code>. Stay under 80 ms.</td><td>ReaComp</td></tr>
           <tr><td>Bass vanishes on phones</td><td>Revival Thickness <code>15&ndash;25%</code>.</td><td>VM Revival</td></tr>
           <tr><td>Clank jumps out on hard hits</td><td>Dynamic band <code>-2 to -3 dB</code> at <code>2&ndash;3 kHz</code>.</td><td>TDR Nova</td></tr>
-          <tr><td>Low mids mud up with guitars</td><td>Scoop <code>-2 to -3 dB</code> at <code>250&ndash;400 Hz</code> on <code>BASS HIGH</code>.</td><td>JST EQ</td></tr>
+          <tr><td>Low mids mud up with guitars</td><td>Scoop <code>-2 to -3 dB</code> at <code>300&ndash;400 Hz</code> on <code>BASS HIGH</code>.</td><td>JST EQ</td></tr>
+          <tr><td>Low G weaker than Bb</td><td>BASS LOW HPF is too high. Set it to <code>30&ndash;35 Hz</code>.</td><td>ReaEQ</td></tr>
+          <tr><td>Vocal buried in choruses</td><td>Pull <code>BASS BUS</code> 1 dB and compare.</td><td>Bass fader</td></tr>
           <tr><td>Sub sounds wide</td><td>Mono sum. Remove every FX send.</td><td>JS: Utility/chanmix2</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <footer class="page-foot">Sources: original WAP blueprint manual (primary); REAPER architecture guide (180 Hz rationale, chanmix2, ReaComp detector, TDR Nova clank); Slate Digital guide (Revival, AirEQ Earth, FG-2A); JST/JW guide (BG-Bass).</footer>
+  <footer class="page-foot">Sources: original WAP blueprint manual (primary); REAPER architecture guide (180 Hz rationale, chanmix2, ReaComp detector, TDR Nova clank); Slate Digital guide (Revival, AirEQ Earth, FG-2A); JST/JW guide (BG-Bass); JST BG-Bass manual (vendor, Method); DjinnBass v1 manual, Submission Audio (playable range G0&ndash;D4); Making Modern Metal Part 3, Mark Mynett, Sound On Sound, 2018; Mix Analysis: How David Bendeth Mixed &ldquo;Shadow Moses&rdquo;, SonicScoop; Mixing Secrets Volume 2: Bass, URM Academy.</footer>
 
 </div>
 </main>

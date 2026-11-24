@@ -181,10 +181,10 @@
           </div>
           <dl class="kv" id="vocals-lv-soothe" data-copy-title="Slot 5 - soothe2">
             <div class="kv__item"><dt>Low cut band</dt><dd>350&ndash;400 Hz</dd></div>
-            <div class="kv__item"><dt>Depth</dt><dd>2.5&ndash;4.5</dd></div>
-            <div class="kv__item"><dt>Mode</dt><dd>Soft (cleans) / Hard (bright screams)</dd></div>
+            <div class="kv__item"><dt>Depth</dt><dd>Start 2.5. Raise only while the reduction graph shows real peaks</dd></div>
+            <div class="kv__item"><dt>Mode</dt><dd>Soft. Hard only for a fixed peak Soft cannot catch</dd></div>
           </dl>
-          <p class="rack__why">Tames 2.5&ndash;4.5 kHz throat bite and sibilance. The HPF protects chest warmth.</p>
+          <p class="rack__why">Tames 2.5&ndash;4.5 kHz throat bite and sibilance. The HPF protects chest warmth. oeksound makes Soft the default: it keeps transients and suits dynamic singers.</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -202,7 +202,7 @@
             <div class="kv__item"><dt>Aggro</dt><dd>10&ndash;25% (chorus grit)</dd></div>
             <div class="kv__item"><dt>Mix</dt><dd>75&ndash;100%</dd></div>
           </dl>
-          <p class="rack__why">Parallel saturation lets the vocal cut through Drop G&ndash;Bb guitars.</p>
+          <p class="rack__why">Aggro is built-in parallel distortion made for vocals. It adds harmonics that cut through Drop G&ndash;Bb guitars. Mark Mynett uses parallel distortion on metal leads for density. Erik Ron, who produced and mixed Fire From The Gods, calls API into a Distressor his go-to chain for vocal bite.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST BG-Vocals: Bold, Character Med, Comp 30&ndash;40%</span></span>
@@ -236,7 +236,7 @@
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
       <div class="callout__body">
         <span class="callout__title">soothe2 Depth above 3.5</span>
-        <p>The blueprint allows Depth up to <code>4.5</code>. The deep dive warns that Depth above <code>3.5</code> sounds flat and pushed back. Start at <code>2.5</code>. Go higher only on bright screams.</p>
+        <p>The blueprint allows Depth up to <code>4.5</code>. The deep dive warns that Depth above <code>3.5</code> sounds flat and pushed back. The oeksound manual gives no fixed range. Depth depends on input level and mode, and <code>3.0</code> in Soft is not <code>3.0</code> in Hard. Start at <code>2.5</code>. Use Delta to hear what it removes. Go higher only on bright screams.</p>
       </div>
     </div>
   </section>
@@ -254,7 +254,9 @@
           <tr><td>MetaTune Speed</td><td><span class="mono">15 ms</span></td><td><span class="mono">15&ndash;25 ms</span>, Note Stabilizer Mid</td></tr>
           <tr><td>De-esser</td><td>E2Deesser</td><td>SSL DeEss: fast VCA bite on high-frequency spit</td></tr>
           <tr><td>JW BG-Vocals mode</td><td>No mode switch</td><td>No mode switch. Use Crush and Aggro.</td></tr>
-          <tr><td>JW BG-Vocals GR</td><td><span class="mono">3&ndash;5 dB</span></td><td><span class="mono">3&ndash;5 dB</span> on the bus</td></tr>
+          <tr><td>JW BG-Vocals GR</td><td><span class="mono">3&ndash;5 dB</span></td><td><span class="mono">3&ndash;5 dB</span> on the bus. <span class="mono">5&ndash;8 dB</span> on dedicated scream tracks</td></tr>
+          <tr><td>Track HPF (before the bus)</td><td><span class="mono">85&ndash;100 Hz</span></td><td><span class="mono">100&ndash;150 Hz</span> if the scream rumbles (starting point)</td></tr>
+          <tr><td>Space</td><td>Plate + slap + throws</td><td>Little reverb. 1/8 delay throws instead</td></tr>
         </tbody>
       </table>
     </div>
@@ -262,7 +264,7 @@
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
       <div class="callout__body">
         <span class="callout__title">Scream-only tracks</span>
-        <p>The JST guide pushes JW BG-Vocals to <code>5&ndash;8 dB GR</code> on dedicated scream tracks. The page keeps the manual <code>3&ndash;5 dB</code>. Push further only if screams still jump out.</p>
+        <p>The JST guide pushes JW BG-Vocals to <code>5&ndash;8 dB GR</code> on dedicated scream tracks. The page now uses it there. Metal mixers crush screams hard: Mark Mynett's vocal arrived with about 20 dB of series compression before the mix. Joey Sturgis puts heavy compression on each vocal track. Keep the shared bus at the manual <code>3&ndash;5 dB</code>.</p>
       </div>
     </div>
     <div class="callout callout--warn" role="note">
@@ -272,10 +274,37 @@
         <p>Hard mode clamps fast. If the vocal pumps or flanges, switch back to Soft.</p>
       </div>
     </div>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Space on screams</span>
+        <p>David Bendeth put little reverb on screams in Bring Me The Horizon's &ldquo;Shadow Moses&rdquo;. He used a 1/8 delay on the screamed sections instead. Choruses got a small room plus a 1/4 delay for length. Starting point: delays repeat in the gaps, while reverb tails sit under the next scream.</p>
+      </div>
+    </div>
   </section>
 
   <section class="section">
     <h2 id="doubles">Doubles &amp; harmonies</h2>
+
+    <h3 id="lead-doubles">Lead doubles</h3>
+    <p>Do not double every line. Erik Ron skips doubles on many parts. A single lead reads closer and clearer in verses. Save doubles for choruses and big screams.</p>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Lead doubles</span>
+        <button type="button" class="copy-btn" data-copy="vocals-lead-doubles" aria-label="Copy Lead doubles settings"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="vocals-lead-doubles" data-copy-title="Lead doubles">
+          <div class="kv__item"><dt>Verses</dt><dd>Single lead, dead center</dd></div>
+          <div class="kv__item"><dt>Tucked double</dt><dd>Pan about 1 o'clock (about 30% R), under the lead</dd></div>
+          <div class="kv__item"><dt>Chorus stereo pair</dt><dd>Two doubles, 85&ndash;100% L/R, for size without a second singer</dd></div>
+          <div class="kv__item"><dt>Double level</dt><dd>-6 to -10 dB under the lead (starting point)</dd></div>
+          <div class="kv__item"><dt>Breaths on doubles</dt><dd>Cut them. Keep breaths on the lead only (starting point)</dd></div>
+          <div class="kv__item"><dt>Routing</dt><dd>Doubles go to BGV / HARMONY, not LEAD VOX BUS (starting point)</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p>Bendeth tucked one double near center under the lead, plus a stereo pair. Breaking Benjamin's background vocals on <em>Dark Before Dawn</em> come from the band's other singers, per Ben Burnley.</p>
 
     <h3 id="bgv-chain">BGV / HARMONY chain</h3>
     <ol class="rack">
@@ -370,7 +399,7 @@
         <dl class="kv" id="vocals-lv-sends" data-copy-title="LEAD VOX BUS sends">
           <div class="kv__item"><dt>Pre-fader</dt><dd>SC_SPOTLIGHT</dd></div>
           <div class="kv__item"><dt>Post-fader</dt><dd>VOX &amp; LEAD PLATE</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>VOX MICRO-PITCH &amp; SLAP</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>VOX MICRO-PITCH &amp; SLAP (Bendeth slap: 80 ms)</dd></div>
           <div class="kv__item"><dt>Post-fader</dt><dd>STEREO TEMPO DELAY (automated)</dd></div>
         </dl>
       </div>
@@ -418,6 +447,9 @@
           <tr><td>Vocal does not cut the guitars</td><td>Aggro <code>10&ndash;25%</code> in choruses.</td><td>JW BG-Vocals</td></tr>
           <tr><td>Air turns harsh</td><td>Keep High Air under <code>40</code>. De-ess after Fresh Air.</td><td>Fresh Air</td></tr>
           <tr><td>BGVs crowd the lead</td><td>HPF <code>120&ndash;140 Hz</code>. Pan <code>85&ndash;100%</code>.</td><td>JST EQ / pan</td></tr>
+          <tr><td>Vocal disappears in the riffs</td><td>Mid-only cut on the guitars, keyed from <code>SC_SPOTLIGHT</code>. See <a href="guitars.html#vocal-pocket">Guitars</a>.</td><td>soothe2 / TDR Nova</td></tr>
+          <tr><td>Vocal clear solo, buried in the mix</td><td>Check the bass. Bendeth: 1 dB too much bass makes the vocal vanish. Pull the bass 1 dB and compare.</td><td>Bass fader</td></tr>
+          <tr><td>Screams smear</td><td>Less reverb. Use 1/8 delay throws.</td><td>Sends</td></tr>
         </tbody>
       </table>
     </div>
@@ -430,6 +462,13 @@
       <li>Modern Metal Mixing Plugin Deep Dive: 1.3, 1.4, 1.6, 2.2&ndash;2.5, 4.1, 4.2.</li>
       <li>JST &amp; JW Modern Metal Mixing Guide: 2D BG-Vocals, 6 matrix.</li>
       <li>Slate Digital Modern Metal Mix Guide: FG-116, FG-2A, MetaTune, Fresh Air, Section 3.1 serial compression, recipe 8.</li>
+      <li>soothe2 manual, oeksound (vendor). Soft/hard mode, depth, sidechain.</li>
+      <li>JW BG-Vocals manual, Joey Sturgis Tones (vendor). Aggro, Tone, Crush.</li>
+      <li>Mix Analysis: How David Bendeth Mixed &ldquo;Shadow Moses&rdquo;, SonicScoop.</li>
+      <li>Making Modern Metal Part 3, Mark Mynett, Sound On Sound, 2018.</li>
+      <li>URM Podcast EP126, Erik Ron, URM Academy.</li>
+      <li>Using Trackspacer to carve a pocket for vocals (Joey Sturgis, Oceano), Nail The Mix.</li>
+      <li>Breaking Benjamin's Ben Burnley talks Dark Before Dawn, Loudwire, 2015.</li>
     </ol>
   </footer>
 

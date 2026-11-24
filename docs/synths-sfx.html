@@ -22,13 +22,26 @@
     </div>
   </header>
 
-    <div class="callout callout--info" role="note">
-      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-      <div class="callout__body">
-        <span class="callout__title">Deep research lands in phase 3</span>
-        <p>Sources cover ANA 2 synths and the shared bus. Impacts, hits and transition SFX have no settings in the sources yet.</p>
-      </div>
+  <section class="section">
+    <h2 id="roles">Synth roles</h2>
+    <p>Give each synth one role. The role sets its band, width and send.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Role</th><th scope="col">Band</th><th scope="col">Width</th><th scope="col">Send / route</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Pad</td><td>HPF <span class="mono">250&ndash;400 Hz</span>, scoop <span class="mono">1&ndash;3 kHz</span></td><td>Wide</td><td>WIDE MIX HALL</td></tr>
+          <tr><td>Arp / pluck</td><td>Delay High Pass <span class="mono">300 Hz</span></td><td>Wide repeats, narrow dry</td><td>STEREO TEMPO DELAY</td></tr>
+          <tr><td>Riff reinforcement synth</td><td>Low mids, shares the guitar band</td><td>Narrow or mono when guitars are already wide</td><td>Dry. Distort it to blend.</td></tr>
+          <tr><td>Low-mid fuzz synth</td><td>Low mids, no sub</td><td>Narrow</td><td>Routes with the bass, keyed from the kick</td></tr>
+          <tr><td>Lead synth</td><td>Above the guitar presence</td><td>Center, widened slightly</td><td>Own delay throw. Out of the vocal line.</td></tr>
+          <tr><td>Sub layer</td><td><span class="mono">30&ndash;40 Hz</span> reinforcement</td><td>Mono</td><td>See <a href="bass.html">Bass</a></td></tr>
+        </tbody>
+      </table>
     </div>
+    <p>Judge every synth in the full mix. A synth that sounds epic in solo often buries the vocal.</p>
+  </section>
 
   <section class="section">
     <h2 id="built-in-fx">Built-in FX rules (ANA 2)</h2>
@@ -52,6 +65,7 @@
         <p>Keep a preset delay only in exposed intros and breakdowns. Cut it everywhere else.</p>
       </div>
     </div>
+    <p>ANA 2 Sidekick ducks the synth on a tempo-synced volume curve. Leave it off on pads by default. The bus already ducks from <code>SC_SPOTLIGHT</code>. Use Sidekick only for an obvious pumping effect.</p>
   </section>
 
   <section class="section">
@@ -70,13 +84,48 @@
             <div class="kv__item"><dt>High Pass</dt><dd>250&ndash;400 Hz</dd></div>
             <div class="kv__item"><dt>Peak (scoop)</dt><dd>-3 dB @ 1&ndash;3 kHz</dd></div>
           </dl>
-          <p class="rack__why">Clears low-mid room for guitars and bass. The scoop clears the vocal zone.</p>
+          <p class="rack__why">Clears low-mid room for guitars and bass. The scoop clears the vocal zone. Engineers report synth pads clash with heavy guitars near 1&ndash;2 kHz. A small high shelf lift can restore air after the scoop.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaEQ</span></span>
           </div>
         </div>
       </li>
+    </ol>
+
+    <h3 id="width">Width</h3>
+    <ol class="steps">
+      <li><div><span class="steps__title">Pads go wide</span><p>Use ANA 2 Unison Width for spread at the source.</p></div></li>
+      <li><div><span class="steps__title">Riff reinforcement synths stay narrow</span><p>The guitars already fill the sides. A narrow synth keeps the stereo field clear.</p></div></li>
+      <li><div><span class="steps__title">Lead synths sit center</span><p>Widen them slightly so they leave the lead guitar room.</p></div></li>
+      <li><div><span class="steps__title">Check mono</span><p>Set kHs Stereo Width to 0%. The synth folds to mono for a quick check.</p></div></li>
+    </ol>
+
+    <h3 id="fuzz-synth">Riff reinforcement &amp; fuzz synths</h3>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">kHs Distortion</h4>
+            <span class="chip">Kilohearts</span>
+            <span class="tag">SAT</span>
+            <button type="button" class="copy-btn" data-copy="synths-sfx-fuzz" aria-label="Copy kHs Distortion settings"></button>
+          </div>
+          <dl class="kv" id="synths-sfx-fuzz" data-copy-title="Slot 1 - kHs Distortion">
+            <div class="kv__item"><dt>Type</dt><dd>Overdrive or Saturate</dd></div>
+            <div class="kv__item"><dt>Drive</dt><dd>Until the synth blends with the guitars. Starting point.</dd></div>
+            <div class="kv__item"><dt>Dynamics</dt><dd>Raise to keep note dynamics</dd></div>
+            <div class="kv__item"><dt>Mix</dt><dd>100%, or lower for a cleaner verse</dd></div>
+          </dl>
+          <p class="rack__why">A clean synth sounds like it is in a different room from distorted guitars. Grit puts it in the same space. Kane Churko and Will Carlson both distort riff synths hard.</p>
+        </div>
+      </li>
+    </ol>
+    <ol class="steps">
+      <li><div><span class="steps__title">Make it sustain</span><p>Overlap MIDI notes or slow the attack. A continuous tone sits under chugs better than a pluck.</p></div></li>
+      <li><div><span class="steps__title">Automate the drive by section</span><p>Clean in verses. More drive in pre-choruses. Full drive in choruses.</p></div></li>
+      <li><div><span class="steps__title">Low-mid fuzz synths route with the bass</span><p>One compressor on that group, keyed from the kick, ducks fast and almost invisibly.</p></div></li>
     </ol>
 
     <h3 id="arps">Arps &amp; plucks</h3>
@@ -92,6 +141,7 @@
         <dl class="kv" id="synths-sfx-syn-sends" data-copy-title="Synth sends">
           <div class="kv__item"><dt>Pads</dt><dd>&rarr; WIDE MIX HALL</dd></div>
           <div class="kv__item"><dt>Arps / plucks</dt><dd>&rarr; STEREO TEMPO DELAY</dd></div>
+          <div class="kv__item"><dt>Reinforcement synths</dt><dd>Dry</dd></div>
           <div class="kv__item"><dt>Output</dt><dd>ORCH &amp; SYNTH BUS</dd></div>
         </dl>
       </div>
@@ -101,8 +151,38 @@
   <section class="section">
     <h2 id="risers-impacts">Risers, impacts &amp; sub drops</h2>
 
+    <h3 id="sfx-rules">Placement rules</h3>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Effect</th><th scope="col">Where it lands</th><th scope="col">Level</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Reverse cymbal</td><td>Peak just before the downbeat it leads into</td><td>Audible in the build. Gone at the hit.</td></tr>
+          <tr><td>Riser</td><td>Ends on or just before the new section</td><td>Ramp from silence. Cut off as the section starts.</td></tr>
+          <tr><td>Impact / explosion</td><td>On the "one" where the full band re-enters</td><td>Quiet, under kick and snare</td></tr>
+          <tr><td>Sub drop</td><td>Front of a chorus or first hit of a breakdown</td><td>Weight without masking kick or bass</td></tr>
+          <tr><td>Downlifter</td><td>Out of a big section into a quiet one</td><td>Starts full, falls to silence</td></tr>
+          <tr><td>Crowd shot</td><td>Strong beats, such as the chorus snare on two</td><td>Tucked low. Hard edits, no fades.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Keep them exciting</span>
+        <p>Starting point: one lead effect per transition. Stack a riser and an impact only at the biggest moment. Vary the samples between choruses. Set levels with item volume, not fader rides.</p>
+      </div>
+    </div>
+
     <h3 id="risers">Risers</h3>
     <p>Treat risers like pads. Internal reverb <code>15&ndash;25%</code> max. HPF <code>250&ndash;400 Hz</code>. Compression <code>0&ndash;2 dB GR</code> max.</p>
+    <ol class="steps">
+      <li><div><span class="steps__title">Static HPF plus moving LPF</span><p>The HPF keeps the build off the kick and bass. An LPF that opens across the build adds the lift.</p></div></li>
+      <li><div><span class="steps__title">Shave the top of the tail</span><p>Noise risers get harsh at the peak.</p></div></li>
+      <li><div><span class="steps__title">Reverse cymbals</span><p>Use a one-shot on its own track. Nudge it so the swell peaks just before the hit.</p></div></li>
+      <li><div><span class="steps__title">Downlifters</span><p>Reverse a riser item. It falls instead of rising.</p></div></li>
+    </ol>
 
     <h3 id="sub-drops">Sub drops</h3>
     <div class="settings">
@@ -115,13 +195,107 @@
           <div class="kv__item"><dt>Width</dt><dd>Mono below 150 Hz</dd></div>
           <div class="kv__item"><dt>Compression</dt><dd>3&ndash;5 dB GR</dd></div>
           <div class="kv__item"><dt>Duck</dt><dd>2&ndash;3 dB by SC_KICK</dd></div>
+          <div class="kv__item"><dt>Pitch</dt><dd>Tune to the riff root. Fast pitch envelope down.</dd></div>
         </dl>
       </div>
     </div>
     <p>The kick ducks the drop so both keep their punch.</p>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">ReaEQ (HPF sweep)</h4>
+            <span class="chip">REAPER</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="synths-sfx-sub-hpf" aria-label="Copy ReaEQ (HPF sweep) settings"></button>
+          </div>
+          <dl class="kv" id="synths-sfx-sub-hpf" data-copy-title="Slot 1 - ReaEQ (HPF sweep)">
+            <div class="kv__item"><dt>Type</dt><dd>High pass</dd></div>
+            <div class="kv__item"><dt>Frequency</dt><dd>Start near 150 Hz. Lower it until the weight returns without masking kick or bass.</dd></div>
+          </dl>
+          <p class="rack__why">Machine's method. Set the level with the subs cut, on small speakers. Then open the HPF on full-range monitors.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">kHs Compressor</h4>
+            <span class="chip">Kilohearts</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="synths-sfx-sub-comp" aria-label="Copy kHs Compressor settings"></button>
+          </div>
+          <dl class="kv" id="synths-sfx-sub-comp" data-copy-title="Slot 2 - kHs Compressor">
+            <div class="kv__item"><dt>Threshold</dt><dd>Set for 3&ndash;5 dB GR</dd></div>
+            <div class="kv__item"><dt>Mode</dt><dd>RMS</dd></div>
+            <div class="kv__item"><dt>Sidechain</dt><dd>Off</dd></div>
+          </dl>
+          <p class="rack__why">Holds the drop at one level so its tail does not swell under the next bar. RMS follows the body, not the start.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">3</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">kHs Compressor (keyed)</h4>
+            <span class="chip">Kilohearts</span>
+            <span class="tag">DUCK</span>
+            <button type="button" class="copy-btn" data-copy="synths-sfx-sub-duck" aria-label="Copy kHs Compressor (keyed) settings"></button>
+          </div>
+          <dl class="kv" id="synths-sfx-sub-duck" data-copy-title="Slot 3 - kHs Compressor (keyed)">
+            <div class="kv__item"><dt>Sidechain</dt><dd>On, keyed from SC_KICK</dd></div>
+            <div class="kv__item"><dt>Threshold</dt><dd>Set for 2&ndash;3 dB GR on each kick</dd></div>
+            <div class="kv__item"><dt>Mode</dt><dd>Peak</dd></div>
+            <div class="kv__item"><dt>Attack / Release</dt><dd>Fast. Starting point.</dd></div>
+          </dl>
+          <p class="rack__why">A fast, near-invisible duck opens a pocket for the kick. Peak mode reacts to the kick transient.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">OTHER</span><span class="alt__name">kHs Compactor, Sidechain on</span></span>
+            <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaComp</span></span>
+          </div>
+        </div>
+      </li>
+    </ol>
 
     <h3 id="impacts">Impacts &amp; transitions</h3>
-    <p>Sources give no impact settings. JST Sky Box has transition tools:</p>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">ReaEQ (HPF sweep)</h4>
+            <span class="chip">REAPER</span>
+            <span class="tag">EQ</span>
+            <button type="button" class="copy-btn" data-copy="synths-sfx-impact-hpf" aria-label="Copy ReaEQ (HPF sweep) settings"></button>
+          </div>
+          <dl class="kv" id="synths-sfx-impact-hpf" data-copy-title="Slot 1 - ReaEQ (HPF sweep)">
+            <div class="kv__item"><dt>Type</dt><dd>High pass</dd></div>
+            <div class="kv__item"><dt>Frequency</dt><dd>Start near 150 Hz, then lower it</dd></div>
+          </dl>
+          <p class="rack__why">Explosion samples carry heavy sub. Same sweep method as the sub drop.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">2</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">kHs Transient Shaper</h4>
+            <span class="chip">Kilohearts</span>
+            <span class="tag">TRANS</span>
+            <button type="button" class="copy-btn" data-copy="synths-sfx-impact-ts" aria-label="Copy kHs Transient Shaper settings"></button>
+          </div>
+          <dl class="kv" id="synths-sfx-impact-ts" data-copy-title="Slot 2 - kHs Transient Shaper">
+            <div class="kv__item"><dt>Attack</dt><dd>Slight boost</dd></div>
+            <div class="kv__item"><dt>Sustain</dt><dd>Cut until the tail clears the next snare. Starting point.</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>On</dd></div>
+          </dl>
+          <p class="rack__why">A short impact hits the downbeat and gets out of the way. Clip stops the peak from overloading the bus.</p>
+        </div>
+      </li>
+    </ol>
+    <p>JST Sky Box has transition tools:</p>
     <div class="table-wrap">
       <table class="table">
         <thead>
@@ -134,11 +308,37 @@
         </tbody>
       </table>
     </div>
+    <p>Big reverb throw: send the last snare hit or vocal word before a breakdown to a large dark reverb. Let it ring. Hit Kill on the breakdown downbeat.</p>
+
+    <h3 id="glitch">Glitches &amp; stutters</h3>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Plugin</th><th scope="col">Controls</th><th scope="col">Use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>kHs Tape Stop</td><td>Play, Stop Time, Start Time, Curve</td><td>Slows a part to a stop before a hard break. Automate Play.</td></tr>
+          <tr><td>kHs Trance Gate</td><td>Pattern Editor, Resolution, Length, Mix</td><td>Rhythmic chops on a pad or vocal tail in a build.</td></tr>
+          <tr><td>kHs Reverser</td><td>Delay time, Sync, Crossfade, Mix</td><td>Plays reversed slices of the input. Raise Crossfade to stop pops.</td></tr>
+          <tr><td>kHs Bitcrush</td><td>Rate, Bits, Mix</td><td>Lo-fi drop on one bar before a chorus.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>No source gives settings for these. Use them on one or two moments per song. Starting point.</p>
+
+    <h3 id="transitions">Transition automation</h3>
+    <ol class="steps">
+      <li><div><span class="steps__title">Dip, then hit</span><p>Pull the mix down about <code>1.5 dB</code> over the last 1&ndash;2 bars. Return to <code>0 dB</code> on the downbeat.</p></div></li>
+      <li><div><span class="steps__title">Close a low-pass, then open it</span><p>Close a kHs Filter (Type low pass) on the instrument bus across the build. Bypass it on the hit.</p></div></li>
+      <li><div><span class="steps__title">Thin, then fill</span><p>Raise the guitar and bass HPF during the build. Drop it back on the hit.</p></div></li>
+      <li><div><span class="steps__title">Narrow, then widen</span><p>Narrow the rhythm guitars in the bar before. Return to full width on the downbeat.</p></div></li>
+    </ol>
   </section>
 
   <section class="section">
     <h2 id="bus">ORCH &amp; SYNTH BUS</h2>
     <p>Synths share the strings bus: JW BG-Keys <code>2&ndash;3 dB GR</code>, optional soothe2 with its low cut band at <code>300&ndash;500 Hz</code>. The BG-Keys Crush limiter caps synth filter-sweep peaks. Full chain: <a href="orchestral.html#bus">Orchestral, ORCH &amp; SYNTH BUS</a>.</p>
+    <p>SFX can run on their own folder into <code>INSTRUMENT BUS</code>. That keeps impacts out of the BG-Keys limiter. Starting point.</p>
   </section>
 
   <section class="section">
@@ -155,6 +355,12 @@
           <tr><td>Saw buzz sits on top of guitars</td><td>Low cut band <code>300&ndash;500 Hz</code>, Depth <code>2.0&ndash;3.5</code>, Soft.</td><td>soothe2 (bus)</td></tr>
           <tr><td>Filter sweep spikes</td><td>Raise Crush until the spikes sit. BG-Keys has no Clip control.</td><td>JW BG-Keys</td></tr>
           <tr><td>Tail rings into a hard stop</td><td>Hit Kill.</td><td>JST Sky Box</td></tr>
+          <tr><td>Clean synth sounds pasted on</td><td>Add drive until it shares the guitar grit.</td><td>kHs Distortion</td></tr>
+          <tr><td>Mix gets too wide and washed out</td><td>Narrow the riff reinforcement synths.</td><td>kHs Stereo</td></tr>
+          <tr><td>Impact muddies the downbeat</td><td>HPF near <code>150 Hz</code>, then lower it. Cut Sustain.</td><td>ReaEQ / kHs Transient Shaper</td></tr>
+          <tr><td>Riser masks the kick in the build</td><td>Static HPF. Automate an LPF opening.</td><td>ReaEQ / kHs Filter</td></tr>
+          <tr><td>Transitions all sound the same</td><td>One lead effect per transition. Change samples each chorus.</td><td>Arrangement</td></tr>
+          <tr><td>Reverse cymbal lands late</td><td>Nudge it so the swell peaks just before the hit.</td><td>Item position</td></tr>
         </tbody>
       </table>
     </div>
@@ -166,6 +372,14 @@
       <li>WAP studio mixing blueprint (REAPER console manual), Sec 08 Synths &amp; Strings. Primary.</li>
       <li>Modern Metal Mixing Plugin Deep Dive: 1.3 (orchestral / synth bus).</li>
       <li>JST &amp; JW Modern Metal Mixing Guide: 2E BG-Keys, 3D Sky Box.</li>
+      <li>Machine's Post-Production FX: Explosions, Reverses &amp; Sub Drops. Nail The Mix.</li>
+      <li>How to Mix Metal Breakdowns That Hit Harder. Nail The Mix.</li>
+      <li>How to layer metalcore guitar tones (Will Carlson, Bilmuri). Nail The Mix.</li>
+      <li>Making Synths Sound Like Guitars in a Heavy Mix (Kane Churko, Gemini Syndrome). Nail The Mix.</li>
+      <li>How to blend synths behind guitars without losing width (Sam Guaiana, Intervals). Nail The Mix.</li>
+      <li>How to EQ synths so they stop fighting your guitars (Eyal Levi, Chelsea Grin). Nail The Mix.</li>
+      <li>Nick Messitte, How to Create Better Transitions in Your Mix. iZotope, 2021.</li>
+      <li>ANA 2 manual; Kilohearts Essentials docs; JST Sky Box manual; REAPER Effects Guide. Vendor manuals.</li>
     </ol>
   </footer>
 

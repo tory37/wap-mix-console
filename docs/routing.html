@@ -104,7 +104,7 @@
         <rect class="sf-node sf-node--master" x="730" y="300" width="220" height="104" rx="4"/>
         <text class="sf-title sf-title--accent" x="746" y="328">MASTER</text>
         <text class="sf-sub" x="746" y="350">JST Maximizer #2, Rock preset</text>
-        <text class="sf-sub sf-sub--ok" x="746" y="370">ceiling -0.8 to -1.0</text>
+        <text class="sf-sub sf-sub--ok" x="746" y="370">ceiling -1.5, TP -1.0 max</text>
         <text class="sf-sub" x="746" y="390">-8.5 to -7.5 LUFS</text>
 
         <!-- Audio wires -->
@@ -155,7 +155,7 @@
           <tr><td><span class="gchip gchip--orch" aria-hidden="true"></span> <a href="orchestral.html"><code>ORCH &amp; SYNTH BUS</code></a></td><td>ANA 2, Spitfire LABS, <code>WIDE MIX HALL</code> return</td><td class="mono val-ok">-8 to -6 dBFS</td><td>Soothe2 &gt; JW BG-Keys</td></tr>
           <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> <a href="vocals.html"><code>VOCAL MASTER</code></a></td><td><code>LEAD VOX BUS</code>, <code>BGV &amp; HARMONY</code>, vocal FX returns</td><td class="mono val-warn">-6 to -5 dBFS</td><td>Bypasses <code>INSTRUMENT BUS</code></td></tr>
           <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="mix-bus.html"><code>PRINT / MIX BUS</code></a></td><td><code>INSTRUMENT BUS</code> + <code>VOCAL MASTER</code></td><td class="mono val-warn">-4 to -3 dBFS in</td><td>VCC &gt; FG-Grey &gt; Max #1 &gt; Soothe2 &gt; GClip</td></tr>
-          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="mix-bus.html#master">MASTER</a></td><td><code>PRINT / MIX BUS</code></td><td class="mono val-danger">-0.8 to -1.0 dBFS ceiling</td><td>JST Maximizer #2 (Rock preset)</td></tr>
+          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="mix-bus.html#master">MASTER</a></td><td><code>PRINT / MIX BUS</code></td><td class="mono val-danger">-1.5 dBFS ceiling; true peak -1.0 dBTP max</td><td>JST Maximizer #2 (Rock preset)</td></tr>
         </tbody>
       </table>
     </div>
@@ -288,7 +288,7 @@
     </div>
   </section>
 
-  <footer class="page-foot">Sources: original WAP blueprint manual (primary); REAPER modern metal architecture guide (hub setup, 4-channel detector routing).</footer>
+  <footer class="page-foot">Sources: original WAP blueprint manual (primary); REAPER modern metal architecture guide (hub setup, 4-channel detector routing). Phase 3 research: Spotify for Artists, "Loudness normalization" (master true peak). Routing itself needed no change.</footer>
 
 </div>
 </main>
