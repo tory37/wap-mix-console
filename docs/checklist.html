@@ -30,7 +30,7 @@
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Trim clip gain and VSTi outputs (GGD, DjinnBass, ANA 2, LABS) to <code>-12 to -10 dBFS</code> peak.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Verify two-branch routing: <code>INSTRUMENT BUS</code> + <code>VOCAL MASTER</code> &gt; <code>PRINT / MIX BUS</code>.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Uncheck Master/Parent Send on <code>SC_KICK</code>, <code>SC_SNARE</code>, <code>SC_SPOTLIGHT</code>.</span></label></li>
-      <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Load the parked chain: VCC/Coffee &gt; FG-Grey (<code>2:1</code>, HPF <code>90&ndash;100 Hz</code>, Threshold <code>0 dB</code>) &gt; JST Max #1 ("Mix Into This EQ" preset) at <code>0.0 dB GR</code>, Tone toward Dark <span class="chip">unverified</span> &gt; Soothe2 bypassed &gt; GClip Clip <code>71%</code> &gt; JST Max #2 (Rock genre preset), Threshold <code>-1.5 dB</code>.</span></label></li>
+      <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Load the parked chain: VCC/Coffee &gt; FG-Grey (<code>2:1</code>, HPF <code>90&ndash;100 Hz</code>, Threshold <code>0 dB</code>) &gt; JST Max #1 ("Mix Into This EQ" preset) at <code>0.0 dB GR</code>, Tone toward Dark &gt; Soothe2 bypassed &gt; GClip Clip <code>71%</code> &gt; JST Max #2 (Rock genre preset), Threshold <code>-1.5 dB</code>.</span></label></li>
     </ul>
   </section>
 
@@ -46,7 +46,7 @@
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Clean <code>ROOM BUS</code>: HPF <code>150&ndash;185 Hz</code>, Smash &amp; Grab <code>6&ndash;10 dB GR</code>.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Glue <code>DRUM BUS</code> with FG-Grey <code>4:1</code>, <code>2&ndash;3 dB GR</code>. Optional: bypass it if rooms and crush already glue the kit.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Blend <code>DRUM PARALLEL CRUSH</code>: shells only, <code>12&ndash;18 dB GR</code>, start <code>-14 to -18 dB</code> under the kit.</span></label></li>
-      <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Blend <code>SNARE PLATE</code>: Steel, <code>0.6&ndash;0.9 s</code> tail, <code>10&ndash;20 ms</code> pre-delay.</span></label></li>
+      <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Blend <code>SNARE PLATE</code>: Steel, short tail (heavy Damper, by ear), <code>10&ndash;20 ms</code> pre-delay.</span></label></li>
     </ul>
   </section>
 
@@ -57,8 +57,8 @@
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Set DjinnBass: <code>1/16</code> or <code>1/8</code> Alternate Picking, Amplifier Power OFF. Feed Bonecrusher.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Check polarity at the <code>180 Hz</code> split.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text"><code>BASS LOW</code>: <code>24 dB/oct</code> LPF <code>180 Hz</code> + HPF <code>30&ndash;35 Hz</code> (stacked ReaEQ bands) &gt; 100% mono &gt; JST EQ.</span></label></li>
-      <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text"><code>BASS LOW</code>: Revival Thickness <code>15&ndash;25%</code> &gt; FG-116 <code>6&ndash;10 dB GR</code>.</span></label></li>
-      <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text"><code>BASS LOW</code>: ReaLimit Threshold and Ceiling <code>-12.00 dB</code>, Constant gain ON, Release <code>80&ndash;100 ms</code> <span class="chip">unverified</span>, <code>3.0&ndash;4.5 dB GR</code>.</span></label></li>
+      <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text"><code>BASS LOW</code>: Revival Thickness <code>6&ndash;10</code> (of 40) &gt; FG-116 <code>6&ndash;10 dB GR</code>.</span></label></li>
+      <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text"><code>BASS LOW</code>: ReaLimit Threshold and Ceiling <code>-12.00 dB</code>, Constant gain ON, Release <code>80&ndash;100 ms</code> (starting point), <code>3.0&ndash;4.5 dB GR</code>.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text"><code>BASS LOW</code>: <code>SC_KICK</code> ducker <code>2.5&ndash;3.5 dB GR</code>, after ReaLimit.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text"><code>BASS HIGH</code>: TDR Nova HPF <code>180 Hz</code> &gt; Bonecrusher &gt; JST EQ scoop <code>300&ndash;400 Hz</code> &gt; FG-116 <code>4&ndash;6 dB GR</code>. Blend it above the sub.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Glue <code>BASS BUS</code> with JST BG-Bass, Method Low + High, <code>2&ndash;3 dB GR</code>.</span></label></li>
@@ -111,7 +111,7 @@
     <h2 id="phase-7">Phase 7: tilt sweep, GClip, master print</h2>
     <p class="phase-meta"><span class="gchip gchip--master" aria-hidden="true"></span><span class="chip">MASTER: -8.5 to -7.5 LUFS</span> <a href="mix-bus.html#final-print">Final print</a></p>
     <ul class="checks">
-      <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Sweep JST Max #1 Tone (Dark &harr; Light <span class="chip">unverified</span>) at <code>0.0 dB GR</code>.</span></label></li>
+      <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Sweep JST Max #1 Tone (Dark &harr; Bright) at <code>0.0 dB GR</code>.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Engage Soothe2 (<code>250 Hz</code> low cut band, Depth <code>0.8&ndash;1.2</code>) only if needed.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Set GClip to shave <code>1.0&ndash;2.0 dB</code> peaks.</span></label></li>
       <li><label class="checks__item"><input class="checks__box" type="checkbox"><span class="checks__text">Switch every Soothe2 instance to <code>4x</code> Oversample <span class="chip">unverified</span>.</span></label></li>

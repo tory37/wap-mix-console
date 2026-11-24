@@ -67,8 +67,8 @@
             <button type="button" class="copy-btn" data-copy="mb-2" aria-label="Copy Slot 2 settings"></button>
           </div>
           <dl class="kv" id="mb-2" data-copy-title="PRINT / MIX BUS Slot 2 - VBC FG-Grey">
-            <div class="kv__item"><dt>Ratio</dt><dd>2:1 <span class="chip">unverified</span></dd></div>
-            <div class="kv__item"><dt>Attack</dt><dd>30 ms <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Ratio</dt><dd>2:1 (starting point)</dd></div>
+            <div class="kv__item"><dt>Attack</dt><dd>30 ms (starting point)</dd></div>
             <div class="kv__item"><dt>Release</dt><dd>Auto</dd></div>
             <div class="kv__item"><dt>HPF (detector)</dt><dd>90&ndash;100 Hz</dd></div>
             <div class="kv__item"><dt>Target GR</dt><dd>2&ndash;3 dB on chorus peaks</dd></div>
@@ -95,8 +95,8 @@
           <dl class="kv" id="mb-3" data-copy-title="PRINT / MIX BUS Slot 3 - JST Maximizer #1">
             <div class="kv__item"><dt>Preset</dt><dd>"Mix Into This EQ"</dd></div>
             <div class="kv__item"><dt>Maximize</dt><dd>Backed off, GR = 0.0 dB</dd></div>
-            <div class="kv__item"><dt>Tone (mixing)</dt><dd>Toward Dark <span class="chip">unverified</span></dd></div>
-            <div class="kv__item"><dt>Tone (mix end)</dt><dd>Sweep Dark &harr; Light <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Tone (mixing)</dt><dd>Toward Dark</dd></div>
+            <div class="kv__item"><dt>Tone (mix end)</dt><dd>Sweep Dark &harr; Bright</dd></div>
           </dl>
           <p class="rack__why">Macro tilt EQ. A dark curve pushes you toward midrange bite and air without ear fatigue.</p>
         </div>
@@ -190,7 +190,7 @@
   <section class="section">
     <h2 id="final-print">Final print pass</h2>
     <ol class="steps">
-      <li><div><span class="steps__title">Sweep Max #1 Tone</span><p>Sweep Dark &harr; Light. GR must stay at <code class="val-ok">0.0 dB</code>.</p></div></li>
+      <li><div><span class="steps__title">Sweep Max #1 Tone</span><p>Sweep Dark &harr; Bright. GR must stay at <code class="val-ok">0.0 dB</code>.</p></div></li>
       <li><div><span class="steps__title">Decide on Soothe2</span><p>Engage Slot 4 only if needed. Low cut band <code>250 Hz</code>, Depth <code>0.8&ndash;1.2</code>.</p></div></li>
       <li><div><span class="steps__title">Set GClip</span><p>Shave <code>1.0&ndash;2.0 dB</code> of peaks.</p></div></li>
       <li><div><span class="steps__title">Raise Soothe2 quality</span><p>Switch every Soothe2 instance to <code>4x</code> Oversample <span class="chip">unverified</span>.</p></div></li>
@@ -243,7 +243,7 @@
           <tr><th scope="col">Flavor</th><th scope="col">Chain</th><th scope="col">Key numbers</th></tr>
         </thead>
         <tbody>
-          <tr><td>Slate hybrid</td><td>VCC MixBuss &gt; Coffee The Pun &gt; FG-Grey &gt; VTM &gt; FG-X 2</td><td class="mono">FG-X 2 FG-Level 1.5&ndash;2.5 dB GR, Detail +0.6, LoPunch +0.8 <span class="chip">unverified</span></td></tr>
+          <tr><td>Slate hybrid</td><td>VCC MixBuss &gt; Coffee The Pun &gt; FG-Grey &gt; VTM &gt; FG-X 2</td><td class="mono">FG-X 2 FG-Level 1.5&ndash;2.5 dB GR, Detail +0.6, LoPunch +0.8 (starting points)</td></tr>
           <tr><td>Stock + TDR</td><td>SlickEQ &gt; Kotelnikov &gt; GClip &gt; ReaLimit</td><td class="mono">Kotelnikov 1 dB, Low Freq Relax 100 Hz; GClip 1 dB; ReaLimit ceiling -0.5 dBFS (True peak display)</td></tr>
           <tr><td>JST glue</td><td>BG-Mix &gt; JST Maximizer (Rock)</td><td class="mono">BG-Mix Careful 1.0&ndash;2.5 dB GR, never over 3 dB</td></tr>
         </tbody>
