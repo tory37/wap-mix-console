@@ -18,15 +18,250 @@
     <div class="goal">
       <span class="gchip gchip--lg gchip--none" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Content lands in phase 2.</p>
+      <p class="goal__text">Turn tempo, gain, loudness and tuning into numbers you type into REAPER. Every value updates as you type.</p>
     </div>
   </header>
 
-  <div class="stub">This page is a placeholder. Use <kbd>Ctrl K</kbd> to jump to another page.</div>
+  <noscript>
+    <div class="callout callout--info noscript-note" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">JavaScript is off</span>
+        <p>The calculators need JavaScript. Formulas: quarter note <code>ms = 60000 / BPM</code>. Linear <code>= 10^(dB / 20)</code>. Note <code>Hz = 440 &times; 2^((MIDI - 69) / 12)</code>.</p>
+      </div>
+    </div>
+  </noscript>
+
+  <section class="section">
+    <h2 id="tempo">Tempo to time</h2>
+    <p>Quarter note <code>= 60000 / BPM</code> ms. Dotted <code>&times; 1.5</code>. Triplet <code>&times; 2/3</code>.</p>
+    <div class="calc-bar">
+      <div class="field">
+        <label class="label field__label" for="tempo-bpm">Tempo (BPM)</label>
+        <input class="input input--mono" id="tempo-bpm" type="number" inputmode="decimal" min="1" step="any" value="120">
+      </div>
+      <div class="readout">
+        <span class="label readout__label">Quarter note</span>
+        <span class="readout__value" id="tempo-quarter" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Note values (ms / Hz)</span>
+        <button type="button" class="copy-btn" data-copy="tempo-table" aria-label="Copy note value table"></button>
+      </div>
+      <div class="table-wrap table-wrap--flush">
+        <table class="table table--calc" id="tempo-table">
+          <thead>
+            <tr>
+              <th scope="col">Note</th>
+              <th scope="col">Straight ms</th><th scope="col">Hz</th>
+              <th scope="col">Dotted ms</th><th scope="col">Hz</th>
+              <th scope="col">Triplet ms</th><th scope="col">Hz</th>
+            </tr>
+          </thead>
+          <tbody id="tempo-rows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3 id="tempo-derived">Tempo-synced starting points</h3>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Reverb and release (starting point)</span>
+        <button type="button" class="copy-btn" data-copy="tempo-kv" aria-label="Copy tempo-synced settings"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="tempo-kv" data-copy-title="Tempo-synced starting points">
+          <div class="kv__item"><dt>Pre-delay 1/64</dt><dd id="tempo-pre64">-</dd></div>
+          <div class="kv__item"><dt>Pre-delay 1/128</dt><dd id="tempo-pre128">-</dd></div>
+          <div class="kv__item"><dt>Decay to 1/4</dt><dd id="tempo-decay4">-</dd></div>
+          <div class="kv__item"><dt>Decay to 1/2</dt><dd id="tempo-decay2">-</dd></div>
+          <div class="kv__item"><dt>Decay to 1 bar (4/4)</dt><dd id="tempo-decay1">-</dd></div>
+          <div class="kv__item"><dt>Comp release 1/8</dt><dd id="tempo-rel8">-</dd></div>
+          <div class="kv__item"><dt>Comp release 1/16</dt><dd id="tempo-rel16">-</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p class="muted">Decay = note length minus the 1/64 pre-delay, so the tail ends on the next note. Release on the 1/8 or 1/16 lets the compressor recover before the next hit. Tune all of them by ear.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="gain">Gain</h2>
+    <p>Linear amplitude <code>= 10^(dB / 20)</code>. Type in either box.</p>
+    <div class="calc-grid">
+      <div class="calc-card">
+        <span class="label calc-card__title">dB and linear</span>
+        <div class="calc-bar">
+          <div class="field">
+            <label class="label field__label" for="gain-db">Gain (dB)</label>
+            <input class="input input--mono" id="gain-db" type="number" inputmode="decimal" step="any" placeholder="-6">
+          </div>
+          <div class="field">
+            <label class="label field__label" for="gain-linear">Linear amplitude</label>
+            <input class="input input--mono" id="gain-linear" type="number" inputmode="decimal" min="0" step="any" placeholder="0.5012">
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <span class="label calc-card__title">GClip clip level</span>
+        <div class="calc-bar">
+          <div class="field">
+            <label class="label field__label" for="clip-pct">Clip (%)</label>
+            <input class="input input--mono" id="clip-pct" type="number" inputmode="decimal" min="0" step="any" placeholder="71">
+          </div>
+          <div class="field">
+            <label class="label field__label" for="clip-dbfs">Level (dBFS)</label>
+            <input class="input input--mono" id="clip-dbfs" type="number" inputmode="decimal" step="any" placeholder="-3.0">
+          </div>
+        </div>
+        <p class="calc-card__note muted"><code>dBFS = 20 &times; log10(% / 100)</code>. The mix bus parks GClip at <code>71%</code>, about <code>-3.0 dBFS</code>.</p>
+      </div>
+
+      <div class="calc-card calc-card--wide">
+        <span class="label calc-card__title">Stacked gain changes</span>
+        <div class="calc-bar">
+          <div class="field field--grow">
+            <label class="label field__label" for="gain-stack">Changes in dB, separated by spaces or commas</label>
+            <input class="input input--mono" id="gain-stack" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="-3, +1.5, -6">
+          </div>
+        </div>
+        <dl class="kv" aria-live="polite">
+          <div class="kv__item"><dt>Stages</dt><dd id="gain-stack-count">-</dd></div>
+          <div class="kv__item"><dt>Total</dt><dd id="gain-stack-total">-</dd></div>
+          <div class="kv__item"><dt>Net linear</dt><dd id="gain-stack-linear">-</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="loudness">Loudness and streaming</h2>
+    <p>Enter the master's integrated loudness and true peak. The table shows how far each platform turns it down. The site prints at <code>-8.5 to -7.5 LUFS</code>, about <code>-8 LUFS</code>, with true peak at or below <code>-1.0 dBTP</code>.</p>
+    <div class="calc-bar">
+      <div class="field">
+        <label class="label field__label" for="loud-lufs">Integrated (LUFS)</label>
+        <input class="input input--mono" id="loud-lufs" type="number" inputmode="decimal" max="0" step="any" value="-8">
+      </div>
+      <div class="field">
+        <label class="label field__label" for="loud-tp">True peak (dBTP)</label>
+        <input class="input input--mono" id="loud-tp" type="number" inputmode="decimal" step="any" value="-1.0">
+      </div>
+    </div>
+    <p class="calc-target" id="loud-target" aria-live="polite"></p>
+
+    <div class="callout callout--ok" id="loud-verdict" role="status" hidden>
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title" id="loud-verdict-title"></span>
+        <p id="loud-verdict-body"></p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table table--calc">
+        <caption class="visually-hidden">Platform normalization for the entered loudness</caption>
+        <thead>
+          <tr><th scope="col">Platform</th><th scope="col">Normalizes to</th><th scope="col">Change</th></tr>
+        </thead>
+        <tbody id="loud-rows"></tbody>
+      </table>
+    </div>
+    <p class="muted">Targets are reference values for each platform's normalization. Platforms change them. Check before release.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="tuning">Tuning to frequencies</h2>
+    <p>Equal temperament, <code>A4 = 440 Hz</code>. Strings run low (7) to high (1).</p>
+    <div class="calc-bar">
+      <div class="field">
+        <label class="label field__label" for="tune-select">Tuning</label>
+        <select class="select" id="tune-select"></select>
+      </div>
+      <div class="readout">
+        <span class="label readout__label">Lowest note</span>
+        <span class="readout__value" id="tune-low" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table table--calc">
+        <caption class="visually-hidden">String notes and frequencies for the selected tuning</caption>
+        <thead>
+          <tr><th scope="col">String</th><th scope="col">Instrument</th><th scope="col">Note</th><th scope="col">Hz</th></tr>
+        </thead>
+        <tbody id="tune-rows"></tbody>
+      </table>
+    </div>
+
+    <h3 id="tuning-hpf">HPF zones</h3>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Filter zones (starting point)</span>
+        <button type="button" class="copy-btn" data-copy="tune-kv" aria-label="Copy filter zones"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="tune-kv" data-copy-title="HPF zones (starting point)">
+          <div class="kv__item"><dt>Guitar HPF floor</dt><dd id="tune-floor">-</dd></div>
+          <div class="kv__item"><dt>Guitar 2nd harmonic</dt><dd id="tune-h2">-</dd></div>
+          <div class="kv__item"><dt>Rhythm HPF (tone)</dt><dd id="tune-rhythm">-</dd></div>
+          <div class="kv__item"><dt>Bass HPF (sub floor)</dt><dd id="tune-bass-hpf">-</dd></div>
+          <div class="kv__item"><dt>Bass HPF below low note</dt><dd id="tune-bass-gap">-</dd></div>
+        </dl>
+      </div>
+    </div>
+    <ul class="calc-notes" id="tune-notes" aria-live="polite"></ul>
+    <p class="muted">Guitar HPF floor = 0.9 &times; the low note. It clears rumble and keeps the fundamental. Bass and rhythm values come from the <a href="bass.html">Bass</a> and <a href="guitars.html">Guitars</a> pages.</p>
+  </section>
+
+  <section class="section">
+    <h2 id="note-hz">Note and Hz</h2>
+    <p>Use it to tune kick and snare samples, or to name a resonance you found with a sweep.</p>
+    <div class="calc-grid">
+      <div class="calc-card">
+        <span class="label calc-card__title">Note to Hz</span>
+        <div class="calc-bar">
+          <div class="field">
+            <label class="label field__label" for="note-name">Note</label>
+            <select class="select" id="note-name"></select>
+          </div>
+          <div class="field">
+            <label class="label field__label" for="note-octave">Octave</label>
+            <input class="input input--mono input--short" id="note-octave" type="number" inputmode="numeric" min="-1" max="9" step="1" value="4">
+          </div>
+        </div>
+        <dl class="kv" aria-live="polite">
+          <div class="kv__item"><dt>Frequency</dt><dd id="note-out-hz">-</dd></div>
+          <div class="kv__item"><dt>MIDI note</dt><dd id="note-out-midi">-</dd></div>
+        </dl>
+      </div>
+
+      <div class="calc-card">
+        <span class="label calc-card__title">Hz to nearest note</span>
+        <div class="calc-bar">
+          <div class="field">
+            <label class="label field__label" for="note-hz">Frequency (Hz)</label>
+            <input class="input input--mono" id="note-hz" type="number" inputmode="decimal" min="0" step="any" placeholder="62">
+          </div>
+        </div>
+        <dl class="kv" aria-live="polite">
+          <div class="kv__item"><dt>Nearest note</dt><dd id="hz-out-note">-</dd></div>
+          <div class="kv__item"><dt>Offset</dt><dd id="hz-out-cents">-</dd></div>
+          <div class="kv__item"><dt>Note exact</dt><dd id="hz-out-exact">-</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p class="muted">Octave numbers are scientific pitch (A4 = 440 Hz, C4 = MIDI 60). Kontakt names the same notes one octave lower: G1 here is G0 in Kontakt.</p>
+  </section>
+
+  <footer class="page-foot">Formulas: standard tempo, decibel and equal-temperament math. Loudness targets and the -2 dBTP Spotify note match the <a href="mix-bus.html#loudness">Mix Bus loudness section</a>. HPF values come from the Bass and Guitars pages.</footer>
 
 </div>
 </main>
 <script src="js/search-index.js"></script>
 <script src="js/app.js"></script>
+<script src="js/calculators.js"></script>
 </body>
 </html>
