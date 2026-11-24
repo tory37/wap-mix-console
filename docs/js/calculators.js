@@ -491,7 +491,7 @@
   function initNoteHz() {
     var nameSelect = $("note-name");
     var octaveInput = $("note-octave");
-    var hzInput = $("note-hz");
+    var hzInput = $("hz-in");
     if (!nameSelect || !octaveInput || !hzInput) return;
 
     nameSelect.innerHTML = C.NOTE_NAMES.map(function (n) {
