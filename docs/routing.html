@@ -71,7 +71,7 @@
         <text class="sf-title" x="458" y="36">VOCAL MASTER</text>
         <text class="sf-sub sf-sub--ok" x="446" y="56">-6 to -5 dBFS peak</text>
         <text class="sf-sub" x="446" y="84">LEAD VOX BUS  dead mono</text>
-        <text class="sf-sub" x="446" y="104">BGV &amp; HARMONY 85-100% L/R</text>
+        <text class="sf-sub" x="446" y="104">BGV / HARMONY 85-100% L/R</text>
         <circle class="sf-dot--fx" cx="450" cy="128" r="4"/>
         <text class="sf-sub" x="462" y="132">FX returns, inside folder:</text>
         <text class="sf-sub" x="462" y="150">VOX &amp; LEAD PLATE</text>
@@ -153,7 +153,7 @@
           <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> <a href="bass.html"><code>BASS BUS</code></a></td><td><code>BASS LOW</code> (&lt;180 Hz), <code>BASS HIGH</code> (&gt;180 Hz)</td><td class="mono val-ok">-8 to -6 dBFS</td><td>JST BG-Bass</td></tr>
           <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> <a href="guitars.html">Guitar buses</a></td><td><code>RHYTHM GTR BUS</code>, <code>LEAD GTR BUS</code>, <code>OCTAVE / MELODY GTR</code></td><td class="mono val-ok">-8 to -6 dBFS</td><td>JW / JST BG-Guitars &gt; Soothe2</td></tr>
           <tr><td><span class="gchip gchip--orch" aria-hidden="true"></span> <a href="orchestral.html"><code>ORCH &amp; SYNTH BUS</code></a></td><td>ANA 2, Spitfire LABS, <code>WIDE MIX HALL</code> return</td><td class="mono val-ok">-8 to -6 dBFS</td><td>Soothe2 &gt; JW BG-Keys</td></tr>
-          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> <a href="vocals.html"><code>VOCAL MASTER</code></a></td><td><code>LEAD VOX BUS</code>, <code>BGV &amp; HARMONY</code>, vocal FX returns</td><td class="mono val-warn">-6 to -5 dBFS</td><td>Bypasses <code>INSTRUMENT BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> <a href="vocals.html"><code>VOCAL MASTER</code></a></td><td><code>LEAD VOX BUS</code>, <code>BGV / HARMONY</code>, vocal FX returns</td><td class="mono val-warn">-6 to -5 dBFS</td><td>Bypasses <code>INSTRUMENT BUS</code></td></tr>
           <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="mix-bus.html"><code>PRINT / MIX BUS</code></a></td><td><code>INSTRUMENT BUS</code> + <code>VOCAL MASTER</code></td><td class="mono val-warn">-4 to -3 dBFS in</td><td>VCC &gt; FG-Grey &gt; Max #1 &gt; Soothe2 &gt; GClip</td></tr>
           <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> <a href="mix-bus.html#master">MASTER</a></td><td><code>PRINT / MIX BUS</code></td><td class="mono val-danger">-1.5 dBFS ceiling; true peak -1.0 dBTP max</td><td>JST Maximizer #2 (Rock preset)</td></tr>
         </tbody>
@@ -251,6 +251,93 @@
   </section>
 
   <section class="section">
+    <h2 id="track-naming">Track naming</h2>
+    <p>Name every track in lowercase snake_case. The prefix tells you which bus the track feeds. Rendered stems then sort and read the same on every computer.</p>
+
+    <h3 id="naming-rules">Rules</h3>
+    <ul>
+      <li>Use only lowercase <code>a&ndash;z</code>, <code>0&ndash;9</code>, <code>_</code> and <code>-</code>.</li>
+      <li>Never use <code>\ / : * ? " &lt; &gt; |</code>. Windows rejects them. Never end a name with a space or a dot.</li>
+      <li>No dots inside a name. Pro Tools reads <code>.L</code> and <code>.R</code> as channel tags.</li>
+      <li>Lowercase prevents case clashes. Linux is case-sensitive. macOS and Windows are not.</li>
+      <li>Zero-pad track numbers so files sort in session order: <code>01_kick_in</code>.</li>
+      <li>Order fields broad to narrow: <code>gtr_rhy_l</code>. Related tracks then sort together.</li>
+      <li>Put song, version, tempo and sample rate on the folder, not the files: <code>wap-song_name-v3-140bpm-48k/</code>.</li>
+      <li>Render every stem from the same start to the same end.</li>
+    </ul>
+
+    <h3 id="naming-prefixes">Prefix &rarr; bus map</h3>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Section</th><th scope="col">Prefix</th><th scope="col">Example track names</th><th scope="col">Feeds bus</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>kick</code></td><td><code>kick_in</code>, <code>kick_out</code>, <code>kick_sub</code>, <code>kick_smp</code></td><td><code>KICK BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>snr</code></td><td><code>snr_top</code>, <code>snr_bot</code>, <code>snr_smp</code></td><td><code>SNARE BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>tom</code></td><td><code>tom_1</code>, <code>tom_2</code>, <code>tom_flr</code></td><td><code>TOMS BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>hh</code> <code>ride</code> <code>oh</code></td><td><code>hh</code>, <code>ride</code>, <code>oh_l</code>, <code>oh_r</code></td><td><code>OVERHEADS / CYMBALS</code></td></tr>
+          <tr><td><span class="gchip gchip--drums" aria-hidden="true"></span> Drums</td><td><code>room</code></td><td><code>room_l</code>, <code>room_r</code>, <code>room_mono</code></td><td><code>ROOM BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_di</code></td><td><code>BASS LOW</code> + <code>BASS HIGH</code></td></tr>
+          <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_low</code></td><td><code>BASS BUS</code> (this is <code>BASS LOW</code>)</td></tr>
+          <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_amp</code>, <code>bass_grit</code></td><td><code>BASS HIGH</code></td></tr>
+          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_rhy</code></td><td><code>gtr_rhy_l</code>, <code>gtr_rhy_r</code>, quad: <code>gtr_rhy_l2</code>, <code>gtr_rhy_r2</code></td><td><code>RHYTHM GTR BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_ld</code></td><td><code>gtr_ld</code>, <code>gtr_ld_harm</code></td><td><code>LEAD GTR BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_cln</code> <code>gtr_oct</code> <code>gtr_amb</code></td><td><code>gtr_cln_l</code>, <code>gtr_oct</code>, <code>gtr_amb</code></td><td><code>OCTAVE / MELODY GTR</code></td></tr>
+          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_ld</code> <code>vox_scrm</code></td><td><code>vox_ld</code>, <code>vox_scrm</code></td><td><code>LEAD VOX BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_dbl</code> <code>vox_harm</code></td><td><code>vox_dbl_l</code>, <code>vox_dbl_r</code>, <code>vox_harm_hi</code>, <code>vox_harm_lo</code></td><td><code>BGV / HARMONY</code></td></tr>
+          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_bgv</code> <code>vox_gang</code></td><td><code>vox_bgv_l</code>, <code>vox_bgv_r</code>, <code>vox_gang</code></td><td><code>BGV / HARMONY</code></td></tr>
+          <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_adlib</code></td><td><code>vox_adlib</code></td><td><code>BGV / HARMONY</code> (starting point; the guide sets no bus)</td></tr>
+          <tr><td><span class="gchip gchip--orch" aria-hidden="true"></span> Orchestral</td><td><code>orch</code></td><td><code>orch_str_vln</code>, <code>orch_str_vc</code>, <code>orch_brass</code>, <code>orch_choir</code>, <code>orch_perc</code></td><td><code>ORCH &amp; SYNTH BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--synth" aria-hidden="true"></span> Synths</td><td><code>syn</code></td><td><code>syn_pad</code>, <code>syn_ld</code>, <code>syn_arp</code>, <code>syn_bass</code>, <code>syn_sub</code></td><td><code>ORCH &amp; SYNTH BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--synth" aria-hidden="true"></span> SFX</td><td><code>sfx</code></td><td><code>sfx_riser</code>, <code>sfx_impact</code>, <code>sfx_sweep</code>, <code>sfx_rev</code>, <code>sfx_subdrop</code></td><td>SFX folder &gt; <code>INSTRUMENT BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--fx" aria-hidden="true"></span> FX returns</td><td><code>fx</code></td><td><code>fx_crush</code> (<code>DRUM PARALLEL CRUSH</code>), <code>fx_snr_plate</code> (<code>SNARE PLATE</code>)</td><td><code>DRUM BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--fx" aria-hidden="true"></span> FX returns</td><td><code>fx</code></td><td><code>fx_hall</code> (<code>WIDE MIX HALL</code>)</td><td><code>ORCH &amp; SYNTH BUS</code></td></tr>
+          <tr><td><span class="gchip gchip--fx" aria-hidden="true"></span> FX returns</td><td><code>fx</code></td><td><code>fx_vox_plate</code> (<code>VOX &amp; LEAD PLATE</code>), <code>fx_vox_slap</code> (<code>VOX MICRO-PITCH &amp; SLAP</code>), <code>fx_dly</code> (<code>STEREO TEMPO DELAY</code>)</td><td><code>VOCAL MASTER</code></td></tr>
+          <tr><td><span class="gchip gchip--master" aria-hidden="true"></span> Hubs</td><td><code>sc</code></td><td><code>sc_kick</code>, <code>sc_snare</code>, <code>sc_spotlight</code></td><td>None. Master/Parent Send OFF.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 id="naming-suffixes">Suffixes</h3>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Suffix</th><th scope="col">Use</th><th scope="col">Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>_l</code> / <code>_r</code></td><td>Hard-panned pair. Put it right after the part name, before <code>_di</code> or <code>_print</code>.</td><td><code>gtr_rhy_l</code>, <code>oh_r</code></td></tr>
+          <tr><td><code>_di</code></td><td>Raw DI. Keep it for re-amping. Mute it when an amp track carries the part.</td><td><code>gtr_rhy_l_di</code>, <code>bass_di</code></td></tr>
+          <tr><td><code>_print</code></td><td>Printed (rendered) version of a track. Keeps the same bus as its source.</td><td><code>gtr_rhy_l_print</code></td></tr>
+          <tr><td><code>_ref</code></td><td>Reference mix for A/B. Keep it out of <code>PRINT / MIX BUS</code>.</td><td><code>song_name_ref</code>, <code>mix_v2_ref</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 id="render-pattern">REAPER render file name</h3>
+    <p>Name the project file after the stem folder, for example <code>wap-song_name-v3-140bpm-48k.rpp</code>. Type the <code>01_</code> number into each track name. Then use this pattern in File &gt; Render.</p>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Stem render</span>
+        <button type="button" class="copy-btn" data-copy="stem-render-values" aria-label="Copy stem render settings"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="stem-render-values" data-copy-title="REAPER stem render">
+          <div class="kv__item"><dt>Source</dt><dd>Stems (selected tracks)</dd></div>
+          <div class="kv__item"><dt>Bounds</dt><dd>Entire project</dd></div>
+          <div class="kv__item"><dt>File name</dt><dd>$project\$track</dd></div>
+        </dl>
+      </div>
+    </div>
+    <ul>
+      <li><code>$project</code> is the project name. <code>$track</code> is the track name.</li>
+      <li>A backslash between wildcards makes a subfolder (Windows). Use a slash on Mac.</li>
+      <li>Entire project gives every stem the same start and end.</li>
+      <li>REAPER also has <code>$tracknumber</code>. Its help text says only "1 for the first track, 2 for the second". Zero-padding is <span class="chip">unverified</span>, so type the number into the name. Do not use both, or the number shows twice.</li>
+    </ul>
+  </section>
+
+  <section class="section">
     <h2 id="guardrails">Do / do not</h2>
     <div class="table-wrap">
       <table class="table">
@@ -288,7 +375,7 @@
     </div>
   </section>
 
-  <footer class="page-foot">Sources: original WAP blueprint manual (primary); REAPER modern metal architecture guide (hub setup, 4-channel detector routing). Phase 3 research: Spotify for Artists, "Loudness normalization" (master true peak). Routing itself needed no change.</footer>
+  <footer class="page-foot">Sources: original WAP blueprint manual (primary); REAPER modern metal architecture guide (hub setup, 4-channel detector routing). Phase 3 research: Spotify for Artists, "Loudness normalization" (master true peak). Routing itself needed no change. Track naming: REAPER User Guide v7.86, p. 413 (21.1.1 Wildcards: $project, $track, backslash subfolders), p. 415 (Stems (selected tracks)), p. 212 (Bounds: Entire project); REAPER 7.02 Render Wildcard Help ($tracknumber description).</footer>
 
 </div>
 </main>

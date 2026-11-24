@@ -111,6 +111,39 @@
       <li><div><span class="steps__title">Turn down VSTi outputs</span><p>Lower the master output on GGD, DjinnBass, ANA 2 and LABS.</p></div></li>
       <li><div><span class="steps__title">Read the meter</span><p>Stop when the MCP peak readout shows <code class="val-ok">-12.0 to -10.0 dBFS</code> on the loudest chorus.</p></div></li>
     </ol>
+
+    <h3 id="normalize-items">Fast path: Normalize Items</h3>
+    <p>An alternative to steps 3 and 5. Normalize sets item volume, before FX, in one move. Faders stay at <code>0.00 dB</code>. Audio items only.</p>
+    <ol class="steps">
+      <li><div><span class="steps__title">Select the items</span><p>Select the raw audio items. Right-click an item and choose <strong>Item processing</strong> &gt; <strong>Normalize items (Peak/RMS/LUFS)</strong>. Or press <kbd>F2</kbd> and click <strong>Normalize</strong> in Item Properties.</p></div></li>
+      <li><div><span class="steps__title">Set Peak to <code>-10 dBFS</code></span><p>Use Peak mode, the top of the <code class="val-ok">-12 to -10 dBFS</code> target. The target is a peak target. One loud spike can leave the rest below <code>-10</code>, but never above it. That is safe for saturation. Do not use the LUFS or RMS modes here.</p></div></li>
+      <li><div><span class="steps__title">Keep the mono option off</span><p>Leave <strong>Adjust mono media items an additional -3dB</strong> off. With it on, mono items land at <code>-13 dBFS</code>, below the target.</p></div></li>
+      <li><div><span class="steps__title">Check by ear and meter</span><p>If a track sounds low after the spike, nudge its item volume up. Stop at <code class="val-ok">-10.0 dBFS</code> peak.</p></div></li>
+    </ol>
+
+    <div class="callout callout--warn" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Several items on one track</span>
+        <p>Comps and song sections: select all items on the track and choose <strong>Normalize to loudest item</strong>. One gain applies to all, so verse/chorus dynamics stay. <strong>Normalize each item separately</strong> puts every item at <code>-10</code> and flattens the song.</p>
+      </div>
+    </div>
+
+    <div class="callout callout--danger" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Guitar and bass DIs into amp sims</span>
+        <p>DI level sets how hard JST Toneforge Disruptor and DjinnBass 1 are driven. Choose one DI level for the record. Dial the amp to that level. Do not normalize DIs again per song, or the tone drifts.</p>
+      </div>
+    </div>
+
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">VSTi and MIDI</span>
+        <p>No audio item exists to normalize. Lower the instrument output knob or use Slot 1 <code>JS: Volume Adjustment</code>.</p>
+      </div>
+    </div>
   </section>
 
   <section class="section">
@@ -275,7 +308,7 @@
           <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
         </thead>
         <tbody>
-          <tr><td>Hot DI, vocal or synth preset</td><td>Trim pre-FX to <code>-12 to -10 dBFS</code> peak. Leave the fader at <code>0.00 dB</code>.</td><td>Clip gain (F2) / VSTi out / JS: Volume Adjustment</td></tr>
+          <tr><td>Hot DI, vocal or synth preset</td><td>Trim pre-FX to <code>-12 to -10 dBFS</code> peak. Leave the fader at <code>0.00 dB</code>. DIs: set one level for the record, then dial the amp sim to it.</td><td>Clip gain (F2) / Normalize items (Peak) / VSTi out / JS: Volume Adjustment</td></tr>
           <tr><td>Saturation overdrives early</td><td>Raw tracks peak at <code>-1 dBFS</code>. Bring them down to <code>-18 dBFS RMS</code>.</td><td>Clip gain / VSTi out</td></tr>
           <tr><td>Mix bus compressor slams</td><td>Hold sub-groups at <code>-6 to -5 dBFS</code>. Print bus input lands at <code>-4 to -3 dBFS</code>.</td><td>INSTRUMENT BUS / VOCAL MASTER faders, MCP meters</td></tr>
           <tr><td>Plugin sounds better only because it is louder</td><td>Gain-match on vs. off.</td><td>Coffee The Pun / FG-116 / JW/JST Bus Glue</td></tr>
@@ -285,7 +318,7 @@
     </div>
   </section>
 
-  <footer class="page-foot">Source: original WAP blueprint manual. Phase 3 research: Slate Digital, Virtual Console Collection, Revival and Virtual Tape Machines guides (calibration levels); Slate Digital, Virtual Buss Compressors guide (GR range); Spotify for Artists, "Loudness normalization" (true peak); Slate Digital, FG-X 2 guide (True Peak metering).</footer>
+  <footer class="page-foot">Source: original WAP blueprint manual. Phase 3 research: Slate Digital, Virtual Console Collection, Revival and Virtual Tape Machines guides (calibration levels); Slate Digital, Virtual Buss Compressors guide (GR range); Spotify for Artists, "Loudness normalization" (true peak); Slate Digital, FG-X 2 guide (True Peak metering); Cockos, REAPER User Guide v7.86, p. 135 (Item Properties, Normalize) and p. 141 (7.25 Normalizing Items).</footer>
 
 </div>
 </main>
