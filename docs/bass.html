@@ -247,13 +247,28 @@
             <button type="button" class="copy-btn" data-copy="high-1" aria-label="Copy bass_high slot 1 settings"></button>
           </div>
           <dl class="kv" id="high-1" data-copy-title="bass_high Slot 1 - Bonecrusher">
-            <div class="kv__item"><dt>Amp</dt><dd>Bonecrusher</dd></div>
-            <div class="kv__item"><dt>Crush</dt><dd>Up until grit fills 800 Hz &ndash; 2.5 kHz (by ear)</dd></div>
-            <div class="kv__item"><dt>Built-in compressor</dt><dd>Off (slot 4 does this job)</dd></div>
+            <div class="kv__item"><dt>Input</dt><dd>Auto-calibrate: Shift + double-click the Input knob, play the busiest riff to 100%</dd></div>
+            <div class="kv__item"><dt>Gate</dt><dd>Off (DjinnBass DI has no noise)</dd></div>
+            <div class="kv__item"><dt>DI Match</dt><dd>Off</dd></div>
+            <div class="kv__item"><dt>Pedals section</dt><dd>Bypassed</dd></div>
+            <div class="kv__item"><dt>Amp model</dt><dd>Skullcrusher, bank A</dd></div>
+            <div class="kv__item"><dt>Skull Character</dt><dd>60% <span class="chip">reasoning</span></dd></div>
+            <div class="kv__item"><dt>Drive</dt><dd>50%, then up until grit fills 800 Hz &ndash; 2.5 kHz (by ear) <span class="chip">reasoning</span></dd></div>
+            <div class="kv__item"><dt>Contour</dt><dd>60% (mids forward) <span class="chip">reasoning</span></dd></div>
+            <div class="kv__item"><dt>Thump</dt><dd>50% (slot 2 HPF removes it anyway) <span class="chip">reasoning</span></dd></div>
+            <div class="kv__item"><dt>Bark</dt><dd>40% (slot 3 LPF trims the top) <span class="chip">reasoning</span></dd></div>
+            <div class="kv__item"><dt>7-band EQ</dt><dd>All sliders centered (flat)</dd></div>
+            <div class="kv__item"><dt>Cab</dt><dd>Single mode, Ampeg 8X10, 421 mic <span class="chip">reasoning</span></dd></div>
+            <div class="kv__item"><dt>Magic</dt><dd>Off</dd></div>
+            <div class="kv__item"><dt>Effects section</dt><dd>Bypassed (no chorus, no reverb)</dd></div>
+            <div class="kv__item"><dt>Digital and Analog EQ</dt><dd>Bypassed (slots 2 and 3 do this job)</dd></div>
+            <div class="kv__item"><dt>Limiter section</dt><dd>Bypassed (slot 4 does this job)</dd></div>
+            <div class="kv__item"><dt>Output</dt><dd>Match the bypassed level, no red on the meter</dd></div>
           </dl>
-          <p class="rack__why">Mid snarl that locks to the 7-string rhythm guitars. It goes first, so the amp reacts to the full-range DI. URM filters the grit channel after the amp sim. JST says the Crush knob distorts the mids and highs and keeps the lows tight.</p>
+          <p class="rack__why">Mid snarl that locks to the 7-string rhythm guitars. It goes first, so the amp reacts to the full-range DI. URM filters the grit channel after the amp sim. The plugin holds two amp models. Skullcrusher morphs from clean to nasty with one slider and sets mids with Contour. That gives a polished growl under a Breaking Benjamin or Red chorus, not raw fuzz (reasoning). The manual gives no knob values, so every percentage is a starting point.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">Bonecrusher amp model: heavier fuzz. Grind sets dry/fuzz blend, Crush drives the mids and highs, Scoop off</span></span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">Bassforge Hellraiser</span></span>
             <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-Stress, Dist 3</span></span>
           </div>
@@ -382,7 +397,7 @@
     </div>
   </section>
 
-  <footer class="page-foot">Sources: original WAP blueprint manual (primary); REAPER architecture guide (180 Hz rationale, chanmix2 polarity, ReaComp detector, TDR Nova clank); REAPER Effects Guide (ReaLimit Link); TDR Nova manual (SPLIT mode); Slate Digital guide (Revival, AirEQ Earth, FG-2A); Slate FG-Bomber docs (Present mode on bass); JST Bassforge Bonecrusher product page (Crush, built-in compressor); JST/JW guide (BG-Bass); JST BG-Bass manual (vendor, Method); DjinnBass v1 manual, Submission Audio (playable range G0&ndash;D4); Making Modern Metal Part 3, Mark Mynett, Sound On Sound, 2018; Mix Analysis: How David Bendeth Mixed &ldquo;Shadow Moses&rdquo;, SonicScoop; Mixing Secrets Volume 2: Bass, URM Academy.</footer>
+  <footer class="page-foot">Sources: original WAP blueprint manual (primary); REAPER architecture guide (180 Hz rationale, chanmix2 polarity, ReaComp detector, TDR Nova clank); REAPER Effects Guide (ReaLimit Link); TDR Nova manual (SPLIT mode); Slate Digital guide (Revival, AirEQ Earth, FG-2A); Slate FG-Bomber docs (Present mode on bass); JST Bassforge Bonecrusher manual (amp models, cab, input calibration, limiter section); JST/JW guide (BG-Bass); JST BG-Bass manual (vendor, Method); DjinnBass v1 manual, Submission Audio (playable range G0&ndash;D4); Making Modern Metal Part 3, Mark Mynett, Sound On Sound, 2018; Mix Analysis: How David Bendeth Mixed &ldquo;Shadow Moses&rdquo;, SonicScoop; Mixing Secrets Volume 2: Bass, URM Academy.</footer>
 
 </div>
 </main>
