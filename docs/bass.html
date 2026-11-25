@@ -174,11 +174,11 @@
             <div class="kv__item"><dt>Brickwall ceiling</dt><dd>-12.00 dB (same as Threshold = 0 dB makeup)</dd></div>
             <div class="kv__item"><dt>Target GR</dt><dd>3.0&ndash;4.5 dB</dd></div>
             <div class="kv__item"><dt>Constant gain (labeled Link in the REAPER Effects Guide)</dt><dd>CHECKED (Threshold and Ceiling move together)</dd></div>
-            <div class="kv__item"><dt>Release</dt><dd>80&ndash;100 ms (starting point)</dd></div>
+            <div class="kv__item"><dt>Release</dt><dd>40 dB/s (30&ndash;50, by ear) <span class="chip">reasoning</span></dd></div>
             <div class="kv__item"><dt>True peak</dt><dd>OFF (display only)</dd></div>
             <div class="kv__item"><dt>Performance</dt><dd>High quality</dd></div>
           </dl>
-          <p class="rack__why">Stage 2 brickwall. Every note hits the same sub shelf. Set sub level with the <code>bass_low</code> fader.</p>
+          <p class="rack__why">Stage 2 brickwall. Every note hits the same sub shelf. Set sub level with the <code>bass_low</code> fader. ReaLimit Release is a rate in dB/s, not a time. At 3&ndash;4.5 dB GR, 30&ndash;50 dB/s recovers in about 80&ndash;100 ms. Too fast (60+) fuzzes the 49 Hz sub and pumps. Too slow (under 25) never lets go between notes.</p>
         </div>
       </li>
       <li class="rack__slot">
