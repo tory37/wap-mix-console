@@ -53,7 +53,7 @@
         <rect class="sf-node" x="26" y="296" width="350" height="104" rx="4"/>
         <circle class="sf-dot--guitars-bus" cx="42" cy="318" r="4"/>
         <text class="sf-title" x="54" y="323">GUITAR BUSES</text>
-        <text class="sf-sub" x="42" y="346">gtr_rhy_bus  amp A + B, 100% L/R, dry</text>
+        <text class="sf-sub" x="42" y="346">gtr_rhy_bus  pitch &gt; amp A + B, L/R, dry</text>
         <text class="sf-sub" x="42" y="366">gtr_ld -0.1, harm +0.4 | cln, oct +/-0.65</text>
         <text class="sf-sub sf-sub--ok" x="42" y="386">-9 to -7 dBFS peak</text>
 
@@ -164,6 +164,19 @@
       <li><div><span class="steps__title">Load the script</span><p>Choose <strong>Actions</strong> &gt; <strong>Show action list</strong> &gt; <strong>New action</strong> &gt; <strong>Load ReaScript</strong>. Select the downloaded file.</p></div></li>
       <li><div><span class="steps__title">Run it</span><p>Run the action in a new project. The ReaScript console shows the track and send counts. Press <kbd>Ctrl+Z</kbd> to undo.</p></div></li>
       <li><div><span class="steps__title">Insert GetGood Drums</span><p>Load the GGD kit on <code>ggd_drums</code> with 16 stereo outputs. Outputs <code>1/2</code> to <code>31/32</code> already feed the kit tracks.</p></div></li>
+    </ol>
+
+    <h3 id="rhythm-pitch-bus">Rhythm pitch bus (template v1.4)</h3>
+    <p>Both rhythm DIs sit in <code>gtr_rhy_pitch</code>, the first folder in <code>gtr_rhy_bus</code>. It holds the <a href="guitars.html#rhythm-pitch">pitch shifter</a> and feeds both amps by post-fader sends at <code>0.0 dB</code>. Its Master/Parent Send is off. <code>gtr_rhy_amp_a</code> and <code>gtr_rhy_amp_b</code> are plain tracks in <code>gtr_rhy_bus</code>.</p>
+    <p>Reasoning: with the parent send off, the dry DIs never reach <code>gtr_rhy_bus</code>. Both amps get the same shifted signal, so the shifter latency is equal on both and they stay aligned.</p>
+    <p>Update mode on a v1.3 project inserts <code>gtr_rhy_pitch</code> with its sends. Then it offers to move <code>gtr_rhy_l</code> and <code>gtr_rhy_r</code> into <code>gtr_rhy_pitch</code>, and to delete their old sends to <code>gtr_rhy_amp_b</code>. Answer Yes to both. Items, FX and sends move with the tracks. One undo step reverses the whole update.</p>
+    <p>If you declined a change, or the update did not run, finish it by hand:</p>
+    <ol class="steps">
+      <li><div><span class="steps__title">Create gtr_rhy_pitch</span><p>Run the v1.4 script in update mode, or insert a track named <code>gtr_rhy_pitch</code> directly above <code>gtr_rhy_amp_a</code>, inside <code>gtr_rhy_bus</code>.</p></div></li>
+      <li><div><span class="steps__title">Move the DIs</span><p>Drag <code>gtr_rhy_l</code> and <code>gtr_rhy_r</code> into <code>gtr_rhy_pitch</code>. <code>gtr_rhy_amp_a</code> is then no longer a folder.</p></div></li>
+      <li><div><span class="steps__title">Turn its main send off</span><p>Open the Route window of <code>gtr_rhy_pitch</code>. Uncheck Master/Parent Send.</p></div></li>
+      <li><div><span class="steps__title">Delete the old DI sends</span><p>On <code>gtr_rhy_l</code> and <code>gtr_rhy_r</code>, delete the sends to <code>gtr_rhy_amp_b</code>.</p></div></li>
+      <li><div><span class="steps__title">Add the amp sends</span><p>If the script did not add them: send <code>gtr_rhy_pitch</code> to <code>gtr_rhy_amp_a</code> and to <code>gtr_rhy_amp_b</code>. Post-Fader (Post-Pan), <code>0.0 dB</code>, audio <code>1/2</code> to <code>1/2</code>.</p></div></li>
     </ol>
   </section>
 
@@ -304,8 +317,9 @@
           <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_di</code></td><td><code>bass_low</code> + <code>bass_high</code></td></tr>
           <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_low</code></td><td><code>bass_bus</code></td></tr>
           <tr><td><span class="gchip gchip--bass" aria-hidden="true"></span> Bass</td><td><code>bass</code></td><td><code>bass_high</code></td><td><code>bass_bus</code></td></tr>
-          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_rhy</code></td><td><code>gtr_rhy_l</code>, <code>gtr_rhy_r</code> (DIs; post-fader sends to <code>gtr_rhy_amp_b</code>)</td><td><code>gtr_rhy_amp_a</code></td></tr>
-          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_rhy</code></td><td><code>gtr_rhy_amp_a</code> (main amp, folder), <code>gtr_rhy_amp_b</code> (clarity amp)</td><td><code>gtr_rhy_bus</code></td></tr>
+          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_rhy</code></td><td><code>gtr_rhy_l</code>, <code>gtr_rhy_r</code> (DIs, 100% L/R, no sends)</td><td><code>gtr_rhy_pitch</code></td></tr>
+          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_rhy</code></td><td><code>gtr_rhy_pitch</code> (pitch shifter, folder, Master/Parent Send OFF)</td><td>None. Post-fader <code>0.0 dB</code> sends to <code>gtr_rhy_amp_a</code> and <code>gtr_rhy_amp_b</code>.</td></tr>
+          <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_rhy</code></td><td><code>gtr_rhy_amp_a</code> (main amp), <code>gtr_rhy_amp_b</code> (clarity amp). Both fed by <code>gtr_rhy_pitch</code>.</td><td><code>gtr_rhy_bus</code></td></tr>
           <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_ld</code></td><td><code>gtr_ld</code>, <code>gtr_ld_harm</code></td><td><code>gtr_ld_bus</code></td></tr>
           <tr><td><span class="gchip gchip--guitars" aria-hidden="true"></span> Guitars</td><td><code>gtr_cln</code> <code>gtr_oct</code> <code>gtr_amb</code></td><td><code>gtr_cln_l</code>, <code>gtr_oct</code>, <code>gtr_amb</code></td><td><code>gtr_mel_bus</code></td></tr>
           <tr><td><span class="gchip gchip--vocals" aria-hidden="true"></span> Vocals</td><td><code>vox_ld</code> <code>vox_scrm</code></td><td><code>vox_ld</code>, <code>vox_scrm</code></td><td><code>vox_ld_bus</code></td></tr>
@@ -377,6 +391,7 @@
           <tr><td>Spatial FX returns</td><td><code>fx_crush</code> and <code>fx_snr_plate</code> to <code>drum_bus</code>. <code>fx_hall</code>, <code>fx_inst_plate</code> and <code>fx_inst_dly</code> to <code>instrument_bus</code>. Vocal returns, <code>fx_vox_hall</code> included, to <code>vocal_master</code>.</td><td class="val-danger">Never send a vocal track to a return outside <code>vocal_master</code>. Never send an instrument to a return inside it.</td></tr>
           <tr><td><code>sc_spotlight</code></td><td>Send from <code>vox_ld</code> and <code>vox_scrm</code>, pre-fader. Not from <code>vox_ld_bus</code>: the doubles would deepen the duck. Receive on <code>instrument_bus</code>, <code>fx_vox_plate</code>, <code>fx_vox_dly</code>, <code>fx_vox_hall</code>, <code>fx_inst_plate</code>, <code>fx_inst_dly</code>, and <code>gtr_rhy_bus</code> on <code>5/6</code>.</td><td class="val-danger">Never receive on <code>vocal_master</code> or <code>print_bus</code>. Vocals would duck themselves.</td></tr>
           <tr><td><code>bass_low</code> (&lt;180 Hz)</td><td>Route to <code>bass_bus</code>, then <code>instrument_bus</code>. 100% mono.</td><td class="val-danger">Never send to reverb, delay or chorus.</td></tr>
+          <tr><td><code>gtr_rhy_pitch</code></td><td>Master/Parent Send OFF. Post-fader <code>0.0 dB</code> sends to <code>gtr_rhy_amp_a</code> and <code>gtr_rhy_amp_b</code>.</td><td class="val-danger">Never leave Master/Parent Send on. The dry DIs would leak into <code>gtr_rhy_bus</code>. Never send a DI straight to an amp.</td></tr>
           <tr><td>All three hubs</td><td>Send to detector inputs, channels 3/4. <code>sc_spotlight</code> uses 5/6 on <code>gtr_rhy_bus</code>.</td><td class="val-danger">Never leave Master/Parent Send on. Silent triggers would double the audio.</td></tr>
         </tbody>
       </table>

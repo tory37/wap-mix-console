@@ -1,5 +1,5 @@
 -- @description WAP: build mix template (tracks, folders, routing, names, colors; no plugins)
--- @version 1.3
+-- @version 1.4
 -- @about Builds the WAP Mix Console template in the current project. Pure REAPER API. Edit the TEMPLATE table to change the layout.
 --   On a project that already holds template tracks, it updates them in place and asks before each change.
 
@@ -124,12 +124,15 @@ local TEMPLATE = {
       { to = "bass_low" }, { to = "bass_high" },
   } },
 
-  -- Amp blend: both DIs play through amp A (folder) and, by post-fader send, amp B.
-  -- Keys: sc_snare on 3/4, sc_spotlight on 5/6.
+  -- Amp blend: both DIs sum into gtr_rhy_pitch (pitch shifter), which feeds amp A and amp B by equal sends.
+  -- Parent send off, so the dry DIs never reach gtr_rhy_bus. Keys: sc_snare on 3/4, sc_spotlight on 5/6.
   { level = 3, name = "gtr_rhy_bus",     group = "guitars", channels = 6 },
+  { level = 4, name = "gtr_rhy_pitch",   group = "guitars", parent_send = false, sends = {
+      { to = "gtr_rhy_amp_a" }, { to = "gtr_rhy_amp_b" },
+  } },
+  { level = 5, name = "gtr_rhy_l",       group = "guitars", pan = -1, width = 0 },
+  { level = 5, name = "gtr_rhy_r",       group = "guitars", pan = 1,  width = 0 },
   { level = 4, name = "gtr_rhy_amp_a",   group = "guitars" },  -- main stereo amp sim
-  { level = 5, name = "gtr_rhy_l",       group = "guitars", pan = -1, width = 0, sends = { { to = "gtr_rhy_amp_b" } } },
-  { level = 5, name = "gtr_rhy_r",       group = "guitars", pan = 1,  width = 0, sends = { { to = "gtr_rhy_amp_b" } } },
   { level = 4, name = "gtr_rhy_amp_b",   group = "guitars" },  -- clarity amp, blended under amp A
   -- No spotlight key: only the lead vocal and the main scream duck the bed.
   { level = 3, name = "gtr_ld_bus",      group = "guitars", sends = {
@@ -214,11 +217,11 @@ local TEMPLATE = {
 -- REAPER visual spacer (TCP gap) above each listed track. Sections, then subsections.
 local SPACER_ABOVE = {
   -- sections
-  "bass_bus", "gtr_rhy_bus", "orch_syn_bus", "sfx_bus", "fx_inst_plate", "vocal_master", "sc_kick",
+  "drum_bus", "bass_bus", "gtr_rhy_bus", "orch_syn_bus", "sfx_bus", "fx_inst_plate", "vocal_master", "sc_kick",
   -- drum subsections
   "kick_bus", "snr_bus", "tom_bus", "oh_cym_bus", "room_bus", GGD_TRACK_NAME,
   -- bass, guitar, orch/synth and vocal subsections
-  "bass_high", "bass_di", "gtr_rhy_amp_b", "gtr_ld_bus", "gtr_mel_bus", "syn_pad", "fx_hall", "vox_ld_dbl",
+  "bass_high", "bass_di", "gtr_rhy_pitch", "gtr_rhy_amp_a", "gtr_rhy_amp_b", "gtr_ld_bus", "gtr_mel_bus", "syn_pad", "fx_hall", "vox_ld_dbl",
   "vox_bgv_bus", "fx_vox_plate",
 }
 
@@ -646,16 +649,170 @@ local function send_setting_differences(track, handle, match, send)
   return diffs
 end
 
+-- Track order and clamped folder level of every project track (1-based rows).
+local function project_model()
+  local model, level = {}, 0
+  for i = 0, reaper.CountTracks(0) - 1 do
+    local handle = reaper.GetTrack(0, i)
+    model[#model + 1] = { handle = handle, level = level }
+    level = math.max(0, level + reaper.GetMediaTrackInfo_Value(handle, "I_FOLDERDEPTH"))
+  end
+  return model
+end
+
+local function model_position(model, handle)
+  for i, row in ipairs(model) do
+    if row.handle == handle then return i end
+  end
+end
+
+local function model_last_descendant(model, position)
+  local last = position
+  while model[last + 1] and model[last + 1].level > model[position].level do last = last + 1 end
+  return last
+end
+
+local function model_parent(model, position)
+  for i = position - 1, 1, -1 do
+    if model[i].level < model[position].level then return model[i].handle end
+  end
+end
+
+-- Sets I_FOLDERDEPTH on every track from the model levels, the same rule the fresh build uses.
+local function write_folder_depths(model)
+  for i, row in ipairs(model) do
+    local next_level = model[i + 1] and model[i + 1].level or 0
+    local depth = next_level - row.level
+    if not is_close(reaper.GetMediaTrackInfo_Value(row.handle, "I_FOLDERDEPTH"), depth) then
+      reaper.SetMediaTrackInfo_Value(row.handle, "I_FOLDERDEPTH", depth)
+    end
+  end
+end
+
+local function model_matches_project(model)
+  if #model ~= reaper.CountTracks(0) then return false end
+  for i, row in ipairs(model) do
+    if reaper.GetTrack(0, i - 1) ~= row.handle then return false end
+  end
+  return true
+end
+
+-- Moves the selected rows to above the track at before_index. Keeps the user's selection.
+local function reorder_rows(rows, before_index)
+  local selected = {}
+  for i = 0, reaper.CountTracks(0) - 1 do
+    local handle = reaper.GetTrack(0, i)
+    if reaper.IsTrackSelected(handle) then selected[#selected + 1] = handle end
+    reaper.SetTrackSelected(handle, false)
+  end
+  for _, row in ipairs(rows) do reaper.SetTrackSelected(row.handle, true) end
+  local moved = reaper.ReorderSelectedTracks(before_index, 0)
+  for _, row in ipairs(rows) do reaper.SetTrackSelected(row.handle, false) end
+  for _, handle in ipairs(selected) do reaper.SetTrackSelected(handle, true) end
+  return moved
+end
+
+-- Where a moved track goes: after the last descendant of its nearest earlier sibling that is
+-- already under the right parent, else directly after the parent (0 = top of project).
+local function move_anchor(model, track, handles, parent_handle)
+  for _, sibling in ipairs(track.siblings_before) do
+    local position = handles[sibling.name] and model_position(model, handles[sibling.name])
+    if position and model_parent(model, position) == parent_handle then return model_last_descendant(model, position) end
+  end
+  if parent_handle then return model_position(model, parent_handle) end
+  return 0
+end
+
+-- Moves a template track and all its child tracks under its template parent. Never deletes a track.
+-- Non-template tracks move only as children of a moved track; the rest stay where they are.
+local function move_template_track(track, handles, template_names, notes)
+  local function note(line)
+    for _, earlier in ipairs(notes.moves) do
+      if earlier == line then return end
+    end
+    notes.moves[#notes.moves + 1] = line
+  end
+  local parent_handle = track.parent and handles[track.parent.name]
+  local model = project_model()
+  local from = model_position(model, handles[track.name])
+  if model_parent(model, from) == parent_handle then return end
+  local last = model_last_descendant(model, from)
+  local parent_position = parent_handle and model_position(model, parent_handle)
+  if parent_position and parent_position >= from and parent_position <= last then
+    note(track.name .. ": not moved, because its template parent is inside it")
+    return
+  end
+  local old_parent = model_parent(model, from)
+  local rows = {}
+  for _ = from, last do rows[#rows + 1] = table.remove(model, from) end
+  local anchor = move_anchor(model, track, handles, parent_handle)
+  local level = parent_handle and model[model_position(model, parent_handle)].level + 1 or 0
+  local shift = level - rows[1].level
+  for i, row in ipairs(rows) do
+    row.level = row.level + shift
+    table.insert(model, anchor + i, row)
+  end
+  local after = model[anchor + #rows + 1]
+  local before_index = after and track_index(after.handle) or reaper.CountTracks(0)
+  if not model_matches_project(model) then reorder_rows(rows, before_index) end
+  if not model_matches_project(model) then
+    note(track.name .. ": move failed. Check the folders by hand, or undo")
+    return
+  end
+  write_folder_depths(model)
+  for i = 2, #rows do
+    local name = track_name(rows[i].handle)
+    if not template_names[name] then note(name .. ": not in the template, moved with " .. track.name) end
+  end
+  local old_position = old_parent and model_position(model, old_parent)
+  if old_position then
+    for i = old_position + 1, model_last_descendant(model, old_position) do
+      local name = track_name(model[i].handle)
+      if model[i].level == model[old_position].level + 1 and not template_names[name] then
+        note(name .. ": not in the template, stays in " .. track_name(old_parent))
+      end
+    end
+  end
+end
+
+-- "1/2", "3" (mono) or "1-4" from an I_SRCCHAN or I_DSTCHAN value.
+local function channels_label(value)
+  value = math.floor(value)
+  local first, size = (value & 1023) + 1, value >> 10
+  if size == 1 then return tostring(first) end
+  if size == 0 then return first .. "/" .. (first + 1) end
+  return first .. "-" .. (first + 2 * size - 1)
+end
+
+local function is_template_send(track, handles, existing)
+  for _, send in ipairs(track.sends) do
+    if find_send({ existing }, handles[send.to], send) then return true end
+  end
+  return false
+end
+
+-- Finds the send again at apply time, because earlier deletes shift the send indices.
+local function remove_send(handle, dest, src, dst)
+  for _, candidate in ipairs(project_sends(handle)) do
+    if candidate.dest == dest and is_close(candidate.src, src) and is_close(candidate.dst, dst) then
+      reaper.RemoveTrackSend(handle, CATEGORY_SEND, candidate.index)
+      return
+    end
+  end
+end
+
 local function present(...)
   local list = {}
   for _, item in pairs({ ... }) do list[#list + 1] = item end
   return list
 end
 
--- Lists every difference in apply order: track inserts and properties, then sends.
+-- Lists every difference in apply order: track inserts and properties, moves, sends, send deletes.
 -- A diff with `requires` runs only when those diffs are approved. An `auto` diff is never prompted.
-local function collect_differences(tracks, handles, ambiguous)
-  local diffs, skipped, inserts = {}, {}, {}
+local function collect_differences(tracks, handles, entries, ambiguous, notes)
+  local diffs, skipped, inserts, deletes, template_names, name_of = {}, {}, {}, {}, {}, {}
+  for _, track in ipairs(tracks) do template_names[track.name] = true end
+  for name, handle in pairs(handles) do name_of[handle] = name end
   local function add(diff) diffs[#diffs + 1] = diff end
   local function skip(name, change, reason) skipped[#skipped + 1] = { track = name, change = change, reason = reason } end
 
@@ -677,6 +834,23 @@ local function collect_differences(tracks, handles, ambiguous)
     end
   end
 
+  -- Moves run in template order, so an earlier sibling is in place before the next one moves.
+  for _, track in ipairs(tracks) do
+    local entry, parent = entries[track.name], track.parent
+    local now = entry and (entry.parent and entry.parent.name or "the top level")
+    local want = parent and parent.name or "the top level"
+    if entry and now ~= want then
+      if parent and not handles[parent.name] and not inserts[parent.name] then
+        skip(track.name, "move to " .. want, "parent is ambiguous or not inserted")
+      else
+        add({ track = track.name, change = "move track (its child tracks go with it)", now = "in " .. now,
+          want = "in " .. want .. ", in template order", requires = present(parent and inserts[parent.name]),
+          blocked = "parent not inserted",
+          apply = function() move_template_track(track, handles, template_names, notes) end })
+      end
+    end
+  end
+
   for _, track in ipairs(tracks) do
     local source, source_insert = handles[track.name], inserts[track.name]
     if source or source_insert then
@@ -695,8 +869,21 @@ local function collect_differences(tracks, handles, ambiguous)
             apply = function() add_send(handles[track.name], handles[send.to], send) end })
         end
       end
+      -- Template-to-template sends the template does not define. Sends to other tracks stay.
+      for _, extra in ipairs(existing) do
+        local dest_name = name_of[extra.dest]
+        if dest_name and not is_template_send(track, handles, extra) then
+          deletes[#deletes + 1] = { track = track.name,
+            change = string.format("delete send to %s (%s -> %s)", dest_name, channels_label(extra.src), channels_label(extra.dst)),
+            now = (SEND_MODE_NAME[math.floor(extra.mode)] or tostring(extra.mode)) .. ", " .. gain_text(extra.gain),
+            want = "no such send in the template",
+            apply = function() remove_send(source, extra.dest, extra.src, extra.dst) end }
+        end
+      end
     end
   end
+  -- Deletes run last: removing a send shifts the indices that the setting diffs use.
+  for _, diff in ipairs(deletes) do add(diff) end
   return diffs, skipped
 end
 
@@ -764,25 +951,17 @@ local function apply_approved(diffs)
   reaper.Undo_EndBlock(UPDATE_UNDO_LABEL, -1)
 end
 
--- Report-only findings: tracks in another folder than the template says, and project extras.
-local function project_notes(tracks, project, entries)
-  local notes = { parents = {}, extra_tracks = {}, extra_sends = {} }
-  local in_template = {}
+-- Report-only findings: project extras. `moves` fills while moves apply.
+local function project_notes(tracks, project, handles)
+  local notes = { moves = {}, extra_tracks = {}, extra_sends = {} }
+  local in_template, template_handle = {}, {}
   for _, track in ipairs(tracks) do in_template[track.name] = true end
+  for _, handle in pairs(handles) do template_handle[handle] = true end
   for _, track in ipairs(tracks) do
-    local entry = entries[track.name]
-    if entry then
-      local now = entry.parent and entry.parent.name or "the top level"
-      local want = track.parent and track.parent.name or "the top level"
-      if now ~= want then
-        notes.parents[#notes.parents + 1] = string.format("%s: in %s, template puts it in %s", track.name, now, want)
-      end
-      for _, existing in ipairs(project_sends(entry.handle)) do
-        local known = false
-        for _, send in ipairs(track.sends) do
-          if find_send({ existing }, entries[send.to] and entries[send.to].handle, send) then known = true end
-        end
-        if not known then
+    local handle = handles[track.name]
+    if handle then
+      for _, existing in ipairs(project_sends(handle)) do
+        if not template_handle[existing.dest] and not is_template_send(track, handles, existing) then
           notes.extra_sends[#notes.extra_sends + 1] = track.name .. " -> " .. track_name(existing.dest)
         end
       end
@@ -820,16 +999,16 @@ local function report_update(diffs, skipped, ambiguous, notes)
   for _, line in ipairs(applied_lines) do reaper.ShowConsoleMsg("  " .. line .. "\n") end
   print_list("Skipped", skipped_lines)
   print_list("Ambiguous (name used more than once; left alone)", ambiguous_names)
-  print_list("Parent differs from the template (not changed; move by hand if wanted)", notes.parents)
+  print_list("Move notes (check these tracks)", notes.moves)
   print_list("Tracks not in the template (left alone)", notes.extra_tracks)
-  print_list("Sends not in the template (left alone)", notes.extra_sends)
+  print_list("Sends to tracks not in the template (left alone)", notes.extra_sends)
 end
 
 local function update_project(tracks)
   local project = scan_project()
   local handles, entries, ambiguous = match_template(tracks, project)
-  local notes = project_notes(tracks, project, entries)
-  local diffs, skipped = collect_differences(tracks, handles, ambiguous)
+  local notes = project_notes(tracks, project, handles)
+  local diffs, skipped = collect_differences(tracks, handles, entries, ambiguous, notes)
   local total, missing = 0, 0
   for _, diff in ipairs(diffs) do
     if not diff.auto then total = total + 1 end

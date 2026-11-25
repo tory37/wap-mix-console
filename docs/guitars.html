@@ -44,7 +44,7 @@
     <p>Hard-pan the 7-string rhythms <code>100% L/R</code>. Keep them <strong>100% dry</strong>. JW BG-Guitars with Chug Slayer tames Drop G&ndash;Bb palm-mute boom.</p>
 
     <h3 id="rhythm-layout">Track layout: amp blend</h3>
-    <p>The template builds an amp blend, not a quad. Both DIs play through two amp sims. Amp A carries the tone. Amp B, the clarity amp, sits under it.</p>
+    <p>The template builds an amp blend, not a quad. Both DIs sum into one pitch-shift bus, <code>gtr_rhy_pitch</code>. It feeds two amp sims. Amp A carries the tone. Amp B, the clarity amp, sits under it.</p>
     <div class="table-wrap">
       <table class="table">
         <thead>
@@ -52,19 +52,49 @@
         </thead>
         <tbody>
           <tr><td><code>gtr_rhy_bus</code></td><td>Rhythm bus, 6 channels. Holds the post-amp chain below.</td><td>Keys: <code>sc_snare</code> on 3/4, <code>sc_spotlight</code> on 5/6. Sends only 1/2 to its parent.</td></tr>
-          <tr><td><code>gtr_rhy_amp_a</code></td><td>Folder inside <code>gtr_rhy_bus</code>. The main stereo amp sim is its first plugin.</td><td>The two DIs inside it feed it.</td></tr>
-          <tr><td><code>gtr_rhy_l</code> / <code>gtr_rhy_r</code></td><td>DIs inside <code>gtr_rhy_amp_a</code>.</td><td>Pan <span class="mono">100% L</span> / <span class="mono">100% R</span>, width <span class="mono">0%</span>. Post-fader <code>0.0 dB</code> send &rarr; <code>gtr_rhy_amp_b</code>.</td></tr>
-          <tr><td><code>gtr_rhy_amp_b</code></td><td>Clarity amp inside <code>gtr_rhy_bus</code>: a second stereo amp sim.</td><td>Fed only by the DI sends. Post-fader sends carry the pan, so amp B gets the same L/R image.</td></tr>
+          <tr><td><code>gtr_rhy_pitch</code></td><td>Folder inside <code>gtr_rhy_bus</code>. Holds the <a href="#rhythm-pitch">pitch shifter</a>.</td><td>Master/Parent Send OFF. Post-fader <code>0.0 dB</code> sends &rarr; <code>gtr_rhy_amp_a</code> and <code>gtr_rhy_amp_b</code>.</td></tr>
+          <tr><td><code>gtr_rhy_l</code> / <code>gtr_rhy_r</code></td><td>DIs inside <code>gtr_rhy_pitch</code>.</td><td>Pan <span class="mono">100% L</span> / <span class="mono">100% R</span>, width <span class="mono">0%</span>. No sends. The folder carries them.</td></tr>
+          <tr><td><code>gtr_rhy_amp_a</code></td><td>Main amp inside <code>gtr_rhy_bus</code>: a stereo amp sim.</td><td>Fed only by the <code>gtr_rhy_pitch</code> send.</td></tr>
+          <tr><td><code>gtr_rhy_amp_b</code></td><td>Clarity amp inside <code>gtr_rhy_bus</code>: a second stereo amp sim.</td><td>Fed only by the <code>gtr_rhy_pitch</code> send. Post-fader sends carry the pan, so both amps get the same L/R image.</td></tr>
         </tbody>
       </table>
     </div>
-    <p>One amp sim instance on each amp track processes both hard-panned DIs. That works only in the sim's stereo input mode. Disruptor has an Input button with mono and stereo modes. Its stereo mode processes "two instruments simultaneously". Archetype Nolly, Gojira and Petrucci and Fortin Nameless each have a Stereo switch, because the original hardware takes a mono input. Set stereo on amp A and amp B. To check, solo <code>gtr_rhy_l</code>: the sound must stay left. If it spreads right, the sim is still in mono mode.</p>
+    <p>One amp sim instance on each amp track processes both hard-panned DIs. That works only in the sim's stereo input mode. Disruptor has an Input button with mono and stereo modes. Its stereo mode processes "two instruments simultaneously". Archetype Nolly, Gojira and Petrucci and Fortin Nameless each have a Stereo switch, because the original hardware takes a mono input. Set stereo on amp A, amp B and the pitch shifter. To check, solo <code>gtr_rhy_l</code>: the sound must stay left. If it spreads right, the sim is still in mono mode.</p>
     <ol class="steps">
       <li><div><span class="steps__title">Width 0% on the DIs</span><p>The template sets the DIs to stereo pan mode with width 0%. Each DI is summed to mono, then panned. A stereo plugin on a DI cannot be half-muted by balance pan.</p></div></li>
       <li><div><span class="steps__title">Set amp A alone first</span><p>Mute <code>gtr_rhy_amp_b</code>. Dial the full tone on amp A.</p></div></li>
       <li><div><span class="steps__title">Blend amp B under it</span><p>Unmute amp B with its fader down. Raise it until the pick attack and note definition clear up, then back off a little. Amp A stays the louder amp (starting point).</p></div></li>
       <li><div><span class="steps__title">Check polarity</span><p>Two amp sims can partly cancel. Flip amp B's polarity with the Invert Polarity button on its Disruptor cab and keep the fuller, tighter result. Full procedure in <a href="#rhythm-amp-b">Amp B: clarity layer</a>.</p></div></li>
       <li><div><span class="steps__title">Check mono</span><p>Sum the mix to mono. The rhythm wall must not hollow out when amp B comes in.</p></div></li>
+    </ol>
+
+    <h3 id="rhythm-pitch">Pitch shift: gtr_rhy_pitch</h3>
+    <p>Archetype Petrucci on <code>gtr_rhy_pitch</code> works only as a pitch shifter. Its Transpose knob is set per song. Songs with no shift: Transpose 0, or bypass the plugin.</p>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">P</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">Archetype Petrucci (pitch only)</h4>
+            <span class="chip">Neural DSP</span>
+            <span class="tag">PITCH</span>
+            <button type="button" class="copy-btn" data-copy="guitars-rhy-pitch" aria-label="Copy Archetype Petrucci pitch shifter settings"></button>
+          </div>
+          <dl class="kv" id="guitars-rhy-pitch" data-copy-title="gtr_rhy_pitch - Archetype Petrucci (pitch only)">
+            <div class="kv__item"><dt>Track</dt><dd>gtr_rhy_pitch, the only plugin. The DI gates stay first on gtr_rhy_l and gtr_rhy_r</dd></div>
+            <div class="kv__item"><dt>Input mode</dt><dd>Stereo. Mono mode collapses the L/R double to the center</dd></div>
+            <div class="kv__item"><dt>Transpose</dt><dd>Per song, in semitones (range -12 to +12). 0 when the song needs no shift</dd></div>
+            <div class="kv__item"><dt>Gate</dt><dd>Off. The kHs Gate on each DI does this job</dd></div>
+            <div class="kv__item"><dt>Doubler</dt><dd>Off. The manual says it is disabled in stereo mode anyway</dd></div>
+            <div class="kv__item"><dt>Pedals</dt><dd>All off</dd></div>
+            <div class="kv__item"><dt>Amp</dt><dd>Power switch off (bypasses the amplifier section)</dd></div>
+            <div class="kv__item"><dt>EQ, Cab, rack FX</dt><dd>All off: 4-Band EQ, every IR loader and the room mic, Chorus, Delay, Reverb</dd></div>
+            <div class="kv__item"><dt>Input / Output gain</dt><dd>Unity. Gain staging happens on the amps (starting point)</dd></div>
+            <div class="kv__item"><dt>No shift</dt><dd>Transpose 0 or bypass the plugin</dd></div>
+          </dl>
+          <p class="rack__why">The Petrucci manual: the Transpose knob "moves the signal up or down in pitch by a constant interval (+12/-12 semitones)". Reasoning: one shifter ahead of both amps gives both the same shifted signal and the same latency, so amp A and amp B stay aligned. The parent send is off, so the dry DIs never reach <code>gtr_rhy_bus</code>.</p>
+        </div>
+      </li>
     </ol>
 
     <h3 id="rhythm-amp">Amp: JST Toneforge Disruptor</h3>
@@ -259,7 +289,7 @@
       </li>
     </ol>
     <p><strong>Blend.</strong> Start amp B <span class="mono">8&ndash;12 dB</span> under amp A (starting point). Raise it until it adds the detail you want, then pull it back slightly. Set the final level by ear in the full mix.</p>
-    <p><strong>Phase.</strong> Two different sims on one DI always interact. Plugin latency and cab IR timing differ, so amp B can arrive a few samples off.</p>
+    <p><strong>Phase.</strong> Two different sims on one DI always interact. Plugin latency and cab IR timing differ, so amp B can arrive a few samples off. The pitch shifter sits before both amps, so its latency adds equally to both and does not change this check.</p>
     <ol class="steps">
       <li><div><span class="steps__title">Set up the check</span><p>Solo <code>gtr_rhy_amp_a</code> and <code>gtr_rhy_amp_b</code>. Bring amp B up to amp A's level. Sum the monitor to mono.</p></div></li>
       <li><div><span class="steps__title">Polarity first</span><p>Flip amp B's polarity. Keep the setting with more low-mid body.</p></div></li>
@@ -274,7 +304,7 @@
       </div>
       <div class="settings__body">
         <dl class="kv" id="guitars-rhy-di-gate" data-copy-title="kHs Gate on gtr_rhy_l and gtr_rhy_r">
-          <div class="kv__item"><dt>Placement</dt><dd>First plugin on each DI, before the sends. Both amps get the same gated signal</dd></div>
+          <div class="kv__item"><dt>Placement</dt><dd>First plugin on each DI, before gtr_rhy_pitch. Both amps get the same gated signal</dd></div>
           <div class="kv__item"><dt>Threshold</dt><dd>High enough to close between chugs (starting point)</dd></div>
           <div class="kv__item"><dt>Tolerance</dt><dd>A few dB, so the gate does not chatter (starting point)</dd></div>
           <div class="kv__item"><dt>Hold, Release, Range</dt><dd>By ear on the fastest riff (starting point)</dd></div>
@@ -297,7 +327,7 @@
         </tbody>
       </table>
     </div>
-    <p>This table is tracking guidance. The template builds the double. For a quad, add the second pair as two more DI tracks inside <code>gtr_rhy_amp_a</code>. Give them the same width <span class="mono">0%</span> and their own post-fader sends to <code>gtr_rhy_amp_b</code>.</p>
+    <p>This table is tracking guidance. The template builds the double. For a quad, add the second pair as two more DI tracks inside <code>gtr_rhy_pitch</code>. Give them the same width <span class="mono">0%</span> and no sends. The folder feeds both amps.</p>
     <ol class="steps">
       <li><div><span class="steps__title">One player, both sides</span><p>Adam Dutkiewicz has the songwriter track both rhythm sides on Killswitch Engage records.</p></div></li>
       <li><div><span class="steps__title">Flatten the low string for chugs</span><p>Tune the low string about 15 cents flat for palm-mute sections. Hard picking pulls it sharp. Tune near zero for open chords.</p></div></li>
