@@ -118,6 +118,23 @@
           </div>
         </div>
         <p class="calc-card__note muted"><code>dBFS = 20 &times; log10(% / 100)</code>. <code>print_bus</code> parks GClip at <code>71%</code>, about <code>-3.0 dBFS</code>.</p>
+        <span class="label calc-card__title">Touch-point method</span>
+        <div class="calc-bar">
+          <div class="field">
+            <label class="label field__label" for="clip-touch">Touch point (%)</label>
+            <input class="input input--mono input--short" id="clip-touch" type="number" inputmode="decimal" min="0" max="100" step="any" value="25">
+          </div>
+          <div class="field">
+            <label class="label field__label" for="clip-shave">Shave (dB)</label>
+            <input class="input input--mono input--short" id="clip-shave" type="number" inputmode="decimal" min="0" step="any" value="1.5">
+          </div>
+          <div class="readout">
+            <span class="label readout__label">Set Clip to</span>
+            <span class="readout__value" id="clip-touch-out" aria-live="polite"></span>
+          </div>
+        </div>
+        <p class="calc-card__note muted" id="clip-touch-line" aria-live="polite"></p>
+        <p class="calc-card__note muted">Lower Clip until the line just touches the tallest spikes. That is the touch point. <code>Clip = touch &times; 10^(-shave / 20)</code>. At the ladder levels the touch point sits near <code>25&ndash;40%</code> (<code>-12 to -8 dBFS</code>). Press <kbd>Alt G</kbd> on any page for the same tool.</p>
       </div>
 
       <div class="calc-card calc-card--wide">

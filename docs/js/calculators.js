@@ -349,6 +349,31 @@
     });
   }
 
+  function initClipTouchPoint() {
+    var touch = $("clip-touch");
+    var shave = $("clip-shave");
+    var G = root.WAP_GCLIP;
+    if (!touch || !shave || !G) return;
+
+    function render() {
+      var touchPct = readNumber(touch);
+      var shaveDb = readNumber(shave);
+      var clipPct = G.clipFromTouch(touchPct, shaveDb);
+      if (!isNumber(clipPct)) {
+        setText("clip-touch-out", "");
+        setText("clip-touch-line", "Enter a touch point above 0% and a shave of 0 dB or more.");
+        return;
+      }
+      setText("clip-touch-out", G.pctText(clipPct) + "%");
+      setText("clip-touch-line", "Line at " + fixed(G.pctToDb(clipPct), 1) + " dBFS. Touch point at " +
+        fixed(G.pctToDb(G.clampPct(touchPct)), 1) + " dBFS. Shaves " + fixed(shaveDb, 1) + " dB.");
+    }
+
+    touch.addEventListener("input", render);
+    shave.addEventListener("input", render);
+    render();
+  }
+
   function initGain() {
     var db = $("gain-db");
     var linear = $("gain-linear");
@@ -367,6 +392,8 @@
         function (v) { return isNumber(v) ? C.dbfsToClipPct(v) : NaN; },
         2, 1);
     }
+
+    initClipTouchPoint();
 
     var stack = $("gain-stack");
     if (!stack) return;

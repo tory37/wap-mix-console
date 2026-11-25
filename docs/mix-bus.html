@@ -215,9 +215,10 @@
             <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
             <div class="kv__item"><dt>Gain</dt><dd>0.0 dB</dd></div>
             <div class="kv__item"><dt>Softness</dt><dd>15&ndash;25%</dd></div>
-            <div class="kv__item"><dt>Clip</dt><dd>71% at the <code>-2 to -1 dBFS</code> input (shaves about 1.0&ndash;2.0 dB)</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>Start at 71% for the <code>-2 to -1 dBFS</code> input (shaves about 1.0&ndash;2.0 dB)</dd></div>
+            <div class="kv__item"><dt>Exact</dt><dd>Touch point &times; 0.89 (1 dB) to &times; 0.79 (2 dB)</dd></div>
           </dl>
-          <p class="rack__why">Cuts 1 ms snare and kick spikes. Max #2 then runs cleaner and louder. Clip is a percent of the maximum sample value, not dB. With peaks at 0 dBFS, 89% shaves about 1 dB and 79% about 2 dB. At the ladder input, 71% shaves the same 1&ndash;2 dB.</p>
+          <p class="rack__why">Cuts 1 ms snare and kick spikes. Max #2 then runs cleaner and louder. Clip is a percent of full scale: 100% is 0 dBFS. 71% puts the line at <code>-3.0 dBFS</code>, 1&ndash;2 dB under the ladder input. To set it exactly, lower Clip until the line just meets the tallest spikes. Multiply that percent by <code>0.89</code> to <code>0.79</code>. GClip has no GR meter: the gap between the line and the peaks is the reduction. Use the GClip float tool (<kbd>Alt G</kbd>).</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Clip (adds color)</span></span>
@@ -276,7 +277,7 @@
     <ol class="steps">
       <li><div><span class="steps__title">Sweep Max #1 Tone</span><p>Sweep Dark &harr; Bright. GR must stay at <code class="val-ok">0.0 dB</code>.</p></div></li>
       <li><div><span class="steps__title">Decide on Soothe2</span><p>Engage Slot 4 only if needed. Factory default, low cut node to <code>250 Hz</code>, Depth <code>0.8&ndash;1.2</code>.</p></div></li>
-      <li><div><span class="steps__title">Set GClip</span><p>Clip <code>71%</code> shaves about <code>1.0&ndash;2.0 dB</code> off the <code>-2 to -1 dBFS</code> peaks. If your peaks sit elsewhere, set the percent from the peak reading: with peaks at 0 dBFS, <code>89%</code> shaves 1 dB and <code>79%</code> shaves 2 dB.</p></div></li>
+      <li><div><span class="steps__title">Set GClip</span><p>Clip <code>71%</code> shaves about <code>1.0&ndash;2.0 dB</code> off the <code>-2 to -1 dBFS</code> peaks. If your peaks sit elsewhere, use the touch point: lower Clip until the line meets the tallest spikes, then multiply by <code>0.89</code> (1 dB) to <code>0.79</code> (2 dB).</p></div></li>
       <li><div><span class="steps__title">Raise Soothe2 render quality</span><p>In one soothe2 instance, set the offline rendering quality (right-hand column of the quality popup) to <code>4x</code> Oversample <span class="chip">unverified</span>. Then pick "copy to all plug-in instances" in the offline settings menu. Every instance renders at that quality.</p></div></li>
       <li><div><span class="steps__title">Push Max #2</span><p>Raise Maximize to <code class="val-warn">2.5&ndash;4.5 dB GR</code>. Threshold (ceiling) <code class="val-danger">-2.5 dB</code>.</p></div></li>
       <li><div><span class="steps__title">Check true peak</span><p>Put FG-X 2 after Max #2 as a meter. Leave its FG-Comp and FG-Level off <span class="chip">unverified</span>. Max true peak must read <code class="val-danger">-2.0 dBTP</code> or lower for streaming. If it reads higher, lower the Max #2 Threshold. A CD or download master may use <code>-1.0 dBTP</code>.</p></div></li>
@@ -328,7 +329,7 @@
         </thead>
         <tbody>
           <tr><td>Slate hybrid</td><td>VCC MixBuss &gt; Coffee The Pun &gt; FG-Grey &gt; VTM &gt; FG-X 2</td><td class="mono">FG-X 2 FG-Level 1.5&ndash;2.5 dB GR, Detail +0.6, LoPunch +0.8 (starting points)</td></tr>
-          <tr><td>Stock + TDR</td><td>SlickEQ &gt; Kotelnikov &gt; GClip &gt; ReaLimit</td><td class="mono">Kotelnikov 1 dB, Low Freq Relax 100 Hz; GClip shaves about 1 dB (Clip 89% with peaks at 0 dBFS); ReaLimit ceiling -0.5 dBFS (True peak display)</td></tr>
+          <tr><td>Stock + TDR</td><td>SlickEQ &gt; Kotelnikov &gt; GClip &gt; ReaLimit</td><td class="mono">Kotelnikov 1 dB, Low Freq Relax 100 Hz; GClip shaves about 1 dB (Clip = touch point &times; 0.89); ReaLimit ceiling -0.5 dBFS (True peak display)</td></tr>
           <tr><td>JST glue</td><td>BG-Mix &gt; JST Maximizer (Rock)</td><td class="mono">BG-Mix Careful 1.0&ndash;2.5 dB GR, never over 3 dB</td></tr>
         </tbody>
       </table>

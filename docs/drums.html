@@ -90,12 +90,13 @@
             <button type="button" class="copy-btn" data-copy="kick-2" aria-label="Copy kick GClip settings"></button>
           </div>
           <dl class="kv" id="kick-2" data-copy-title="kick_bus - GClip">
-            <div class="kv__item"><dt>Clip</dt><dd>84&ndash;89% (shaves about 1.5&ndash;1.0 dB)</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>Touch point &times; 0.89 (1 dB) to &times; 0.84 (1.5 dB)</dd></div>
+            <div class="kv__item"><dt>Example</dt><dd>Touch 25% (-12 dBFS) &gt; Clip 22&ndash;21%</dd></div>
             <div class="kv__item"><dt>Softness</dt><dd>Raised (soft knee)</dd></div>
             <div class="kv__item"><dt>Target</dt><dd>Beater spikes</dd></div>
             <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
           </dl>
-          <p class="rack__why">Tames the click spike so the sub can sit louder. GClip's Clip control is a percent of the maximum sample value, not dB. With Gain at 0 and peaks at 0 dBFS: 89% shaves about 1 dB, 84% about 1.5 dB, 79% about 2 dB, 75% about 2.5 dB. Otherwise, set it while you watch the wave display.</p>
+          <p class="rack__why">Tames the click spike so the sub can sit louder. Clip is a percent of full scale: 100% is 0 dBFS. The kick peaks near <code>-12 to -10 dBFS</code>, so the touch point sits near <code>25&ndash;32%</code>. A fixed percent does nothing at that level. Lower Clip until the line just meets the tallest spikes. Multiply that percent by <code>0.89</code> to <code>0.84</code>. Only the spikes should cross the line. If the body crosses, back off. GClip has no GR meter: the gap between the line and the peaks is the reduction. Use the GClip float tool (<kbd>Alt G</kbd>).</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Clip</span></span>
@@ -143,12 +144,13 @@
             <button type="button" class="copy-btn" data-copy="snare-2" aria-label="Copy snare GClip settings"></button>
           </div>
           <dl class="kv" id="snare-2" data-copy-title="snr_bus - GClip">
-            <div class="kv__item"><dt>Clip</dt><dd>75&ndash;84% (shaves about 2.5&ndash;1.5 dB)</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>Touch point &times; 0.84 (1.5 dB) to &times; 0.75 (2.5 dB)</dd></div>
+            <div class="kv__item"><dt>Example</dt><dd>Touch 25% (-12 dBFS) &gt; Clip 21&ndash;19%</dd></div>
             <div class="kv__item"><dt>Softness</dt><dd>0% (hard clip)</dd></div>
             <div class="kv__item"><dt>Target</dt><dd>Stick spikes</dd></div>
             <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
           </dl>
-          <p class="rack__why">Essential. A rimshot spike lasts under 2 ms. Shaving it frees headroom with no loss of punch.</p>
+          <p class="rack__why">Essential. A rimshot spike lasts under 2 ms. Shaving it frees headroom with no loss of punch. The snare peaks near <code>-12 to -10 dBFS</code>, so the touch point sits near <code>25&ndash;32%</code>. Lower Clip until the line just meets the tallest spikes, then multiply. If the body crosses the line, back off. Use the GClip float tool (<kbd>Alt G</kbd>).</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Clip (adds crack)</span></span>
@@ -213,10 +215,11 @@
             <button type="button" class="copy-btn" data-copy="toms-3" aria-label="Copy toms GClip settings"></button>
           </div>
           <dl class="kv" id="toms-3" data-copy-title="tom_bus - GClip">
-            <div class="kv__item"><dt>Clip</dt><dd>79&ndash;84% (shaves about 2.0&ndash;1.5 dB)</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>Touch point &times; 0.84 (1.5 dB) to &times; 0.79 (2 dB)</dd></div>
+            <div class="kv__item"><dt>Example</dt><dd>Touch 25% (-12 dBFS) &gt; Clip 21&ndash;20%</dd></div>
             <div class="kv__item"><dt>Send</dt><dd>fx_snr_plate at -8 to -10 dB</dd></div>
           </dl>
-          <p class="rack__why">Evens out fill peaks. A subtle plate send glues toms to the snare space.</p>
+          <p class="rack__why">Evens out fill peaks. A subtle plate send glues toms to the snare space. Set the touch point on the loudest fill. Only the spikes should cross the line. Use the GClip float tool (<kbd>Alt G</kbd>).</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Clip</span></span>
@@ -442,10 +445,11 @@
             <button type="button" class="copy-btn" data-copy="dbus-3" aria-label="Copy drum_bus GClip settings"></button>
           </div>
           <dl class="kv" id="dbus-3" data-copy-title="drum_bus - GClip">
-            <div class="kv__item"><dt>Clip</dt><dd>Subtle, 84&ndash;89% (shaves about 1.5&ndash;1.0 dB)</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>Subtle: touch point &times; 0.89 (1 dB) to &times; 0.84 (1.5 dB)</dd></div>
+            <div class="kv__item"><dt>Example</dt><dd>Touch 40% (-8 dBFS) &gt; Clip 36&ndash;34%</dd></div>
             <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
           </dl>
-          <p class="rack__why">Catches kick, snare and crash hitting together before <code>instrument_bus</code>.</p>
+          <p class="rack__why">Catches kick, snare and crash hitting together before <code>instrument_bus</code>. <code>drum_bus</code> peaks near <code>-9 to -7 dBFS</code>, so the touch point sits near <code>35&ndash;45%</code>. Lower Clip until the line just meets the tallest spikes, then multiply. Use the GClip float tool (<kbd>Alt G</kbd>).</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Clip</span></span>
@@ -467,7 +471,7 @@
           <tr><td>Kick and bass still mask each other</td><td>Do not boost the kick below <code>75 Hz</code> in this tuning. Push the <code>sc_kick</code> duck toward <code>3.5 dB</code>.</td><td>ReaEQ / ReaComp</td></tr>
           <tr><td>Kick sounds like cardboard</td><td>Cut <code>-4 to -5 dB</code> at <code>280&ndash;350 Hz</code>.</td><td>ReaEQ</td></tr>
           <tr><td>Snare rings</td><td>Cut <code>-3 dB</code> at <code>550&ndash;700 Hz</code>.</td><td>ReaEQ</td></tr>
-          <tr><td>Snare spikes eat headroom</td><td>Hard clip, Clip <code>75&ndash;84%</code> (about <code>2.5&ndash;1.5 dB</code>).</td><td>GClip, 2x OS</td></tr>
+          <tr><td>Snare spikes eat headroom</td><td>Hard clip. Find the touch point, then Clip <code>= touch &times; 0.84</code> to <code>&times; 0.75</code> (<code>1.5&ndash;2.5 dB</code>).</td><td>GClip, 2x OS</td></tr>
           <tr><td>Toms ring into the next bar</td><td>Sustain <code>-20% to -35%</code>.</td><td>kHs Transient Shaper</td></tr>
           <tr><td>Snare phasey with overheads up</td><td>OH HPF <code>400&ndash;450 Hz</code>, 24 dB/oct.</td><td>ReaEQ</td></tr>
           <tr><td>Harsh cymbals</td><td>Soothe2 low cut band <code>1.5&ndash;2.0 kHz</code>, Depth <code>2.0&ndash;3.5</code>. Avoid it on shells.</td><td>Soothe2</td></tr>

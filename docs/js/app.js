@@ -24,7 +24,8 @@
     menu: '<line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/>',
     close: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
     copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
-    check: '<path d="M20 6 9 17l-5-5"/>'
+    check: '<path d="M20 6 9 17l-5-5"/>',
+    gclip: '<path d="M2 6h20" stroke-dasharray="2 3"/><path d="M2 15h3l3-9 4 13 3-7h7"/>'
   };
 
   function icon(name) {
@@ -352,10 +353,261 @@
     });
   }
 
+  /* ---------------------------------------------------------------- GClip float */
+  // GClip's Clip control is a percent of full scale: 0 dBFS = 100%.
+  var GCLIP_FULL_SCALE_PCT = 100;
+  var GCLIP_STORE_KEY = "wap-gclip-float";
+  var GCLIP_SHAVE_PRESETS_DB = [1, 1.5, 2, 2.5];
+  var GCLIP_DEFAULT_SHAVE_DB = 1.5;
+  var GCLIP_MAX_SHAVE_DB = 24;
+  var GCLIP_WHOLE_PCT_FROM = 10;
+
+  function isFiniteNumber(n) {
+    return typeof n === "number" && isFinite(n);
+  }
+
+  function gclipPctToDb(pct) {
+    return pct > 0 ? 20 * Math.log10(pct / GCLIP_FULL_SCALE_PCT) : NaN;
+  }
+
+  function gclipDbToPct(db) {
+    return isFiniteNumber(db) ? GCLIP_FULL_SCALE_PCT * Math.pow(10, db / 20) : NaN;
+  }
+
+  function gclipClampPct(pct) {
+    if (!(pct > 0)) return NaN;
+    return Math.min(pct, GCLIP_FULL_SCALE_PCT);
+  }
+
+  function gclipFromTouch(touchPct, shaveDb) {
+    var touch = gclipClampPct(touchPct);
+    if (!isFiniteNumber(touch) || !isFiniteNumber(shaveDb) || shaveDb < 0) return NaN;
+    return touch * Math.pow(10, -shaveDb / 20);
+  }
+
+  function gclipPctText(pct) {
+    if (!isFiniteNumber(pct)) return "";
+    return pct.toFixed(pct >= GCLIP_WHOLE_PCT_FROM ? 0 : 1);
+  }
+
+  window.WAP_GCLIP = {
+    FULL_SCALE_PCT: GCLIP_FULL_SCALE_PCT,
+    pctToDb: gclipPctToDb,
+    dbToPct: gclipDbToPct,
+    clampPct: gclipClampPct,
+    clipFromTouch: gclipFromTouch,
+    pctText: gclipPctText
+  };
+
+  function readFieldNumber(input) {
+    var raw = String(input.value).trim().replace(",", ".");
+    if (raw === "") return NaN;
+    return Number(raw);
+  }
+
+  function fixedText(n, digits) {
+    var text = n.toFixed(digits);
+    return Number(text) === 0 ? (0).toFixed(digits) : text;
+  }
+
+  function readGclipState() {
+    try {
+      var parsed = JSON.parse(window.localStorage.getItem(GCLIP_STORE_KEY) || "null");
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (err) {
+      return {};
+    }
+  }
+
+  function writeGclipState(state) {
+    try {
+      window.localStorage.setItem(GCLIP_STORE_KEY, JSON.stringify(state));
+    } catch (err) {
+      // Storage can be blocked (private mode, file://); the tool still works without it.
+    }
+  }
+
+  function gclipPresetButtonsHtml() {
+    return GCLIP_SHAVE_PRESETS_DB.map(function (db) {
+      return '<button type="button" class="gclip-float__preset" data-shave="' + db + '" aria-pressed="false">' + db + " dB</button>";
+    }).join("");
+  }
+
+  function initGclipFloat() {
+    var trigger = document.createElement("button");
+    trigger.type = "button";
+    trigger.className = "gclip-trigger";
+    trigger.setAttribute("aria-controls", "gclip-float");
+    trigger.setAttribute("aria-expanded", "false");
+    trigger.setAttribute("aria-label", "GClip clip level calculator (Alt+G)");
+    trigger.innerHTML = icon("gclip") + '<span class="gclip-trigger__text">GClip</span><kbd>Alt G</kbd>';
+
+    var panel = document.createElement("div");
+    panel.className = "gclip-float";
+    panel.id = "gclip-float";
+    panel.hidden = true;
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-modal", "false");
+    panel.setAttribute("aria-label", "GClip clip level");
+    panel.innerHTML =
+      '<div class="gclip-float__head">' +
+      '<span class="label gclip-float__title">GClip clip level</span>' +
+      '<button type="button" class="gclip-float__close" aria-label="Close GClip calculator">' + icon("close") + "</button>" +
+      "</div>" +
+      '<div class="gclip-float__body">' +
+      '<div class="gclip-float__pair">' +
+      '<div class="field"><label class="label field__label" for="gclip-touch">Touch point (%)</label>' +
+      '<input class="input input--mono" id="gclip-touch" type="number" inputmode="decimal" min="0" max="100" step="any" placeholder="25"></div>' +
+      '<div class="field"><label class="label field__label" for="gclip-peak">Peak (dBFS)</label>' +
+      '<input class="input input--mono" id="gclip-peak" type="number" inputmode="decimal" max="0" step="any" placeholder="-12.0"></div>' +
+      "</div>" +
+      '<div class="field"><span class="label field__label" id="gclip-shave-label">Shave</span>' +
+      '<div class="gclip-float__shave" role="group" aria-labelledby="gclip-shave-label">' +
+      '<div class="gclip-float__presets">' + gclipPresetButtonsHtml() + "</div>" +
+      '<input class="input input--mono gclip-float__custom" id="gclip-shave" type="number" inputmode="decimal" min="0" step="any" aria-label="Custom shave (dB)">' +
+      "</div></div>" +
+      '<div class="readout gclip-float__readout" aria-live="polite">' +
+      '<span class="label readout__label">Set Clip to</span>' +
+      '<span class="readout__value" id="gclip-out">-</span>' +
+      '<span class="gclip-float__line muted" id="gclip-line">Enter the touch point.</span>' +
+      "</div>" +
+      '<p class="gclip-float__hint muted">Lower Clip until the line touches the tallest spikes. Enter that %.</p>' +
+      "</div>";
+
+    document.body.appendChild(panel);
+    document.body.appendChild(trigger);
+
+    var touchInput = panel.querySelector("#gclip-touch");
+    var peakInput = panel.querySelector("#gclip-peak");
+    var shaveInput = panel.querySelector("#gclip-shave");
+    var presetButtons = panel.querySelectorAll(".gclip-float__preset");
+    var output = panel.querySelector("#gclip-out");
+    var line = panel.querySelector("#gclip-line");
+
+    var saved = readGclipState();
+    var state = {
+      isOpen: saved.isOpen === true,
+      touchPct: isFiniteNumber(saved.touchPct) ? saved.touchPct : NaN,
+      shaveDb: isFiniteNumber(saved.shaveDb) ? saved.shaveDb : GCLIP_DEFAULT_SHAVE_DB
+    };
+
+    function save() {
+      writeGclipState({
+        isOpen: state.isOpen,
+        touchPct: isFiniteNumber(state.touchPct) ? state.touchPct : null,
+        shaveDb: state.shaveDb
+      });
+    }
+
+    function renderPresets() {
+      presetButtons.forEach(function (btn) {
+        var isActive = Number(btn.getAttribute("data-shave")) === state.shaveDb;
+        btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+    }
+
+    function renderReadout() {
+      var clipPct = gclipFromTouch(state.touchPct, state.shaveDb);
+      if (!isFiniteNumber(clipPct)) {
+        output.textContent = "-";
+        line.textContent = "Enter the touch point.";
+        return;
+      }
+      output.textContent = gclipPctText(clipPct) + "%";
+      line.textContent = "Line at " + fixedText(gclipPctToDb(clipPct), 1) + " dBFS · shaves " + state.shaveDb + " dB";
+    }
+
+    function setShave(db) {
+      state.shaveDb = db;
+      renderPresets();
+      renderReadout();
+      save();
+    }
+
+    touchInput.addEventListener("input", function () {
+      state.touchPct = gclipClampPct(readFieldNumber(touchInput));
+      peakInput.value = isFiniteNumber(state.touchPct) ? fixedText(gclipPctToDb(state.touchPct), 1) : "";
+      renderReadout();
+      save();
+    });
+    touchInput.addEventListener("change", function () {
+      if (readFieldNumber(touchInput) > GCLIP_FULL_SCALE_PCT) touchInput.value = String(GCLIP_FULL_SCALE_PCT);
+    });
+
+    peakInput.addEventListener("input", function () {
+      var peakDb = Math.min(readFieldNumber(peakInput), 0);
+      state.touchPct = gclipClampPct(gclipDbToPct(peakDb));
+      touchInput.value = isFiniteNumber(state.touchPct) ? fixedText(state.touchPct, 1) : "";
+      renderReadout();
+      save();
+    });
+
+    presetButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var db = Number(btn.getAttribute("data-shave"));
+        shaveInput.value = String(db);
+        setShave(db);
+      });
+    });
+
+    shaveInput.addEventListener("input", function () {
+      var db = readFieldNumber(shaveInput);
+      if (!isFiniteNumber(db) || db < 0 || db > GCLIP_MAX_SHAVE_DB) return;
+      setShave(db);
+    });
+
+    function open(shouldFocus) {
+      state.isOpen = true;
+      panel.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      if (shouldFocus) touchInput.focus();
+      save();
+    }
+
+    function close() {
+      var hadFocus = panel.contains(document.activeElement);
+      state.isOpen = false;
+      panel.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+      if (hadFocus) trigger.focus();
+      save();
+    }
+
+    function toggle() {
+      if (state.isOpen) close(); else open(true);
+    }
+
+    trigger.addEventListener("click", toggle);
+    panel.querySelector(".gclip-float__close").addEventListener("click", close);
+    panel.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      e.preventDefault();
+      close();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      var isAltG = e.altKey && !e.ctrlKey && !e.metaKey && (e.code === "KeyG" || e.key === "g" || e.key === "G");
+      if (!isAltG) return;
+      if (document.querySelector(".palette.is-open")) return;
+      e.preventDefault();
+      toggle();
+    });
+
+    if (isFiniteNumber(state.touchPct)) {
+      touchInput.value = fixedText(state.touchPct, 1);
+      peakInput.value = fixedText(gclipPctToDb(state.touchPct), 1);
+    }
+    shaveInput.value = String(state.shaveDb);
+    renderPresets();
+    renderReadout();
+    if (state.isOpen) open(false);
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     buildRail();
     initCopyButtons();
     initPalette();
     initLandingHighlight();
+    initGclipFloat();
   });
 })();
