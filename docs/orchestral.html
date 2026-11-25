@@ -31,7 +31,7 @@
           <tr><th scope="col">Role</th><th scope="col">When</th><th scope="col">Writing</th><th scope="col">Mix</th></tr>
         </thead>
         <tbody>
-          <tr><td>Pad</td><td>Under a busy or syncopated vocal</td><td>Slow whole and half notes. Divisi chords in violins 2 and violas.</td><td>Back. More hall. Mid cut on.</td></tr>
+          <tr><td>Pad</td><td>Under a busy or syncopated vocal</td><td>Slow whole and half notes. Divisi chords inside the strings patch (its violin 2 and viola voices).</td><td>Back. More hall. Mid cut on.</td></tr>
           <tr><td>Counter-melody</td><td>In gaps between vocal phrases</td><td>Simple line. High violin register, often in octaves.</td><td>Forward. Less hall. Ride it up in the gaps.</td></tr>
           <tr><td>Rhythmic drive</td><td>Builds, pre-choruses</td><td>Fast 16th figures in unison octaves. Cellos an octave below.</td><td>Drier. Shorts get less reverb than longs.</td></tr>
         </tbody>
@@ -50,7 +50,7 @@
         </thead>
         <tbody>
           <tr><td>Violins</td><td>An octave or more above the vocal melody</td><td>The high register cuts through a dense mix. It stays out of the vocal octave.</td></tr>
-          <tr><td>Violas / violins 2</td><td>Chord tones between vocal and violins</td><td>Fills the middle without doubling the vocal line.</td></tr>
+          <tr><td>Violas / violins 2 (inside the strings patch)</td><td>Chord tones between vocal and violins</td><td>Fills the middle without doubling the vocal line. No track of its own: <code>orch_str_vln</code> carries the ensemble patch, and the 7-string wall already fills the viola range (reasoning).</td></tr>
           <tr><td>Cellos</td><td>Above the guitar chug body. Octave under the violin line.</td><td>Warmth at <code>100&ndash;300 Hz</code> without stacking on the riff root.</td></tr>
           <tr><td>Basses</td><td>Usually leave out. If used, double cellos an octave down and pan center.</td><td>A double bass low E is <code>41 Hz</code>. That is kick and bass guitar territory.</td></tr>
         </tbody>
@@ -92,7 +92,7 @@
       <li><div><span class="steps__title">Double in octaves</span><p>Put the line in violins and an octave down in cellos. Octave doubling is how arrangers lift a second chorus.</p></div></li>
       <li><div><span class="steps__title">Layer a second library on long notes only</span><p>Add BBC Symphony Orchestra or DSK Strings under LABS longs. Doubling everything sounds massive but loses detail. This is a starting point.</p></div></li>
       <li><div><span class="steps__title">Taper the note ends</span><p>Players fade a long note out. Draw a short diminuendo on each release. Hard cut-offs sound sampled.</p></div></li>
-      <li><div><span class="steps__title">Make each section full before it meets the band</span><p>Mix bottom-up: cellos, then violas, then violins. Add weight first. Cut only where it clashes.</p></div></li>
+      <li><div><span class="steps__title">Make each section full before it meets the band</span><p>Mix bottom-up: cellos, then violins (violas live in the strings patch). Add weight first. Cut only where it clashes.</p></div></li>
       <li><div><span class="steps__title">Saturate lightly</span><p>Tape saturation adds density. See slot 4 in the chain.</p></div></li>
       <li><div><span class="steps__title">Split shorts and longs</span><p>Shorts read wetter than longs. Send shorts less hall than longs.</p></div></li>
     </ol>
@@ -127,7 +127,7 @@
             <button type="button" class="copy-btn" data-copy="orchestral-str-eq" aria-label="Copy JST EQ (Mid/Side) settings"></button>
           </div>
           <dl class="kv" id="orchestral-str-eq" data-copy-title="Slot 2 - JST EQ (Mid/Side)">
-            <div class="kv__item"><dt>High Pass</dt><dd>150&ndash;180 Hz (violins, violas, pads). Cellos with a line: 100&ndash;120 Hz, starting point.</dd></div>
+            <div class="kv__item"><dt>High Pass</dt><dd>150&ndash;180 Hz (violins and their patch violas, pads). Cellos with a line: 100&ndash;120 Hz, starting point.</dd></div>
             <div class="kv__item"><dt>Low Pass</dt><dd>8&ndash;10 kHz</dd></div>
             <div class="kv__item"><dt>Peak, Processing Mode Mid</dt><dd>-2.5 dB @ 1.5&ndash;3 kHz</dd></div>
             <div class="kv__item"><dt>Peak, Processing Mode Side</dt><dd>+2 dB @ 3&ndash;5 kHz</dd></div>
@@ -163,7 +163,7 @@
           </div>
           <dl class="kv" id="orchestral-str-vtm" data-copy-title="Slot 4 - Virtual Tape Machines (optional)">
             <div class="kv__item"><dt>Machine</dt><dd>2-Inch 16-Track</dd></div>
-            <div class="kv__item"><dt>Tape Type</dt><dd>456 (thicker lows) or GP9 (more punch)</dd></div>
+            <div class="kv__item"><dt>Tape Type</dt><dd>FG456 (thicker lows) or FG9 (more punch)</dd></div>
             <div class="kv__item"><dt>Input</dt><dd>Push until the strings thicken. Starting point.</dd></div>
             <div class="kv__item"><dt>Output</dt><dd>Level-match to bypass</dd></div>
           </dl>
@@ -181,7 +181,7 @@
       <div class="settings__body">
         <dl class="kv" id="orchestral-str-sends" data-copy-title="String routing">
           <div class="kv__item"><dt>Output</dt><dd>orch_syn_bus</dd></div>
-          <div class="kv__item"><dt>Send</dt><dd>20&ndash;30% &rarr; fx_hall</dd></div>
+          <div class="kv__item"><dt>Send</dt><dd>-14 to -10 dB &rarr; fx_hall (template -12 dB, about 25%)</dd></div>
           <div class="kv__item"><dt>Shorts send</dt><dd>Lower than longs. Starting point: half the longs send.</dd></div>
         </dl>
       </div>
@@ -263,7 +263,7 @@
 
   <section class="section">
     <h2 id="bus">orch_syn_bus</h2>
-    <p>Strings and synths share one parent folder. It sums into <code>instrument_bus</code>. <code>sc_spotlight</code> ducks it through the parent folder.</p>
+    <p>Strings and synths share one parent folder. It sums into <code>instrument_bus</code>. <code>sc_spotlight</code> ducks it through the parent folder. <code>fx_hall</code> is not inside it: the hall sits beside it in <code>instrument_bus</code>, so hall tails from strings and <code>gtr_mel_bus</code> skip this bus glue.</p>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -302,6 +302,24 @@
             <div class="kv__item"><dt>Mode</dt><dd>Soft</dd></div>
           </dl>
           <p class="rack__why">Softens saw buzz and bow edge so the bus sits behind heavy guitars.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">3</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">TDR Nova (optional snare dip, bypassed)</h4>
+            <span class="chip">Tokyo Dawn</span>
+            <span class="tag">DYN EQ</span>
+            <button type="button" class="copy-btn" data-copy="orchestral-bus-snare" aria-label="Copy TDR Nova (optional snare dip, bypassed) settings"></button>
+          </div>
+          <dl class="kv" id="orchestral-bus-snare" data-copy-title="Slot 3 - TDR Nova (optional snare dip, bypassed)">
+            <div class="kv__item"><dt>Default</dt><dd>Bypassed</dd></div>
+            <div class="kv__item"><dt>Sidechain Input</dt><dd>EXT SC, key = sc_snare on channels 3/4</dd></div>
+            <div class="kv__item"><dt>Band 1</dt><dd>Bell @ 210 Hz, Threshold on, 1&ndash;2 dB of dip at most</dd></div>
+            <div class="kv__item"><dt>Band 2</dt><dd>Bell @ 2.8 kHz, Threshold on, 1&ndash;2 dB of dip at most</dd></div>
+          </dl>
+          <p class="rack__why">The template keys <code>orch_syn_bus</code> from <code>sc_snare</code>. Switch this slot on only if dense strings or synths blur the snare body or crack. Keep it light: under sung choruses, keyed motion reads as pumping. Start at 1 dB (reasoning).</p>
         </div>
       </li>
     </ol>
@@ -350,7 +368,7 @@
       <li>How to EQ synths so they stop fighting your guitars (Eyal Levi, Chelsea Grin). Nail The Mix.</li>
       <li>Mixing Metal Guitars Around Orchestral Arrangements (Lasse Lammert, Alestorm). Nail The Mix.</li>
       <li>Mixing Orchestral Samples (Christian Henson, Jake Jackson). Spitfire Audio.</li>
-      <li>JW BG-Keys manual; VM Custom Opto docs; Virtual Tape Machines docs; JST BG-Keys manual. Vendor manuals.</li>
+      <li>JW BG-Keys manual; VM Custom Opto docs; Virtual Tape Machines docs (tape types FG456, FG9); JST BG-Keys manual; TDR Nova manual (EXT SC, Threshold). Vendor manuals.</li>
     </ol>
   </footer>
 

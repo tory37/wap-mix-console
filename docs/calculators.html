@@ -139,7 +139,7 @@
 
   <section class="section">
     <h2 id="loudness">Loudness and streaming</h2>
-    <p>Enter the master's integrated loudness and true peak. The table shows how far each platform turns it down. The site prints at <code>-8.5 to -7.5 LUFS</code>, about <code>-8 LUFS</code>, with true peak at or below <code>-1.0 dBTP</code>.</p>
+    <p>Enter the master's integrated loudness and true peak. The table shows how far each platform turns it down. The site prints at <code>-8.5 to -7.5 LUFS</code>, about <code>-8 LUFS</code>, with true peak at or below <code>-2.0 dBTP</code> for streaming. Only a CD or download master may go to <code>-1.0 dBTP</code>.</p>
     <div class="calc-bar">
       <div class="field">
         <label class="label field__label" for="loud-lufs">Integrated (LUFS)</label>
@@ -147,7 +147,7 @@
       </div>
       <div class="field">
         <label class="label field__label" for="loud-tp">True peak (dBTP)</label>
-        <input class="input input--mono" id="loud-tp" type="number" inputmode="decimal" step="any" value="-1.0">
+        <input class="input input--mono" id="loud-tp" type="number" inputmode="decimal" step="any" value="-2.0">
       </div>
     </div>
     <p class="calc-target" id="loud-target" aria-live="polite"></p>

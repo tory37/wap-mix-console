@@ -40,13 +40,13 @@
     bassHpfHigh: 35,
     rhythmHpfLow: 85,
     rhythmHpfHigh: 100,
-    kickPunchLow: 50,
-    kickPunchHigh: 70,
+    kickPunchLow: 75,
+    kickPunchHigh: 85,
     loudnessTargetLoud: -7.5,
     loudnessTargetQuiet: -8.5,
     loudnessCeiling: -7,
-    truePeakMax: -1,
-    spotifyLoudTruePeak: -2,
+    truePeakMax: -2,
+    truePeakCdMax: -1,
     spotifyReference: -14
   };
 
@@ -119,8 +119,8 @@
   }
 
   function truePeakVerdict(lufs, truePeak) {
-    if (truePeak > GUIDE.truePeakMax) return "over-ceiling";
-    if (truePeak > GUIDE.spotifyLoudTruePeak && lufs > GUIDE.spotifyReference) return "spotify-loud";
+    if (truePeak > GUIDE.truePeakCdMax) return "over-ceiling";
+    if (truePeak > GUIDE.truePeakMax && lufs > GUIDE.spotifyReference) return "spotify-loud";
     return "ok";
   }
 
@@ -208,6 +208,7 @@
       bassOctaveHz: low / 2,
       bassHpfGapHz: low - GUIDE.bassHpfHigh,
       lowInKickWindow: low >= GUIDE.kickPunchLow && low <= GUIDE.kickPunchHigh,
+      lowBelowKickWindow: low < GUIDE.kickPunchLow,
       octaveBelowBassHpf: low / 2 < GUIDE.bassHpfHigh
     };
   }
@@ -384,9 +385,9 @@
 
   /* ---------------------------------------------------------------- 3. loudness */
   var VERDICT_TEXT = {
-    "over-ceiling": { tone: "danger", title: "True peak over -1.0 dBTP", body: "Lossy encoding can clip. Lower the limiter ceiling until true peak reads -1.0 dBTP or lower." },
-    "spotify-loud": { tone: "warn", title: "Spotify headroom", body: "Spotify asks for true peak below -2 dBTP on masters louder than -14 LUFS." },
-    "ok": { tone: "ok", title: "True peak OK", body: "True peak sits inside the ceiling for this loudness." }
+    "over-ceiling": { tone: "danger", title: "True peak over -1.0 dBTP", body: "Too hot even for a CD or download master. Lossy encoding can clip. Lower the limiter ceiling until true peak reads -2.0 dBTP or lower for streaming." },
+    "spotify-loud": { tone: "warn", title: "Spotify headroom", body: "Spotify asks for true peak below -2 dBTP on masters louder than -14 LUFS. This true peak suits a CD or download master only." },
+    "ok": { tone: "ok", title: "True peak OK", body: "True peak sits inside the streaming ceiling for this loudness." }
   };
   var TARGET_TEXT = {
     "too-loud": "Louder than -7 LUFS. The mix bus page says go no louder. Each extra dB of limiting costs kick and snare punch.",
@@ -474,6 +475,10 @@
         (g.rhythmHpfLow < z.secondHarmonicHz ? " and below its " + hzText(z.secondHarmonicHz) + " Hz 2nd harmonic." : "."));
       if (z.lowInKickWindow) {
         notes.push("The low note sits in the " + g.kickPunchLow + "-" + g.kickPunchHigh + " Hz kick punch window. The sc_kick duck on the bass matters.");
+      } else if (z.lowBelowKickWindow) {
+        notes.push("The low note sits below the " + g.kickPunchLow + "-" + g.kickPunchHigh +
+          " Hz kick punch window, in the range the bass owns. Keep the kick boost at " + g.kickPunchLow + "-" + g.kickPunchHigh +
+          " Hz. The sc_kick duck clears the bass on each hit.");
       }
       if (z.octaveBelowBassHpf) {
         notes.push("A bass an octave below (" + hzText(z.bassOctaveHz) + " Hz) sits under the " + g.bassHpfLow + "-" + g.bassHpfHigh +

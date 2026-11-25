@@ -18,12 +18,12 @@
     <div class="goal">
       <span class="gchip gchip--lg gchip--bass" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Mono sub that never moves under <code>180 Hz</code>. Grit and pick above it. <code>bass_bus</code> peaks at <code>-8 to -6 dBFS</code>.</p>
+      <p class="goal__text">Mono sub that never moves under <code>180 Hz</code>. Grit and pick above it. <code>bass_bus</code> peaks at <code>-9 to -7 dBFS</code>.</p>
     </div>
   </header>
 
   <section class="section">
-    <h2 id="source">DjinnBass &amp; Bonecrusher source</h2>
+    <h2 id="source">DjinnBass source</h2>
     <div class="settings">
       <div class="settings__head">
         <span class="label">DjinnBass</span>
@@ -32,7 +32,7 @@
       <div class="settings__body">
         <dl class="kv" id="djinn" data-copy-title="DjinnBass source">
           <div class="kv__item"><dt>Alternate picking</dt><dd>1/16 (1/8 on mid-tempo)</dd></div>
-          <div class="kv__item"><dt>Amplifier Power</dt><dd>OFF (clean DI into Bonecrusher)</dd></div>
+          <div class="kv__item"><dt>Amplifier Power</dt><dd>OFF (clean DI)</dd></div>
           <div class="kv__item"><dt>Velocity steady</dt><dd>110&ndash;118 (starting point)</dd></div>
           <div class="kv__item"><dt>Velocity accents</dt><dd>124&ndash;127 (starting point)</dd></div>
           <div class="kv__item"><dt>Keyswitch Pick (default)</dt><dd>C-2</dd></div>
@@ -42,7 +42,7 @@
         </dl>
       </div>
     </div>
-    <p>Amplifier Power OFF bypasses the Pre-Processed Tones. Bonecrusher gets a clean DI. Route post-DI/Bonecrusher equally (<code>0.0 dB</code>) into <code>bass_low</code> and <code>bass_high</code>.</p>
+    <p>Amplifier Power OFF bypasses the Pre-Processed Tones. Send the clean DI (<code>bass_di</code>) at <code>0.0 dB</code> into both <code>bass_low</code> and <code>bass_high</code>. Bonecrusher sits in <code>bass_high</code> slot 1, so the sub band stays clean.</p>
   </section>
 
   <section class="section">
@@ -54,10 +54,10 @@
           <tr><th scope="col">Why 180 Hz</th><th scope="col">Detail</th></tr>
         </thead>
         <tbody>
-          <tr><td>Kick window</td><td>Kick punch sits at <code>50&ndash;70 Hz</code>, resonance to <code>100&ndash;120 Hz</code>. The sub band holds the bass fundamentals below the low-mid box.</td></tr>
+          <tr><td>Kick window</td><td>Kick punch sits at <code>75&ndash;85 Hz</code>, resonance to <code>100&ndash;120 Hz</code>. The sub band holds the bass fundamentals at <code>49&ndash;70 Hz</code>, under the kick punch and the low-mid box.</td></tr>
           <tr><td>Guitar chug</td><td>Palm-mute cab thump lives at <code>120&ndash;160 Hz</code>. A <code>180 Hz</code> ceiling keeps the sub out of it.</td></tr>
-          <tr><td>Mono safe</td><td>Below <code>150&ndash;200 Hz</code> the ear cannot localize. Sum it to mono and compress it flat.</td></tr>
-          <tr><td>Note range</td><td>DjinnBass plays down to G0 in Kontakt naming (C3 = MIDI 60). That is <code>49 Hz</code>. Bb is <code>58 Hz</code>. The bass sits in the same octave as the Drop G 7-string. Its fundamentals overlap the <code>50&ndash;70 Hz</code> kick punch, so the <code>sc_kick</code> duck matters.</td></tr>
+          <tr><td>Mono safe</td><td>Below about <code>120&ndash;150 Hz</code> the ear can barely localize. Sum it to mono and compress it flat.</td></tr>
+          <tr><td>Note range</td><td>DjinnBass plays down to G0 in Kontakt naming (C3 = MIDI 60). That is <code>49 Hz</code>. Bb is <code>58 Hz</code>. The bass sits in the same octave as the Drop G 7-string. The bass owns <code>49&ndash;70 Hz</code>, so the riff keeps its root. The kick punches above it at <code>75&ndash;85 Hz</code>, and the <code>sc_kick</code> duck clears the bass on each kick hit.</td></tr>
           <tr><td>Common range</td><td>Split points in metal guides run <code>100&ndash;300 Hz</code>. <code>180 Hz</code> sits inside it.</td></tr>
         </tbody>
       </table>
@@ -65,10 +65,10 @@
 
     <h3 id="polarity">Zero-latency split &amp; polarity check</h3>
     <ol class="steps">
-      <li><div><span class="steps__title">Use minimum-phase filters</span><p><code>24 dB/oct</code>: TDR Nova HP/LP Slope, or two stacked ReaEQ pass bands. They replace ReaFIR. Zero latency, sharp sub transients.</p></div></li>
+      <li><div><span class="steps__title">Use minimum-phase filters</span><p><code>24 dB/oct</code>: TDR Nova HP/LP Slope, or two stacked ReaEQ pass bands. Set each stacked band to Q <code>0.707</code> (Bandwidth about <code>1.9 oct</code>). Two Butterworth bands stack into a 24 dB/oct split that sums flat (reasoning). They replace ReaFIR. Zero latency, sharp sub transients.</p></div></li>
       <li><div><span class="steps__title">Play a sustained low note</span><p>Keep <code>bass_low</code> and <code>bass_high</code> both active.</p></div></li>
       <li><div><span class="steps__title">Flip polarity on one band</span><p>Use the track Phase button, or <code>JS: Utility/chanmix2</code> Left Phase and Right Phase = Invert.</p></div></li>
-      <li><div><span class="steps__title">Keep the thicker setting</span><p>Listen at <code>180 Hz</code>. Pick the fuller result.</p></div></li>
+      <li><div><span class="steps__title">Keep the thicker setting</span><p>Listen at <code>180 Hz</code>. Pick the fuller result. A pure filter split sums in phase, so a flip would notch. Bonecrusher and the compressors shift phase, so trust the ear test (reasoning).</p></div></li>
     </ol>
   </section>
 
@@ -86,8 +86,8 @@
             <button type="button" class="copy-btn" data-copy="low-1" aria-label="Copy bass_low slot 1 settings"></button>
           </div>
           <dl class="kv" id="low-1" data-copy-title="bass_low Slot 1 - ReaEQ">
-            <div class="kv__item"><dt>LPF</dt><dd>24 dB/oct @ 180 Hz (two stacked Low Pass bands) <span class="chip">unverified</span></dd></div>
-            <div class="kv__item"><dt>HPF</dt><dd>24 dB/oct @ 30&ndash;35 Hz (two stacked High Pass bands) <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>LPF</dt><dd>24 dB/oct @ 180 Hz (two stacked Low Pass bands, each Q 0.707) <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>HPF</dt><dd>24 dB/oct @ 30&ndash;35 Hz (two stacked High Pass bands, each Q 0.707) <span class="chip">unverified</span></dd></div>
           </dl>
           <p class="rack__why">Isolates the sub fundamentals at zero latency. The HPF sits below the <code>49 Hz</code> low G. At 40&ndash;45 Hz it would cut the low G fundamental by several dB more than Bb.</p>
           <div class="alts">
@@ -100,19 +100,17 @@
         <div class="rack__num" aria-hidden="true">2</div>
         <div class="rack__body">
           <div class="rack__head">
-            <h4 class="rack__name">JS: Utility/chanmix2 + JST EQ</h4>
-            <span class="chip">REAPER / JST</span>
-            <span class="tag">MONO</span>
+            <h4 class="rack__name">JST EQ</h4>
+            <span class="chip">JST</span>
             <span class="tag">EQ</span>
             <button type="button" class="copy-btn" data-copy="low-2" aria-label="Copy bass_low slot 2 settings"></button>
           </div>
-          <dl class="kv" id="low-2" data-copy-title="bass_low Slot 2 - Mono + JST EQ">
-            <div class="kv__item"><dt>Mono</dt><dd>chanmix2 sum (or track Width 0%)</dd></div>
-            <div class="kv__item"><dt>chanmix2 sliders</dt><dd>Left Pan 0, Right Pan 0, Left/Right Volume -6 dB</dd></div>
+          <dl class="kv" id="low-2" data-copy-title="bass_low Slot 2 - JST EQ">
+            <div class="kv__item"><dt>Mono</dt><dd>Track Width 0 (the template sets it)</dd></div>
             <div class="kv__item"><dt>Weight</dt><dd>+2 dB @ 55&ndash;65 Hz</dd></div>
-            <div class="kv__item"><dt>Kick slot</dt><dd>-2.5 dB @ 70 Hz</dd></div>
+            <div class="kv__item"><dt>Kick slot</dt><dd>-2.5 dB @ 80 Hz</dd></div>
           </dl>
-          <p class="rack__why">Pins the sub dead center. Adds weight below the <code>65&ndash;75 Hz</code> kick punch.</p>
+          <p class="rack__why">The template already sets <code>bass_low</code> width to 0, so the sub sits dead center with no mono plugin. The weight boost sits in the <code>49&ndash;70 Hz</code> range the bass owns. The kick slot opens the <code>75&ndash;85 Hz</code> kick punch.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaEQ for the EQ moves</span></span>
@@ -129,10 +127,10 @@
             <button type="button" class="copy-btn" data-copy="low-3" aria-label="Copy bass_low slot 3 settings"></button>
           </div>
           <dl class="kv" id="low-3" data-copy-title="bass_low Slot 3 - Revival">
-            <div class="kv__item"><dt>Thickness</dt><dd>6&ndash;10 of 40 (starting point)</dd></div>
+            <div class="kv__item"><dt>Thickness</dt><dd>6&ndash;10 (starting point; Slate's docs give no scale)</dd></div>
             <div class="kv__item"><dt>Shimmer</dt><dd>0</dd></div>
           </dl>
-          <p class="rack__why">Adds harmonics at <code>80&ndash;250 Hz</code>. Low Drop G&ndash;Bb notes then read on small speakers.</p>
+          <p class="rack__why">Slate: Thickness boosts the low end for fatness, punch and body. Raise it until low Drop G&ndash;Bb notes read on small speakers.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">AirEQ Earth, raise Earth (one knob, no frequency control)</span></span>
@@ -175,7 +173,7 @@
             <div class="kv__item"><dt>Threshold</dt><dd>-12.00 dB</dd></div>
             <div class="kv__item"><dt>Brickwall ceiling</dt><dd>-12.00 dB (same as Threshold = 0 dB makeup)</dd></div>
             <div class="kv__item"><dt>Target GR</dt><dd>3.0&ndash;4.5 dB</dd></div>
-            <div class="kv__item"><dt>Constant gain</dt><dd>CHECKED (Ceiling follows Threshold)</dd></div>
+            <div class="kv__item"><dt>Constant gain (labeled Link in the REAPER Effects Guide)</dt><dd>CHECKED (Threshold and Ceiling move together)</dd></div>
             <div class="kv__item"><dt>Release</dt><dd>80&ndash;100 ms (starting point)</dd></div>
             <div class="kv__item"><dt>True peak</dt><dd>OFF (display only)</dd></div>
             <div class="kv__item"><dt>Performance</dt><dd>High quality</dd></div>
@@ -243,40 +241,42 @@
         <div class="rack__num" aria-hidden="true">1</div>
         <div class="rack__body">
           <div class="rack__head">
-            <h4 class="rack__name">TDR Nova</h4>
-            <span class="chip">Tokyo Dawn</span>
-            <span class="tag">DYN EQ</span>
+            <h4 class="rack__name">Bassforge Bonecrusher</h4>
+            <span class="chip">JST</span>
+            <span class="tag">AMP</span>
             <button type="button" class="copy-btn" data-copy="high-1" aria-label="Copy bass_high slot 1 settings"></button>
           </div>
-          <dl class="kv" id="high-1" data-copy-title="bass_high Slot 1 - TDR Nova">
-            <div class="kv__item"><dt>HPF</dt><dd>24 dB/oct @ 180 Hz</dd></div>
-            <div class="kv__item"><dt>Dynamic band</dt><dd>-2 to -3 dB @ 2&ndash;3 kHz</dd></div>
-            <div class="kv__item"><dt>Band Q</dt><dd>~2.5</dd></div>
-            <div class="kv__item"><dt>Ratio</dt><dd>3:1</dd></div>
-            <div class="kv__item"><dt>Attack / Release</dt><dd>3 ms / 50 ms</dd></div>
+          <dl class="kv" id="high-1" data-copy-title="bass_high Slot 1 - Bonecrusher">
+            <div class="kv__item"><dt>Amp</dt><dd>Bonecrusher</dd></div>
+            <div class="kv__item"><dt>Crush</dt><dd>Up until grit fills 800 Hz &ndash; 2.5 kHz (by ear)</dd></div>
+            <div class="kv__item"><dt>Built-in compressor</dt><dd>Off (slot 4 does this job)</dd></div>
           </dl>
-          <p class="rack__why">Strips sub energy. Tames fret clank only when it spikes.</p>
+          <p class="rack__why">Mid snarl that locks to the 7-string rhythm guitars. It goes first, so the amp reacts to the full-range DI. URM filters the grit channel after the amp sim. JST says the Crush knob distorts the mids and highs and keeps the lows tight.</p>
+          <div class="alts">
+            <span class="label alts__title">Alternatives</span>
+            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">Bassforge Hellraiser</span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-Stress, Dist 3</span></span>
+          </div>
         </div>
       </li>
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">2</div>
         <div class="rack__body">
           <div class="rack__head">
-            <h4 class="rack__name">Bassforge Bonecrusher</h4>
-            <span class="chip">JST</span>
-            <span class="tag">AMP</span>
+            <h4 class="rack__name">TDR Nova</h4>
+            <span class="chip">Tokyo Dawn</span>
+            <span class="tag">DYN EQ</span>
             <button type="button" class="copy-btn" data-copy="high-2" aria-label="Copy bass_high slot 2 settings"></button>
           </div>
-          <dl class="kv" id="high-2" data-copy-title="bass_high Slot 2 - Bonecrusher">
-            <div class="kv__item"><dt>Amp</dt><dd>Bonecrusher</dd></div>
-            <div class="kv__item"><dt>Crush</dt><dd>Up until grit fills 800 Hz &ndash; 2.5 kHz (by ear)</dd></div>
+          <dl class="kv" id="high-2" data-copy-title="bass_high Slot 2 - TDR Nova">
+            <div class="kv__item"><dt>HPF</dt><dd>24 dB/oct @ 180 Hz</dd></div>
+            <div class="kv__item"><dt>Dynamic band</dt><dd>-2 to -3 dB @ 2&ndash;3 kHz</dd></div>
+            <div class="kv__item"><dt>Band SPLIT</dt><dd>ON (otherwise the band uses the W-Band ratio and times)</dd></div>
+            <div class="kv__item"><dt>Band Q</dt><dd>~2.5</dd></div>
+            <div class="kv__item"><dt>Ratio</dt><dd>3:1</dd></div>
+            <div class="kv__item"><dt>Attack / Release</dt><dd>3 ms / 50 ms</dd></div>
           </dl>
-          <p class="rack__why">Mid snarl that locks to the 7-string rhythm guitars.</p>
-          <div class="alts">
-            <span class="label alts__title">Alternatives</span>
-            <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">Bassforge Hellraiser</span></span>
-            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-Stress, Dist 3</span></span>
-          </div>
+          <p class="rack__why">Strips sub energy after the amp. Tames fret clank only when it spikes. Enable SPLIT on the band first: Nova's manual says that without it, Ratio, Attack and Release fall back to the W-Band settings. If breakdowns get muddy with the 7-string chug, move both split points to about <code>250 Hz</code> together: this HPF and the <code>bass_low</code> LPF. Moving only one leaves a hole or an overlap.</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -291,9 +291,9 @@
           <dl class="kv" id="high-3" data-copy-title="bass_high Slot 3 - JST EQ">
             <div class="kv__item"><dt>Scoop</dt><dd>-2 to -3 dB @ 300&ndash;400 Hz, broad</dd></div>
             <div class="kv__item"><dt>Pick</dt><dd>+2 to +3 dB @ 1.2&ndash;2 kHz</dd></div>
-            <div class="kv__item"><dt>LPF</dt><dd>6&ndash;7 kHz</dd></div>
+            <div class="kv__item"><dt>LPF</dt><dd>4&ndash;5 kHz (6&ndash;7 kHz for more clank)</dd></div>
           </dl>
-          <p class="rack__why">Clears low-mid mud. Pushes pick definition above the guitar chugs. Mark Mynett cuts the bass group at 385 Hz. He keeps 600 Hz, 900 Hz and 2 kHz on the distorted channel.</p>
+          <p class="rack__why">Clears low-mid mud. Pushes pick definition above the guitar chugs. Mark Mynett cuts the bass group at 385 Hz. He keeps 600 Hz, 900 Hz and 2 kHz on the distorted channel, and low-passes it at 2&ndash;5 kHz. A 4&ndash;5 kHz LPF keeps the bass warm and polished, not clanky.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaEQ</span></span>
@@ -322,7 +322,7 @@
 
   <section class="section">
     <h2 id="bass-bus">bass_bus glue</h2>
-    <p>Sums <code>bass_low</code> + <code>bass_high</code>. Peak target <code class="val-ok">-8 to -6 dBFS</code>.</p>
+    <p>Sums <code>bass_low</code> + <code>bass_high</code>. Peak target <code class="val-ok">-9 to -7 dBFS</code>.</p>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -339,11 +339,11 @@
             <div class="kv__item"><dt>Mix</dt><dd>100%</dd></div>
             <div class="kv__item"><dt>Output</dt><dd>0 dB (unity)</dd></div>
           </dl>
-          <p class="rack__why">Welds the sub floor and Bonecrusher clank into one instrument. No baked-in EQ. The vendor manual lists Method as Low, High, or Low + High. It has no Clamp mode.</p>
+          <p class="rack__why">Welds the sub floor and Bonecrusher clank into one instrument. The vendor manual lists Method as Low, High, or Low + High. It has no Clamp mode.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JW BG-Bass (grittier, mid-forward)</span></span>
-            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-Bomber, Tone Fat, Intensity 25% as a starting point</span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-Bomber, Tone Present, Intensity 25% as a starting point</span></span>
           </div>
         </div>
       </li>
@@ -370,18 +370,19 @@
           <tr><td>Kick buried by the sub</td><td>Duck <code>2.5&ndash;3.5 dB</code> from <code>sc_kick</code>, after ReaLimit.</td><td>ReaComp</td></tr>
           <tr><td>Duck clicks</td><td>Attack <code>2 ms</code>. Never <code>0.0 ms</code>.</td><td>ReaComp</td></tr>
           <tr><td>Sub never recovers in double kick runs</td><td>Release <code>50&ndash;65 ms</code>. Stay under 80 ms.</td><td>ReaComp</td></tr>
-          <tr><td>Bass vanishes on phones</td><td>Revival Thickness <code>6&ndash;10</code> (of 40).</td><td>VM Revival</td></tr>
+          <tr><td>Bass vanishes on phones</td><td>Revival Thickness <code>6&ndash;10</code> (starting point).</td><td>VM Revival</td></tr>
           <tr><td>Clank jumps out on hard hits</td><td>Dynamic band <code>-2 to -3 dB</code> at <code>2&ndash;3 kHz</code>.</td><td>TDR Nova</td></tr>
           <tr><td>Low mids mud up with guitars</td><td>Scoop <code>-2 to -3 dB</code> at <code>300&ndash;400 Hz</code> on <code>bass_high</code>.</td><td>JST EQ</td></tr>
           <tr><td>Low G weaker than Bb</td><td>bass_low HPF is too high. Set it to <code>30&ndash;35 Hz</code>.</td><td>ReaEQ</td></tr>
           <tr><td>Vocal buried in choruses</td><td>Pull <code>bass_bus</code> 1 dB and compare.</td><td>Bass fader</td></tr>
-          <tr><td>Sub sounds wide</td><td>Mono sum. Remove every FX send.</td><td>JS: Utility/chanmix2</td></tr>
+          <tr><td>Sub sounds wide</td><td>Set <code>bass_low</code> track width to 0. Remove every FX send.</td><td>Track width</td></tr>
+          <tr><td>Breakdowns muddy with the 7-string chug</td><td>Move the <code>bass_high</code> HPF and the <code>bass_low</code> LPF to about <code>250 Hz</code> together.</td><td>TDR Nova + ReaEQ</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <footer class="page-foot">Sources: original WAP blueprint manual (primary); REAPER architecture guide (180 Hz rationale, chanmix2, ReaComp detector, TDR Nova clank); Slate Digital guide (Revival, AirEQ Earth, FG-2A); JST/JW guide (BG-Bass); JST BG-Bass manual (vendor, Method); DjinnBass v1 manual, Submission Audio (playable range G0&ndash;D4); Making Modern Metal Part 3, Mark Mynett, Sound On Sound, 2018; Mix Analysis: How David Bendeth Mixed &ldquo;Shadow Moses&rdquo;, SonicScoop; Mixing Secrets Volume 2: Bass, URM Academy.</footer>
+  <footer class="page-foot">Sources: original WAP blueprint manual (primary); REAPER architecture guide (180 Hz rationale, chanmix2 polarity, ReaComp detector, TDR Nova clank); REAPER Effects Guide (ReaLimit Link); TDR Nova manual (SPLIT mode); Slate Digital guide (Revival, AirEQ Earth, FG-2A); Slate FG-Bomber docs (Present mode on bass); JST Bassforge Bonecrusher product page (Crush, built-in compressor); JST/JW guide (BG-Bass); JST BG-Bass manual (vendor, Method); DjinnBass v1 manual, Submission Audio (playable range G0&ndash;D4); Making Modern Metal Part 3, Mark Mynett, Sound On Sound, 2018; Mix Analysis: How David Bendeth Mixed &ldquo;Shadow Moses&rdquo;, SonicScoop; Mixing Secrets Volume 2: Bass, URM Academy.</footer>
 
 </div>
 </main>

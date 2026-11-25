@@ -18,7 +18,7 @@
     <div class="goal">
       <span class="gchip gchip--lg gchip--drums" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Punchy kick, cracking snare, tame cymbals. <code>drum_bus</code> peaks at <code>-8 to -6 dBFS</code>.</p>
+      <p class="goal__text">Punchy kick, cracking snare, tame cymbals. <code>drum_bus</code> peaks at <code>-9 to -7 dBFS</code>.</p>
     </div>
   </header>
 
@@ -28,7 +28,8 @@
     <ol class="steps">
       <li><div><span class="steps__title">One snare shell</span><p>Keep a single natural snare. No multi-snare stacking.</p></div></li>
       <li><div><span class="steps__title">Sample-align triggers</span><p>Align the Invasion snare trigger to the shell. Ghost notes stay organic.</p></div></li>
-      <li><div><span class="steps__title">Skip close-mic gates and compressors</span><p>GGD at Max Turbo already controls bleed and dynamics.</p></div></li>
+      <li><div><span class="steps__title">Meter the GGD output sends</span><p>The template sends each GGD output pre-fader at <code>-10 dB</code>. Those sends are the GGD trim. Play the loudest section and check that the kit tracks peak at <code>-12 to -10 dBFS</code>. If they do not, move the GGD master output, not the sends.</p></div></li>
+      <li><div><span class="steps__title">Skip close-mic gates and compressors</span><p>GGD at Max Turbo already controls dynamics. Bleed is a separate choice in GGD's mixer.</p></div></li>
       <li><div><span class="steps__title">Check snare bottom polarity</span><p>Inside GGD, play <code>snr_top</code> and <code>snr_bot</code> together. Flip the bottom mic's polarity and keep the version with more body. If the kit has no polarity switch for the bottom mic, use the REAPER Phase button on <code>snr_bot</code> <span class="chip">unverified</span>.</p></div></li>
       <li><div><span class="steps__title">Feed the crush from shells only</span><p>The crush feed is <code>kick_sum</code>, <code>snr_top</code>, <code>snr_bot</code>, <code>tom_1</code>, <code>tom_2</code> and <code>tom_flr</code>. <code>kick_sub</code> is excluded: its sub energy makes the crush bus pump. No triggers. No overheads. No rooms.</p></div></li>
     </ol>
@@ -40,13 +41,14 @@
         </thead>
         <tbody>
           <tr><td><a href="#kick"><code>kick_bus</code></a></td><td class="mono">0% mono</td><td>None. <code>kick_smp</code> feeds <code>sc_kick</code> at <code>0.0 dB</code></td><td><code>kick_sum</code> only &gt; <code>fx_crush</code> (not <code>kick_sub</code>)</td></tr>
-          <tr><td><a href="#snare"><code>snr_bus</code></a></td><td class="mono">0% mono</td><td>None. <code>snr_smp</code> feeds <code>sc_snare</code> at <code>0.0 dB</code></td><td><code>fx_snr_plate</code> (bus) + <code>fx_crush</code> (<code>snr_top</code>, <code>snr_bot</code>)</td></tr>
+          <tr><td><a href="#snare"><code>snr_bus</code></a></td><td class="mono">0% mono</td><td>None. <code>snr_smp</code> feeds <code>sc_snare</code> at <code>0.0 dB</code></td><td><code>fx_snr_plate</code> (bus) at <code>-12 dB</code> + <code>fx_crush</code> (<code>snr_top</code>, <code>snr_bot</code>)</td></tr>
           <tr><td><a href="#toms"><code>tom_bus</code></a></td><td class="mono">45% L to 75% R</td><td>&mdash;</td><td><code>fx_snr_plate</code> at <code>-8 to -10 dB</code>; <code>fx_crush</code> (<code>tom_1</code>, <code>tom_2</code>, <code>tom_flr</code>)</td></tr>
           <tr><td><a href="#overheads"><code>oh_cym_bus</code></a></td><td class="mono">85&ndash;100% L/R</td><td>&mdash;</td><td>None. Exclude from crush.</td></tr>
           <tr><td><a href="#room"><code>room_bus</code></a></td><td class="mono">100% L/R</td><td>&mdash;</td><td>&mdash;</td></tr>
         </tbody>
       </table>
     </div>
+    <p>The template sets no pans on the drum buses. GGD outputs are stereo pairs, so the pans above come from GGD's mixer. Set them there, or narrow a track with its width control. Pick drummer view or audience view and keep it for the whole kit.</p>
   </section>
 
   <section class="section">
@@ -63,12 +65,12 @@
             <button type="button" class="copy-btn" data-copy="kick-1" aria-label="Copy kick EQ settings"></button>
           </div>
           <dl class="kv" id="kick-1" data-copy-title="kick_bus - EQ">
-            <div class="kv__item"><dt>HPF</dt><dd>42&ndash;45 Hz, 24 dB/oct (two stacked High Pass bands) <span class="chip">unverified</span></dd></div>
-            <div class="kv__item"><dt>Punch</dt><dd>+2 to +3 dB @ 65&ndash;75 Hz, Bandwidth 1.0 oct (about Q 1.4)</dd></div>
+            <div class="kv__item"><dt>HPF</dt><dd>45&ndash;50 Hz, 24 dB/oct (two stacked High Pass bands) <span class="chip">unverified</span></dd></div>
+            <div class="kv__item"><dt>Punch</dt><dd>+2 to +3 dB @ 75&ndash;85 Hz, Bandwidth 1.0 oct (about Q 1.4)</dd></div>
             <div class="kv__item"><dt>Boxiness</dt><dd>-4 to -5 dB @ 280&ndash;350 Hz</dd></div>
             <div class="kv__item"><dt>Beater</dt><dd>+2.5 to +3.5 dB @ 3.2&ndash;4 kHz</dd></div>
           </dl>
-          <p class="rack__why">The HPF clears room for the 49&ndash;58 Hz bass fundamental. The 280&ndash;350 Hz cut and the 3.2&ndash;4 kHz beater boost match published metal practice (Mynett: cut 250&ndash;450 Hz, attack near 3.8 kHz).</p>
+          <p class="rack__why">The bass owns <code>49&ndash;70 Hz</code>: the Drop G&ndash;Bb root lives there. The kick punches above it at <code>75&ndash;85 Hz</code>, and the <code>sc_kick</code> duck opens the bass on each hit. The <code>45&ndash;50 Hz</code> HPF stops the kick from stacking a sub under the low G. Mynett says to avoid kick boosts below 75 Hz, and he ties the kick HPF to pattern speed. These songs are mid-tempo, so a lower HPF does not smear (reasoning from his rule). The 280&ndash;350 Hz cut and the 3.2&ndash;4 kHz beater boost match published metal practice (Mynett: cut 250&ndash;450 Hz, attack near 3.8 kHz). Low priority: Mynett also lifts about 8 kHz for fast double kick. These songs rarely need it.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-S</span></span>
@@ -88,12 +90,12 @@
             <button type="button" class="copy-btn" data-copy="kick-2" aria-label="Copy kick GClip settings"></button>
           </div>
           <dl class="kv" id="kick-2" data-copy-title="kick_bus - GClip">
-            <div class="kv__item"><dt>Gain / Clip</dt><dd>Shave 1.0&ndash;1.5 dB</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>84&ndash;89% (shaves about 1.5&ndash;1.0 dB)</dd></div>
             <div class="kv__item"><dt>Softness</dt><dd>Raised (soft knee)</dd></div>
             <div class="kv__item"><dt>Target</dt><dd>Beater spikes</dd></div>
             <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
           </dl>
-          <p class="rack__why">Tames the click spike so the sub can sit louder.</p>
+          <p class="rack__why">Tames the click spike so the sub can sit louder. GClip's Clip control is a percent of the maximum sample value, not dB. With Gain at 0 and peaks at 0 dBFS: 89% shaves about 1 dB, 84% about 1.5 dB, 79% about 2 dB, 75% about 2.5 dB. Otherwise, set it while you watch the wave display.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Clip</span></span>
@@ -119,11 +121,11 @@
           <dl class="kv" id="snare-1" data-copy-title="snr_bus - EQ">
             <div class="kv__item"><dt>HPF</dt><dd>100&ndash;120 Hz, 24 dB/oct (two stacked High Pass bands) <span class="chip">unverified</span></dd></div>
             <div class="kv__item"><dt>Body</dt><dd>+2 to +3 dB @ 200&ndash;220 Hz</dd></div>
-            <div class="kv__item"><dt>Ring</dt><dd>-3 dB @ 550&ndash;700 Hz</dd></div>
-            <div class="kv__item"><dt>Crack</dt><dd>+2 dB @ 2.8&ndash;3.2 kHz</dd></div>
+            <div class="kv__item"><dt>Ring</dt><dd>-3 dB @ 550&ndash;700 Hz (sweep to find it)</dd></div>
+            <div class="kv__item"><dt>Crack</dt><dd>+2 dB @ 4&ndash;5 kHz</dd></div>
             <div class="kv__item"><dt>Air</dt><dd>+1.5 dB @ 8 kHz</dd></div>
           </dl>
-          <p class="rack__why">Body and crack up, ring out. The HPF sits higher than a standard-tuning mix. Snare energy below 100 Hz only masks the kick and the Drop G bass. Mynett (Sound On Sound) puts metal snare HPF at 110&ndash;170 Hz. Start at 100 Hz and raise it until the body thins.</p>
+          <p class="rack__why">Body and crack up, ring out. The HPF sits higher than a standard-tuning mix. Snare energy below 100 Hz only masks the kick and the Drop G bass. Mynett (Sound On Sound) puts metal snare HPF at 110&ndash;170 Hz. Start at 110 Hz and raise it until the body thins. Crack sits at 4&ndash;5 kHz: Mynett puts snare attack at 4&ndash;8 kHz, and Nail The Mix puts crack near 5 kHz. It also stays clear of the guitar and vocal presence near 3 kHz.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-S</span></span>
@@ -141,7 +143,7 @@
             <button type="button" class="copy-btn" data-copy="snare-2" aria-label="Copy snare GClip settings"></button>
           </div>
           <dl class="kv" id="snare-2" data-copy-title="snr_bus - GClip">
-            <div class="kv__item"><dt>Gain / Clip</dt><dd>Shave 1.5&ndash;2.5 dB</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>75&ndash;84% (shaves about 2.5&ndash;1.5 dB)</dd></div>
             <div class="kv__item"><dt>Softness</dt><dd>0% (hard clip)</dd></div>
             <div class="kv__item"><dt>Target</dt><dd>Stick spikes</dd></div>
             <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
@@ -159,6 +161,7 @@
 
   <section class="section">
     <h2 id="toms">tom_bus</h2>
+    <p>Filter each tom on its own track first. One bus EQ cannot filter the rack and floor toms at different points. Put a ReaEQ HPF on <code>tom_1</code> and <code>tom_2</code> at <code>75 Hz</code> (rack) and on <code>tom_flr</code> at <code>55 Hz</code> (floor). Mynett scales tom filters by drum size.</p>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -170,9 +173,7 @@
             <button type="button" class="copy-btn" data-copy="toms-1" aria-label="Copy toms EQ settings"></button>
           </div>
           <dl class="kv" id="toms-1" data-copy-title="tom_bus - EQ">
-            <div class="kv__item"><dt>HPF rack</dt><dd>75 Hz</dd></div>
-            <div class="kv__item"><dt>HPF floor</dt><dd>55 Hz</dd></div>
-            <div class="kv__item"><dt>Mud</dt><dd>-4 dB @ 380&ndash;450 Hz</dd></div>
+            <div class="kv__item"><dt>Mud</dt><dd>-4 dB @ 380&ndash;450 Hz (higher for smaller toms)</dd></div>
             <div class="kv__item"><dt>Attack</dt><dd>+2.5 dB @ 4.5 kHz</dd></div>
           </dl>
           <p class="rack__why">Clears mud and brings stick attack forward.</p>
@@ -212,7 +213,7 @@
             <button type="button" class="copy-btn" data-copy="toms-3" aria-label="Copy toms GClip settings"></button>
           </div>
           <dl class="kv" id="toms-3" data-copy-title="tom_bus - GClip">
-            <div class="kv__item"><dt>Gain / Clip</dt><dd>Shave 1.5&ndash;2.0 dB</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>79&ndash;84% (shaves about 2.0&ndash;1.5 dB)</dd></div>
             <div class="kv__item"><dt>Send</dt><dd>fx_snr_plate at -8 to -10 dB</dd></div>
           </dl>
           <p class="rack__why">Evens out fill peaks. A subtle plate send glues toms to the snare space.</p>
@@ -263,7 +264,7 @@
             <div class="kv__item"><dt>Depth</dt><dd>2.0&ndash;3.5</dd></div>
             <div class="kv__item"><dt>Mode</dt><dd>Soft</dd></div>
           </dl>
-          <p class="rack__why">Smooths cymbal harshness. <strong>Never use it on shells.</strong></p>
+          <p class="rack__why">Smooths cymbal harshness. <strong>Avoid it on shells:</strong> it can dull transients.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VBC FG-MU, 1.5&ndash;2 dB GR</span></span>
@@ -287,10 +288,10 @@
           </div>
           <dl class="kv" id="room-1" data-copy-title="room_bus - EQ">
             <div class="kv__item"><dt>HPF</dt><dd>150&ndash;185 Hz</dd></div>
-            <div class="kv__item"><dt>LPF</dt><dd>6.5&ndash;7.5 kHz</dd></div>
+            <div class="kv__item"><dt>LPF</dt><dd>4&ndash;6.5 kHz</dd></div>
             <div class="kv__item"><dt>Cut</dt><dd>-3 dB @ 300 Hz</dd></div>
           </dl>
-          <p class="rack__why">Keeps the room out of the low end and the cymbal wash. A crushed room at 100 Hz smears the kick under Drop G bass. Mynett high-passes the room at 185 Hz to protect kick punch. If the cymbals still wash, lower the LPF toward 4 kHz.</p>
+          <p class="rack__why">Keeps the room out of the low end and the cymbal wash. A crushed room at 100 Hz smears the kick under Drop G bass. Mynett high-passes the room at 185 Hz to protect kick punch. Start the LPF near 6.5 kHz for a big, open kit, and lower it toward 4 kHz if the cymbals wash. Mynett used a gentle 2 kHz, 6 dB/oct LPF for a darker, tighter room. That is darker than this sound needs (reasoning).</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -336,10 +337,11 @@
           <dl class="kv" id="plate-1" data-copy-title="fx_snr_plate - Lustrous Plates">
             <div class="kv__item"><dt>Plate</dt><dd>Steel</dd></div>
             <div class="kv__item"><dt>Damper (reverb length)</dt><dd>Short: heavy damping. The Damper has no seconds scale. Set it by ear.</dd></div>
-            <div class="kv__item"><dt>Pre-delay</dt><dd>10&ndash;20 ms</dd></div>
+            <div class="kv__item"><dt>Pre-delay</dt><dd>8&ndash;12 ms</dd></div>
+            <div class="kv__item"><dt>Send from snr_bus</dt><dd>-12 dB (template)</dd></div>
             <div class="kv__item"><dt>Low cut / High cut</dt><dd>220 Hz / 7 kHz</dd></div>
           </dl>
-          <p class="rack__why">Short bright tail that cuts through the guitars. Automate it up in breakdowns. Published metal snare plates run 0.5&ndash;0.85 s with 7&ndash;11 ms pre-delay. Fast double-kick parts blur with a longer tail. LiquidSonics says real plates run from just under 1 s to about 5 s, so damp hard. If the tail still blurs, shorten it with the built-in Gate. Pre-delay starting point: 10&ndash;20 ms. Stretch the tail only in half-time sections.</p>
+          <p class="rack__why">Short bright tail that cuts through the guitars. Automate it up in breakdowns. Published metal snare plates run 0.5&ndash;0.85 s with 7&ndash;11 ms pre-delay. Fast double-kick parts blur with a longer tail. LiquidSonics says real plates run from just under 1 s to about 5 s, so damp hard. If the tail still blurs, shorten it with the built-in Gate. Pre-delay starting point: 8&ndash;12 ms. Stretch the tail only in half-time sections.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">Sky Box, Plate</span></span>
@@ -369,7 +371,7 @@
           <p class="rack__why">Adds density and sustain. The dry kit keeps the transient. A documented modern-metal crush ran about 18 dB GR, fed by kick, snare and toms, never cymbals. Heavier GR at a lower blend gives density with less transient smear.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
-            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-116 Vintage, All-Buttons <span class="chip">unverified</span></span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-116 Vintage, All-Buttons (not in Slate's docs; use only if your build shows it)</span></span>
             <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VBC FG-MU, -8 to -12 dB GR</span></span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JW BG-Drums, Pumpin'</span></span>
             <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaComp 20:1</span></span>
@@ -381,7 +383,7 @@
 
   <section class="section">
     <h2 id="drum-bus">drum_bus master</h2>
-    <p>Peak target: <code class="val-ok">-8 to -6 dBFS</code>.</p>
+    <p>Peak target: <code class="val-ok">-9 to -7 dBFS</code>.</p>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -393,11 +395,11 @@
             <button type="button" class="copy-btn" data-copy="dbus-1" aria-label="Copy drum_bus EQ settings"></button>
           </div>
           <dl class="kv" id="dbus-1" data-copy-title="drum_bus - EQ">
-            <div class="kv__item"><dt>Low</dt><dd>+1 dB @ 65 Hz</dd></div>
+            <div class="kv__item"><dt>Low</dt><dd>+1 dB @ 80 Hz</dd></div>
             <div class="kv__item"><dt>Low-mid</dt><dd>-1.5 dB @ 320 Hz</dd></div>
             <div class="kv__item"><dt>Top</dt><dd>+1 dB @ 10 kHz</dd></div>
           </dl>
-          <p class="rack__why">Broad kit tilt. Small moves only.</p>
+          <p class="rack__why">Broad kit tilt. Small moves only. The low lift sits in the <code>75&ndash;85 Hz</code> kick window, above the <code>49&ndash;70 Hz</code> range the bass owns.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST EQ</span></span>
@@ -440,7 +442,7 @@
             <button type="button" class="copy-btn" data-copy="dbus-3" aria-label="Copy drum_bus GClip settings"></button>
           </div>
           <dl class="kv" id="dbus-3" data-copy-title="drum_bus - GClip">
-            <div class="kv__item"><dt>Gain / Clip</dt><dd>Subtle, shave 1.0&ndash;1.5 dB</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>Subtle, 84&ndash;89% (shaves about 1.5&ndash;1.0 dB)</dd></div>
             <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
           </dl>
           <p class="rack__why">Catches kick, snare and crash hitting together before <code>instrument_bus</code>.</p>
@@ -461,14 +463,14 @@
           <tr><th scope="col">Problem</th><th scope="col">Fix</th><th scope="col">Tool</th></tr>
         </thead>
         <tbody>
-          <tr><td>Kick and bass fight below 60 Hz</td><td>Kick HPF <code>42&ndash;45 Hz</code>. Punch at <code>65&ndash;75 Hz</code>.</td><td>ReaEQ</td></tr>
-          <tr><td>Kick and bass still mask each other</td><td>Move the punch boost up to <code>75&ndash;80 Hz</code>. Do not boost the kick below <code>75 Hz</code> in this tuning.</td><td>ReaEQ</td></tr>
+          <tr><td>Kick and bass fight below 70 Hz</td><td>The bass owns <code>49&ndash;70 Hz</code>. Kick HPF <code>45&ndash;50 Hz</code>. Punch at <code>75&ndash;85 Hz</code>.</td><td>ReaEQ</td></tr>
+          <tr><td>Kick and bass still mask each other</td><td>Do not boost the kick below <code>75 Hz</code> in this tuning. Push the <code>sc_kick</code> duck toward <code>3.5 dB</code>.</td><td>ReaEQ / ReaComp</td></tr>
           <tr><td>Kick sounds like cardboard</td><td>Cut <code>-4 to -5 dB</code> at <code>280&ndash;350 Hz</code>.</td><td>ReaEQ</td></tr>
           <tr><td>Snare rings</td><td>Cut <code>-3 dB</code> at <code>550&ndash;700 Hz</code>.</td><td>ReaEQ</td></tr>
-          <tr><td>Snare spikes eat headroom</td><td>Hard clip <code>1.5&ndash;2.5 dB</code>.</td><td>GClip, 2x OS</td></tr>
+          <tr><td>Snare spikes eat headroom</td><td>Hard clip, Clip <code>75&ndash;84%</code> (about <code>2.5&ndash;1.5 dB</code>).</td><td>GClip, 2x OS</td></tr>
           <tr><td>Toms ring into the next bar</td><td>Sustain <code>-20% to -35%</code>.</td><td>kHs Transient Shaper</td></tr>
           <tr><td>Snare phasey with overheads up</td><td>OH HPF <code>400&ndash;450 Hz</code>, 24 dB/oct.</td><td>ReaEQ</td></tr>
-          <tr><td>Harsh cymbals</td><td>Soothe2 low cut band <code>1.5&ndash;2.0 kHz</code>, Depth <code>2.0&ndash;3.5</code>. Never on shells.</td><td>Soothe2</td></tr>
+          <tr><td>Harsh cymbals</td><td>Soothe2 low cut band <code>1.5&ndash;2.0 kHz</code>, Depth <code>2.0&ndash;3.5</code>. Avoid it on shells.</td><td>Soothe2</td></tr>
           <tr><td>Crush sounds washy</td><td>Remove overheads and triggers from the crush feed.</td><td>Sends</td></tr>
           <tr><td>Snare thumps under the kick</td><td>Raise snare HPF to <code>100&ndash;120 Hz</code>.</td><td>ReaEQ</td></tr>
           <tr><td>Room blurs the double kick</td><td>Room HPF <code>150&ndash;185 Hz</code>. Damp <code>fx_snr_plate</code> harder, or shorten it with its Gate.</td><td>ReaEQ / Lustrous Plates</td></tr>
@@ -479,7 +481,7 @@
     </div>
   </section>
 
-  <footer class="page-foot">Sources: original WAP blueprint manual (primary); Slate Digital guide (FG-Red, FG-MU, SD-PE1, Heatwave); JST/JW guide (BG-Drums, JST Clip, Sky Box); REAPER architecture guide (GClip, parallel blend, ReaGate). Phase 3 research: Mark Mynett, "Mixing Metal", Sound On Sound, 2009 (kick, snare, room and overhead filters; snare plate); Mark Mynett, "Making Modern Metal Part 3: Mixing and Mastering", Sound On Sound, 2018 (room HPF, parallel crush, no drum bus compressor).</footer>
+  <footer class="page-foot">Sources: original WAP blueprint manual (primary); Slate Digital guide (FG-Red, FG-MU, SD-PE1, Heatwave); JST/JW guide (BG-Drums, JST Clip, Sky Box); REAPER architecture guide (GClip, parallel blend, ReaGate). Phase 3 research: Mark Mynett, "Mixing Metal", Sound On Sound, 2009 (kick, snare, room and overhead filters; snare plate); Mark Mynett, "Making Modern Metal Part 3: Mixing and Mastering", Sound On Sound, 2018 (room HPF and LPF, tom filters by size, parallel crush, no drum bus compressor); Nail The Mix, "GetGood Drums Modern &amp; Massive" (snare crack); GVST GClip manual (Clip is a percent); Slate VM FG-116 Vintage docs (no all-buttons mode listed).</footer>
 
 </div>
 </main>

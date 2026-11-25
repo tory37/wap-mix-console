@@ -18,7 +18,7 @@
     <div class="goal">
       <span class="gchip gchip--lg gchip--master" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Glue at <code>2&ndash;3 dB GR</code>. Tone with Max #1 at <code>0.0 dB GR</code>. Print at <code>-8.5 to -7.5 LUFS</code> with true peak at or below <code>-1.0 dBTP</code>.</p>
+      <p class="goal__text">Glue at <code>2&ndash;3 dB GR</code>. Tone with Max #1 at <code>0.0 dB GR</code>. Print at <code>-8.5 to -7.5 LUFS</code> with true peak at or below <code>-2.0 dBTP</code>.</p>
     </div>
   </header>
 
@@ -32,7 +32,7 @@
 
   <section class="section">
     <h2 id="instrument-bus">instrument_bus chain</h2>
-    <p>Input target: <code class="val-warn">-6 to -5 dBFS</code> peak. The chain is near unity, so read the peak after it.</p>
+    <p>Input target: <code class="val-warn">-4 to -3 dBFS</code> peak. The chain is near unity, so read the peak after it.</p>
     <p>The <code>instrument_bus</code> folder holds every non-vocal bus. It gets two utility slots only. Glue, color and clipping happen once, on <code>print_bus</code>.</p>
     <ol class="rack">
       <li class="rack__slot">
@@ -81,7 +81,7 @@
             <div class="kv__item"><dt>Attack / Release</dt><dd>Fast / 150&ndash;250 ms (starting point)</dd></div>
             <div class="kv__item"><dt>Process target</dt><dd>Stereo. Sum ducks the mid only (option)</dd></div>
           </dl>
-          <p class="rack__why">Opens a pocket for the lead vocal and solos while they play. The guitar wall keeps its body. Keep it last: nothing after it on this bus can push the dip back up, and the instrumental print bypasses one slot. The HP clears infrasonic SFX energy that would spend Max #2 headroom.</p>
+          <p class="rack__why">Opens a pocket for the lead vocal while it sings. Only the vocals key it: a guitar solo sits inside <code>instrument_bus</code> and would duck itself. The guitar wall keeps its body. Keep it last: nothing after it on this bus can push the dip back up, and the instrumental print bypasses one slot. The HP clears infrasonic SFX energy that would spend Max #2 headroom.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">Inf EQ, dynamic Bell, External sidechain, Target Gain -2.5 dB, Time Tight</span></span>
@@ -111,7 +111,7 @@
 
   <section class="section">
     <h2 id="print-chain">print_bus chain</h2>
-    <p>Input target: <code class="val-warn">-4 to -3 dBFS</code> peak.</p>
+    <p>Input target: <code class="val-warn">-2 to -1 dBFS</code> peak. See the <a href="gain-staging.html#meter-ladder">meter ladder</a> for the summing math.</p>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -177,8 +177,10 @@
             <div class="kv__item"><dt>Maximize</dt><dd>Backed off, GR = 0.0 dB</dd></div>
             <div class="kv__item"><dt>Tone (mixing)</dt><dd>Toward Dark</dd></div>
             <div class="kv__item"><dt>Tone (mix end)</dt><dd>Sweep Dark &harr; Bright</dd></div>
+            <div class="kv__item"><dt>Low-End, Mono Bass, Bass Enhance, Stereo Enhance</dt><dd>0</dd></div>
+            <div class="kv__item"><dt>Sauce</dt><dd>0, mode Off</dd></div>
           </dl>
-          <p class="rack__why">Macro tilt EQ. A dark curve pushes you toward midrange bite and air without ear fatigue.</p>
+          <p class="rack__why">Macro tilt EQ. A dark curve pushes you toward midrange bite and air without ear fatigue. The JST manual says Tone "adjusts the tone before maximization", so it works at 0.0 dB GR. Zero the other processing knobs so Max #1 only tilts.</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -212,9 +214,9 @@
             <div class="kv__item"><dt>2x Oversample</dt><dd>ON</dd></div>
             <div class="kv__item"><dt>Gain</dt><dd>0.0 dB</dd></div>
             <div class="kv__item"><dt>Softness</dt><dd>15&ndash;25%</dd></div>
-            <div class="kv__item"><dt>Target clip</dt><dd>Shave 1.0&ndash;2.0 dB off stray peaks</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>71% at the <code>-2 to -1 dBFS</code> input (shaves about 1.0&ndash;2.0 dB)</dd></div>
           </dl>
-          <p class="rack__why">Cuts 1 ms snare and kick spikes. Max #2 then runs cleaner and louder.</p>
+          <p class="rack__why">Cuts 1 ms snare and kick spikes. Max #2 then runs cleaner and louder. Clip is a percent of the maximum sample value, not dB. With peaks at 0 dBFS, 89% shaves about 1 dB and 79% about 2 dB. At the ladder input, 71% shaves the same 1&ndash;2 dB.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">JST</span><span class="alt__name">JST Clip (adds color)</span></span>
@@ -243,12 +245,12 @@
             <div class="kv__item"><dt>Preset</dt><dd>Factory &gt; Genre &gt; Rock (or Heavy Rock)</dd></div>
             <div class="kv__item"><dt>Maximize</dt><dd>2.5&ndash;4.5 dB GR on loud choruses</dd></div>
             <div class="kv__item"><dt>Tone</dt><dd>0 (default)</dd></div>
-            <div class="kv__item"><dt>Threshold (output ceiling)</dt><dd>-1.5 dB (starting point)</dd></div>
+            <div class="kv__item"><dt>Threshold (output ceiling)</dt><dd>-2.5 dB (starting point)</dd></div>
             <div class="kv__item"><dt>OS</dt><dd>4x or 8x <span class="chip">unverified</span></dd></div>
             <div class="kv__item"><dt>Loudness</dt><dd>-8.5 to -7.5 LUFS integrated</dd></div>
-            <div class="kv__item"><dt>True peak</dt><dd>-1.0 dBTP max, read on the FG-X 2 meter</dd></div>
+            <div class="kv__item"><dt>True peak</dt><dd>-2.0 dBTP max for streaming, read on the FG-X 2 meter. CD or download: -1.0 dBTP</dd></div>
           </dl>
-          <p class="rack__why">Final metal loudness. The JST manual calls Threshold the maximum output peak. It does not say the ceiling is true-peak. A sample-peak ceiling of -0.8 dB can still produce inter-sample overs. Start Threshold at -1.5 dB. Then confirm the true peak on a BS.1770 meter.</p>
+          <p class="rack__why">Final metal loudness. The JST manual calls Threshold the maximum output peak. It does not say the ceiling is true-peak. A sample-peak ceiling can still produce inter-sample overs. Spotify asks for true peak below -2 dBTP on masters louder than -14 LUFS, and this master prints near -8 LUFS. Start Threshold at -2.5 dB. Then confirm the true peak on a BS.1770 meter.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">FG-X 2 (FG-Comp + FG-Level, True Peak Limiting)</span></span>
@@ -273,10 +275,10 @@
     <ol class="steps">
       <li><div><span class="steps__title">Sweep Max #1 Tone</span><p>Sweep Dark &harr; Bright. GR must stay at <code class="val-ok">0.0 dB</code>.</p></div></li>
       <li><div><span class="steps__title">Decide on Soothe2</span><p>Engage Slot 4 only if needed. Low cut band <code>250 Hz</code>, Depth <code>0.8&ndash;1.2</code>.</p></div></li>
-      <li><div><span class="steps__title">Set GClip</span><p>Shave <code>1.0&ndash;2.0 dB</code> of peaks.</p></div></li>
-      <li><div><span class="steps__title">Raise Soothe2 quality</span><p>Switch every Soothe2 instance to <code>4x</code> Oversample <span class="chip">unverified</span>.</p></div></li>
-      <li><div><span class="steps__title">Push Max #2</span><p>Drive to <code class="val-warn">2.5&ndash;4.5 dB GR</code>. Threshold (ceiling) <code class="val-danger">-1.5 dB</code>.</p></div></li>
-      <li><div><span class="steps__title">Check true peak</span><p>Put FG-X 2 after Max #2 as a meter. Leave its FG-Comp and FG-Level off <span class="chip">unverified</span>. Max true peak must read <code class="val-danger">-1.0 dBTP</code> or lower. If it reads higher, lower the Max #2 Threshold.</p></div></li>
+      <li><div><span class="steps__title">Set GClip</span><p>Clip <code>71%</code> shaves about <code>1.0&ndash;2.0 dB</code> off the <code>-2 to -1 dBFS</code> peaks. If your peaks sit elsewhere, set the percent from the peak reading: with peaks at 0 dBFS, <code>89%</code> shaves 1 dB and <code>79%</code> shaves 2 dB.</p></div></li>
+      <li><div><span class="steps__title">Raise Soothe2 render quality</span><p>In one soothe2 instance, set the offline rendering quality (right-hand column of the quality popup) to <code>4x</code> Oversample <span class="chip">unverified</span>. Then pick "copy to all plug-in instances" in the offline settings menu. Every instance renders at that quality.</p></div></li>
+      <li><div><span class="steps__title">Push Max #2</span><p>Raise Maximize to <code class="val-warn">2.5&ndash;4.5 dB GR</code>. Threshold (ceiling) <code class="val-danger">-2.5 dB</code>.</p></div></li>
+      <li><div><span class="steps__title">Check true peak</span><p>Put FG-X 2 after Max #2 as a meter. Leave its FG-Comp and FG-Level off <span class="chip">unverified</span>. Max true peak must read <code class="val-danger">-2.0 dBTP</code> or lower for streaming. If it reads higher, lower the Max #2 Threshold. A CD or download master may use <code>-1.0 dBTP</code>.</p></div></li>
       <li><div><span class="steps__title">Print the main master</span><p>Read <code>-8.5 to -7.5 LUFS</code> integrated.</p></div></li>
       <li><div><span class="steps__title">Print the instrumental</span><p>Mute <code>vocal_master</code>. Bypass the <code>sc_spotlight</code> duck (<code>instrument_bus</code> Slot 2) and the ducks on <code>fx_inst_plate</code> and <code>fx_inst_dly</code>.</p></div></li>
       <li><div><span class="steps__title">Print the acapella</span><p>Render the vocal branch alone.</p></div></li>
@@ -325,7 +327,7 @@
         </thead>
         <tbody>
           <tr><td>Slate hybrid</td><td>VCC MixBuss &gt; Coffee The Pun &gt; FG-Grey &gt; VTM &gt; FG-X 2</td><td class="mono">FG-X 2 FG-Level 1.5&ndash;2.5 dB GR, Detail +0.6, LoPunch +0.8 (starting points)</td></tr>
-          <tr><td>Stock + TDR</td><td>SlickEQ &gt; Kotelnikov &gt; GClip &gt; ReaLimit</td><td class="mono">Kotelnikov 1 dB, Low Freq Relax 100 Hz; GClip 1 dB; ReaLimit ceiling -0.5 dBFS (True peak display)</td></tr>
+          <tr><td>Stock + TDR</td><td>SlickEQ &gt; Kotelnikov &gt; GClip &gt; ReaLimit</td><td class="mono">Kotelnikov 1 dB, Low Freq Relax 100 Hz; GClip shaves about 1 dB (Clip 89% with peaks at 0 dBFS); ReaLimit ceiling -0.5 dBFS (True peak display)</td></tr>
           <tr><td>JST glue</td><td>BG-Mix &gt; JST Maximizer (Rock)</td><td class="mono">BG-Mix Careful 1.0&ndash;2.5 dB GR, never over 3 dB</td></tr>
         </tbody>
       </table>
@@ -343,10 +345,10 @@
           <tr><td>Mix pumps on double kick</td><td>Raise FG-Grey HPF into <code>90&ndash;100 Hz</code>.</td><td>VBC FG-Grey</td></tr>
           <tr><td>Max #1 shows gain reduction</td><td>Back off Maximize to <code>0.0 dB GR</code>. Recheck sub-group levels.</td><td>JST Maximizer #1</td></tr>
           <tr><td>Chorus turns harsh</td><td>Engage Soothe2, Depth <code>0.8&ndash;1.2</code>. Never stack TDR Nova.</td><td>Soothe2</td></tr>
-          <tr><td>Limiter distorts on snare hits</td><td>Shave <code>1.0&ndash;2.0 dB</code> with GClip first.</td><td>GClip, 2x OS</td></tr>
+          <tr><td>Limiter distorts on snare hits</td><td>Shave <code>1.0&ndash;2.0 dB</code> with GClip first: Clip <code>71%</code> at the <code>-2 to -1 dBFS</code> input.</td><td>GClip, 2x OS</td></tr>
           <tr><td>Master is too quiet</td><td>Push Max #2 to <code>2.5&ndash;4.5 dB GR</code>. Do not exceed it.</td><td>JST Maximizer #2</td></tr>
           <tr><td>Mix sounds small, not loud</td><td>Check FG-Grey GR. Stay inside <code>2&ndash;3 dB</code>.</td><td>VBC FG-Grey</td></tr>
-          <tr><td>Master distorts after upload</td><td>Lower Max #2 Threshold until true peak reads <code>-1.0 dBTP</code> or lower. For a streaming-only file, use <code>-2.0 dBTP</code>.</td><td>JST Maximizer #2 / FG-X 2 meter</td></tr>
+          <tr><td>Master distorts after upload</td><td>Lower Max #2 Threshold until true peak reads <code>-2.0 dBTP</code> or lower. Only a CD or download file may use <code>-1.0 dBTP</code>.</td><td>JST Maximizer #2 / FG-X 2 meter</td></tr>
           <tr><td>Master sounds quieter than the references on Spotify</td><td>Normalization turns both down to <code>-14 LUFS</code>. Compare punch, not level. Do not push past <code>-7.5 LUFS</code>.</td><td>FG-X 2 meter</td></tr>
           <tr><td>Lead vocal buried in the guitar wall</td><td>Deepen the Nova duck to <code>-2.5 dB</code>. Still buried: add the guitar vocal pocket.</td><td>TDR Nova / <a href="guitars.html#vocal-pocket">soothe2</a></td></tr>
           <tr><td>Music pumps under the singer</td><td>Duck less than <code>2.5 dB</code>. Shorten the Nova Release.</td><td>TDR Nova</td></tr>

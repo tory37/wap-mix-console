@@ -727,10 +727,11 @@ main {
 
 /* Zone positions on the -24..0 scale */
 .zone--s1 { left: 50%; width: 8.3333%; }      /* -12 to -10 */
-.zone--s2 { left: 66.6667%; width: 8.3333%; } /* -8 to -6 */
-.zone--s3 { left: 75%; width: 4.1667%; }      /* -6 to -5 */
-.zone--s4 { left: 83.3333%; width: 4.1667%; } /* -4 to -3 */
-.zone--s5 { left: 93.75%; width: 2.0833%; }   /* -1.5 to -1.0 (threshold -1.5, TP -1.0) */
+.zone--s2 { left: 62.5%; width: 8.3333%; }    /* -9 to -7 */
+.zone--s3v { left: 70.8333%; width: 4.1667%; } /* -7 to -6 (vocal_master) */
+.zone--s3 { left: 83.3333%; width: 4.1667%; } /* -4 to -3 (instrument_bus) */
+.zone--s4 { left: 91.6667%; width: 4.1667%; } /* -2 to -1 */
+.zone--s5 { left: 89.5833%; width: 2.0833%; } /* -2.5 to -2.0 (threshold -2.5, TP -2.0) */
 
 .ladder__value {
   grid-column: 3;

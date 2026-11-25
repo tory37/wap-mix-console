@@ -34,8 +34,8 @@
           <tr><td>Pad</td><td>HPF <span class="mono">250&ndash;400 Hz</span>, scoop <span class="mono">1&ndash;3 kHz</span></td><td>Wide</td><td>fx_hall</td></tr>
           <tr><td>Arp / pluck</td><td>Delay High Pass <span class="mono">300 Hz</span></td><td>Wide repeats, narrow dry</td><td>fx_inst_dly</td></tr>
           <tr><td>Riff reinforcement synth</td><td>Low mids, shares the guitar band</td><td>Narrow or mono when guitars are already wide</td><td>Dry. Distort it to blend.</td></tr>
-          <tr><td>Low-mid fuzz synth</td><td>Low mids, no sub</td><td>Narrow</td><td>Routes with the bass, keyed from the kick</td></tr>
-          <tr><td>Lead synth</td><td>Above the guitar presence</td><td>Center, widened slightly</td><td>Own delay throw. Out of the vocal line.</td></tr>
+          <tr><td>Low-mid fuzz synth</td><td>Low mids, no sub</td><td>Narrow</td><td><code>syn_bass</code> in <code>orch_syn_bus</code>, ducked from <code>sc_kick</code> on its own track</td></tr>
+          <tr><td>Lead synth</td><td>Above the guitar presence</td><td>Center, widened slightly</td><td>Delay throw: <code>syn_ld</code> &rarr; <code>fx_inst_dly</code> at <code>-inf</code>, automated. Out of the vocal line.</td></tr>
           <tr><td>Sub layer</td><td><span class="mono">30&ndash;40 Hz</span> reinforcement</td><td>Mono</td><td>See <a href="bass.html">Bass</a></td></tr>
         </tbody>
       </table>
@@ -125,7 +125,7 @@
     <ol class="steps">
       <li><div><span class="steps__title">Make it sustain</span><p>Overlap MIDI notes or slow the attack. A continuous tone sits under chugs better than a pluck.</p></div></li>
       <li><div><span class="steps__title">Automate the drive by section</span><p>Clean in verses. More drive in pre-choruses. Full drive in choruses.</p></div></li>
-      <li><div><span class="steps__title">Low-mid fuzz synths route with the bass</span><p>One compressor on that group, keyed from the kick, ducks fast and almost invisibly.</p></div></li>
+      <li><div><span class="steps__title">Duck low-mid fuzz synths from the kick</span><p>Put the fuzz synth on <code>syn_bass</code>. It stays in <code>orch_syn_bus</code> and does not route with the bass. <code>sc_kick</code> keys a compressor on the <code>syn_bass</code> track itself, so it ducks fast and almost invisibly on each kick.</p></div></li>
     </ol>
 
     <h3 id="arps">Arps &amp; plucks</h3>
@@ -139,8 +139,9 @@
       </div>
       <div class="settings__body">
         <dl class="kv" id="synths-sfx-syn-sends" data-copy-title="Synth sends">
-          <div class="kv__item"><dt>Pads</dt><dd>&rarr; fx_hall</dd></div>
-          <div class="kv__item"><dt>Arps / plucks</dt><dd>&rarr; fx_inst_dly</dd></div>
+          <div class="kv__item"><dt>Pads</dt><dd>&rarr; fx_hall, -12 dB start</dd></div>
+          <div class="kv__item"><dt>Arps / plucks</dt><dd>&rarr; fx_inst_dly, -12 dB start</dd></div>
+          <div class="kv__item"><dt>Lead synth</dt><dd>syn_ld &rarr; fx_inst_dly at -inf. Automate throws</dd></div>
           <div class="kv__item"><dt>Reinforcement synths</dt><dd>Dry</dd></div>
           <div class="kv__item"><dt>Output</dt><dd>orch_syn_bus</dd></div>
         </dl>

@@ -25,9 +25,9 @@
   <section class="section">
     <h2 id="why-shared">Why shared returns</h2>
     <ol class="steps">
-      <li><div><span class="steps__title">One space</span><p>Drums, vocals and guitars share the same reverbs. <code>fx_vox_hall</code> copies the <code>fx_hall</code> program. The ear hears one room.</p></div></li>
+      <li><div><span class="steps__title">One space</span><p>Drums, vocals and guitars use matching reverb programs. Each copy is its own return, so the stems stay clean. <code>fx_vox_hall</code> copies the <code>fx_hall</code> program, and the <code>fx_inst_*</code> returns copy the vocal plate and delay. The ear hears one room.</p></div></li>
       <li><div><span class="steps__title">Phase coherence</span><p>Separate stereo reverbs on hard-panned rhythms wash out of phase across the center. They mask the snare and the vocal.</p></div></li>
-      <li><div><span class="steps__title">Ducking</span><p>A return can duck from a key. Tails drop <code>3&ndash;5 dB</code> during fast parts and bloom in the gaps.</p></div></li>
+      <li><div><span class="steps__title">Ducking</span><p>A return can duck from a key. Tails drop <code>2&ndash;4 dB</code> during fast parts and bloom in the gaps.</p></div></li>
       <li><div><span class="steps__title">Clean prints</span><p>Vocal tracks send only to returns inside <code>vocal_master</code>. Mute it and the instrumental has no vocal tails. Instruments send only to returns inside <code>instrument_bus</code>, so the a cappella has no guitar or synth tails.</p></div></li>
     </ol>
   </section>
@@ -41,14 +41,14 @@
         </thead>
         <tbody>
           <tr><td><a href="#fx-crush"><code>fx_crush</code></a></td><td><code>kick_sum</code>, <code>snr_top</code>, <code>snr_bot</code>, <code>tom_1</code>, <code>tom_2</code>, <code>tom_flr</code>. Not <code>kick_sub</code> (sub energy pumps the bus). No OH, rooms or triggers.</td><td>Into <code>drum_bus</code>. Return fader <span class="mono">-16 dB</span> (template)</td></tr>
-          <tr><td><a href="#fx-snr-plate"><code>fx_snr_plate</code></a></td><td><code>snr_bus</code> + subtle <code>tom_bus</code> (<span class="mono">-8 to -10 dB</span>)</td><td>Into <code>drum_bus</code></td></tr>
-          <tr><td><a href="#fx-vox-plate"><code>fx_vox_plate</code></a></td><td><code>vox_ld_bus</code>, <code>vox_bgv_bus</code></td><td>Inside <code>vocal_master</code>. Ducked <span class="mono">2&ndash;3 dB</span> by <code>sc_spotlight</code></td></tr>
+          <tr><td><a href="#fx-snr-plate"><code>fx_snr_plate</code></a></td><td><code>snr_bus</code> (<span class="mono">-12 dB</span>, template) + subtle <code>tom_bus</code> (<span class="mono">-8 to -10 dB</span>)</td><td>Into <code>drum_bus</code></td></tr>
+          <tr><td><a href="#fx-vox-plate"><code>fx_vox_plate</code></a></td><td><code>vox_ld</code>, <code>vox_ld_dbl</code>, <code>vox_bgv_bus</code>. Screams stay dry.</td><td>Inside <code>vocal_master</code>. Ducked <span class="mono">2&ndash;3 dB</span> by <code>sc_spotlight</code></td></tr>
           <tr><td><a href="#fx-vox-slap"><code>fx_vox_slap</code></a></td><td><code>vox_ld_bus</code></td><td>Inside <code>vocal_master</code></td></tr>
           <tr><td><a href="#fx-vox-dly"><code>fx_vox_dly</code></a></td><td><code>vox_ld_bus</code> (automated throws; the send starts at <span class="mono">-inf</span>)</td><td>Inside <code>vocal_master</code>. Ducked <span class="mono">3&ndash;4 dB</span> by <code>sc_spotlight</code></td></tr>
           <tr><td><a href="#fx-inst-plate"><code>fx_inst_plate</code></a></td><td><code>gtr_ld_bus</code></td><td>Directly in <code>instrument_bus</code>. Ducked <span class="mono">2&ndash;3 dB</span> by <code>sc_spotlight</code></td></tr>
-          <tr><td><a href="#fx-inst-dly"><code>fx_inst_dly</code></a></td><td><code>gtr_ld_bus</code>, <code>syn_arp</code> (ANA 2)</td><td>Directly in <code>instrument_bus</code>. Ducked <span class="mono">3&ndash;4 dB</span> by <code>sc_spotlight</code></td></tr>
+          <tr><td><a href="#fx-inst-dly"><code>fx_inst_dly</code></a></td><td><code>gtr_ld_bus</code>, <code>syn_arp</code> (ANA 2), <code>syn_ld</code> (automated throws; the send starts at <span class="mono">-inf</span>)</td><td>Directly in <code>instrument_bus</code>. Ducked <span class="mono">3&ndash;4 dB</span> by <code>sc_spotlight</code></td></tr>
           <tr><td><a href="#fx-vox-hall"><code>fx_vox_hall</code></a></td><td><code>vox_bgv_bus</code></td><td>Inside <code>vocal_master</code>. Ducked <span class="mono">2&ndash;3 dB</span> by <code>sc_spotlight</code></td></tr>
-          <tr><td><a href="#fx-hall"><code>fx_hall</code></a></td><td>Strings (<code>orch_str_vln</code>, <code>orch_str_vc</code>), <code>orch_choir</code>, <code>orch_brass</code>, <code>syn_pad</code> (ANA 2), <code>gtr_mel_bus</code>. No percussion. No vocals.</td><td>Inside <code>orch_syn_bus</code>, in <code>instrument_bus</code></td></tr>
+          <tr><td><a href="#fx-hall"><code>fx_hall</code></a></td><td>Strings (<code>orch_str_vln</code>, <code>orch_str_vc</code>), <code>orch_choir</code>, <code>orch_brass</code>, <code>syn_pad</code> (ANA 2), <code>gtr_mel_bus</code>. No percussion. No vocals.</td><td>Directly in <code>instrument_bus</code>, beside <code>orch_syn_bus</code>, so guitar tails skip the orch glue</td></tr>
         </tbody>
       </table>
     </div>
@@ -149,7 +149,7 @@
         <div class="rack__body">
           <div class="rack__head">
             <h4 class="rack__name">Repeater</h4>
-            <span class="chip">Slate</span>
+            <span class="chip">D16 Group</span>
             <span class="tag">DELAY</span>
             <button type="button" class="copy-btn" data-copy="fx-returns-slap" aria-label="Copy Repeater settings"></button>
           </div>
@@ -193,7 +193,7 @@
         <div class="rack__body">
           <div class="rack__head">
             <h4 class="rack__name">Repeater</h4>
-            <span class="chip">Slate</span>
+            <span class="chip">D16 Group</span>
             <span class="tag">DELAY</span>
             <button type="button" class="copy-btn" data-copy="fx-returns-tempo" aria-label="Copy Repeater settings"></button>
           </div>
@@ -281,7 +281,7 @@
     <p>Keep the <code>sc_spotlight</code> duck, and set the track to 4 channels for the key. The lead guitar sent to the vocal plate before, so its tail always ducked under the lead vocal. The same key on both copies keeps that sound. Bypass this duck for the instrumental print, as with the <code>instrument_bus</code> duck.</p>
 
     <h3 id="fx-inst-dly">fx_inst_dly</h3>
-    <p>Duplicate of <a href="#fx-vox-dly"><code>fx_vox_dly</code></a>: copy its FX chain (or save it as an FX chain preset) so both match. Separate instance so instrumental and a cappella stems stay clean. Fed by <code>gtr_ld_bus</code> and <code>syn_arp</code>. It sits directly in <code>instrument_bus</code>, so the <code>instrument_bus</code> Nova duck also acts on it.</p>
+    <p>Duplicate of <a href="#fx-vox-dly"><code>fx_vox_dly</code></a>: copy its FX chain (or save it as an FX chain preset) so both match. Separate instance so instrumental and a cappella stems stay clean. Fed by <code>gtr_ld_bus</code>, <code>syn_arp</code> and, for automated throws, <code>syn_ld</code>. It sits directly in <code>instrument_bus</code>, so the <code>instrument_bus</code> Nova duck also acts on it.</p>
     <p>Keep the tempo-synced Repeater settings and the keyed <code>sc_spotlight</code> duck after it. Set the track to 4 channels for the key. Lead and arp repeats then drop under the lead vocal, as before.</p>
 
     <div class="callout callout--info" role="note">
@@ -293,7 +293,7 @@
     </div>
 
     <h3 id="fx-hall">fx_hall</h3>
-    <p>Fed post-fader by the strings, <code>orch_choir</code>, <code>orch_brass</code>, <code>syn_pad</code> and <code>gtr_mel_bus</code>. <code>orch_perc</code> gets no hall send, so hits clear before the next snare.</p>
+    <p>Fed post-fader by the strings, <code>orch_choir</code>, <code>orch_brass</code>, <code>syn_pad</code> and <code>gtr_mel_bus</code>, each at <code>-12 dB</code> (template starting point; ride between about <code>-14</code> and <code>-10.5 dB</code>). <code>orch_perc</code> gets no hall send, so hits clear before the next snare. The return sits directly in <code>instrument_bus</code>, so guitar tails skip the <code>orch_syn_bus</code> glue.</p>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>
@@ -405,7 +405,7 @@
     <ol class="steps">
       <li><div><span class="steps__title">Never leave the low cut band at 20 Hz</span><p>The low cut band shapes what soothe2 reacts to. Full-band soothe2 reacts to sub and chugs. It pumps and guts the low end.</p></div></li>
       <li><div><span class="steps__title">Soft by default</span><p>Soft keeps transients. Use Hard only for static artifacts, like a 3.2 kHz cab whistle.</p></div></li>
-      <li><div><span class="steps__title">Oversample on render</span><p>Set the offline rendering quality higher than real-time. Use <code>1x</code> or <code>2x</code> Oversample while mixing and <code>4x</code> for the offline bounce <span class="chip">unverified</span>.</p></div></li>
+      <li><div><span class="steps__title">Oversample on render</span><p>Set the offline rendering quality higher than real-time. Use <code>1x</code> or <code>2x</code> Oversample while mixing and <code>4x</code> for the offline bounce <span class="chip">unverified</span>. Set it in one instance, then choose "copy to all plug-in instances" in the offline settings menu. Loading a preset can change an instance's offline settings.</p></div></li>
       <li><div><span class="steps__title">Watch Depth</span><p>Above <code>3.5</code> on guitars or vocals the source goes flat. The blueprint allows up to <code>4.5</code> on bright screams only.</p></div></li>
       <li><div><span class="steps__title">Keep Sharpness and Selectivity at 7 or below</span><p>Higher values act like narrow comb filters. Sustained notes flange.</p></div></li>
       <li><div><span class="steps__title">Level-match</span><p>Soothe2 output is quieter. Trim the output before you compare bypass.</p></div></li>

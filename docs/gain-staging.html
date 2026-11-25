@@ -40,7 +40,7 @@
     <h2 id="meter-ladder">Meter ladder</h2>
     <p>Peak targets per stage. Read them on the REAPER MCP peak readout during the loudest chorus.</p>
 
-    <div class="ladder" role="img" aria-label="dBFS peak targets: raw tracks -12 to -10, group buses -8 to -6, master sub-groups -6 to -5, print mix bus input -4 to -3, master_bus threshold -1.5 with true peak at or below -1.0 dBTP. Reference line at -18 dBFS RMS.">
+    <div class="ladder" role="img" aria-label="dBFS peak targets with faders at unity: raw tracks -12 to -10, group buses -9 to -7, instrument_bus -4 to -3, vocal_master -7 to -6, print mix bus input -2 to -1, master_bus threshold -2.5 with true peak at or below -2.0 dBTP. Reference line at -18 dBFS RMS.">
       <ol class="ladder__grid" aria-hidden="true">
         <li class="ladder__row">
           <span class="ladder__axis-label label">Stage</span>
@@ -62,22 +62,27 @@
         <li class="ladder__row">
           <span class="ladder__name"><span class="ladder__stage">02</span>Group buses</span>
           <span class="ladder__track"><span class="ladder__zone ladder__zone--ok zone--s2"></span></span>
-          <span class="ladder__value val-ok">-8 to -6</span>
+          <span class="ladder__value val-ok">-9 to -7</span>
         </li>
         <li class="ladder__row">
-          <span class="ladder__name"><span class="ladder__stage">03</span>Master sub-groups</span>
+          <span class="ladder__name"><span class="ladder__stage">03</span>vocal_master</span>
+          <span class="ladder__track"><span class="ladder__zone ladder__zone--warn zone--s3v"></span></span>
+          <span class="ladder__value val-warn">-7 to -6</span>
+        </li>
+        <li class="ladder__row">
+          <span class="ladder__name"><span class="ladder__stage">03</span>instrument_bus</span>
           <span class="ladder__track"><span class="ladder__zone ladder__zone--warn zone--s3"></span></span>
-          <span class="ladder__value val-warn">-6 to -5</span>
+          <span class="ladder__value val-warn">-4 to -3</span>
         </li>
         <li class="ladder__row">
           <span class="ladder__name"><span class="ladder__stage">04</span>print_bus in</span>
           <span class="ladder__track"><span class="ladder__zone ladder__zone--warn zone--s4"></span></span>
-          <span class="ladder__value val-warn">-4 to -3</span>
+          <span class="ladder__value val-warn">-2 to -1</span>
         </li>
         <li class="ladder__row">
           <span class="ladder__name"><span class="ladder__stage">05</span>master_bus ceiling</span>
           <span class="ladder__track"><span class="ladder__zone ladder__zone--danger zone--s5"></span></span>
-          <span class="ladder__value val-danger">-1.5 (TP -1.0)</span>
+          <span class="ladder__value val-danger">-2.5 (TP -2.0)</span>
         </li>
       </ol>
       <div class="ladder__legend" aria-hidden="true">
@@ -95,12 +100,22 @@
         </thead>
         <tbody>
           <tr><td class="mono">01</td><td>Raw tracks &amp; VSTi</td><td class="mono val-ok">-12 to -10 dBFS</td><td>Faders parked at <code>0.00 dB</code></td></tr>
-          <tr><td class="mono">02</td><td>Group buses</td><td class="mono val-ok">-8 to -6 dBFS</td><td><code>drum_bus</code>, <code>bass_bus</code>, <code>gtr_rhy_bus</code>, <code>vox_ld_bus</code></td></tr>
-          <tr><td class="mono">03</td><td>Master sub-groups</td><td class="mono val-warn">-6 to -5 dBFS</td><td><code>instrument_bus</code> and <code>vocal_master</code></td></tr>
-          <tr><td class="mono">04</td><td>print_bus in</td><td class="mono val-warn">-4 to -3 dBFS</td><td>Summing headroom before the limiter</td></tr>
-          <tr><td class="mono">05</td><td>master_bus ceiling</td><td class="mono val-danger">-1.5 dBFS; true peak -1.0 dBTP max</td><td>JST Maximizer #2 (Rock preset). Confirm true peak on the FG-X 2 meter.</td></tr>
+          <tr><td class="mono">02</td><td>Group buses</td><td class="mono val-ok">-9 to -7 dBFS</td><td><code>drum_bus</code>, <code>bass_bus</code>, <code>gtr_rhy_bus</code>, <code>vox_ld_bus</code>. The other buses sit lower.</td></tr>
+          <tr><td class="mono">03</td><td>instrument_bus</td><td class="mono val-warn">-4 to -3 dBFS</td><td>Sum of the instrument groups</td></tr>
+          <tr><td class="mono">03</td><td>vocal_master</td><td class="mono val-warn">-7 to -6 dBFS</td><td>Sum of <code>vox_ld_bus</code>, the BGVs and the vocal returns. A peak reading, not loudness: by ear the vocal still sits on top.</td></tr>
+          <tr><td class="mono">04</td><td>print_bus in</td><td class="mono val-warn">-2 to -1 dBFS</td><td>GClip at <code>71%</code> (about -3.0 dBFS) shaves 1&ndash;2 dB off these peaks before the limiter</td></tr>
+          <tr><td class="mono">05</td><td>master_bus ceiling</td><td class="mono val-danger">-2.5 dBFS; true peak -2.0 dBTP max</td><td>JST Maximizer #2 (Rock preset). Confirm true peak on the FG-X 2 meter. A CD or download master may use -1.0 dBTP.</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="callout callout--info" role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="callout__body">
+        <span class="callout__title">Why the stages climb (reasoning)</span>
+        <p>Faders stay at unity, so every folder adds its children. Similar, uncorrelated sources sum by about <code>10 &times; log10(n)</code> dB: two add about <code>3 dB</code>, three about <code>4.8 dB</code>. Peaks that land together can add up to <code>20 &times; log10(n)</code>. Bus compressors take a little off. This is our own math, not a vendor figure.</p>
+        <p>Work back from the master. Max #2 starts at a <code>-2.5 dB</code> Threshold for <code>-2.0 dBTP</code>. GClip parks at <code>71%</code> (<code>-3.0 dBFS</code>) and should shave <code>1&ndash;2 dB</code>, so <code>print_bus</code> peaks at <code>-2 to -1</code>. <code>instrument_bus</code> at <code>-3.5</code> plus <code>vocal_master</code> at <code>-6.5</code> sums to about <code>-1.7</code>. Three instrument groups at <code>-8</code> sum to about <code>-3.2</code>. <code>vox_ld_bus</code> at <code>-8</code> plus the BGVs and returns gives about <code>-6.5</code>. Two loud tracks at <code>-11</code> sum to about <code>-8</code>, which closes the loop at the raw-track target.</p>
+      </div>
     </div>
 
     <h3 id="stage-01">Stage 01 procedure</h3>
@@ -109,6 +124,7 @@
       <li><div><span class="steps__title">Bypass track FX</span><p>Hear the raw source only.</p></div></li>
       <li><div><span class="steps__title">Trim clip gain</span><p>Drag the top edge of each audio item. Or press <kbd>F2</kbd> and set Take volume.</p></div></li>
       <li><div><span class="steps__title">Turn down VSTi outputs</span><p>Lower the master output on DjinnBass, ANA 2 and LABS. Leave the GGD output alone. The template's 16 GGD output sends sit at <code>-10 dB</code>, and they are the GGD trim. Do not trim GGD again: two trims stack and leave the kit tracks too low.</p></div></li>
+      <li><div><span class="steps__title">Meter the GGD output sends</span><p>Play the loudest section and check that the kit tracks peak at <code class="val-ok">-12 to -10 dBFS</code>. If they do not, move the GGD master output, not the <code>-10 dB</code> sends.</p></div></li>
       <li><div><span class="steps__title">Read the meter</span><p>Stop when the MCP peak readout shows <code class="val-ok">-12.0 to -10.0 dBFS</code> on the loudest chorus.</p></div></li>
     </ol>
 
@@ -165,7 +181,7 @@
     <ol class="steps">
       <li><div><span class="steps__title">Park all faders at <code>0.00 dB</code> unity</span><p>Never pull a fader down to fix a hot DI, vocal or synth preset. REAPER faders have maximum resolution near <code>0.00 dB</code>.</p></div></li>
       <li><div><span class="steps__title">Trim pre-FX with clip gain or VSTi out</span><p>Drag item top edges or use <kbd>F2</kbd> Item Properties. Adjust VSTi output knobs or Slot 1 <code>JS: Volume Adjustment</code>. Target <code class="val-ok">-12 to -10 dBFS</code> peak.</p></div></li>
-      <li><div><span class="steps__title">Watch summing headroom</span><p>Keep <code>instrument_bus</code> and <code>vocal_master</code> at <code class="val-warn">-6 to -5 dBFS</code> each. <code>print_bus</code> then receives <code class="val-warn">-4 to -3 dBFS</code> peaks.</p></div></li>
+      <li><div><span class="steps__title">Watch summing headroom</span><p>Expect <code>instrument_bus</code> at <code class="val-warn">-4 to -3 dBFS</code> and <code>vocal_master</code> at <code class="val-warn">-7 to -6 dBFS</code>. <code>print_bus</code> then receives <code class="val-warn">-2 to -1 dBFS</code> peaks. Much hotter: go back to the raw-track trims, not the faders.</p></div></li>
       <li><div><span class="steps__title">Gain-match every plugin on/off</span><p>Match bypassed and active loudness on Coffee The Pun, FG-116 and JW/JST Bus Glue. Louder always sounds better. Gain-matching removes that bias.</p></div></li>
     </ol>
   </section>
@@ -228,8 +244,10 @@
             <div class="kv__item"><dt>Preset</dt><dd>"Mix Into This EQ"</dd></div>
             <div class="kv__item"><dt>GR</dt><dd>0.0 dB</dd></div>
             <div class="kv__item"><dt>Tone</dt><dd>Dark</dd></div>
+            <div class="kv__item"><dt>Low-End, Mono Bass, Bass Enhance, Stereo Enhance</dt><dd>0</dd></div>
+            <div class="kv__item"><dt>Sauce</dt><dd>0, mode Off</dd></div>
           </dl>
-          <p class="rack__why">Tone shaping only. It must show <strong>0.0 dB GR</strong>.</p>
+          <p class="rack__why">Tone shaping only. It must show <strong>0.0 dB GR</strong>. The JST manual says Tone "adjusts the tone before maximization", so the tilt works with no gain reduction.</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -262,7 +280,7 @@
             <div class="kv__item"><dt>Gain</dt><dd>0.0 dB</dd></div>
             <div class="kv__item"><dt>Clip</dt><dd>71% (about -3.0 dBFS)</dd></div>
           </dl>
-          <p class="rack__why">Clip level parks at <strong>71%</strong> (about -3.0 dBFS), the top of the <code>print_bus</code> input target.</p>
+          <p class="rack__why">Clip level parks at <strong>71%</strong> (about -3.0 dBFS), 1&ndash;2 dB under the <code>-2 to -1 dBFS</code> <code>print_bus</code> input target.</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -276,9 +294,9 @@
           </div>
           <dl class="kv" id="slot-m" data-copy-title="master_bus - JST Maximizer #2">
             <div class="kv__item"><dt>Preset</dt><dd>Factory &gt; Genre &gt; Rock (or Heavy Rock)</dd></div>
-            <div class="kv__item"><dt>Threshold (output ceiling)</dt><dd>-1.5 dB (starting point)</dd></div>
+            <div class="kv__item"><dt>Threshold (output ceiling)</dt><dd>-2.5 dB (starting point)</dd></div>
           </dl>
-          <p class="rack__why">Sits on <code>master_bus</code>, after <code>print_bus</code>. The REAPER master stays empty. The ceiling is a peak value. Confirm true peak at or below -1.0 dBTP at print time.</p>
+          <p class="rack__why">Sits on <code>master_bus</code>, after <code>print_bus</code>. The REAPER master stays empty. The ceiling is a peak value. Confirm true peak at or below -2.0 dBTP at print time. Spotify asks for true peak below -2 dBTP on masters louder than -14 LUFS. Use -1.0 dBTP only for a CD or download master.</p>
         </div>
       </li>
     </ol>
@@ -324,7 +342,7 @@
         <tbody>
           <tr><td>Hot DI, vocal or synth preset</td><td>Trim pre-FX to <code>-12 to -10 dBFS</code> peak. Leave the fader at <code>0.00 dB</code>. DIs: set one level for the record, then dial the amp sim to it.</td><td>Clip gain (F2) / Normalize items (Peak) / VSTi out / JS: Volume Adjustment</td></tr>
           <tr><td>Saturation overdrives early</td><td>Raw tracks peak at <code>-1 dBFS</code>. Bring them down to <code>-18 dBFS RMS</code>.</td><td>Clip gain / VSTi out</td></tr>
-          <tr><td><code>print_bus</code> compressor slams</td><td>Hold sub-groups at <code>-6 to -5 dBFS</code>. <code>print_bus</code> input lands at <code>-4 to -3 dBFS</code>.</td><td>instrument_bus / vocal_master faders, MCP meters</td></tr>
+          <tr><td><code>print_bus</code> compressor slams</td><td>Hold <code>instrument_bus</code> at <code>-4 to -3 dBFS</code> and <code>vocal_master</code> at <code>-7 to -6 dBFS</code>. <code>print_bus</code> input lands at <code>-2 to -1 dBFS</code>.</td><td>instrument_bus / vocal_master faders, MCP meters</td></tr>
           <tr><td>Plugin sounds better only because it is louder</td><td>Gain-match on vs. off.</td><td>Coffee The Pun / FG-116 / JW/JST Bus Glue</td></tr>
           <tr><td>JST Max #1 shows gain reduction</td><td>It must read <code>0.0 dB GR</code>. Recheck FG-Grey Makeup and sub-group levels.</td><td>JST Maximizer #1</td></tr>
         </tbody>

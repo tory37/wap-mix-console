@@ -27,13 +27,16 @@
     <div class="table-wrap">
       <table class="table">
         <thead>
-          <tr><th scope="col">Bus</th><th scope="col">Pan</th><th scope="col">Sends</th><th scope="col">Parent</th></tr>
+          <tr><th scope="col">Bus / track</th><th scope="col">Pan</th><th scope="col">Sends</th><th scope="col">Parent</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>vox_ld_bus</code></td><td><span class="mono">Mono center</span></td><td>Post-fader &rarr; <code>fx_vox_plate</code>, <code>fx_vox_slap</code>, <code>fx_vox_dly</code>. <code>vox_ld</code> and <code>vox_scrm</code> each send pre-fader &rarr; <code>sc_spotlight</code>.</td><td><code>vocal_master</code></td></tr>
-          <tr><td><code>vox_ld_dbl_bus</code></td><td><span class="mono">100% L/R</span></td><td>None. Sums into <code>vox_ld_bus</code>.</td><td><code>vox_ld_bus</code></td></tr>
+          <tr><td><code>vox_ld_bus</code></td><td><span class="mono">Mono center</span></td><td>Post-fader &rarr; <code>fx_vox_slap</code> and <code>fx_vox_dly</code> (<code>-inf</code>, automated throws). Reaches the screams too.</td><td><code>vocal_master</code></td></tr>
+          <tr><td><code>vox_ld</code></td><td><span class="mono">Center</span></td><td>Post-fader &rarr; <code>fx_vox_plate</code>. Pre-fader &rarr; <code>sc_spotlight</code>.</td><td><code>vox_ld_bus</code></td></tr>
+          <tr><td><code>vox_ld_dbl</code></td><td><span class="mono">Center, width 0</span></td><td>Post-fader &rarr; <code>fx_vox_plate</code>. No spotlight key.</td><td><code>vox_ld_bus</code></td></tr>
+          <tr><td><code>vox_scrm</code></td><td><span class="mono">Center</span></td><td>Pre-fader &rarr; <code>sc_spotlight</code>. No plate.</td><td><code>vox_ld_bus</code></td></tr>
           <tr><td><code>vox_scrm_dbl_bus</code></td><td><span class="mono">100% L/R</span></td><td>None. Sums into <code>vox_ld_bus</code>.</td><td><code>vox_ld_bus</code></td></tr>
-          <tr><td><code>vox_bgv_bus</code></td><td><span class="mono">85&ndash;100% L/R</span></td><td>Post-fader &rarr; <code>fx_vox_plate</code>, <code>fx_vox_hall</code>.</td><td><code>vocal_master</code></td></tr>
+          <tr><td><code>vox_bgv_bus</code></td><td><span class="mono">BGVs 90% L/R</span></td><td>Post-fader &rarr; <code>fx_vox_plate</code>, <code>fx_vox_hall</code>.</td><td><code>vocal_master</code></td></tr>
+          <tr><td><code>vox_harm_bus</code></td><td><span class="mono">Low pair 40% L/R, high pair 65% L/R</span></td><td>None. Sums into <code>vox_bgv_bus</code>.</td><td><code>vox_bgv_bus</code></td></tr>
         </tbody>
       </table>
     </div>
@@ -230,7 +233,7 @@
           <p class="rack__why">Commercial sheen above the guitars. If sibilance rises, add a de-esser after it.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
-            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VM Revival, Shimmer 2.5 (of 40) as a starting point</span></span>
+            <span class="alt"><span class="alt__tag">SLATE</span><span class="alt__name">VM Revival, Shimmer about 2.5 (starting point; the manual gives no scale)</span></span>
           </div>
         </div>
       </li>
@@ -259,7 +262,7 @@
           <tr><td>JW BG-Vocals mode</td><td>No mode switch</td><td>No mode switch. Use Crush and Aggro.</td></tr>
           <tr><td>JW BG-Vocals GR</td><td><span class="mono">3&ndash;5 dB</span></td><td><span class="mono">3&ndash;5 dB</span> on the bus. <span class="mono">5&ndash;8 dB</span> on dedicated scream tracks</td></tr>
           <tr><td>Track HPF (before the bus)</td><td><span class="mono">85&ndash;100 Hz</span></td><td><span class="mono">100&ndash;150 Hz</span> if the scream rumbles (starting point)</td></tr>
-          <tr><td>Space</td><td>Plate + slap + throws</td><td>Little reverb. 1/8 delay throws instead</td></tr>
+          <tr><td>Space</td><td>Plate (lead and double) + slap + throws</td><td>No plate. Slap (<span class="mono">80 ms</span>) + 1/8 delay throws</td></tr>
         </tbody>
       </table>
     </div>
@@ -281,7 +284,8 @@
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
       <div class="callout__body">
         <span class="callout__title">Space on screams</span>
-        <p>David Bendeth put little reverb on screams in Bring Me The Horizon's &ldquo;Shadow Moses&rdquo;. He used a 1/8 delay on the screamed sections instead. Choruses got a small room plus a 1/4 delay for length. Starting point: delays repeat in the gaps, while reverb tails sit under the next scream.</p>
+        <p>David Bendeth put little reverb on screams in Bring Me The Horizon's &ldquo;Shadow Moses&rdquo;. He used a 1/8 delay on the screamed sections instead, plus a little slap set at <code>80 ms</code> on the screaming parts. Choruses got a small room plus a 1/4 delay for length. Starting point: delays repeat in the gaps, while reverb tails sit under the next scream.</p>
+        <p>The template follows this. The plate send sits on <code>vox_ld</code> and <code>vox_ld_dbl</code> only. Screams keep the slap and the delay throws on <code>vox_ld_bus</code>.</p>
       </div>
     </div>
   </section>
@@ -289,28 +293,30 @@
   <section class="section">
     <h2 id="doubles">Doubles &amp; harmonies</h2>
 
-    <h3 id="lead-doubles">Lead doubles</h3>
-    <p>Do not double every line. Erik Ron skips doubles on many parts. A single lead reads closer and clearer in verses. Save doubles for choruses and big screams.</p>
-    <p>Doubles thicken the lead, so they go with the lead, not with the BGVs. Put <code>vox_ld_dbl_l</code> and <code>vox_ld_dbl_r</code> in <code>vox_ld_dbl_bus</code>, inside <code>vox_ld_bus</code>. Joe Rickard sends the lead and its double to one bus so they hit one compressor together. Taylor Larson and the Nail The Mix vocal FAQ also glue doubles to the lead. No source found puts lead doubles in a BGV bus.</p>
+    <h3 id="lead-doubles">Lead double</h3>
+    <p>Do not double every line. Erik Ron skips doubles on many parts. A single lead reads closer and clearer in verses. Save the double for choruses and big lines.</p>
+    <p>The lead has one double, <code>vox_ld_dbl</code>. It thickens the lead, so it sits inside <code>vox_ld_bus</code> beside <code>vox_ld</code>, not with the BGVs. Joe Rickard sends the lead and its double to one bus so they hit one compressor together. Taylor Larson and the Nail The Mix vocal FAQ also glue doubles to the lead. No source found puts lead doubles in a BGV bus.</p>
+    <p>Pan the double center and tuck it under the lead. Joey Sturgis keeps only the occasional double in the center, reinforcing the lead, and pans the rest of the backgrounds to the sides. Mike Senior (Sound On Sound): a centered double holds up in mono better than a panned one. A lower double reads as one singer. At equal level it reads as two.</p>
     <div class="settings">
       <div class="settings__head">
-        <span class="label">Lead doubles</span>
-        <button type="button" class="copy-btn" data-copy="vocals-lead-doubles" aria-label="Copy Lead doubles settings"></button>
+        <span class="label">Lead double</span>
+        <button type="button" class="copy-btn" data-copy="vocals-lead-doubles" aria-label="Copy Lead double settings"></button>
       </div>
       <div class="settings__body">
-        <dl class="kv" id="vocals-lead-doubles" data-copy-title="Lead doubles">
+        <dl class="kv" id="vocals-lead-doubles" data-copy-title="Lead double">
           <div class="kv__item"><dt>Verses</dt><dd>Single lead, dead center</dd></div>
-          <div class="kv__item"><dt>Routing</dt><dd>vox_ld_dbl_l / vox_ld_dbl_r &rarr; vox_ld_dbl_bus &rarr; vox_ld_bus. No sends of their own</dd></div>
-          <div class="kv__item"><dt>Pan</dt><dd>100% L / 100% R, width 0, tucked under the lead</dd></div>
-          <div class="kv__item"><dt>L / R balance</dt><dd>Same level on each side</dd></div>
-          <div class="kv__item"><dt>Double level</dt><dd>About -8 dB under the lead (starting point, no source)</dd></div>
-          <div class="kv__item"><dt>Compression</dt><dd>Copy of the lead compression, or about half of it</dd></div>
-          <div class="kv__item"><dt>De-essing</dt><dd>Hard, on the doubles only</dd></div>
-          <div class="kv__item"><dt>Breaths on doubles</dt><dd>Cut them. Keep breaths on the lead only</dd></div>
+          <div class="kv__item"><dt>Routing</dt><dd>vox_ld_dbl &rarr; vox_ld_bus. Post-fader &rarr; fx_vox_plate. No spotlight key</dd></div>
+          <div class="kv__item"><dt>Pan</dt><dd>Center, width 0</dd></div>
+          <div class="kv__item"><dt>Double level</dt><dd>8&ndash;10 dB under the lead (starting point, no source gives a number)</dd></div>
+          <div class="kv__item"><dt>Choruses</dt><dd>Widen with MetaTune Doubler on vox_ld_dbl (Wet/Dry toward 100%, Width to taste) or MicroShift</dd></div>
+          <div class="kv__item"><dt>Compression</dt><dd>Light, on the track only. About half the lead's. The vox_ld_bus chain does the rest</dd></div>
+          <div class="kv__item"><dt>De-essing</dt><dd>Hard, on the double only</dd></div>
+          <div class="kv__item"><dt>Breaths on the double</dt><dd>Cut them. Keep breaths on the lead only</dd></div>
         </dl>
       </div>
     </div>
-    <p>Andrew Wade copies the lead compressor onto the doubles. He pans them hard L/R, tucked quietly under the main vocal, and de-esses only the doubles, hard, so the lead keeps its top end. Rickard uses about half the lead compression on the double and cuts its breaths. Mike Senior: give split doubles equal levels, or the image goes lopsided. Hard-panned layers drop about 3 dB in mono, so check mono.</p>
+    <p>Widen the double in choruses. Eyal Levi (Chelsea Grin) runs his single mono double through Soundtoys MicroShift for a wide, chorus-like texture. The installed equivalent is MetaTune Doubler on <code>vox_ld_dbl</code>. At Wet/Dry <code>100%</code> only the two new voices play, and Width sets their spread. Automate it on in choruses and off in verses, so verses stay focused and choruses go huge.</p>
+    <p>Keep the track compression light. The double already runs through the full <code>vox_ld_bus</code> chain, so a full lead chain on the track would compress it twice. Rickard uses about half the lead compression on the double and cuts its breaths. Andrew Wade de-esses only the doubles, hard, so the lead keeps its top end.</p>
     <p>Breaking Benjamin's background vocals on <em>Dark Before Dawn</em> come from the band's other singers, per Ben Burnley. Those are BGVs: they go in <code>vox_bgv_bus</code>, not with the doubles.</p>
 
     <h3 id="scream-doubles">Scream doubles</h3>
@@ -342,6 +348,27 @@
       </div>
     </div>
 
+    <h3 id="harmonies">Harmony pairs</h3>
+    <p>Harmonies are real L/R pairs. Both pairs sit in <code>vox_harm_bus</code>, inside <code>vox_bgv_bus</code>. <code>vox_harm_bus</code> is only a level fader: no plugins, no sends. The shared <code>vox_bgv_bus</code> chain and sends process every pair. Taylor Larson gives doubles and harmonies the same chain with different pans.</p>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">Harmony and BGV pans</span>
+        <button type="button" class="copy-btn" data-copy="vocals-harm-pans" aria-label="Copy Harmony and BGV pans"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="vocals-harm-pans" data-copy-title="Harmony and BGV pans">
+          <div class="kv__item"><dt>Low pair</dt><dd>vox_harm_lo_l / vox_harm_lo_r, 40% L / 40% R, width 0</dd></div>
+          <div class="kv__item"><dt>High pair</dt><dd>vox_harm_hi_l / vox_harm_hi_r, 65% L / 65% R, width 0</dd></div>
+          <div class="kv__item"><dt>BGV pair</dt><dd>vox_bgv_l / vox_bgv_r, 90% L / 90% R, width 0</dd></div>
+          <div class="kv__item"><dt>Scream pair</dt><dd>100% L / 100% R (see Scream doubles)</dd></div>
+          <div class="kv__item"><dt>Gang, adlib</dt><dd>vox_gang, vox_adlib in vox_bgv_bus, unpanned</dd></div>
+          <div class="kv__item"><dt>L / R balance</dt><dd>Same level on each side of every pair. Check mono</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p>The Nail The Mix panning guide puts two harmony parts at 40&ndash;60% L/R. For stacks it puts the low and high harmonies near 30%, with wider layers out at 70% L/R. A Soundfly Flypaper tip pans low harmonies about 35% and high harmonies about 75%. The 40% / 65% split is a pick between those two sources, not a quoted value. Each layer gets its own width, so the stack does not pile up at one position.</p>
+    <p>Mike Senior: give each pair equal levels, or the image goes lopsided. Hard-panned layers drop about 3 dB in mono, so check mono.</p>
+
     <h3 id="bgv-chain">vox_bgv_bus chain</h3>
     <ol class="rack">
       <li class="rack__slot">
@@ -356,8 +383,9 @@
           <dl class="kv" id="vocals-bgv-eq" data-copy-title="Slot 1 - JST EQ">
             <div class="kv__item"><dt>High Pass</dt><dd>120&ndash;140 Hz</dd></div>
             <div class="kv__item"><dt>Low Pass</dt><dd>8&ndash;9 kHz</dd></div>
+            <div class="kv__item"><dt>Peak (opt)</dt><dd>Narrow cut near 3 kHz, depth by ear</dd></div>
           </dl>
-          <p class="rack__why">Thins the stack so it never crowds the lead core.</p>
+          <p class="rack__why">Thins the stack so it never crowds the lead core. Tyler Smyth (Blessthefall) puts a sharp cut near 3 kHz on the background vocals only, where presence and intelligibility live. The lead keeps that band. He gives no dB value.</p>
           <div class="alts">
             <span class="label alts__title">Alternatives</span>
             <span class="alt"><span class="alt__tag">STOCK</span><span class="alt__name">ReaEQ</span></span>
@@ -396,10 +424,10 @@
           <dl class="kv" id="vocals-bgv-tune" data-copy-title="Slot 3 - MetaTune (clean chorus stacks)">
             <div class="kv__item"><dt>Speed</dt><dd>0&ndash;5 ms</dd></div>
             <div class="kv__item"><dt>Amount</dt><dd>100%</dd></div>
-            <div class="kv__item"><dt>Doubler Wet / Dry</dt><dd>20&ndash;40%</dd></div>
-            <div class="kv__item"><dt>Doubler Width</dt><dd>100% (voices fully L/R)</dd></div>
+            <div class="kv__item"><dt>Doubler on the bus</dt><dd>Off. The real pairs already give width</dd></div>
+            <div class="kv__item"><dt>Doubler on unpaired parts</dt><dd>vox_gang or a single-take line: Wet / Dry 20&ndash;40%, Width 100% (voices fully L/R)</dd></div>
           </dl>
-          <p class="rack__why">Hard-tune plus the doubler gives the polished, very wide clean chorus.</p>
+          <p class="rack__why">Hard-tune gives the polished clean chorus. The harmonies and BGVs are real L/R pairs, so a doubler on the bus would stack fake voices on real ones. Put the Doubler only on a part with no real pair, as a track insert.</p>
         </div>
       </li>
     </ol>
@@ -412,10 +440,10 @@
       </div>
       <div class="settings__body">
         <dl class="kv" id="vocals-bgv-sends" data-copy-title="vox_bgv_bus placement">
-          <div class="kv__item"><dt>Pan</dt><dd>85&ndash;100% L/R</dd></div>
-          <div class="kv__item"><dt>Width</dt><dd>Wide pan or micro-pitch</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_plate</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_hall</dd></div>
+          <div class="kv__item"><dt>Pan</dt><dd>Harmonies 40% / 65% L/R, BGVs 90% L/R</dd></div>
+          <div class="kv__item"><dt>Width</dt><dd>Real pairs. Doubler only on unpaired parts</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_plate, -12 dB start</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_hall, -12 dB start (about 25% of unity)</dd></div>
           <div class="kv__item"><dt>Parent</dt><dd>vocal_master</dd></div>
         </dl>
       </div>
@@ -433,17 +461,42 @@
       </div>
       <div class="settings__body">
         <dl class="kv" id="vocals-lv-sends" data-copy-title="vox_ld_bus sends">
-          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_plate</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_slap (Bendeth slap: 80 ms)</dd></div>
-          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_dly (automated)</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_slap, -12 dB start (Bendeth slap: 80 ms)</dd></div>
+          <div class="kv__item"><dt>Post-fader</dt><dd>fx_vox_dly at -inf (automated throws)</dd></div>
+          <div class="kv__item"><dt>Track sends</dt><dd>vox_ld and vox_ld_dbl &rarr; fx_vox_plate, post-fader, -12 dB start</dd></div>
         </dl>
       </div>
     </div>
-    <p>The spotlight key leaves from the tracks, not the bus: <code>vox_ld</code> and <code>vox_scrm</code> each send pre-fader <code>0 dB</code> to <code>sc_spotlight</code>. The doubles buses reach the returns only through <code>vox_ld_bus</code>.</p>
+    <p>The plate send and the spotlight key leave from the tracks, not the bus. <code>vox_ld</code> and <code>vox_ld_dbl</code> each send post-fader to <code>fx_vox_plate</code>, so the double shares the lead's space and the screams stay dry. <code>vox_ld</code> and <code>vox_scrm</code> each send pre-fader <code>0 dB</code> to <code>sc_spotlight</code>. <code>vox_scrm_dbl_bus</code> reaches the slap and the delay only through <code>vox_ld_bus</code>.</p>
+
+    <h3 id="spotlight-leveler">Leveler on sc_spotlight</h3>
+    <p>A scream hits the key much harder than a sung line. Without a leveler, the band ducks deeper under screams than under cleans. One compressor on the hub evens the key before it reaches the duckers. The hub sends leave pre-fader, post-FX, so the leveler acts on every key. This slot is reasoning, not a sourced rule.</p>
+    <ol class="rack">
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">1</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">ReaComp (on sc_spotlight)</h4>
+            <span class="chip">REAPER</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="vocals-spot-level" aria-label="Copy ReaComp (on sc_spotlight) settings"></button>
+          </div>
+          <dl class="kv" id="vocals-spot-level" data-copy-title="sc_spotlight - ReaComp leveler">
+            <div class="kv__item"><dt>Detector input</dt><dd>Main input (the hub's own signal)</dd></div>
+            <div class="kv__item"><dt>Ratio</dt><dd>4:1 (starting point)</dd></div>
+            <div class="kv__item"><dt>Threshold</dt><dd>Set so sung lines barely touch it and screams get about 6&ndash;8 dB GR (starting point)</dd></div>
+            <div class="kv__item"><dt>Attack / Release</dt><dd>5&ndash;10 ms / 150&ndash;300 ms (starting point)</dd></div>
+            <div class="kv__item"><dt>RMS size</dt><dd>20&ndash;50 ms, so the key follows phrase level, not single peaks</dd></div>
+            <div class="kv__item"><dt>Auto make up</dt><dd>Off</dd></div>
+          </dl>
+          <p class="rack__why">Insert it first, then set each ducker's threshold for its target GR. A clean chorus and a scream then duck the band by about the same amount (reasoning). The hub has Master/Parent Send off, so the leveler is never heard.</p>
+        </div>
+      </li>
+    </ol>
 
     <h3 id="delay-throws">Delay throws</h3>
     <ol class="steps">
-      <li><div><span class="steps__title">Automate the send</span><p>Draw send-level automation on <code>vox_ld_bus</code> &rarr; <code>fx_vox_dly</code>.</p></div></li>
+      <li><div><span class="steps__title">Automate the send</span><p>The send <code>vox_ld_bus</code> &rarr; <code>fx_vox_dly</code> sits at <code>-inf</code>. Draw send-level automation on it.</p></div></li>
       <li><div><span class="steps__title">Raise it on throw words</span><p>Lift the send only on the phrases you want repeated.</p></div></li>
       <li><div><span class="steps__title">Let the duck work</span><p>The return ducks <code>3&ndash;4 dB</code> from <code>sc_spotlight</code>. Repeats bloom in the gaps.</p></div></li>
     </ol>
@@ -482,7 +535,8 @@
           <tr><td>Vocal turns dark and buried</td><td>Custom Opto is past <code>6 dB GR</code>. Return to <code>3&ndash;5 dB</code>.</td><td>VM Custom Opto</td></tr>
           <tr><td>Vocal does not cut the guitars</td><td>Aggro <code>10&ndash;25%</code> in choruses.</td><td>JW BG-Vocals</td></tr>
           <tr><td>Air turns harsh</td><td>Keep High Air under <code>40</code>. De-ess after Fresh Air.</td><td>Fresh Air</td></tr>
-          <tr><td>BGVs crowd the lead</td><td>HPF <code>120&ndash;140 Hz</code>. Pan <code>85&ndash;100%</code>.</td><td>JST EQ / pan</td></tr>
+          <tr><td>BGVs crowd the lead</td><td>HPF <code>120&ndash;140 Hz</code>. Pan BGVs <code>90%</code>, harmonies <code>40%</code> / <code>65%</code>. Optional cut near <code>3 kHz</code> on <code>vox_bgv_bus</code>.</td><td>JST EQ / pan</td></tr>
+          <tr><td>Band ducks deeper under screams than cleans</td><td>Level the key on <code>sc_spotlight</code>.</td><td>ReaComp</td></tr>
           <tr><td>Vocal disappears in the riffs</td><td>Mid-only cut on the guitars, keyed from <code>sc_spotlight</code>. See <a href="guitars.html#vocal-pocket">Guitars</a>.</td><td>soothe2 / TDR Nova</td></tr>
           <tr><td>Vocal clear solo, buried in the mix</td><td>Check the bass. Bendeth: 1 dB too much bass makes the vocal vanish. Pull the bass 1 dB and compare.</td><td>Bass fader</td></tr>
           <tr><td>Screams smear</td><td>Less reverb. Use 1/8 delay throws.</td><td>Sends</td></tr>
@@ -507,12 +561,19 @@
       <li>Breaking Benjamin's Ben Burnley talks Dark Before Dawn, Loudwire, 2015.</li>
       <li>Nail The Mix: In Flames, Joe Rickard. Lead and double on one bus, half compression, breath cuts.</li>
       <li>Nail The Mix: Asking Alexandria, Taylor Larson. All vocals into one master vocal bus.</li>
-      <li>Nail The Mix: A Day To Remember, Andrew Wade. Lead compressor copied to the doubles, hard de-essing, hard L/R pan.</li>
+      <li>Nail The Mix: A Day To Remember, Andrew Wade. Hard de-essing on the doubles only.</li>
       <li>Nail The Mix: The Contortionist, Michael Lessard. Quad-tracked screams as a texture layer.</li>
       <li>Nail The Mix: Lorna Shore, Josh Schroeder. Narrow verses, wide breakdowns.</li>
       <li>Nail The Mix: Buster Odeholm. Panned scream layers on a pan bus with its own compressor.</li>
       <li>Nail The Mix: Metal Vocal Mixing FAQs. Doubles panned L/R, slightly lower than the lead.</li>
-      <li>How should you pan vocals when double-tracking, Mike Senior, Sound On Sound. Equal L/R levels, mono check.</li>
+      <li>How should you pan vocals when double-tracking, Mike Senior, Sound On Sound. Centered doubles in mono, equal L/R levels, mono check.</li>
+      <li>Tips for Mixing Metal Vocals (Cleans &amp; Screams), Joey Sturgis Tones. The occasional double in the center, backgrounds to the sides.</li>
+      <li>Nail The Mix: Chelsea Grin vocals, Eyal Levi. The single mono double widened with MicroShift.</li>
+      <li>Nail The Mix Staff: Panning, a metal mixer's secret weapon. Harmony and BGV pan widths.</li>
+      <li>Soundfly Flypaper: panning tip. Low harmonies about 35%, high harmonies about 75%.</li>
+      <li>Nail The Mix: Blessthefall BGVs, Tyler Smyth. Sharp cut near 3 kHz on background vocals.</li>
+      <li>MetaTune docs, Slate Digital (vendor). Doubler Width and Wet/Dry.</li>
+      <li>REAPER Effects Guide, Cockos (vendor). ReaComp detector input, ratio, RMS size.</li>
     </ol>
   </footer>
 

@@ -120,13 +120,13 @@
         <circle class="sf-dot--orch" cx="72" cy="68" r="4"/>
         <circle class="sf-dot--synth" cx="86" cy="68" r="4"/>
         <text class="sf-sub" x="100" y="72">non-vocal groups</text>
-        <text class="sf-sub" x="26" y="90">-6 to -5 dBFS peak</text>
+        <text class="sf-sub" x="26" y="90">-4 to -3 dBFS peak</text>
 
         <rect class="sf-node" x="10" y="140" width="230" height="80" rx="4"/>
         <text class="sf-title" x="26" y="170">vocal_master</text>
         <circle class="sf-dot--vocals" cx="30" cy="188" r="4"/>
         <text class="sf-sub" x="44" y="192">lead + backing vocals</text>
-        <text class="sf-sub" x="26" y="210">-6 to -5 dBFS peak</text>
+        <text class="sf-sub" x="26" y="210">-7 to -6 dBFS peak</text>
 
         <path class="sf-wire" d="M240 60 H275 V120 H302"/>
         <path class="sf-wire" d="M240 180 H275 V120"/>
@@ -134,25 +134,25 @@
 
         <rect class="sf-node sf-node--print" x="310" y="80" width="220" height="80" rx="4"/>
         <text class="sf-title sf-title--accent" x="326" y="112">print_bus</text>
-        <text class="sf-sub" x="326" y="138">-4 to -3 dBFS in</text>
+        <text class="sf-sub" x="326" y="138">-2 to -1 dBFS in</text>
 
         <path class="sf-wire" d="M530 120 H582"/>
         <polygon class="sf-arrow" points="582,114 590,120 582,126"/>
 
         <rect class="sf-node sf-node--master" x="590" y="80" width="160" height="80" rx="4"/>
         <text class="sf-title sf-title--accent" x="606" y="112">master_bus</text>
-        <text class="sf-sub" x="606" y="138">ceiling -1.5, TP -1.0</text>
+        <text class="sf-sub" x="606" y="138">ceiling -2.5, TP -2.0</text>
       </svg>
 
       <svg class="flow__v" viewBox="0 0 340 410" role="img" aria-labelledby="flow-v-title">
         <title id="flow-v-title">instrument_bus and vocal_master sum into print_bus, which feeds master_bus.</title>
         <rect class="sf-node" x="10" y="10" width="155" height="90" rx="4"/>
         <text class="sf-title" x="22" y="47">instrument_bus</text>
-        <text class="sf-sub" x="22" y="84">-6 to -5 dBFS</text>
+        <text class="sf-sub" x="22" y="84">-4 to -3 dBFS</text>
 
         <rect class="sf-node" x="175" y="10" width="155" height="90" rx="4"/>
         <text class="sf-title" x="187" y="47">vocal_master</text>
-        <text class="sf-sub" x="187" y="84">-6 to -5 dBFS</text>
+        <text class="sf-sub" x="187" y="84">-7 to -6 dBFS</text>
 
         <path class="sf-wire" d="M87 100 V140 H252 V100"/>
         <path class="sf-wire" d="M170 140 V172"/>
@@ -160,14 +160,14 @@
 
         <rect class="sf-node sf-node--print" x="60" y="180" width="220" height="90" rx="4"/>
         <text class="sf-title sf-title--accent" x="76" y="214">print_bus</text>
-        <text class="sf-sub" x="76" y="244">-4 to -3 dBFS in</text>
+        <text class="sf-sub" x="76" y="244">-2 to -1 dBFS in</text>
 
         <path class="sf-wire" d="M170 270 V302"/>
         <polygon class="sf-arrow" points="164,302 170,310 176,302"/>
 
         <rect class="sf-node sf-node--master" x="60" y="310" width="220" height="90" rx="4"/>
         <text class="sf-title sf-title--accent" x="76" y="344">master_bus</text>
-        <text class="sf-sub" x="76" y="374">ceiling -1.5, TP -1.0 max</text>
+        <text class="sf-sub" x="76" y="374">ceiling -2.5, TP -2.0 max</text>
       </svg>
     </figure>
   </section>
