@@ -1,5 +1,5 @@
 -- @description WAP: build mix template (tracks, folders, routing, names, colors; no plugins)
--- @version 1.2
+-- @version 1.3
 -- @about Builds the WAP Mix Console template in the current project. Pure REAPER API. Edit the TEMPLATE table to change the layout.
 --   On a project that already holds template tracks, it updates them in place and asks before each change.
 
@@ -65,6 +65,7 @@ local GROUP_COLORS = {
 
 local GGD_OUT_DB = -10  -- reference project: every GGD output send sits at -10 dB
 local FX_SEND_DB = -12  -- starting point for creative sends; ride to taste
+local SNARE_PLATE_DB = -12
 local TOM_PLATE_DB = -10
 local CRUSH_RETURN_DB = -16  -- guide: blend crush under the dry kit, start -14 to -18 dB
 local SILENT_DB = -math.huge  -- send at -inf: silent until automated
@@ -88,7 +89,7 @@ local TEMPLATE = {
   { level = 5, name = "kick_sub",        group = "drums" },  -- no crush: sub energy makes the parallel bus pump
   -- Trigger tracks key the hubs: constant level, no bleed.
   { level = 5, name = "kick_smp",        group = "drums", sends = { key_feed("sc_kick") } },  -- triggers stay out of the crush (Drums page)
-  { level = 4, name = "snr_bus",         group = "drums", sends = { fx_send("fx_snr_plate", 0) } },
+  { level = 4, name = "snr_bus",         group = "drums", sends = { fx_send("fx_snr_plate", SNARE_PLATE_DB) } },
   { level = 5, name = "snr_top",         group = "drums", sends = { fx_send("fx_crush", 0) } },
   { level = 5, name = "snr_bot",         group = "drums", sends = { fx_send("fx_crush", 0) } },
   { level = 5, name = "snr_smp",         group = "drums", sends = { key_feed("sc_snare") } },  -- triggers stay out of the crush (Drums page)
@@ -130,14 +131,15 @@ local TEMPLATE = {
   { level = 5, name = "gtr_rhy_l",       group = "guitars", pan = -1, width = 0, sends = { { to = "gtr_rhy_amp_b" } } },
   { level = 5, name = "gtr_rhy_r",       group = "guitars", pan = 1,  width = 0, sends = { { to = "gtr_rhy_amp_b" } } },
   { level = 4, name = "gtr_rhy_amp_b",   group = "guitars" },  -- clarity amp, blended under amp A
+  -- No spotlight key: only the lead vocal and the main scream duck the bed.
   { level = 3, name = "gtr_ld_bus",      group = "guitars", sends = {
-      key_feed("sc_spotlight"), fx_send("fx_inst_plate"), fx_send("fx_inst_dly"),
+      fx_send("fx_inst_plate"), fx_send("fx_inst_dly"),
   } },
-  { level = 4, name = "gtr_ld",          group = "guitars" },
-  { level = 4, name = "gtr_ld_harm",     group = "guitars" },
+  { level = 4, name = "gtr_ld",          group = "guitars", pan = -0.1, width = 0 },
+  { level = 4, name = "gtr_ld_harm",     group = "guitars", pan = 0.4,  width = 0 },
   { level = 3, name = "gtr_mel_bus",     group = "guitars", sends = { fx_send("fx_hall") } },
-  { level = 4, name = "gtr_cln_l",       group = "guitars", pan = -0.35, width = 0 },
-  { level = 4, name = "gtr_oct",         group = "guitars", pan = 0.35,  width = 0 },
+  { level = 4, name = "gtr_cln_l",       group = "guitars", pan = -0.65, width = 0 },
+  { level = 4, name = "gtr_oct",         group = "guitars", pan = 0.65,  width = 0 },
   { level = 4, name = "gtr_amb",         group = "guitars" },
 
   { level = 3, name = "orch_syn_bus",    group = "orch", channels = 4 },
@@ -147,11 +149,12 @@ local TEMPLATE = {
   { level = 4, name = "orch_choir",      group = "orch",  sends = { fx_send("fx_hall") } },
   { level = 4, name = "orch_perc",       group = "orch" },  -- no hall: hits clear before the next snare
   { level = 4, name = "syn_pad",         group = "synth", sends = { fx_send("fx_hall") } },
-  { level = 4, name = "syn_ld",          group = "synth" },
+  { level = 4, name = "syn_ld",          group = "synth", sends = { fx_send("fx_inst_dly", SILENT_DB) } },  -- automated throws
   { level = 4, name = "syn_arp",         group = "synth", sends = { fx_send("fx_inst_dly") } },
   { level = 4, name = "syn_bass",        group = "synth", channels = 4 },
   { level = 4, name = "syn_sub",         group = "synth", channels = 4, pan = 0, width = 0 },
-  { level = 4, name = "fx_hall",         group = "fx" },
+  -- Shared by orch_syn_bus and gtr_mel_bus, so it sits beside them, not inside one.
+  { level = 3, name = "fx_hall",         group = "fx" },
 
   { level = 3, name = "sfx_bus",         group = "sfx" },
   { level = 4, name = "sfx_riser",       group = "sfx" },
@@ -165,23 +168,26 @@ local TEMPLATE = {
 
   -- Every vocal send lands inside this folder, so muting it leaves no vocal tails.
   { level = 2, name = "vocal_master",    group = "white" },
+  -- Slap and delay throws on the bus reach the screams too. The plate sits on the lead and its double only.
   { level = 3, name = "vox_ld_bus",      group = "vocals", sends = {
-      fx_send("fx_vox_plate"), fx_send("fx_vox_slap"),
+      fx_send("fx_vox_slap"),
       fx_send("fx_vox_dly", SILENT_DB),  -- automated throws
   } },
   -- Only the lead and the main scream key the spotlight, so doubles never deepen the duck.
-  { level = 4, name = "vox_ld",          group = "vocals", sends = { key_feed("sc_spotlight") } },
+  { level = 4, name = "vox_ld",          group = "vocals", sends = { key_feed("sc_spotlight"), fx_send("fx_vox_plate") } },
   { level = 4, name = "vox_scrm",        group = "vocals", sends = { key_feed("sc_spotlight") } },
-  -- Doubles sum into vox_ld_bus: they share its effects and stay inside vocal_master.
-  { level = 4, name = "vox_ld_dbl_bus",  group = "vocals" },
-  { level = 5, name = "vox_ld_dbl_l",    group = "vocals", pan = -1, width = 0 },
-  { level = 5, name = "vox_ld_dbl_r",    group = "vocals", pan = 1,  width = 0 },
+  -- One centered, tucked double; widen it in choruses with a doubler plugin.
+  { level = 4, name = "vox_ld_dbl",      group = "vocals", pan = 0, width = 0, sends = { fx_send("fx_vox_plate") } },
   { level = 4, name = "vox_scrm_dbl_bus", group = "vocals" },  -- own glue compressor
   { level = 5, name = "vox_scrm_dbl_l",  group = "vocals", pan = -1, width = 0 },
   { level = 5, name = "vox_scrm_dbl_r",  group = "vocals", pan = 1,  width = 0 },
   { level = 3, name = "vox_bgv_bus",     group = "vocals", sends = { fx_send("fx_vox_plate"), fx_send("fx_vox_hall") } },
-  { level = 4, name = "vox_harm_hi",     group = "vocals", pan = -0.85, width = 0 },
-  { level = 4, name = "vox_harm_lo",     group = "vocals", pan = 0.85,  width = 0 },
+  -- Harmonies share the BGV sends through vox_bgv_bus; high pair wider than low.
+  { level = 4, name = "vox_harm_bus",    group = "vocals" },
+  { level = 5, name = "vox_harm_hi_l",   group = "vocals", pan = -0.65, width = 0 },
+  { level = 5, name = "vox_harm_hi_r",   group = "vocals", pan = 0.65,  width = 0 },
+  { level = 5, name = "vox_harm_lo_l",   group = "vocals", pan = -0.4,  width = 0 },
+  { level = 5, name = "vox_harm_lo_r",   group = "vocals", pan = 0.4,   width = 0 },
   { level = 4, name = "vox_bgv_l",       group = "vocals", pan = -0.9,  width = 0 },
   { level = 4, name = "vox_bgv_r",       group = "vocals", pan = 0.9,   width = 0 },
   { level = 4, name = "vox_gang",        group = "vocals" },
@@ -212,7 +218,7 @@ local SPACER_ABOVE = {
   -- drum subsections
   "kick_bus", "snr_bus", "tom_bus", "oh_cym_bus", "room_bus", GGD_TRACK_NAME,
   -- bass, guitar, orch/synth and vocal subsections
-  "bass_high", "bass_di", "gtr_rhy_amp_b", "gtr_ld_bus", "gtr_mel_bus", "syn_pad", "fx_hall", "vox_ld_dbl_bus",
+  "bass_high", "bass_di", "gtr_rhy_amp_b", "gtr_ld_bus", "gtr_mel_bus", "syn_pad", "fx_hall", "vox_ld_dbl",
   "vox_bgv_bus", "fx_vox_plate",
 }
 

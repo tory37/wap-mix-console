@@ -10,8 +10,10 @@ local ONLY_SELECTED_TRACKS = false
 
 -- DI level is the amp sim's input gain. Normalize DIs before you dial the amps, so every
 -- song hits the amp at the same level. If the amps are already dialed, set this true:
--- moving the DI level would change the amp tone. Matches bass_di, gtr_rhy_l_di.
+-- moving the DI level would change the amp tone. Matches the template DI tracks by name
+-- (the rhythm DIs carry no _di suffix), plus any track name ending in _di.
 local SKIP_DI_TRACKS = false
+local DI_TRACK_NAMES = { bass_di = true, gtr_rhy_l = true, gtr_rhy_r = true }
 local DI_TRACK_NAME_PATTERN = "_di$"
 
 local UNDO_LABEL = "WAP: normalize tracks to common gain"
@@ -29,7 +31,8 @@ local function linear_to_db(linear)
 end
 
 local function is_di_track(track_name)
-  return string.lower(track_name):find(DI_TRACK_NAME_PATTERN) ~= nil
+  local name = string.lower(track_name)
+  return DI_TRACK_NAMES[name] == true or name:find(DI_TRACK_NAME_PATTERN) ~= nil
 end
 
 local function get_audio_take(item)
