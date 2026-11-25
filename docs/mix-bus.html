@@ -193,12 +193,13 @@
             <button type="button" class="copy-btn" data-copy="mb-4" aria-label="Copy Slot 4 settings"></button>
           </div>
           <dl class="kv" id="mb-4" data-copy-title="print_bus Slot 4 - Soothe2">
-            <div class="kv__item"><dt>Low cut band</dt><dd>250 Hz</dd></div>
-            <div class="kv__item"><dt>Mode</dt><dd>Soft</dd></div>
+            <div class="kv__item"><dt>Start</dt><dd>Factory default preset, all six nodes on</dd></div>
+            <div class="kv__item"><dt>Low cut node</dt><dd>Move to 250 Hz. Leave the other five nodes as loaded</dd></div>
+            <div class="kv__item"><dt>Mode</dt><dd>Soft (default)</dd></div>
             <div class="kv__item"><dt>Depth</dt><dd>0.8&ndash;1.2 max</dd></div>
             <div class="kv__item"><dt>Engage</dt><dd>Only if dense choruses stack harshness</dd></div>
           </dl>
-          <p class="rack__why">Catches upper-mid chorus buildup only when it appears. Replaces a redundant TDR Nova.</p>
+          <p class="rack__why">Catches upper-mid chorus buildup only when it appears. Replaces a redundant TDR Nova. The nodes shape a weighting curve, not separate cuts: below the 250 Hz low cut, soothe2 reacts much less, so it stays mostly off the kick, bass and guitar body.</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -274,7 +275,7 @@
     <h2 id="final-print">Final print pass</h2>
     <ol class="steps">
       <li><div><span class="steps__title">Sweep Max #1 Tone</span><p>Sweep Dark &harr; Bright. GR must stay at <code class="val-ok">0.0 dB</code>.</p></div></li>
-      <li><div><span class="steps__title">Decide on Soothe2</span><p>Engage Slot 4 only if needed. Low cut band <code>250 Hz</code>, Depth <code>0.8&ndash;1.2</code>.</p></div></li>
+      <li><div><span class="steps__title">Decide on Soothe2</span><p>Engage Slot 4 only if needed. Factory default, low cut node to <code>250 Hz</code>, Depth <code>0.8&ndash;1.2</code>.</p></div></li>
       <li><div><span class="steps__title">Set GClip</span><p>Clip <code>71%</code> shaves about <code>1.0&ndash;2.0 dB</code> off the <code>-2 to -1 dBFS</code> peaks. If your peaks sit elsewhere, set the percent from the peak reading: with peaks at 0 dBFS, <code>89%</code> shaves 1 dB and <code>79%</code> shaves 2 dB.</p></div></li>
       <li><div><span class="steps__title">Raise Soothe2 render quality</span><p>In one soothe2 instance, set the offline rendering quality (right-hand column of the quality popup) to <code>4x</code> Oversample <span class="chip">unverified</span>. Then pick "copy to all plug-in instances" in the offline settings menu. Every instance renders at that quality.</p></div></li>
       <li><div><span class="steps__title">Push Max #2</span><p>Raise Maximize to <code class="val-warn">2.5&ndash;4.5 dB GR</code>. Threshold (ceiling) <code class="val-danger">-2.5 dB</code>.</p></div></li>

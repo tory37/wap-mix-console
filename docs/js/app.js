@@ -3,8 +3,8 @@
   "use strict";
 
   var PAGES = [
-    { slug: "gain-staging", title: "Gain Staging", group: "Setup", groupColor: "master", file: "gain-staging.html" },
     { slug: "routing", title: "Routing", group: "Setup", groupColor: "master", file: "routing.html" },
+    { slug: "gain-staging", title: "Gain Staging", group: "Setup", groupColor: "master", file: "gain-staging.html" },
     { slug: "mix-bus", title: "Mix Bus & Master", group: "Setup", groupColor: "master", file: "mix-bus.html" },
     { slug: "drums", title: "Drums", group: "Tracks", groupColor: "drums", file: "drums.html" },
     { slug: "bass", title: "Bass", group: "Tracks", groupColor: "bass", file: "bass.html" },
