@@ -16,11 +16,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       # The manuals submodule is private; the site never needs it.
       - uses: actions/checkout@v7
@@ -30,5 +27,15 @@ jobs:
       - uses: actions/upload-pages-artifact@v5
         with:
           path: docs
+
+  # Separate job: deploy-pages in the same job as the upload could list
+  # 0 artifacts before the upload registered ("No artifacts named github-pages").
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v5
