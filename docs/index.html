@@ -108,7 +108,7 @@
 
   <section class="section">
     <h2 id="signal-flow">Signal flow at a glance</h2>
-    <p>Two sub-groups sum into <code>print_bus</code>. It feeds <code>master_bus</code>, which holds the mastering chain. The REAPER master stays empty.</p>
+    <p>Two sub-groups sum into <code>print_bus</code>, with the <code>instruments_crushed</code> parallel bus blended in low. It feeds <code>master_bus</code>, which holds the mastering chain. The REAPER master stays empty.</p>
     <figure class="flow">
       <svg class="flow__h" viewBox="0 0 760 240" role="img" aria-labelledby="flow-h-title">
         <title id="flow-h-title">instrument_bus and vocal_master sum into print_bus, which feeds master_bus.</title>

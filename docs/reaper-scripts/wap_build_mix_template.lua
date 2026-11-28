@@ -1,5 +1,5 @@
 -- @description WAP: build mix template (tracks, folders, routing, names, colors; no plugins)
--- @version 1.4
+-- @version 1.6
 -- @about Builds the WAP Mix Console template in the current project. Pure REAPER API. Edit the TEMPLATE table to change the layout.
 --   On a project that already holds template tracks, it updates them in place and asks before each change.
 
@@ -79,6 +79,8 @@ local TEMPLATE = {
   -- The mastering chain lives here. REAPER's master track stays empty at unity.
   { level = 0, name = "master_bus",      group = "white" },
   { level = 1, name = "print_bus",       group = "white" },
+  -- Parallel crush bus, blended low under instrument_bus. Fed by bass_bus, gtr_rhy_bus, gtr_ld_bus, orch_syn_bus.
+  { level = 2, name = "instruments_crushed", group = "white" },
   { level = 2, name = "instrument_bus",  group = "white", channels = 4 },
 
   { level = 3, name = "drum_bus",        group = "drums" },
@@ -116,7 +118,7 @@ local TEMPLATE = {
       ggd_out("room_mono",  "27/28"), ggd_out("room_close", "29/30"), ggd_out("room_far", "31/32"),
   } },
 
-  { level = 3, name = "bass_bus",        group = "bass" },
+  { level = 3, name = "bass_bus",        group = "bass", sends = { { to = "instruments_crushed" } } },
   -- width 0 sums each band to mono after its plugins (backstop for the chanmix2 sum).
   { level = 4, name = "bass_low",        group = "bass", channels = 4, pan = 0, width = 0 },
   { level = 4, name = "bass_high",       group = "bass" },
@@ -126,7 +128,8 @@ local TEMPLATE = {
 
   -- Amp blend: both DIs sum into gtr_rhy_pitch (pitch shifter), which feeds amp A and amp B by equal sends.
   -- Parent send off, so the dry DIs never reach gtr_rhy_bus. Keys: sc_snare on 3/4, sc_spotlight on 5/6.
-  { level = 3, name = "gtr_rhy_bus",     group = "guitars", channels = 6 },
+  -- The crush send carries audio 1/2 only (src default), never the keys on 3-6.
+  { level = 3, name = "gtr_rhy_bus",     group = "guitars", channels = 6, sends = { { to = "instruments_crushed" } } },
   { level = 4, name = "gtr_rhy_pitch",   group = "guitars", parent_send = false, sends = {
       { to = "gtr_rhy_amp_a" }, { to = "gtr_rhy_amp_b" },
   } },
@@ -137,21 +140,24 @@ local TEMPLATE = {
   -- No spotlight key: only the lead vocal and the main scream duck the bed.
   { level = 3, name = "gtr_ld_bus",      group = "guitars", sends = {
       fx_send("fx_inst_plate"), fx_send("fx_inst_dly"),
+      { to = "instruments_crushed" },
   } },
   { level = 4, name = "gtr_ld",          group = "guitars", pan = -0.1, width = 0 },
   { level = 4, name = "gtr_ld_harm",     group = "guitars", pan = 0.4,  width = 0 },
   { level = 3, name = "gtr_mel_bus",     group = "guitars", sends = { fx_send("fx_hall") } },
   { level = 4, name = "gtr_cln_l",       group = "guitars", pan = -0.65, width = 0 },
-  { level = 4, name = "gtr_oct",         group = "guitars", pan = 0.65,  width = 0 },
+  -- Doubled melody pair: two real takes, wide but not hard, so the rhythm wall keeps 100% L/R.
+  -- width = 1 resets an old mono gtr_oct track, so the folder never sums its two sides.
+  { level = 4, name = "gtr_oct",         group = "guitars", width = 1 },
+  { level = 5, name = "gtr_oct_l",       group = "guitars", pan = -0.7,  width = 0 },
+  { level = 5, name = "gtr_oct_r",       group = "guitars", pan = 0.7,   width = 0 },
   { level = 4, name = "gtr_amb",         group = "guitars" },
 
-  { level = 3, name = "orch_syn_bus",    group = "orch", channels = 4 },
+  -- WAP writes strings only. The synths share this bus.
+  { level = 3, name = "orch_syn_bus",    group = "orch", channels = 4, sends = { { to = "instruments_crushed" } } },
   { level = 4, name = "orch_str_vln",    group = "orch",  sends = { fx_send("fx_hall") } },
   { level = 4, name = "orch_str_vc",     group = "orch",  sends = { fx_send("fx_hall") } },
-  { level = 4, name = "orch_brass",      group = "orch",  sends = { fx_send("fx_hall") } },
-  { level = 4, name = "orch_choir",      group = "orch",  sends = { fx_send("fx_hall") } },
-  { level = 4, name = "orch_perc",       group = "orch" },  -- no hall: hits clear before the next snare
-  { level = 4, name = "syn_pad",         group = "synth", sends = { fx_send("fx_hall") } },
+  { level = 4, name = "syn_pad",        group = "synth", sends = { fx_send("fx_hall") } },
   { level = 4, name = "syn_ld",          group = "synth", sends = { fx_send("fx_inst_dly", SILENT_DB) } },  -- automated throws
   { level = 4, name = "syn_arp",         group = "synth", sends = { fx_send("fx_inst_dly") } },
   { level = 4, name = "syn_bass",        group = "synth", channels = 4 },

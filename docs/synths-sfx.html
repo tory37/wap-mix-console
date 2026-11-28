@@ -330,7 +330,7 @@
     <h3 id="transitions">Transition automation</h3>
     <ol class="steps">
       <li><div><span class="steps__title">Dip, then hit</span><p>Pull the mix down about <code>1.5 dB</code> over the last 1&ndash;2 bars. Return to <code>0 dB</code> on the downbeat.</p></div></li>
-      <li><div><span class="steps__title">Close a low-pass, then open it</span><p>Close a kHs Filter (Type low pass) on <code>instrument_bus</code> across the build. Bypass it on the hit.</p></div></li>
+      <li><div><span class="steps__title">Close a low-pass, then open it</span><p>Close a kHs Filter (Type low pass) on <code>instrument_bus</code> across the build. Bypass it on the hit. (reasoning) <code>instruments_crushed</code> sits outside <code>instrument_bus</code>, so the filter misses it. Pull its fader down across the build too.</p></div></li>
       <li><div><span class="steps__title">Thin, then fill</span><p>Raise the guitar and bass HPF during the build. Drop it back on the hit.</p></div></li>
       <li><div><span class="steps__title">Narrow, then widen</span><p>Narrow the rhythm guitars in the bar before. Return to full width on the downbeat.</p></div></li>
     </ol>

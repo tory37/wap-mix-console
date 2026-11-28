@@ -15,6 +15,33 @@ Lua ReaScripts for the WAP mix. Pure REAPER API. No SWS or JS extension.
 | `wap_build_mix_template.lua` | Builds the full WAP template from the Routing page: tracks, folders, sends, sidechain hubs, names, group colors, pans and widths. Panned mono sources get stereo pan mode with width `0`. Sets the `fx_crush` return fader to `-16 dB`, the snare plate send to `-12 dB`, and the `fx_vox_dly` and `syn_ld` delay throw sends to `-inf`. No plugins. The `ggd_drums` track gets 64 channels and 16 pre-fader sends (`-10 dB`) into the kit tracks, as in the reference project; insert GetGood Drums on it. Hubs have Master/Parent Send off and key channels `3/4` (`sc_spotlight` on `gtr_rhy_bus`: `5/6`). **Update mode:** if any track name matches the template, it updates the project in place. It lists every difference (channels, parent send, color, spacer, pan, width, template fader levels, sends, missing tracks), then asks: Yes = apply all, No = review each (Yes / No / Cancel per change), Cancel = stop. Missing tracks go in at the template level. A template track in the wrong folder: it offers to move it (child tracks go with it) under its template parent. A send between two template tracks that the template does not define: it offers to delete it. Sends to other tracks stay. Names used more than once are left alone. Never deletes tracks, never touches plugins. If tracks exist but none match, asks to append (Yes = append, No = cancel). Edit the `TEMPLATE` table at the top to change the layout. One undo step. Prints a report to the ReaScript console. |
 | `wap_normalize_tracks_common_gain.lua` | Per track, applies one gain to all audio items so the loudest item peaks at `-10 dBFS`. Changes take volume only, so clip-gain rides and item balance stay. Skips MIDI, empty and silent items. Runs on every track. Switches at the top of the file: `ONLY_SELECTED_TRACKS` and `SKIP_DI_TRACKS` (off by default; turn DI skip on if the amps are already dialed). DI skip matches `bass_di`, `gtr_rhy_l`, `gtr_rhy_r` and any track name ending in `_di`. One undo step. Prints a report to the ReaScript console. |
 
+## Template v1.6 changes
+
+**Octave melody pair:**
+- `gtr_oct` becomes a folder in `gtr_mel_bus`. It holds `gtr_oct_l` (pan `70% L`) and `gtr_oct_r` (pan `70% R`), both width `0`.
+- `gtr_oct` itself has no pan and width `100%`, so the folder keeps the two sides apart.
+- Use it for double-tracked melodies: same notes, two real takes, one on each side.
+
+**Strings only:**
+- `orch_brass`, `orch_choir` and `orch_perc` are gone. `orch_syn_bus` keeps `orch_str_vln`, `orch_str_vc` and the synths. The bus name stays.
+
+**Updating a v1.5 project:**
+- Update mode offers to recolor `gtr_oct` to the folder shade, reset its pan to center and its width to `100%`. It inserts `gtr_oct_l` and `gtr_oct_r` under it.
+- Items on the old `gtr_oct` stay on that track, which is now the folder. Move them to `gtr_oct_l` or `gtr_oct_r` by hand.
+- No track is deleted. `orch_brass`, `orch_choir` and `orch_perc` stay, with their `fx_hall` sends. The report lists them under "Tracks not in the template". Delete them by hand if they are unused.
+
+## Template v1.5 changes
+
+**Parallel crush bus:**
+- New `instruments_crushed` track in `print_bus`, directly above `instrument_bus`. It is a plain track, not a folder. White, like the other `print_bus` children.
+- `bass_bus`, `gtr_rhy_bus`, `gtr_ld_bus` and `orch_syn_bus` each send to it post-fader at `0 dB`, audio `1/2` to `1/2`. On `gtr_rhy_bus` (6 channels) only `1/2` goes, so the sidechain keys on `3-6` stay out.
+- No send from `drum_bus`, `gtr_mel_bus`, `sfx_bus` or the vocals. Its parent send feeds `print_bus`.
+- The chain and blend live on the Mix Bus page.
+
+**Updating a v1.4 project:**
+- Update mode inserts `instruments_crushed` directly under `print_bus`, above `instrument_bus`, and adds the four sends.
+- If you already made the track by hand with the same name, it keeps the track and adds only the missing sends.
+
 ## Template v1.4 changes
 
 **Rhythm guitars:**

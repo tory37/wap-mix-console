@@ -18,7 +18,7 @@
     <div class="goal">
       <span class="gchip gchip--lg gchip--orch" aria-hidden="true"></span>
       <span class="label goal__label">Goal</span>
-      <p class="goal__text">Chorus strings hold sustained notes behind the guitars. Width carries them. <code>fx_hall</code> supplies the tail.</p>
+      <p class="goal__text">WAP uses strings only: violins on <code>orch_str_vln</code>, cellos on <code>orch_str_vc</code>. Chorus strings hold sustained notes behind the guitars. Width carries them. <code>fx_hall</code> supplies the tail.</p>
     </div>
   </header>
 
@@ -230,35 +230,12 @@
           <tr><td>Lead vocal</td><td><span class="mono">85&ndash;100 Hz</span></td><td>None</td><td>Air boost <span class="mono">10&ndash;12 kHz</span></td></tr>
           <tr><td>BGVs</td><td><span class="mono">120&ndash;140 Hz</span></td><td><span class="mono">8&ndash;9 kHz</span></td><td>None</td></tr>
           <tr><td>Strings</td><td><span class="mono">150&ndash;180 Hz</span></td><td><span class="mono">8&ndash;10 kHz</span></td><td>Mid <span class="mono">-2.5 dB @ 1.5&ndash;3 kHz</span>, Side <span class="mono">+2 dB @ 3&ndash;5 kHz</span></td></tr>
-          <tr><td>Choir</td><td><span class="mono">150&ndash;200 Hz</span>, steep</td><td>None</td><td>Mid cut like strings, starting point</td></tr>
           <tr><td>Synth pads</td><td><span class="mono">250&ndash;400 Hz</span></td><td>None</td><td><span class="mono">-3 dB @ 1&ndash;3 kHz</span></td></tr>
         </tbody>
       </table>
     </div>
     <p>Strings cut the Mid where the vocal lives. They lift the Sides above the guitar presence. Their warmth sits at <code>100&ndash;300 Hz</code>.</p>
-    <p>Do not over-carve. Orchestral parts sound natural with some overlap. Cut only where you hear a clash.</p>
-  </section>
-
-  <section class="section">
-    <h2 id="brass-choir">Choir, brass &amp; percussion</h2>
-    <p>Installed: DSK ChoirZ, DSK Brass, DSK Overture, BBC Symphony Orchestra. No source gives settings for these instruments.</p>
-    <div class="settings">
-      <div class="settings__head">
-        <span class="label">Choir &amp; brass starting points</span>
-        <button type="button" class="copy-btn" data-copy="orchestral-choir-brass" aria-label="Copy Choir and brass starting points"></button>
-      </div>
-      <div class="settings__body">
-        <dl class="kv" id="orchestral-choir-brass" data-copy-title="Choir and brass starting points">
-          <div class="kv__item"><dt>Choir HPF</dt><dd>150&ndash;200 Hz, steep. Higher if the arrangement is dense.</dd></div>
-          <div class="kv__item"><dt>Choir place</dt><dd>Behind the BGVs. Same hall. Never in the lead vocal octave.</dd></div>
-          <div class="kv__item"><dt>Brass role</dt><dd>Chorus hits and swells on chord roots. Starting point.</dd></div>
-          <div class="kv__item"><dt>Brass EQ</dt><dd>Mid cut at 1.5&ndash;3 kHz like the strings. Starting point.</dd></div>
-          <div class="kv__item"><dt>Output</dt><dd>orch_syn_bus</dd></div>
-        </dl>
-      </div>
-    </div>
-    <p>Choirs and pads carry rumble that muddies a dense mix. A steep HPF clears it. Brass owns the same upper mids as the vocal bite. Use it for hits, not long pads under the vocal.</p>
-    <p>Cinematic percussion and hits: see <a href="synths-sfx.html#impacts">Impacts &amp; transitions</a>.</p>
+    <p>Do not over-carve. String parts sound natural with some overlap. Cut only where you hear a clash.</p>
   </section>
 
   <section class="section">

@@ -48,7 +48,7 @@
           <tr><td><a href="#fx-inst-plate"><code>fx_inst_plate</code></a></td><td><code>gtr_ld_bus</code></td><td>Directly in <code>instrument_bus</code>. Ducked <span class="mono">2&ndash;3 dB</span> by <code>sc_spotlight</code></td></tr>
           <tr><td><a href="#fx-inst-dly"><code>fx_inst_dly</code></a></td><td><code>gtr_ld_bus</code>, <code>syn_arp</code> (ANA 2), <code>syn_ld</code> (automated throws; the send starts at <span class="mono">-inf</span>)</td><td>Directly in <code>instrument_bus</code>. Ducked <span class="mono">3&ndash;4 dB</span> by <code>sc_spotlight</code></td></tr>
           <tr><td><a href="#fx-vox-hall"><code>fx_vox_hall</code></a></td><td><code>vox_bgv_bus</code></td><td>Inside <code>vocal_master</code>. Ducked <span class="mono">2&ndash;3 dB</span> by <code>sc_spotlight</code></td></tr>
-          <tr><td><a href="#fx-hall"><code>fx_hall</code></a></td><td>Strings (<code>orch_str_vln</code>, <code>orch_str_vc</code>), <code>orch_choir</code>, <code>orch_brass</code>, <code>syn_pad</code> (ANA 2), <code>gtr_mel_bus</code>. No percussion. No vocals.</td><td>Directly in <code>instrument_bus</code>, beside <code>orch_syn_bus</code>, so guitar tails skip the orch glue</td></tr>
+          <tr><td><a href="#fx-hall"><code>fx_hall</code></a></td><td>Strings (<code>orch_str_vln</code>, <code>orch_str_vc</code>), <code>syn_pad</code> (ANA 2), <code>gtr_mel_bus</code>. No percussion. No vocals.</td><td>Directly in <code>instrument_bus</code>, beside <code>orch_syn_bus</code>, so guitar tails skip the orch glue</td></tr>
         </tbody>
       </table>
     </div>
@@ -293,7 +293,7 @@
     </div>
 
     <h3 id="fx-hall">fx_hall</h3>
-    <p>Fed post-fader by the strings, <code>orch_choir</code>, <code>orch_brass</code>, <code>syn_pad</code> and <code>gtr_mel_bus</code>, each at <code>-12 dB</code> (template starting point; ride between about <code>-14</code> and <code>-10.5 dB</code>). <code>orch_perc</code> gets no hall send, so hits clear before the next snare. The return sits directly in <code>instrument_bus</code>, so guitar tails skip the <code>orch_syn_bus</code> glue.</p>
+    <p>Fed post-fader by the strings (<code>orch_str_vln</code>, <code>orch_str_vc</code>), <code>syn_pad</code> and <code>gtr_mel_bus</code>, each at <code>-12 dB</code> (template starting point; ride between about <code>-14</code> and <code>-10.5 dB</code>). The return sits directly in <code>instrument_bus</code>, so guitar tails skip the <code>orch_syn_bus</code> glue.</p>
     <ol class="rack">
       <li class="rack__slot">
         <div class="rack__num" aria-hidden="true">1</div>

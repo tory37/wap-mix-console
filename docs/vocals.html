@@ -312,11 +312,13 @@
           <div class="kv__item"><dt>Compression</dt><dd>Light, on the track only. About half the lead's. The vox_ld_bus chain does the rest</dd></div>
           <div class="kv__item"><dt>De-essing</dt><dd>Hard, on the double only</dd></div>
           <div class="kv__item"><dt>Breaths on the double</dt><dd>Cut them. Keep breaths on the lead only</dd></div>
+          <div class="kv__item"><dt>Low pass</dt><dd>On the double only. Sweep it down by ear until the double sounds muffled, like singing into a pillow</dd></div>
         </dl>
       </div>
     </div>
     <p>Widen the double in choruses. Eyal Levi (Chelsea Grin) runs his single mono double through Soundtoys MicroShift for a wide, chorus-like texture. The installed equivalent is MetaTune Doubler on <code>vox_ld_dbl</code>. At Wet/Dry <code>100%</code> only the two new voices play, and Width sets their spread. Automate it on in choruses and off in verses, so verses stay focused and choruses go huge.</p>
     <p>Keep the track compression light. The double already runs through the full <code>vox_ld_bus</code> chain, so a full lead chain on the track would compress it twice. Rickard uses about half the lead compression on the double and cuts its breaths. Andrew Wade de-esses only the doubles, hard, so the lead keeps its top end.</p>
+    <p>Low-pass the doubles. The muffled top end pushes them behind the lead, like they sing into a pillow. The lead keeps the air and the diction, so the vocal still sits on top in big choruses (WAP house rule, no source).</p>
     <p>Breaking Benjamin's background vocals on <em>Dark Before Dawn</em> come from the band's other singers, per Ben Burnley. Those are BGVs: they go in <code>vox_bgv_bus</code>, not with the doubles.</p>
 
     <h3 id="scream-doubles">Scream doubles</h3>
@@ -332,6 +334,7 @@
           <div class="kv__item"><dt>Pair</dt><dd>vox_scrm_dbl_l / vox_scrm_dbl_r, 100% L / 100% R, width 0</dd></div>
           <div class="kv__item"><dt>Pair level</dt><dd>About -6 dB under the main scream (starting point, no source)</dd></div>
           <div class="kv__item"><dt>vox_scrm_dbl_bus</dt><dd>Glue compressor on the bus</dd></div>
+          <div class="kv__item"><dt>Low pass</dt><dd>On vox_scrm_dbl_bus. Sweep it down by ear until the pair sounds muffled, like screaming into a pillow</dd></div>
           <div class="kv__item"><dt>Verses</dt><dd>Narrow: main scream plus a layer tucked under it</dd></div>
           <div class="kv__item"><dt>Breakdowns</dt><dd>Wide: bring the L/R pair up</dd></div>
           <div class="kv__item"><dt>Quad</dt><dd>Second pair in the same vox_scrm_dbl_bus</dd></div>

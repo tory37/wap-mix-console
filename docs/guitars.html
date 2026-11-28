@@ -32,7 +32,7 @@
         <tbody>
           <tr><td><code>gtr_rhy_bus</code></td><td><span class="mono">100% L/R</span></td><td>Zero reverb or delay sends. Keys: <code>sc_snare</code> on 3/4 (optional duck, bypassed by default) and <code>sc_spotlight</code> on 5/6. The <code>instrument_bus</code> duck is the default vocal pocket.</td><td><span class="mono">1.5&ndash;2.0 kHz</span></td></tr>
           <tr><td><code>gtr_ld_bus</code></td><td><span class="mono">Lead 10% L, harmony 40% R</span></td><td>No sidechain key. Post-fader &rarr; <code>fx_inst_plate</code> and <code>fx_inst_dly</code>.</td><td><span class="mono">600 Hz&ndash;1.0 kHz</span></td></tr>
-          <tr><td><code>gtr_mel_bus</code></td><td><span class="mono">&plusmn;65%</span></td><td>No key of its own. The <code>instrument_bus</code> duck covers it. Post-fader <code>-12 dB</code> &rarr; <code>fx_hall</code>.</td><td><span class="mono">None</span></td></tr>
+          <tr><td><code>gtr_mel_bus</code></td><td><span class="mono">Cleans &plusmn;65%, octave pair &plusmn;70%</span></td><td>No key of its own. The <code>instrument_bus</code> duck covers it. Post-fader <code>-12 dB</code> &rarr; <code>fx_hall</code>.</td><td><span class="mono">None</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -572,7 +572,7 @@
 
   <section class="section">
     <h2 id="cleans">Cleans, octave &amp; ambient</h2>
-    <p>The template pans <code>gtr_cln_l</code> at <code>65% L</code> and <code>gtr_oct</code> at <code>65% R</code>. The wide pan clears the vocal pocket in quiet verses, where cleans play under the sung line. The <code>instrument_bus</code> duck covers this bus, so it has no key of its own. The hall gives them space.</p>
+    <p>The template pans <code>gtr_cln_l</code> at <code>65% L</code>. The <code>gtr_oct</code> folder holds a doubled melody pair at <code>70% L/R</code> (<a href="#octave-melody">Octave melody pair</a>). The wide pan clears the vocal pocket in quiet verses, where cleans play under the sung line. The <code>instrument_bus</code> duck covers this bus, so it has no key of its own. The hall gives them space.</p>
 
     <h3 id="clean-chain">gtr_mel_bus chain</h3>
     <ol class="rack">
@@ -636,6 +636,32 @@
         </div>
       </li>
     </ol>
+
+    <h3 id="octave-melody">Octave melody pair</h3>
+    <p>Use <code>gtr_oct</code> for double-tracked melodies, such as an octave melody in the chorus. Play the same notes twice: two real takes, one on <code>gtr_oct_l</code> and one on <code>gtr_oct_r</code>.</p>
+    <div class="settings">
+      <div class="settings__head">
+        <span class="label">gtr_oct pair</span>
+        <button type="button" class="copy-btn" data-copy="guitars-octave-pair" aria-label="Copy gtr_oct pair settings"></button>
+      </div>
+      <div class="settings__body">
+        <dl class="kv" id="guitars-octave-pair" data-copy-title="gtr_oct pair">
+          <div class="kv__item"><dt>Folder</dt><dd>gtr_oct in gtr_mel_bus, no pan</dd></div>
+          <div class="kv__item"><dt>gtr_oct_l</dt><dd>70% L, width 0</dd></div>
+          <div class="kv__item"><dt>gtr_oct_r</dt><dd>70% R, width 0</dd></div>
+          <div class="kv__item"><dt>Takes</dt><dd>Two real takes, tight timing</dd></div>
+          <div class="kv__item"><dt>Tone</dt><dd>Amp sim on each side, same tone on both, tone by ear</dd></div>
+          <div class="kv__item"><dt>Gain</dt><dd>Less than the rhythms, so the notes ring</dd></div>
+          <div class="kv__item"><dt>Level</dt><dd>Under the vocal; ride up in vocal gaps</dd></div>
+        </dl>
+      </div>
+    </div>
+    <ul>
+      <li><strong>Wide, not hard (reasoning).</strong> The rhythm doubles own <code>100% L/R</code>. A melody in the same spot fights the wall: it gets buried, or it eats the wall when you push it. At <code>65&ndash;80%</code> it reads as its own wide layer, and the center stays clear for the vocal. This matches the cleans at <code>&plusmn;65%</code>.</li>
+      <li><strong>Why <code>gtr_mel_bus</code>, not <code>gtr_ld_bus</code> (reasoning).</strong> The lead bus is a center lead with plate and delay. This pair is a width layer. In <code>gtr_mel_bus</code> it gets the <code>instrument_bus</code> vocal duck and the hall.</li>
+      <li><strong>Same tone, less gain (reasoning).</strong> Two takes with tight timing and the same tone on both sides read as one wide part. Less gain than the rhythms lets the notes ring through the wall.</li>
+      <li><strong>Level (reasoning).</strong> Keep it under the vocal while the vocal sings. Ride it up only in gaps, where the hook has the spotlight.</li>
+    </ul>
 
     <h3 id="ambient-space">Ambient space</h3>
     <p>The template sends <code>gtr_mel_bus</code> post-fader to <code>fx_hall</code> at <code>-12 dB</code> (starting point). For swells and clean arpeggios, JST Sky Box <strong>Cloud</strong> or <strong>Shimmer</strong> fits. Keep amp-sim reverb only when that space is part of the composition.</p>

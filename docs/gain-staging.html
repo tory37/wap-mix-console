@@ -181,7 +181,7 @@
     <ol class="steps">
       <li><div><span class="steps__title">Park all faders at <code>0.00 dB</code> unity</span><p>Never pull a fader down to fix a hot DI, vocal or synth preset. REAPER faders have maximum resolution near <code>0.00 dB</code>.</p></div></li>
       <li><div><span class="steps__title">Trim pre-FX with clip gain or VSTi out</span><p>Drag item top edges or use <kbd>F2</kbd> Item Properties. Adjust VSTi output knobs or Slot 1 <code>JS: Volume Adjustment</code>. Target <code class="val-ok">-12 to -10 dBFS</code> peak.</p></div></li>
-      <li><div><span class="steps__title">Watch summing headroom</span><p>Expect <code>instrument_bus</code> at <code class="val-warn">-4 to -3 dBFS</code> and <code>vocal_master</code> at <code class="val-warn">-7 to -6 dBFS</code>. <code>print_bus</code> then receives <code class="val-warn">-2 to -1 dBFS</code> peaks. Much hotter: go back to the raw-track trims, not the faders.</p></div></li>
+      <li><div><span class="steps__title">Watch summing headroom</span><p>Expect <code>instrument_bus</code> at <code class="val-warn">-4 to -3 dBFS</code> and <code>vocal_master</code> at <code class="val-warn">-7 to -6 dBFS</code>. <code>print_bus</code> then receives <code class="val-warn">-2 to -1 dBFS</code> peaks. Much hotter: go back to the raw-track trims, not the faders. (reasoning) The low <code>instruments_crushed</code> blend adds a little on top. If <code>print_bus</code> runs hot only after you blend it in, lower that fader.</p></div></li>
       <li><div><span class="steps__title">Gain-match every plugin on/off</span><p>Match bypassed and active loudness on Coffee The Pun, FG-116 and JW/JST Bus Glue. Louder always sounds better. Gain-matching removes that bias.</p></div></li>
     </ol>
   </section>
@@ -216,31 +216,12 @@
         <div class="rack__num" aria-hidden="true">2</div>
         <div class="rack__body">
           <div class="rack__head">
-            <h4 class="rack__name">VBC FG-Grey</h4>
-            <span class="chip">Slate</span>
-            <span class="tag">COMP</span>
-            <button type="button" class="copy-btn" data-copy="slot-2" aria-label="Copy Slot 2 settings"></button>
-          </div>
-          <dl class="kv" id="slot-2" data-copy-title="Slot 2 - VBC FG-Grey">
-            <div class="kv__item"><dt>Ratio</dt><dd>2:1 (starting point)</dd></div>
-            <div class="kv__item"><dt>Attack</dt><dd>30 ms (starting point)</dd></div>
-            <div class="kv__item"><dt>Release</dt><dd>Auto</dd></div>
-            <div class="kv__item"><dt>HPF</dt><dd>90&ndash;100 Hz</dd></div>
-            <div class="kv__item"><dt>Threshold</dt><dd>0 dB</dd></div>
-          </dl>
-          <p class="rack__why">Threshold parks at <strong>0 dB</strong>. You set it in Step B.</p>
-        </div>
-      </li>
-      <li class="rack__slot">
-        <div class="rack__num" aria-hidden="true">3</div>
-        <div class="rack__body">
-          <div class="rack__head">
             <h4 class="rack__name">JST Maximizer #1</h4>
             <span class="chip">JST</span>
             <span class="tag">EQ</span>
-            <button type="button" class="copy-btn" data-copy="slot-3" aria-label="Copy Slot 3 settings"></button>
+            <button type="button" class="copy-btn" data-copy="slot-2" aria-label="Copy Slot 2 settings"></button>
           </div>
-          <dl class="kv" id="slot-3" data-copy-title="Slot 3 - JST Maximizer #1">
+          <dl class="kv" id="slot-2" data-copy-title="Slot 2 - JST Maximizer #1">
             <div class="kv__item"><dt>Preset</dt><dd>"Mix Into This EQ"</dd></div>
             <div class="kv__item"><dt>GR</dt><dd>0.0 dB</dd></div>
             <div class="kv__item"><dt>Tone</dt><dd>Dark</dd></div>
@@ -251,20 +232,38 @@
         </div>
       </li>
       <li class="rack__slot">
-        <div class="rack__num" aria-hidden="true">4</div>
+        <div class="rack__num" aria-hidden="true">3</div>
         <div class="rack__body">
           <div class="rack__head">
             <h4 class="rack__name">Soothe2</h4>
             <span class="chip">oeksound</span>
             <span class="tag">RES</span>
-            <button type="button" class="copy-btn" data-copy="slot-4" aria-label="Copy Slot 4 settings"></button>
+            <button type="button" class="copy-btn" data-copy="slot-3" aria-label="Copy Slot 3 settings"></button>
           </div>
-          <dl class="kv" id="slot-4" data-copy-title="Slot 4 - Soothe2">
+          <dl class="kv" id="slot-3" data-copy-title="Slot 3 - Soothe2">
             <div class="kv__item"><dt>Low cut band</dt><dd>250 Hz</dd></div>
             <div class="kv__item"><dt>Depth</dt><dd>0.8&ndash;1.2</dd></div>
             <div class="kv__item"><dt>State</dt><dd>Bypassed initially</dd></div>
           </dl>
           <p class="rack__why">Leave it bypassed during calibration.</p>
+        </div>
+      </li>
+      <li class="rack__slot">
+        <div class="rack__num" aria-hidden="true">4</div>
+        <div class="rack__body">
+          <div class="rack__head">
+            <h4 class="rack__name">JST BG-Mix</h4>
+            <span class="chip">JST</span>
+            <span class="tag">COMP</span>
+            <button type="button" class="copy-btn" data-copy="slot-4" aria-label="Copy Slot 4 settings"></button>
+          </div>
+          <dl class="kv" id="slot-4" data-copy-title="Slot 4 - JST BG-Mix">
+            <div class="kv__item"><dt>Mode</dt><dd>Careful</dd></div>
+            <div class="kv__item"><dt>Warmth</dt><dd>ON</dd></div>
+            <div class="kv__item"><dt>Clip</dt><dd>ON</dd></div>
+            <div class="kv__item"><dt>State</dt><dd>Bypassed until Step B</dd></div>
+          </dl>
+          <p class="rack__why">The only glue on <code>print_bus</code>. You set its gain reduction in Step B. <code>print_bus</code> has no FG-Grey.</p>
         </div>
       </li>
       <li class="rack__slot">
@@ -304,8 +303,9 @@
     <h3 id="step-b">Step B: first-chorus calibration</h3>
     <ol class="steps">
       <li><div><span class="steps__title">Loop a loud chorus</span><p>Keep Drums, Bass and Rhythm Guitars active.</p></div></li>
-      <li><div><span class="steps__title">Pull down VBC FG-Grey Threshold</span><p>Stop when the needle hits <code class="val-warn">2&ndash;3 dB GR</code> on snare and kick hits.</p></div></li>
-      <li><div><span class="steps__title">Gain-match Makeup</span><p>Bypassed and active must sound equally loud.</p></div></li>
+      <li><div><span class="steps__title">Set the instrument_bus snare tamer</span><p>Set the <a href="mix-bus.html#instrument-bus"><code>instrument_bus</code> FG-Grey</a> Threshold by ear. The needle moves mostly on snare hits and barely moves between them.</p></div></li>
+      <li><div><span class="steps__title">Engage JST BG-Mix</span><p>Set it to <code class="val-warn">1.0&ndash;2.5 dB GR</code> on the chorus peaks. Never over <code>3 dB</code>.</p></div></li>
+      <li><div><span class="steps__title">Gain-match Output</span><p>BG-Mix bypassed and active must sound equally loud.</p></div></li>
       <li><div><span class="steps__title">Check JST Maximizer #1</span><p>It must still read <code class="val-ok">0.0 dB GR</code>.</p></div></li>
     </ol>
 
@@ -316,8 +316,9 @@
       </div>
       <div class="settings__body">
         <dl class="kv" id="step-b-targets" data-copy-title="Step B - first-chorus calibration">
-          <div class="kv__item"><dt>FG-Grey GR</dt><dd>2&ndash;3 dB on snare/kick</dd></div>
-          <div class="kv__item"><dt>FG-Grey Makeup</dt><dd>Gain-matched</dd></div>
+          <div class="kv__item"><dt>instrument_bus FG-Grey</dt><dd>Moves on snare hits, by ear</dd></div>
+          <div class="kv__item"><dt>BG-Mix GR</dt><dd>1.0&ndash;2.5 dB on chorus peaks, never over 3 dB</dd></div>
+          <div class="kv__item"><dt>BG-Mix Output</dt><dd>Gain-matched</dd></div>
           <div class="kv__item"><dt>JST Max #1 GR</dt><dd>0.0 dB</dd></div>
         </dl>
       </div>
@@ -344,7 +345,7 @@
           <tr><td>Saturation overdrives early</td><td>Raw tracks peak at <code>-1 dBFS</code>. Bring them down to <code>-18 dBFS RMS</code>.</td><td>Clip gain / VSTi out</td></tr>
           <tr><td><code>print_bus</code> compressor slams</td><td>Hold <code>instrument_bus</code> at <code>-4 to -3 dBFS</code> and <code>vocal_master</code> at <code>-7 to -6 dBFS</code>. <code>print_bus</code> input lands at <code>-2 to -1 dBFS</code>.</td><td>instrument_bus / vocal_master faders, MCP meters</td></tr>
           <tr><td>Plugin sounds better only because it is louder</td><td>Gain-match on vs. off.</td><td>Coffee The Pun / FG-116 / JW/JST Bus Glue</td></tr>
-          <tr><td>JST Max #1 shows gain reduction</td><td>It must read <code>0.0 dB GR</code>. Recheck FG-Grey Makeup and sub-group levels.</td><td>JST Maximizer #1</td></tr>
+          <tr><td>JST Max #1 shows gain reduction</td><td>It must read <code>0.0 dB GR</code>. Recheck the sub-group levels. Max #1 sits before BG-Mix, so the BG-Mix Output does not change it.</td><td>JST Maximizer #1</td></tr>
         </tbody>
       </table>
     </div>
